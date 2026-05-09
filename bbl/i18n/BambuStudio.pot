@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-28 17:39+0800\n"
+"POT-Creation-Date: 2026-05-09 21:03+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3858,6 +3858,9 @@ msgstr ""
 msgid "Circular"
 msgstr ""
 
+msgid "Load shape from STL..."
+msgstr ""
+
 msgid "Settings"
 msgstr ""
 
@@ -4046,7 +4049,7 @@ msgid ""
 "Reset to 50%% of skin depth"
 msgstr ""
 
-msgid "Spiral mode only works when wall loops is 1, support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."
+msgid "Spiral mode only works when support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."
 msgstr ""
 
 msgid " But machines with I3 structure will not generate timelapse videos."
@@ -11609,14 +11612,12 @@ msgstr ""
 msgid "Cooling overhang threshold"
 msgstr ""
 
-#, possible-c-format
 msgid "Force cooling fan to be specific speed when overhang degree of printed part exceeds this value. Expressed as percentage which indicides how much width of the line without support from lower layer. 0% means forcing cooling for all outer wall no matter how much overhang degree"
 msgstr ""
 
 msgid "Overhang threshold for participating cooling"
 msgstr ""
 
-#, possible-c-format
 msgid "Decide which overhang part join the cooling function to slow down the speed.Expressed as percentage which indicides how much width of the line without support from lower layer. 100% means forcing cooling for all outer wall no matter how much overhang degree"
 msgstr ""
 
@@ -11732,10 +11733,16 @@ msgstr ""
 msgid "This controls the generation of the brim at outer and/or inner side of models. Auto means the brim width is analysed and calculated automatically."
 msgstr ""
 
-msgid "Brim-object gap"
+msgid "★ Brim-object gap"
 msgstr ""
 
-msgid "A gap between innermost brim line and object can make brim be removed more easily"
+msgid "A gap between innermost brim line and object can make brim be removed more easily. Negative values make the brim overlap the object."
+msgstr ""
+
+msgid "★ Brim layers"
+msgstr ""
+
+msgid "The number of layers on which the brim will be printed."
 msgstr ""
 
 msgid "Compatible machine"
@@ -11996,7 +12003,6 @@ msgstr ""
 msgid "Bottom surface density"
 msgstr ""
 
-#, possible-c-format
 msgid "Density of bottom surface infill, 100% means a fully solid filled top layer.Lower values create a textured bottom surface, Intended for aesthetic or functional purposes, not to fix issues such as over-extrusion.WARNING: Lowering this value may negatively affect bed adhesion."
 msgstr ""
 
@@ -12492,7 +12498,6 @@ msgstr ""
 msgid "Sparse infill density"
 msgstr ""
 
-#, possible-c-format
 msgid "Density of internal sparse infill, 100% means solid throughout"
 msgstr ""
 
@@ -13569,6 +13574,33 @@ msgstr ""
 msgid "Spiralize smooths out the z moves of the outer contour. And turns a solid model into a single walled print with solid bottom layers. The final generated model has no seam"
 msgstr ""
 
+msgid "★ Vase reinforcement multiplier"
+msgstr ""
+
+msgid "Additional inward wall multiplier for the first spiral vase layers. Decimal values are distributed across rounded reinforcement loops."
+msgstr ""
+
+msgid "★ Vase reinforcement height"
+msgstr ""
+
+msgid "Height of spiral vase reinforcement. A plain number means layer count; a value ending with mm means model height."
+msgstr ""
+
+msgid "layers or mm"
+msgstr ""
+
+msgid "★ Fade vase reinforcement"
+msgstr ""
+
+msgid "Linearly fade the spiral vase reinforcement multiplier over the reinforcement height."
+msgstr ""
+
+msgid "★ Fade end multiplier"
+msgstr ""
+
+msgid "Spiral vase reinforcement multiplier at the end of the reinforcement height."
+msgstr ""
+
 msgid "Smooth Spiral"
 msgstr ""
 
@@ -14200,6 +14232,9 @@ msgstr ""
 
 #, possible-c-format, possible-boost-format
 msgid " doesn't work at 100%% density "
+msgstr ""
+
+msgid "Invalid spiral vase reinforcement height: "
 msgstr ""
 
 msgid "Invalid value when spiral vase mode is enabled: "
@@ -15204,6 +15239,9 @@ msgstr ""
 msgid "Create Based on Current Printer"
 msgstr ""
 
+msgid "Rectangle"
+msgstr ""
+
 msgid "wiki"
 msgstr ""
 
@@ -15232,9 +15270,6 @@ msgid "Input Custom Nozzle Diameter"
 msgstr ""
 
 msgid "Can't find my nozzle diameter"
-msgstr ""
-
-msgid "Rectangle"
 msgstr ""
 
 msgid "Printable Space"

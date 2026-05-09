@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Slic3rPE\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-28 17:39+0800\n"
+"POT-Creation-Date: 2026-05-09 21:03+0800\n"
 "PO-Revision-Date: 2025-02-20 20:32+0800\n"
 "Last-Translator: Jiang Yue <maze1024@gmail.com>\n"
 "Language-Team: \n"
@@ -3891,6 +3891,9 @@ msgstr "矩形"
 msgid "Circular"
 msgstr "圆"
 
+msgid "Load shape from STL..."
+msgstr "从STL文件加载形状..."
+
 msgid "Settings"
 msgstr "设置"
 
@@ -4124,8 +4127,8 @@ msgstr ""
 "互锁深度应该比表皮深度小,\n"
 "重设为表皮深度的一半"
 
-msgid "Spiral mode only works when wall loops is 1, support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."
-msgstr "花瓶模式仅在以下条件下可用：墙壁环数设置为 1，支撑禁用，触碰裹头检测禁用，顶壳层数为 0，稀疏填充密度为 0，延时摄影类型为传统，并且 Z 方向墙速度平滑不启用。"
+msgid "Spiral mode only works when support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."
+msgstr ""
 
 msgid " But machines with I3 structure will not generate timelapse videos."
 msgstr "但是I3结构的机器将不会生成延时视频。"
@@ -11846,14 +11849,12 @@ msgstr "秒"
 msgid "Cooling overhang threshold"
 msgstr "冷却悬空阈值"
 
-#, c-format
 msgid "Force cooling fan to be specific speed when overhang degree of printed part exceeds this value. Expressed as percentage which indicides how much width of the line without support from lower layer. 0% means forcing cooling for all outer wall no matter how much overhang degree"
 msgstr "当打印件的悬空程度超过此值时，强制冷却风扇达到特定速度。用百分比表示，表明没有下层支撑的线的宽度是多少。0%%意味着无论悬垂程度如何，都要对所有外壁强制冷却。"
 
 msgid "Overhang threshold for participating cooling"
 msgstr "参与冷却降速的悬垂阈值"
 
-#, c-format
 msgid "Decide which overhang part join the cooling function to slow down the speed.Expressed as percentage which indicides how much width of the line without support from lower layer. 100% means forcing cooling for all outer wall no matter how much overhang degree"
 msgstr "决定多少阈值的悬垂参与冷却降速.用百分比表示超出线宽的范围。"
 
@@ -11969,11 +11970,17 @@ msgstr "Brim类型"
 msgid "This controls the generation of the brim at outer and/or inner side of models. Auto means the brim width is analysed and calculated automatically."
 msgstr "该参数控制在模型的外侧和/或内侧生成brim。自动是指自动分析和计算边框的宽度。"
 
-msgid "Brim-object gap"
-msgstr "Brim与模型的间隙"
+msgid "★ Brim-object gap"
+msgstr "★ Brim 与模型间隙"
 
-msgid "A gap between innermost brim line and object can make brim be removed more easily"
-msgstr "在brim和模型之间设置间隙，能够让brim更容易剥离"
+msgid "A gap between innermost brim line and object can make brim be removed more easily. Negative values make the brim overlap the object."
+msgstr "最内侧 Brim 线与模型之间的间隙，可让 Brim 更容易移除。负值会让 Brim 与模型重叠。"
+
+msgid "★ Brim layers"
+msgstr "★ Brim 层数"
+
+msgid "The number of layers on which the brim will be printed."
+msgstr "打印 Brim 的层数。"
 
 msgid "Compatible machine"
 msgstr "兼容的机器"
@@ -12251,7 +12258,6 @@ msgstr "除了桥接外的底面填充的走线图案"
 msgid "Bottom surface density"
 msgstr "底面密度"
 
-#, c-format
 msgid "Density of bottom surface infill, 100% means a fully solid filled top layer.Lower values create a textured bottom surface, Intended for aesthetic or functional purposes, not to fix issues such as over-extrusion.WARNING: Lowering this value may negatively affect bed adhesion."
 msgstr "底面的填充密度，100%%表示底面为完全实心填充。较低数值会产生纹理化的底面，旨在满足美观或功能需求，而非用于修复诸如过度挤出等问题。警告：降低此值可能会负面影响打印平台附着性。"
 
@@ -12752,7 +12758,6 @@ msgstr "稀疏填充图案的角度，决定走线的开始或整体方向。"
 msgid "Sparse infill density"
 msgstr "稀疏填充密度"
 
-#, c-format
 msgid "Density of internal sparse infill, 100% means solid throughout"
 msgstr "稀疏填充密度, 100%% 意味着完全实心。"
 
@@ -13843,6 +13848,33 @@ msgstr "内部实心填充的速度，不是顶面和底面。"
 msgid "Spiralize smooths out the z moves of the outer contour. And turns a solid model into a single walled print with solid bottom layers. The final generated model has no seam"
 msgstr "沿着对象的外轮廓螺旋上升，将实体模型转变为只有底面实心层和侧面单层墙壁的打印。最后生成的打印件没有接缝。"
 
+msgid "★ Vase reinforcement multiplier"
+msgstr "★ 花瓶增强倍数"
+
+msgid "Additional inward wall multiplier for the first spiral vase layers. Decimal values are distributed across rounded reinforcement loops."
+msgstr "花瓶模式前几层额外向内扩展的墙宽倍数。小数值会按四舍五入后的加强圈数分配。"
+
+msgid "★ Vase reinforcement height"
+msgstr "★ 花瓶增强高度"
+
+msgid "Height of spiral vase reinforcement. A plain number means layer count; a value ending with mm means model height."
+msgstr "花瓶模式加强结构的高度。纯数字表示层数，以 mm 结尾表示模型高度。"
+
+msgid "layers or mm"
+msgstr "层数或 mm"
+
+msgid "★ Fade vase reinforcement"
+msgstr "★ 渐消花瓶增强"
+
+msgid "Linearly fade the spiral vase reinforcement multiplier over the reinforcement height."
+msgstr "在增强高度范围内线性渐消花瓶增强倍数。"
+
+msgid "★ Fade end multiplier"
+msgstr "★ 渐消结束倍数"
+
+msgid "Spiral vase reinforcement multiplier at the end of the reinforcement height."
+msgstr "达到增强高度末端时的花瓶增强倍数。"
+
 msgid "Smooth Spiral"
 msgstr "平滑旋转花瓶"
 
@@ -14477,6 +14509,9 @@ msgstr ""
 #, c-format, boost-format
 msgid " doesn't work at 100%% density "
 msgstr " 填充图案不支持 100%% 密度"
+
+msgid "Invalid spiral vase reinforcement height: "
+msgstr "无效的花瓶增强高度："
 
 msgid "Invalid value when spiral vase mode is enabled: "
 msgstr "旋转花瓶模式下非法的值"
@@ -15539,6 +15574,9 @@ msgstr "基于模板创建"
 msgid "Create Based on Current Printer"
 msgstr "基于当前打印机创建"
 
+msgid "Rectangle"
+msgstr "矩形"
+
 msgid "wiki"
 msgstr ""
 
@@ -15568,9 +15606,6 @@ msgstr "请输入自定义喷嘴直径"
 
 msgid "Can't find my nozzle diameter"
 msgstr "无法找到我的喷嘴直径"
-
-msgid "Rectangle"
-msgstr "矩形"
 
 msgid "Printable Space"
 msgstr "可打印形状"
@@ -17263,6 +17298,27 @@ msgid ""
 msgstr ""
 "一次成功的可靠性\n"
 "更少盯机，更可预测的产出。例如：小型打印农场打印 PETG 零件可降低意外失败的概率，让批次按计划推进。"
+
+#~ msgid "Brim-object gap"
+#~ msgstr "Brim与模型的间隙"
+
+#~ msgid "A gap between innermost brim line and object can make brim be removed more easily"
+#~ msgstr "在brim和模型之间设置间隙，能够让brim更容易剥离"
+
+#~ msgid "Vase reinforcement multiplier"
+#~ msgstr "花瓶增强倍数"
+
+#~ msgid "Vase reinforcement height"
+#~ msgstr "花瓶增强高度"
+
+#~ msgid "Fade vase reinforcement"
+#~ msgstr "渐消花瓶增强"
+
+#~ msgid "Fade end multiplier"
+#~ msgstr "渐消结束倍数"
+
+#~ msgid "Spiral mode only works when wall loops is 1, support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."
+#~ msgstr "花瓶模式仅在以下条件下可用：墙壁环数设置为 1，支撑禁用，触碰裹头检测禁用，顶壳层数为 0，稀疏填充密度为 0，延时摄影类型为传统，并且 Z 方向墙速度平滑不启用。"
 
 #~ msgid "There is a G-code script present in the current 3mf file, please verify the content of the script."
 #~ msgstr "当前 3mf 文件中存在 G-code 脚本，请核实脚本内容。"
@@ -21079,9 +21135,6 @@ msgstr ""
 #~ msgstr ""
 #~ "当前无相同的备用耗材，暂时无法自动补给。\n"
 #~ "（目前支持品牌、材料种类、颜色相同的耗材的自动补给）"
-
-#~ msgid "Load shape from STL..."
-#~ msgstr "从STL文件加载形状..."
 
 #~ msgid "Invalid nozzle diameter"
 #~ msgstr "非法喷嘴口径"

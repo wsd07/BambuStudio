@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bambu Studio\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-28 17:39+0800\n"
+"POT-Creation-Date: 2026-05-09 21:03+0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -3901,6 +3901,9 @@ msgstr "직사각형"
 msgid "Circular"
 msgstr "원형"
 
+msgid "Load shape from STL..."
+msgstr ""
+
 msgid "Settings"
 msgstr "설정"
 
@@ -4149,8 +4152,8 @@ msgstr ""
 "잠금 깊이는 표면 깊이보다 작아야 합니다.\n"
 "표면 깊이의 50%%으로 재설정"
 
-msgid "Spiral mode only works when wall loops is 1, support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."
-msgstr "나선형 모드는 벽 루프가 1 이고, 지원이 비활성화되어 있고, 프로빙을 통한 뭉침 감지가 비활성화되어 있고, 상단 셸 레이어가 0 이고, 드믄 채우기 밀도가 0 이고, 타임랩스 유형이 기존이고 z 방향의 벽 속도 평활화가 아니인 경우에만 작동합니다."
+msgid "Spiral mode only works when support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."
+msgstr ""
 
 msgid " But machines with I3 structure will not generate timelapse videos."
 msgstr " 하지만 I3 구조의 기기는 타임랩스 영상을 생성할 수 없습니다."
@@ -11900,14 +11903,12 @@ msgstr "s"
 msgid "Cooling overhang threshold"
 msgstr "냉각 오버행 임계값"
 
-#, c-format
 msgid "Force cooling fan to be specific speed when overhang degree of printed part exceeds this value. Expressed as percentage which indicides how much width of the line without support from lower layer. 0% means forcing cooling for all outer wall no matter how much overhang degree"
 msgstr "출력된 부품의 오버행 정도가 이 값을 초과하면 냉각 팬이 특정 속도로 강제송풍됩니다. 이는 아래 레이어에 의해 받쳐지지 않는 선의 너비를 나타내는 백분율로 표시됩니다. 0%%는 오버행 정도에 관계없이 모든 외벽에 대해 강제 냉각을 의미합니다."
 
 msgid "Overhang threshold for participating cooling"
 msgstr "참여 냉각을 위한 오버행 임계값"
 
-#, c-format
 msgid "Decide which overhang part join the cooling function to slow down the speed.Expressed as percentage which indicides how much width of the line without support from lower layer. 100% means forcing cooling for all outer wall no matter how much overhang degree"
 msgstr "속도를 늦추기 위해 냉각 기능에 합류할 오버행 부분을 결정합니다. 백분율로 표시되며, 하층의 지지 없이 선의 폭이 얼마나 되는지를 나타냅니다. 100%%는 오버행 정도에 관계없이 모든 외벽에 대해 강제 냉각을 의미합니다"
 
@@ -12023,11 +12024,17 @@ msgstr "브림 유형"
 msgid "This controls the generation of the brim at outer and/or inner side of models. Auto means the brim width is analysed and calculated automatically."
 msgstr "모델의 바깥쪽 또는 안쪽 브림 생성을 제어합니다. 자동은 브림 폭이 자동으로 분석 및 계산됨을 의미합니다."
 
-msgid "Brim-object gap"
-msgstr "브림-출력물 간격"
+msgid "★ Brim-object gap"
+msgstr "★ Brim-object gap"
 
-msgid "A gap between innermost brim line and object can make brim be removed more easily"
-msgstr "가장 안쪽 테두리 선과 물체 사이에 틈이 생겨 테두리를 쉽게 제거할 수 있습니다."
+msgid "A gap between innermost brim line and object can make brim be removed more easily. Negative values make the brim overlap the object."
+msgstr "A gap between innermost brim line and object can make brim be removed more easily. Negative values make the brim overlap the object."
+
+msgid "★ Brim layers"
+msgstr "★ Brim layers"
+
+msgid "The number of layers on which the brim will be printed."
+msgstr "The number of layers on which the brim will be printed."
 
 msgid "Compatible machine"
 msgstr "호환 가능한 장치"
@@ -12305,7 +12312,6 @@ msgstr "하단 표면 내부채움 라인 패턴, 브릿지 내부채움 제외"
 msgid "Bottom surface density"
 msgstr "하단 표면 밀도"
 
-#, c-format
 msgid "Density of bottom surface infill, 100% means a fully solid filled top layer.Lower values create a textured bottom surface, Intended for aesthetic or functional purposes, not to fix issues such as over-extrusion.WARNING: Lowering this value may negatively affect bed adhesion."
 msgstr "하단 표면 채움 밀도, 100%%는 완전히 채워진 상단 레이어를 의미합니다. 낮은 값은 질감 있는 하단 표면을 만듭니다. 이는 미적 또는 기능적 목적을 위한 것이며 과다 압출과 같은 문제를 해결하기 위한 것이 아닙니다. 경고: 이 값을 낮추면 베드 접착에 부정적인 영향을 줄 수 있습니다."
 
@@ -12803,7 +12809,6 @@ msgstr "선의 시작 또는 주 방향을 제어하는 드문 내부 채움 패
 msgid "Sparse infill density"
 msgstr "내부채움 밀도"
 
-#, c-format
 msgid "Density of internal sparse infill, 100% means solid throughout"
 msgstr "내부채움 밀도입니다. 100%%인 경우 내부가 빈공간 없이 모두 채워지게 됩니다."
 
@@ -13894,6 +13899,33 @@ msgstr "상단 및 하단 표면을 제외한 꽉찬 내부 채우기 속도"
 msgid "Spiralize smooths out the z moves of the outer contour. And turns a solid model into a single walled print with solid bottom layers. The final generated model has no seam"
 msgstr "나선형 활성화, 외부 윤곽의 Z 이동을 부드럽게 하고 고형물 모델을 견고한 하단 레이어 단일 벽면 프린트로 변환할 수 있습니다. 최종적으로 생성된 모델에는 이음새가 없습니다."
 
+msgid "★ Vase reinforcement multiplier"
+msgstr "★ Vase reinforcement multiplier"
+
+msgid "Additional inward wall multiplier for the first spiral vase layers. Decimal values are distributed across rounded reinforcement loops."
+msgstr "스파이럴 화병 모드의 초기 레이어에 안쪽으로 추가되는 벽 배율입니다. 소수 값은 반올림된 보강 루프 수에 분배됩니다."
+
+msgid "★ Vase reinforcement height"
+msgstr "★ Vase reinforcement height"
+
+msgid "Height of spiral vase reinforcement. A plain number means layer count; a value ending with mm means model height."
+msgstr "스파이럴 화병 보강 높이입니다. 숫자만 입력하면 레이어 수, mm로 끝나면 모델 높이를 의미합니다."
+
+msgid "layers or mm"
+msgstr "레이어 또는 mm"
+
+msgid "★ Fade vase reinforcement"
+msgstr "★ Fade vase reinforcement"
+
+msgid "Linearly fade the spiral vase reinforcement multiplier over the reinforcement height."
+msgstr "보강 높이 범위에서 스파이럴 화병 보강 배율을 선형으로 줄입니다."
+
+msgid "★ Fade end multiplier"
+msgstr "★ Fade end multiplier"
+
+msgid "Spiral vase reinforcement multiplier at the end of the reinforcement height."
+msgstr "보강 높이 끝에서의 스파이럴 화병 보강 배율입니다."
+
 msgid "Smooth Spiral"
 msgstr "부드러운 나선형"
 
@@ -14528,6 +14560,9 @@ msgstr "--펌웨어-사용-철회는 --wipe와 호환되지 않습니다."
 #, c-format, boost-format
 msgid " doesn't work at 100%% density "
 msgstr " 100%% 밀도에서 작동하지 않습니다. "
+
+msgid "Invalid spiral vase reinforcement height: "
+msgstr "잘못된 화병 보강 높이: "
 
 msgid "Invalid value when spiral vase mode is enabled: "
 msgstr "나선형 꽃병 모드가 활성화된 경우 유효하지 않은 값: "
@@ -15592,6 +15627,9 @@ msgstr "템플릿에서 만들기"
 msgid "Create Based on Current Printer"
 msgstr "현재 프린터를 기반으로 생성"
 
+msgid "Rectangle"
+msgstr "사각형"
+
 msgid "wiki"
 msgstr "위키"
 
@@ -15621,9 +15659,6 @@ msgstr "사용자 지정 노즐 직경 입력"
 
 msgid "Can't find my nozzle diameter"
 msgstr "노즐 직경을 찾을 수 없습니다"
-
-msgid "Rectangle"
-msgstr "사각형"
 
 msgid "Printable Space"
 msgstr "출력 가능한 공간"
@@ -17334,6 +17369,27 @@ msgid ""
 msgstr ""
 "첫 시도 성공 신뢰성\n"
 "관리 부담 감소, 예측 가능한 생산량 증가. 예: PETG 부품을 생산하는 소규모 농장은 '6시간 후 실패'와 같은 예상치 못한 문제 발생을 방지하고 생산 일정을 준수할 수 있습니다."
+
+#~ msgid "Brim-object gap"
+#~ msgstr "브림-출력물 간격"
+
+#~ msgid "A gap between innermost brim line and object can make brim be removed more easily"
+#~ msgstr "가장 안쪽 테두리 선과 물체 사이에 틈이 생겨 테두리를 쉽게 제거할 수 있습니다."
+
+#~ msgid "Vase reinforcement multiplier"
+#~ msgstr "화병 보강 배율"
+
+#~ msgid "Vase reinforcement height"
+#~ msgstr "화병 보강 높이"
+
+#~ msgid "Fade vase reinforcement"
+#~ msgstr "화병 보강 페이드"
+
+#~ msgid "Fade end multiplier"
+#~ msgstr "페이드 종료 배율"
+
+#~ msgid "Spiral mode only works when wall loops is 1, support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."
+#~ msgstr "나선형 모드는 벽 루프가 1 이고, 지원이 비활성화되어 있고, 프로빙을 통한 뭉침 감지가 비활성화되어 있고, 상단 셸 레이어가 0 이고, 드믄 채우기 밀도가 0 이고, 타임랩스 유형이 기존이고 z 방향의 벽 속도 평활화가 아니인 경우에만 작동합니다."
 
 #~ msgid "Shift+"
 #~ msgstr "Shift+"

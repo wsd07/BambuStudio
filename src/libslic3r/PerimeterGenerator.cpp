@@ -16,6 +16,10 @@
 #include "OverhangDetector.hpp"
 #include "FuzzySkin.hpp"
 
+#include <algorithm>
+#include <cctype>
+#include <cstdlib>
+
 static const double narrow_loop_length_threshold = 10;
 //BBS: when the width of expolygon is smaller than
 //ext_perimeter_width + ext_perimeter_spacing  * (1 - SMALLER_EXT_INSET_OVERLAP_TOLERANCE),
@@ -33,6 +37,44 @@ static double random_value() {
     return dist(gen);
 }
 
+struct SpiralVaseReinforcementHeight
+{
+    bool   valid = false;
+    bool   is_mm = false;
+    double value = 0.;
+};
+
+static SpiralVaseReinforcementHeight parse_spiral_vase_reinforcement_height_value(const std::string &raw)
+{
+    SpiralVaseReinforcementHeight out;
+    std::string value;
+    value.reserve(raw.size());
+    for (char c : raw)
+        if (!std::isspace(static_cast<unsigned char>(c)))
+            value.push_back(c);
+    if (value.empty())
+        return out;
+
+    if (value.size() >= 2) {
+        std::string suffix = value.substr(value.size() - 2);
+        for (char &c : suffix)
+            c = static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
+        if (suffix == "mm") {
+            out.is_mm = true;
+            value.erase(value.size() - 2);
+        }
+    }
+    if (value.empty())
+        return out;
+
+    char *end = nullptr;
+    out.value = std::strtod(value.c_str(), &end);
+    out.valid = end != value.c_str() && *end == '\0' && std::isfinite(out.value) && out.value > 0.;
+    if (out.valid && !out.is_mm && std::fabs(out.value - std::round(out.value)) > EPSILON)
+        out.valid = false;
+    return out;
+}
+
 // Hierarchy of perimeters.
 class PerimeterGeneratorLoop {
 public:
@@ -43,6 +85,7 @@ public:
     bool                                is_contour;
     // BBS: is perimeter using smaller width
     bool is_smaller_width_perimeter;
+    double                              width_factor;
     // Depth in the hierarchy. External perimeter has depth = 0. An external perimeter could be both a contour and a hole.
     unsigned short depth;
     // Slow down speed for circle
@@ -50,8 +93,8 @@ public:
     // Children contour, may be both CCW and CW oriented (outer contours or holes).
     std::vector<PerimeterGeneratorLoop> children;
 
-    PerimeterGeneratorLoop(const Polygon &polygon, unsigned short depth, bool is_contour, bool is_small_width_perimeter = false, bool need_circle_compensation_ = false) :
-        polygon(polygon), is_contour(is_contour), is_smaller_width_perimeter(is_small_width_perimeter), depth(depth), need_circle_compensation(need_circle_compensation_) {}
+    PerimeterGeneratorLoop(const Polygon &polygon, unsigned short depth, bool is_contour, bool is_small_width_perimeter = false, bool need_circle_compensation_ = false, double width_factor_ = 1.) :
+        polygon(polygon), is_contour(is_contour), is_smaller_width_perimeter(is_small_width_perimeter), width_factor(width_factor_), depth(depth), need_circle_compensation(need_circle_compensation_) {}
     // External perimeter. It may be CCW or CW oriented (outer contour or hole contour).
     bool is_external() const { return this->depth == 0; }
     // An island, which may have holes, but it does not have another internal island.
@@ -337,8 +380,14 @@ static ExtrusionEntityCollection traverse_loops(const PerimeterGenerator &perime
             //BBS: normal perimeter
             lower_polygons_series = &perimeter_generator.m_lower_polygons_series;
             overhang_dist_boundary = &perimeter_generator.m_lower_overhang_dist_boundary;
-            extrusion_mm3_per_mm = perimeter_generator.mm3_per_mm();
-            extrusion_width = perimeter_generator.perimeter_flow.width();
+            if (std::abs(loop.width_factor - 1.) > EPSILON) {
+                Flow custom_flow = perimeter_generator.perimeter_flow.with_width(float(perimeter_generator.perimeter_flow.width() * loop.width_factor));
+                extrusion_mm3_per_mm = custom_flow.mm3_per_mm();
+                extrusion_width = custom_flow.width();
+            } else {
+                extrusion_mm3_per_mm = perimeter_generator.mm3_per_mm();
+                extrusion_width = perimeter_generator.perimeter_flow.width();
+            }
         }
 
         // Apply fuzzy skin if it is enabled for at least some part of the polygon.
@@ -1189,6 +1238,68 @@ void PerimeterGenerator::process_classic()
                 }
             }
 
+            if (m_spiral_vase && print_config->spiral_vase_reinforcement_multiplier.value > 0 && !last.empty()) {
+                double reinforcement_multiplier = print_config->spiral_vase_reinforcement_multiplier.value;
+                const SpiralVaseReinforcementHeight reinforcement_height =
+                    parse_spiral_vase_reinforcement_height_value(print_config->spiral_vase_reinforcement_height.value);
+                const int spiral_layer_idx = std::max(0, layer_id - int(config->bottom_shell_layers.value));
+                bool apply_reinforcement = reinforcement_height.valid;
+                double fade_t = 0.;
+                if (apply_reinforcement) {
+                    if (reinforcement_height.is_mm) {
+                        const double layer_start_height = spiral_layer_idx * layer_height;
+                        const double layer_end_height = layer_start_height + layer_height;
+                        apply_reinforcement = layer_start_height < reinforcement_height.value - EPSILON;
+                        fade_t = layer_end_height >= reinforcement_height.value ?
+                            1. : std::clamp(layer_start_height / reinforcement_height.value, 0., 1.);
+                    } else {
+                        const int reinforcement_layers = std::max(1, int(std::round(reinforcement_height.value)));
+                        apply_reinforcement = spiral_layer_idx < reinforcement_layers;
+                        fade_t = reinforcement_layers <= 1 ? 1. : double(spiral_layer_idx) / double(reinforcement_layers - 1);
+                    }
+                }
+                if (apply_reinforcement && print_config->spiral_vase_reinforcement_fade.value)
+                    reinforcement_multiplier += (print_config->spiral_vase_reinforcement_fade_end_multiplier.value - reinforcement_multiplier) * fade_t;
+                if (apply_reinforcement && reinforcement_multiplier > EPSILON) {
+                    const int reinforcement_loops = std::max(1, int(std::round(reinforcement_multiplier)));
+                    const double reinforcement_width_factor_from_external = reinforcement_multiplier / reinforcement_loops;
+                    const coord_t reinforcement_width = coord_t(ext_perimeter_width * reinforcement_width_factor_from_external);
+                    const double reinforcement_width_factor_from_inner = double(reinforcement_width) / double(perimeter_width);
+                    const int reinforcement_start_depth = loop_number + 1;
+                    coord_t previous_width = loop_number <= 0 ? ext_perimeter_width : perimeter_width;
+                    int generated_reinforcement_loops = 0;
+
+                    contours.resize(contours.size() + reinforcement_loops);
+                    holes.resize(holes.size() + reinforcement_loops);
+                    for (int reinforcement_idx = 0; reinforcement_idx < reinforcement_loops; ++reinforcement_idx) {
+                        const coord_t distance = reinforcement_idx == 0 ?
+                            coord_t(0.5 * double(previous_width + reinforcement_width)) :
+                            reinforcement_width;
+                        const coord_t reinforcement_min_spacing = coord_t(reinforcement_width * (1 - INSET_OVERLAP_TOLERANCE));
+                        ExPolygons reinforcement_offsets = offset2_ex(last,
+                            -float(distance + reinforcement_min_spacing / 2. - 1),
+                            float(reinforcement_min_spacing / 2. - 1));
+                        if (reinforcement_offsets.empty())
+                            break;
+
+                        const int depth = reinforcement_start_depth + reinforcement_idx;
+                        for (const ExPolygon &expolygon : reinforcement_offsets) {
+                            contours[depth].emplace_back(PerimeterGeneratorLoop(expolygon.contour, depth, true, false, false, reinforcement_width_factor_from_inner));
+                            if (!expolygon.holes.empty()) {
+                                holes[depth].reserve(holes[depth].size() + expolygon.holes.size());
+                                for (const Polygon &hole : expolygon.holes)
+                                    holes[depth].emplace_back(PerimeterGeneratorLoop(hole, depth, false, false, is_compensation_hole(hole), reinforcement_width_factor_from_inner));
+                            }
+                        }
+                        last = std::move(reinforcement_offsets);
+                        previous_width = reinforcement_width;
+                        ++generated_reinforcement_loops;
+                    }
+                    if (generated_reinforcement_loops > 0)
+                        loop_number = std::max(loop_number, reinforcement_start_depth + generated_reinforcement_loops - 1);
+                }
+            }
+
             // nest loops: holes first
             for (int d = 0; d <= loop_number; ++ d) {
                 PerimeterGeneratorLoops &holes_d = holes[d];
@@ -1249,7 +1360,7 @@ void PerimeterGenerator::process_classic()
             // we continue inwards after having finished the brim
             // TODO: add test for perimeter order
             bool is_outer_wall_first =
-                this->config->wall_sequence == WallSequence::OuterInner;
+                this->config->wall_sequence == WallSequence::OuterInner || m_spiral_vase;
             if (is_outer_wall_first ||
                 //BBS: always print outer wall first when there indeed has brim.
                 (this->layer_id == 0 &&

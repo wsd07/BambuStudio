@@ -1,0 +1,12 @@
+{
+    "type": "machine_model",
+    "name": "FLSun V400Max",
+    "model_id": "FLSun V400Max",
+    "nozzle_diameter": "0.4;0.6;0.8;1.0;1.2;1.5",
+    "machine_tech": "FFF",
+    "family": "FLSun",
+    "bed_model": "flsun_s1_buildplate_model.stl",
+    "bed_texture": "flsun_s1_buildplate_texture.svg",
+    "hotend_model": "",
+    "default_materials": "FLSun V400Max Generic PLA;FLSun V400Max Generic PLA-CF;FLSun V400Max Generic PLA-Silk;FLSun V400Max Generic PETG;FLSun V400Max 0.6nozzle Generic PLA;FLSun V400Max 0.6nozzle Generic PLA-CF;FLSun V400Max 0.6nozzle Generic PLA-Silk;FLSun V400Max 0.6nozzle Generic PETG;FLSun V400Max 0.8nozzle Generic PLA;FLSun V400Max 0.8nozzle Generic PLA-CF;FLSun V400Max 0.8nozzle Generic PLA-Silk;FLSun V400Max 0.8nozzle Generic PETG;"
+}

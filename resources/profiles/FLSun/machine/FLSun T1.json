@@ -1,0 +1,12 @@
+{
+    "type": "machine_model",
+    "name": "FLSun T1",
+    "model_id": "FLSun T1",
+    "nozzle_diameter": "0.4",
+    "machine_tech": "FFF",
+    "family": "FLSun",
+    "bed_model": "flsun_T1_buildplate_model.stl",
+    "bed_texture": "flsun_T1_buildplate_texture.svg",
+    "hotend_model": "",
+    "default_materials": "FLSun T1 FLSun PLA-HS;FLSun T1 Generic PLA;FLSun T1 Generic PLA+;FLSun T1 Generic PLA-HS;FLSun T1 Generic PLA-Silk;FLSun T1 Generic PETG;FLSun T1 Generic PA;FLSun T1 Generic PC;FLSun T1 Generic ABS;FLSun T1 Generic ASA;FLSun T1 Generic PET;FLSun T1 Generic TPU-95A"
+}

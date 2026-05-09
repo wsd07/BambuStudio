@@ -1023,6 +1023,16 @@ boost::any ConfigOptionsGroup::get_config_value(const DynamicPrintConfig& config
         idx      = std::stoi(opt_key.substr(opt_key.find('#') + 1));
         opt     = config.def()->get(opt_key2);
     }
+    if (!config.has(opt_key2)) {
+        if (opt_key2 == "spiral_vase_reinforcement_multiplier")
+            return double_to_string(0.);
+        if (opt_key2 == "spiral_vase_reinforcement_height")
+            return from_u8("3mm");
+        if (opt_key2 == "spiral_vase_reinforcement_fade")
+            return false;
+        if (opt_key2 == "spiral_vase_reinforcement_fade_end_multiplier")
+            return double_to_string(0.5);
+    }
 
     if (opt->nullable)
     {

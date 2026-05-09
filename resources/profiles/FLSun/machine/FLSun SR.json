@@ -1,0 +1,12 @@
+{
+    "type": "machine_model",
+    "name": "FLSun SR",
+    "model_id": "FLSun_Super_Racer",
+    "nozzle_diameter": "0.4",
+    "machine_tech": "FFF",
+    "family": "FLSun",
+    "bed_model": "flsun_SR_buildplate_model.stl",
+    "bed_texture": "flsun_T1_buildplate_texture.svg",
+    "hotend_model": "",
+    "default_materials": "FLSun Generic ABS;FLSun Generic PLA;FLSun Generic PETG;FLSun Generic ASA"
+}

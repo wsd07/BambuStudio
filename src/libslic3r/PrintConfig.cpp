@@ -13,6 +13,9 @@
 #include <boost/log/trivial.hpp>
 #include <boost/thread.hpp>
 
+#include <cctype>
+#include <cmath>
+#include <cstdlib>
 #include <float.h>
 
 namespace {
@@ -1480,14 +1483,24 @@ void PrintConfigDef::init_fff_params()
     def->set_default_value(new ConfigOptionEnum<BrimType>(btAutoBrim));
 
     def = this->add("brim_object_gap", coFloat);
-    def->label = L("Brim-object gap");
+    def->label = L("★ Brim-object gap");
     def->category = L("Support");
-    def->tooltip = L("A gap between innermost brim line and object can make brim be removed more easily");
+    def->tooltip = L("A gap between innermost brim line and object can make brim be removed more easily. Negative values make the brim overlap the object.");
     def->sidetext = L("mm");
-    def->min = 0;
+    def->min = -100;
     def->max = 2;
     def->mode = comAdvanced;
     def->set_default_value(new ConfigOptionFloat(0.));
+
+    def = this->add("brim_layers", coInt);
+    def->label = L("★ Brim layers");
+    def->category = L("Support");
+    def->tooltip = L("The number of layers on which the brim will be printed.");
+    def->sidetext = L("layers");
+    def->min = 1;
+    def->max = 100;
+    def->mode = comAdvanced;
+    def->set_default_value(new ConfigOptionInt(1));
 
 
     def = this->add("compatible_printers", coStrings);
@@ -4078,7 +4091,7 @@ void PrintConfigDef::init_fff_params()
     def->tooltip = L("Diameter of nozzle");
     def->sidetext = L("mm");
     def->mode = comAdvanced;
-    def->max = 1.0;
+    def->max = 5.0;
     def->nullable = true;
     def->set_default_value(new ConfigOptionFloatsNullable { 0.4 });
 
@@ -4877,6 +4890,35 @@ void PrintConfigDef::init_fff_params()
                      "The final generated model has no seam");
     def->mode = comSimple;
     def->set_default_value(new ConfigOptionBool(false));
+
+    def = this->add("spiral_vase_reinforcement_multiplier", coFloat);
+    def->label = L("★ Vase reinforcement multiplier");
+    def->tooltip = L("Additional inward wall multiplier for the first spiral vase layers. Decimal values are distributed across rounded reinforcement loops.");
+    def->min = 0;
+    def->max = 100;
+    def->mode = comAdvanced;
+    def->set_default_value(new ConfigOptionFloat(0));
+
+    def = this->add("spiral_vase_reinforcement_height", coString);
+    def->label = L("★ Vase reinforcement height");
+    def->tooltip = L("Height of spiral vase reinforcement. A plain number means layer count; a value ending with mm means model height.");
+    def->sidetext = L("layers or mm");
+    def->mode = comAdvanced;
+    def->set_default_value(new ConfigOptionString("3mm"));
+
+    def = this->add("spiral_vase_reinforcement_fade", coBool);
+    def->label = L("★ Fade vase reinforcement");
+    def->tooltip = L("Linearly fade the spiral vase reinforcement multiplier over the reinforcement height.");
+    def->mode = comAdvanced;
+    def->set_default_value(new ConfigOptionBool(false));
+
+    def = this->add("spiral_vase_reinforcement_fade_end_multiplier", coFloat);
+    def->label = L("★ Fade end multiplier");
+    def->tooltip = L("Spiral vase reinforcement multiplier at the end of the reinforcement height.");
+    def->min = 0;
+    def->max = 100;
+    def->mode = comAdvanced;
+    def->set_default_value(new ConfigOptionFloat(0.5));
 
     def = this->add("spiral_mode_smooth", coBool);
     def->label = L("Smooth Spiral");
@@ -9010,6 +9052,39 @@ void compute_filament_override_value(const std::string& opt_key, const ConfigOpt
 
 //BBS: pass map to recording all invalid valies
 //FIXME localize this function.
+static bool parse_spiral_vase_reinforcement_height(const std::string &raw)
+{
+    std::string value;
+    value.reserve(raw.size());
+    for (char c : raw)
+        if (!std::isspace(static_cast<unsigned char>(c)))
+            value.push_back(c);
+    if (value.empty())
+        return false;
+
+    bool has_mm = false;
+    if (value.size() >= 2) {
+        std::string suffix = value.substr(value.size() - 2);
+        boost::algorithm::to_lower(suffix);
+        if (suffix == "mm") {
+            has_mm = true;
+            value.erase(value.size() - 2);
+        }
+    }
+    if (value.empty())
+        return false;
+
+    char *end = nullptr;
+    const double number = std::strtod(value.c_str(), &end);
+    if (end == value.c_str() || *end != '\0' || !std::isfinite(number) || number <= 0)
+        return false;
+
+    if (!has_mm && std::fabs(number - std::round(number)) > EPSILON)
+        return false;
+
+    return true;
+}
+
 std::map<std::string, std::string> validate(const FullPrintConfig &cfg, bool under_cli)
 {
     std::map<std::string, std::string> error_message;
@@ -9145,15 +9220,13 @@ std::map<std::string, std::string> validate(const FullPrintConfig &cfg, bool und
 
     // --spiral-vase
     //for non-cli case, we will popup dialog for spiral mode correction
+    if (cfg.spiral_mode && cfg.spiral_vase_reinforcement_multiplier > 0 &&
+        !parse_spiral_vase_reinforcement_height(cfg.spiral_vase_reinforcement_height.value)) {
+        error_message.emplace("spiral_vase_reinforcement_height", L("Invalid spiral vase reinforcement height: ") + cfg.spiral_vase_reinforcement_height.value);
+    }
     if (cfg.spiral_mode && under_cli) {
         // Note that we might want to have more than one perimeter on the bottom
         // solid layers.
-        if (cfg.wall_loops != 1) {
-            error_message.emplace("wall_loops", L("Invalid value when spiral vase mode is enabled: ") + std::to_string(cfg.wall_loops));
-            //return "Can't make more than one perimeter when spiral vase mode is enabled";
-            //return "Can't make less than one perimeter when spiral vase mode is enabled";
-        }
-
         if (cfg.sparse_infill_density > 0) {
             error_message.emplace("sparse_infill_density", L("Invalid value when spiral vase mode is enabled: ") + std::to_string(cfg.sparse_infill_density));
             //return "Spiral vase mode can only print hollow objects, so you need to set Fill density to 0";

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bambu Studio\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-28 17:39+0800\n"
+"POT-Creation-Date: 2026-05-09 21:03+0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: BambuLab Україна\n"
@@ -3906,6 +3906,9 @@ msgstr "Прямокутний"
 msgid "Circular"
 msgstr "Округлий"
 
+msgid "Load shape from STL..."
+msgstr "Завантажити форму з STL..."
+
 msgid "Settings"
 msgstr "Налаштування"
 
@@ -4135,7 +4138,7 @@ msgid ""
 "Reset to 50%% of skin depth"
 msgstr ""
 
-msgid "Spiral mode only works when wall loops is 1, support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."
+msgid "Spiral mode only works when support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."
 msgstr ""
 
 msgid " But machines with I3 structure will not generate timelapse videos."
@@ -11810,14 +11813,12 @@ msgstr "c"
 msgid "Cooling overhang threshold"
 msgstr "Поріг охолоджувального звису"
 
-#, c-format
 msgid "Force cooling fan to be specific speed when overhang degree of printed part exceeds this value. Expressed as percentage which indicides how much width of the line without support from lower layer. 0% means forcing cooling for all outer wall no matter how much overhang degree"
 msgstr "Коли ступінь звису друкарської деталі перевищує це значення, примусово Встановіть вентилятор охолодження на певну швидкість. Виражається в відсотках, що вказують на ширину лінії без опори від нижнього шару. .0%% означає примусове охолодження всього зовнішнього периметра незалежно від ступеня звису"
 
 msgid "Overhang threshold for participating cooling"
 msgstr "Поріг нависання для участі в охолодженні"
 
-#, c-format
 msgid "Decide which overhang part join the cooling function to slow down the speed.Expressed as percentage which indicides how much width of the line without support from lower layer. 100% means forcing cooling for all outer wall no matter how much overhang degree"
 msgstr "Визначте, яка частина нависання приєднується до функції охолодження, щоб зменшити швидкість. Виражається у відсотках, що вказує, яка ширина лінії без підтримки з нижнього шару. 100 відсотків означає примусове охолодження для всіх зовнішніх стінок, незалежно від кута нависання"
 
@@ -11933,11 +11934,17 @@ msgstr "Тип кайми"
 msgid "This controls the generation of the brim at outer and/or inner side of models. Auto means the brim width is analysed and calculated automatically."
 msgstr "Це керує формуванням поля на зовнішній та/або внутрішній сторонімоделей. Auto означає, що ширина поля аналізується та обчислюється автоматично."
 
-msgid "Brim-object gap"
-msgstr "Зазор між каймою та об'єктом"
+msgid "★ Brim-object gap"
+msgstr "★ Brim-object gap"
 
-msgid "A gap between innermost brim line and object can make brim be removed more easily"
-msgstr "Зазор між внутрішньою лінією кайми та предметом може сприяти легшому зняттю кайми"
+msgid "A gap between innermost brim line and object can make brim be removed more easily. Negative values make the brim overlap the object."
+msgstr "A gap between innermost brim line and object can make brim be removed more easily. Negative values make the brim overlap the object."
+
+msgid "★ Brim layers"
+msgstr "★ Brim layers"
+
+msgid "The number of layers on which the brim will be printed."
+msgstr "The number of layers on which the brim will be printed."
 
 msgid "Compatible machine"
 msgstr "Сумісна машина"
@@ -12197,7 +12204,6 @@ msgstr "Малюнок заповнення нижньої поверхні, а 
 msgid "Bottom surface density"
 msgstr ""
 
-#, c-format
 msgid "Density of bottom surface infill, 100% means a fully solid filled top layer.Lower values create a textured bottom surface, Intended for aesthetic or functional purposes, not to fix issues such as over-extrusion.WARNING: Lowering this value may negatively affect bed adhesion."
 msgstr ""
 
@@ -12695,7 +12701,6 @@ msgstr "Це кут для розрідженого зразка заповне�
 msgid "Sparse infill density"
 msgstr "Щільність заповнення"
 
-#, c-format
 msgid "Density of internal sparse infill, 100% means solid throughout"
 msgstr "Щільність внутрішнього розрідженого заповнення, 100%% означає суцільне заповнення по всій площі"
 
@@ -13776,6 +13781,33 @@ msgstr "Швидкість внутрішнього твердого запов�
 msgid "Spiralize smooths out the z moves of the outer contour. And turns a solid model into a single walled print with solid bottom layers. The final generated model has no seam"
 msgstr "Перехід спіраллю згладжує рух z зовнішнього контуру. І перетворює твердотільна модель в одностінний друк із суцільними нижніми шарами.Кінічна згенерована модель не має шва"
 
+msgid "★ Vase reinforcement multiplier"
+msgstr "★ Vase reinforcement multiplier"
+
+msgid "Additional inward wall multiplier for the first spiral vase layers. Decimal values are distributed across rounded reinforcement loops."
+msgstr "Additional inward wall multiplier for the first spiral vase layers. Decimal values are distributed across rounded reinforcement loops."
+
+msgid "★ Vase reinforcement height"
+msgstr "★ Vase reinforcement height"
+
+msgid "Height of spiral vase reinforcement. A plain number means layer count; a value ending with mm means model height."
+msgstr "Height of spiral vase reinforcement. A plain number means layer count; a value ending with mm means model height."
+
+msgid "layers or mm"
+msgstr "layers or mm"
+
+msgid "★ Fade vase reinforcement"
+msgstr "★ Fade vase reinforcement"
+
+msgid "Linearly fade the spiral vase reinforcement multiplier over the reinforcement height."
+msgstr "Linearly fade the spiral vase reinforcement multiplier over the reinforcement height."
+
+msgid "★ Fade end multiplier"
+msgstr "★ Fade end multiplier"
+
+msgid "Spiral vase reinforcement multiplier at the end of the reinforcement height."
+msgstr "Spiral vase reinforcement multiplier at the end of the reinforcement height."
+
 msgid "Smooth Spiral"
 msgstr "Плавна спіраль"
 
@@ -14408,6 +14440,9 @@ msgstr "—use-firmware-retraction несумісний з —wipe"
 #, c-format, boost-format
 msgid " doesn't work at 100%% density "
 msgstr " не працює на 100%% щільності "
+
+msgid "Invalid spiral vase reinforcement height: "
+msgstr "Invalid spiral vase reinforcement height: "
 
 msgid "Invalid value when spiral vase mode is enabled: "
 msgstr "Неприпустиме значення при увімкненому режимі спіральної вази: "
@@ -15450,6 +15485,9 @@ msgstr "Створити з шаблону"
 msgid "Create Based on Current Printer"
 msgstr "Створити на основі поточного принтера"
 
+msgid "Rectangle"
+msgstr "Прямокутник"
+
 msgid "wiki"
 msgstr "вікі"
 
@@ -15479,9 +15517,6 @@ msgstr ""
 
 msgid "Can't find my nozzle diameter"
 msgstr ""
-
-msgid "Rectangle"
-msgstr "Прямокутник"
 
 msgid "Printable Space"
 msgstr "Простір для друку"
@@ -17160,6 +17195,24 @@ msgid ""
 "First-Time-Right Reliability\n"
 "Less babysitting, more predictable output. Example: a small farm running PETG parts avoids 'fail at hour 6' surprises and keeps batches on schedule."
 msgstr ""
+
+#~ msgid "Brim-object gap"
+#~ msgstr "Зазор між каймою та об'єктом"
+
+#~ msgid "A gap between innermost brim line and object can make brim be removed more easily"
+#~ msgstr "Зазор між внутрішньою лінією кайми та предметом може сприяти легшому зняттю кайми"
+
+#~ msgid "Vase reinforcement multiplier"
+#~ msgstr "Vase reinforcement multiplier"
+
+#~ msgid "Vase reinforcement height"
+#~ msgstr "Vase reinforcement height"
+
+#~ msgid "Fade vase reinforcement"
+#~ msgstr "Fade vase reinforcement"
+
+#~ msgid "Fade end multiplier"
+#~ msgstr "Fade end multiplier"
 
 #~ msgid "Shift+"
 #~ msgstr "Shift+"
@@ -19079,9 +19132,6 @@ msgstr ""
 #~ "There are currently no identical spare consumables available, and automatic replenishment is currently not possible. \n"
 #~ "(Currently supporting automatic supply of consumables with the same brand, material type, and color)"
 #~ msgstr "Зараз немає доступних ідентичних запасних матеріалів, і автоматичне поповнення зараз неможливе. (Зараз підтримується автоматичне поповнення споживних матеріалів такої ж марки, типу матеріалу і кольору.)"
-
-#~ msgid "Load shape from STL..."
-#~ msgstr "Завантажити форму з STL..."
 
 #~ msgid ""
 #~ "Bed temperature of other layer is lower than bed temperature of initial layer for more than %d degree centigrade.\n"

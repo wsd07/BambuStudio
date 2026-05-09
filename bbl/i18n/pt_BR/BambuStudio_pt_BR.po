@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bambu Studio\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-28 17:39+0800\n"
+"POT-Creation-Date: 2026-05-09 21:03+0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -3910,6 +3910,9 @@ msgstr "Retangular"
 msgid "Circular"
 msgstr "Circlar"
 
+msgid "Load shape from STL..."
+msgstr "Carregar forma do STL..."
+
 msgid "Settings"
 msgstr "Configurações"
 
@@ -4157,8 +4160,8 @@ msgstr ""
 "a profundidade da trava deve ser menor que a profundidade da pele.\n"
 "Redefinir para 50%% da profundidade da pele"
 
-msgid "Spiral mode only works when wall loops is 1, support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."
-msgstr "O modo espiral só funciona quando os loops de parede são 1, o suporte está desabilitado, a detecção de aglomeração por sondagem está desabilitada, as camadas de casca superior são 0, a densidade de preenchimento esparso é 0, o tipo de timelapse é tradicional e a velocidade de suavização da parede na direção z é falsa."
+msgid "Spiral mode only works when support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."
+msgstr ""
 
 msgid " But machines with I3 structure will not generate timelapse videos."
 msgstr " Mas máquinas com estrutura I3 não gerarão vídeos em timelapse."
@@ -11917,14 +11920,12 @@ msgstr "S"
 msgid "Cooling overhang threshold"
 msgstr "Limite de saliência de resfriamento"
 
-#, c-format
 msgid "Force cooling fan to be specific speed when overhang degree of printed part exceeds this value. Expressed as percentage which indicides how much width of the line without support from lower layer. 0% means forcing cooling for all outer wall no matter how much overhang degree"
 msgstr "Força o ventilador de resfriamento a atingir uma velocidade específica quando o grau de saliência da peça impressa exceder esse valor. Expresso como porcentagem que indica a largura da linha sem suporte da camada inferior. 0%% significa forçar o resfriamento de toda a parede externa, independentemente do grau de saliência"
 
 msgid "Overhang threshold for participating cooling"
 msgstr "Limite de saliência para resfriamento participante"
 
-#, c-format
 msgid "Decide which overhang part join the cooling function to slow down the speed.Expressed as percentage which indicides how much width of the line without support from lower layer. 100% means forcing cooling for all outer wall no matter how much overhang degree"
 msgstr "Decida qual parte da saliência se junta à função de resfriamento para diminuir a velocidade. Expresso como porcentagem, que indica a largura da linha sem suporte da camada inferior. 100%% significa forçar o resfriamento de todas as paredes externas, não importa o grau de saliência."
 
@@ -12040,11 +12041,17 @@ msgstr "Tipo de brim"
 msgid "This controls the generation of the brim at outer and/or inner side of models. Auto means the brim width is analysed and calculated automatically."
 msgstr "Isso controla a geração da aba no lado externo e/ou interno dos modelos. Automático significa que a largura da aba é analisada e calculada automaticamente."
 
-msgid "Brim-object gap"
-msgstr "Lacuna Brim-object"
+msgid "★ Brim-object gap"
+msgstr "★ Brim-object gap"
 
-msgid "A gap between innermost brim line and object can make brim be removed more easily"
-msgstr "Uma lacuna entre a linha mais interna da aba e o objeto pode fazer com que a aba seja removida com mais facilidade"
+msgid "A gap between innermost brim line and object can make brim be removed more easily. Negative values make the brim overlap the object."
+msgstr "A gap between innermost brim line and object can make brim be removed more easily. Negative values make the brim overlap the object."
+
+msgid "★ Brim layers"
+msgstr "★ Brim layers"
+
+msgid "The number of layers on which the brim will be printed."
+msgstr "The number of layers on which the brim will be printed."
 
 msgid "Compatible machine"
 msgstr "Máquina compatível"
@@ -12322,7 +12329,6 @@ msgstr "Padrão de linha do preenchimento da superfície inferior, não do preen
 msgid "Bottom surface density"
 msgstr "Densidade da superfície inferior"
 
-#, c-format
 msgid "Density of bottom surface infill, 100% means a fully solid filled top layer.Lower values create a textured bottom surface, Intended for aesthetic or functional purposes, not to fix issues such as over-extrusion.WARNING: Lowering this value may negatively affect bed adhesion."
 msgstr "Densidade do preenchimento da superfície inferior, 100%% significa uma camada superior completamente sólida. Valores menores criam uma superfície inferior texturizada, destinada a fins estéticos ou funcionais, não para corrigir problemas como sobreextrusão. AVISO: Diminuir este valor pode prejudicar a adesão da base."
 
@@ -12820,7 +12826,6 @@ msgstr "Ângulo para padrão de preenchimento esparso, que controla o início ou
 msgid "Sparse infill density"
 msgstr "Densidade de preenchimento esparsa"
 
-#, c-format
 msgid "Density of internal sparse infill, 100% means solid throughout"
 msgstr "Essa é a densidade do preenchimento interno esparso. 100%% significa que o objeto será sólido em toda a sua extensão."
 
@@ -13909,6 +13914,33 @@ msgstr "Velocidade de preenchimento interno sólido, não da superfície superio
 msgid "Spiralize smooths out the z moves of the outer contour. And turns a solid model into a single walled print with solid bottom layers. The final generated model has no seam"
 msgstr "A espiralização suaviza os movimentos z do contorno externo. E transforma um modelo sólido em uma única impressão de parede com camadas inferiores sólidas. O modelo final gerado não tem costura"
 
+msgid "★ Vase reinforcement multiplier"
+msgstr "★ Vase reinforcement multiplier"
+
+msgid "Additional inward wall multiplier for the first spiral vase layers. Decimal values are distributed across rounded reinforcement loops."
+msgstr "Multiplicador de paredes adicionais para dentro nas primeiras camadas em vaso espiral. Valores decimais sao distribuidos pelos loops de reforco arredondados."
+
+msgid "★ Vase reinforcement height"
+msgstr "★ Vase reinforcement height"
+
+msgid "Height of spiral vase reinforcement. A plain number means layer count; a value ending with mm means model height."
+msgstr "Altura do reforco em vaso espiral. Um numero sem unidade significa numero de camadas; um valor terminado em mm significa altura do modelo."
+
+msgid "layers or mm"
+msgstr "camadas ou mm"
+
+msgid "★ Fade vase reinforcement"
+msgstr "★ Fade vase reinforcement"
+
+msgid "Linearly fade the spiral vase reinforcement multiplier over the reinforcement height."
+msgstr "Reduz linearmente o multiplicador de reforco do vaso espiral ao longo da altura de reforco."
+
+msgid "★ Fade end multiplier"
+msgstr "★ Fade end multiplier"
+
+msgid "Spiral vase reinforcement multiplier at the end of the reinforcement height."
+msgstr "Multiplicador de reforco do vaso espiral no fim da altura de reforco."
+
 msgid "Smooth Spiral"
 msgstr "Espiral lisa"
 
@@ -14543,6 +14575,9 @@ msgstr "--use-firmware-retraction não é compatível com --wipe"
 #, c-format, boost-format
 msgid " doesn't work at 100%% density "
 msgstr "não funciona em 100%% densidade"
+
+msgid "Invalid spiral vase reinforcement height: "
+msgstr "Altura de reforco do vaso invalida: "
 
 msgid "Invalid value when spiral vase mode is enabled: "
 msgstr "Valor inválido quando o modo de vaso espiral está ativado: "
@@ -15607,6 +15642,9 @@ msgstr "Criar a partir do modelo"
 msgid "Create Based on Current Printer"
 msgstr "Criar com base na impressora atual"
 
+msgid "Rectangle"
+msgstr "Retângulo"
+
 msgid "wiki"
 msgstr "wiki"
 
@@ -15636,9 +15674,6 @@ msgstr "Diâmetro do bico personalizado de entrada"
 
 msgid "Can't find my nozzle diameter"
 msgstr "Não consigo encontrar o diâmetro do meu bico"
-
-msgid "Rectangle"
-msgstr "Retângulo"
 
 msgid "Printable Space"
 msgstr "Espaço imprimível"
@@ -17352,6 +17387,27 @@ msgid ""
 msgstr ""
 "Confiabilidade na Primeira Tentativa\n"
 "Menos supervisão, saída mais previsível. Exemplo: uma pequena fazenda produzindo peças de PETG evita surpresas de \"falha na hora 6\" e mantém os lotes no cronograma."
+
+#~ msgid "Brim-object gap"
+#~ msgstr "Lacuna Brim-object"
+
+#~ msgid "A gap between innermost brim line and object can make brim be removed more easily"
+#~ msgstr "Uma lacuna entre a linha mais interna da aba e o objeto pode fazer com que a aba seja removida com mais facilidade"
+
+#~ msgid "Vase reinforcement multiplier"
+#~ msgstr "Multiplicador de reforco do vaso"
+
+#~ msgid "Vase reinforcement height"
+#~ msgstr "Altura do reforco do vaso"
+
+#~ msgid "Fade vase reinforcement"
+#~ msgstr "Reduzir reforco do vaso"
+
+#~ msgid "Fade end multiplier"
+#~ msgstr "Multiplicador final da reducao"
+
+#~ msgid "Spiral mode only works when wall loops is 1, support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."
+#~ msgstr "O modo espiral só funciona quando os loops de parede são 1, o suporte está desabilitado, a detecção de aglomeração por sondagem está desabilitada, as camadas de casca superior são 0, a densidade de preenchimento esparso é 0, o tipo de timelapse é tradicional e a velocidade de suavização da parede na direção z é falsa."
 
 #~ msgid "Shift+"
 #~ msgstr "Shift+"
@@ -19985,9 +20041,6 @@ msgstr ""
 
 #~ msgid "Load process/machine settings from the specified file"
 #~ msgstr "Carregar configurações de processo/máquina a partir do arquivo especificado"
-
-#~ msgid "Load shape from STL..."
-#~ msgstr "Carregar forma do STL..."
 
 #~ msgid "Load slicing data"
 #~ msgstr "Carregar dados de fatiamento"

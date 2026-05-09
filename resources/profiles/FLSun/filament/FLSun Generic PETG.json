@@ -1,0 +1,19 @@
+{
+    "type": "filament",
+    "filament_id": "GFG99",
+    "setting_id": "GFSA04",
+    "name": "FLSun Generic PETG",
+    "from": "system",
+    "instantiation": "true",
+    "inherits": "fdm_filament_pet",
+    "filament_flow_ratio": [
+        "0.95"
+    ],
+    "filament_max_volumetric_speed": [
+        "10"
+    ],
+    "compatible_printers": [
+        "FLSun Super Racer 0.4 nozzle",
+        "FLSun V400 0.4 nozzle"
+    ]
+}

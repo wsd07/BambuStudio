@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bambu Studio\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-28 17:39+0800\n"
+"POT-Creation-Date: 2026-05-09 21:03+0800\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3903,6 +3903,9 @@ msgstr "Rektangulär"
 msgid "Circular"
 msgstr "Cirkulär"
 
+msgid "Load shape from STL..."
+msgstr "Ladda form ifrån STL..."
+
 msgid "Settings"
 msgstr "Inställningar"
 
@@ -4151,8 +4154,8 @@ msgstr ""
 "låsdjupet bör vara mindre än ytdjupet.\n"
 "Återställ till 50%% ytdjup"
 
-msgid "Spiral mode only works when wall loops is 1, support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."
-msgstr "Spiral läge fungerar bara när väggslingor är 1, support är inaktiverat, klump detektering genom probe är inaktiverad, övre skalet lager är 0, gles utfyllnad densitet är 0, timelapse typ är traditionell och utjämning vägghastighet i z riktning är falsk."
+msgid "Spiral mode only works when support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."
+msgstr ""
 
 msgid " But machines with I3 structure will not generate timelapse videos."
 msgstr " Maskiner med I3-struktur kan dock inte generera timelapse videor."
@@ -11911,14 +11914,12 @@ msgstr "s"
 msgid "Cooling overhang threshold"
 msgstr "Överhängs kylningens tröskel"
 
-#, c-format
 msgid "Force cooling fan to be specific speed when overhang degree of printed part exceeds this value. Expressed as percentage which indicides how much width of the line without support from lower layer. 0% means forcing cooling for all outer wall no matter how much overhang degree"
 msgstr "Tvinga kylfläkten att vara en specifik hastighet när överhängs graden av objektets del överstiger detta värde. Detta uttrycks som en procentsats som anger hur mycket bredden på linjen utan stöd från det nedre lagret. 0%% betyder tvinga kylning för all yttervägg oavsett överhängs grad."
 
 msgid "Overhang threshold for participating cooling"
 msgstr "Gränsvärde för överhäng vid deltagande kylning"
 
-#, c-format
 msgid "Decide which overhang part join the cooling function to slow down the speed.Expressed as percentage which indicides how much width of the line without support from lower layer. 100% means forcing cooling for all outer wall no matter how much overhang degree"
 msgstr "Bestäm vilken överhängsdel som ansluter till kylfunktionen för att sänka hastigheten. Detta uttrycks som en procentsats som anger hur bred linjen är utan support från ett lägre skikt. 100%% innebär tvingande kylning för hela ytterväggen oavsett graden av överhäng."
 
@@ -12034,11 +12035,17 @@ msgstr "Brim typ"
 msgid "This controls the generation of the brim at outer and/or inner side of models. Auto means the brim width is analysed and calculated automatically."
 msgstr "Detta styr genereringen av brim på modellens yttre och/eller inre sida. Auto innebär att brim bredd analyseras och beräknas automatiskt."
 
-msgid "Brim-object gap"
-msgstr "Avstånd mellan brim och modell"
+msgid "★ Brim-object gap"
+msgstr "★ Brim-object gap"
 
-msgid "A gap between innermost brim line and object can make brim be removed more easily"
-msgstr "Detta skapar mellanrum mellan innersta brim linjen och objektet, detta kan underlätta borttagandet av brim."
+msgid "A gap between innermost brim line and object can make brim be removed more easily. Negative values make the brim overlap the object."
+msgstr "A gap between innermost brim line and object can make brim be removed more easily. Negative values make the brim overlap the object."
+
+msgid "★ Brim layers"
+msgstr "★ Brim layers"
+
+msgid "The number of layers on which the brim will be printed."
+msgstr "The number of layers on which the brim will be printed."
 
 msgid "Compatible machine"
 msgstr "Kompatibel maskin"
@@ -12316,7 +12323,6 @@ msgstr "Linjemönster för bottenytans fyllning, inte bridge fyllning"
 msgid "Bottom surface density"
 msgstr "Botten ytans densitet"
 
-#, c-format
 msgid "Density of bottom surface infill, 100% means a fully solid filled top layer.Lower values create a textured bottom surface, Intended for aesthetic or functional purposes, not to fix issues such as over-extrusion.WARNING: Lowering this value may negatively affect bed adhesion."
 msgstr "Densiteten av botten ytans utfyllnad, 100%% innebär en helt solid fyllt topp skikt. Lägre värden skapar en strukturerad bottenyta, avsedd för estetiska eller funktionella ändamål, inte för att åtgärda problem som över extrudering. VIKTIGT: Att sänka detta värde kan påverka vidhäftningen på bädden."
 
@@ -12814,7 +12820,6 @@ msgstr "Detta är vinkeln för sparsam ifyllnads mönster, som styr start- eller
 msgid "Sparse infill density"
 msgstr "Sparsam ifyllnads densitet"
 
-#, c-format
 msgid "Density of internal sparse infill, 100% means solid throughout"
 msgstr "Densiteten av ifyllnad. 100%% betyder att objektet blir solid rakt igenom"
 
@@ -13905,6 +13910,33 @@ msgstr "Hastighet för inre solid ifyllnad, ej topp och botten ytorna"
 msgid "Spiralize smooths out the z moves of the outer contour. And turns a solid model into a single walled print with solid bottom layers. The final generated model has no seam"
 msgstr "Detta möjliggör spiral formning, vilket jämnar ut Z rörelserna i den yttre konturen och förvandlar en solid modell till en enda vägg med solid botten lager. Den slutliga genererade modellen har ingen söm."
 
+msgid "★ Vase reinforcement multiplier"
+msgstr "★ Vase reinforcement multiplier"
+
+msgid "Additional inward wall multiplier for the first spiral vase layers. Decimal values are distributed across rounded reinforcement loops."
+msgstr "Additional inward wall multiplier for the first spiral vase layers. Decimal values are distributed across rounded reinforcement loops."
+
+msgid "★ Vase reinforcement height"
+msgstr "★ Vase reinforcement height"
+
+msgid "Height of spiral vase reinforcement. A plain number means layer count; a value ending with mm means model height."
+msgstr "Height of spiral vase reinforcement. A plain number means layer count; a value ending with mm means model height."
+
+msgid "layers or mm"
+msgstr "layers or mm"
+
+msgid "★ Fade vase reinforcement"
+msgstr "★ Fade vase reinforcement"
+
+msgid "Linearly fade the spiral vase reinforcement multiplier over the reinforcement height."
+msgstr "Linearly fade the spiral vase reinforcement multiplier over the reinforcement height."
+
+msgid "★ Fade end multiplier"
+msgstr "★ Fade end multiplier"
+
+msgid "Spiral vase reinforcement multiplier at the end of the reinforcement height."
+msgstr "Spiral vase reinforcement multiplier at the end of the reinforcement height."
+
 msgid "Smooth Spiral"
 msgstr "Slät spiral"
 
@@ -14540,6 +14572,9 @@ msgstr "--använd-firmware-retraction är inte kompatibel med --wipe"
 #, c-format, boost-format
 msgid " doesn't work at 100%% density "
 msgstr " fungerar inte vid 100%% densitet "
+
+msgid "Invalid spiral vase reinforcement height: "
+msgstr "Invalid spiral vase reinforcement height: "
 
 msgid "Invalid value when spiral vase mode is enabled: "
 msgstr "Ogiltigt värde när spiralvas läget är aktiverat: "
@@ -15606,6 +15641,9 @@ msgstr "Skapa från mall"
 msgid "Create Based on Current Printer"
 msgstr "Skapa baserat på aktuell printer"
 
+msgid "Rectangle"
+msgstr "Rektangel"
+
 msgid "wiki"
 msgstr "wiki"
 
@@ -15635,9 +15673,6 @@ msgstr "Ange anpassad nozzle diameter"
 
 msgid "Can't find my nozzle diameter"
 msgstr "Hittar inte min nozzle diameter"
-
-msgid "Rectangle"
-msgstr "Rektangel"
 
 msgid "Printable Space"
 msgstr "Utskriftsbar yta"
@@ -17347,6 +17382,27 @@ msgid ""
 msgstr ""
 "Tillförlitlighet vid första försöket\n"
 "Mindre barnpassning, mer förutsägbar produktion. Exempel: en liten farm som kör PETG delar undviker överraskningar med \"fel vid timme 6\" och håller batcherna enligt schemat."
+
+#~ msgid "Brim-object gap"
+#~ msgstr "Avstånd mellan brim och modell"
+
+#~ msgid "A gap between innermost brim line and object can make brim be removed more easily"
+#~ msgstr "Detta skapar mellanrum mellan innersta brim linjen och objektet, detta kan underlätta borttagandet av brim."
+
+#~ msgid "Vase reinforcement multiplier"
+#~ msgstr "Vase reinforcement multiplier"
+
+#~ msgid "Vase reinforcement height"
+#~ msgstr "Vase reinforcement height"
+
+#~ msgid "Fade vase reinforcement"
+#~ msgstr "Fade vase reinforcement"
+
+#~ msgid "Fade end multiplier"
+#~ msgstr "Fade end multiplier"
+
+#~ msgid "Spiral mode only works when wall loops is 1, support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."
+#~ msgstr "Spiral läge fungerar bara när väggslingor är 1, support är inaktiverat, klump detektering genom probe är inaktiverad, övre skalet lager är 0, gles utfyllnad densitet är 0, timelapse typ är traditionell och utjämning vägghastighet i z riktning är falsk."
 
 #~ msgid "Shift+"
 #~ msgstr "Shift+"
@@ -20084,9 +20140,6 @@ msgstr ""
 
 #~ msgid "Load process/machine settings from the specified file"
 #~ msgstr "Ladda process/maskin inställningar ifrån vald fil"
-
-#~ msgid "Load shape from STL..."
-#~ msgstr "Ladda form ifrån STL..."
 
 #~ msgid "Load slicing data"
 #~ msgstr "Ladda berednings data"

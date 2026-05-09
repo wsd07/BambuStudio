@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Slic3rPE\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-28 17:39+0800\n"
+"POT-Creation-Date: 2026-05-09 21:03+0800\n"
 "PO-Revision-Date: 2026-05-07 16:00+0800\n"
 "Last-Translator: Jiang Yue <maze1024@gmail.com>\n"
 "Language-Team: \n"
@@ -3892,6 +3892,9 @@ msgstr "矩形"
 msgid "Circular"
 msgstr "圓"
 
+msgid "Load shape from STL..."
+msgstr "從STL檔案載入形狀..."
+
 msgid "Settings"
 msgstr "設定"
 
@@ -4125,8 +4128,8 @@ msgstr ""
 "互鎖深度應該比表皮深度小,\n"
 "重設為表皮深度的一半"
 
-msgid "Spiral mode only works when wall loops is 1, support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."
-msgstr "花瓶模式僅在以下條件下可用：牆壁環數設定為 1，支撐禁用，觸碰裹頭檢測禁用，頂殼層數為 0，稀疏填充密度為 0，延時攝影型別為傳統，並且 Z 方向牆速度平滑不啟用。"
+msgid "Spiral mode only works when support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."
+msgstr ""
 
 msgid " But machines with I3 structure will not generate timelapse videos."
 msgstr "但是I3結構的機器將不會生成延時影片。"
@@ -4929,23 +4932,19 @@ msgstr "請透過將物體完全移動到盤上或移出盤來解決問題，並
 
 #, boost-format
 msgid "Assembly's bounding box is too large ( max size >= %1% in ) which may cause rendering issues.\n"
-msgstr ""
-"組件的邊界框過大（最大尺寸 >= %1% 英吋），可能導致渲染問題。\n"
+msgstr "組件的邊界框過大（最大尺寸 >= %1% 英吋），可能導致渲染問題。\n"
 
 #, boost-format
 msgid "Assembly's bounding box is too large ( max size >= %1% mm ) which may cause rendering issues.\n"
-msgstr ""
-"組件的邊界框過大（最大尺寸 >= %1% mm），可能導致渲染問題。\n"
+msgstr "組件的邊界框過大（最大尺寸 >= %1% mm），可能導致渲染問題。\n"
 
 #, boost-format
 msgid "Following objects are too far ( distance >= %1% in ) from the original of the world coordinate system:\n"
-msgstr ""
-"以下物件距離世界座標系原點太遠（距離 >= %1% 英吋）：\n"
+msgstr "以下物件距離世界座標系原點太遠（距離 >= %1% 英吋）：\n"
 
 #, boost-format
 msgid "Following objects are too far ( distance >= %1% mm ) from the original of the world coordinate system:\n"
-msgstr ""
-"以下物件距離世界座標系原點太遠（距離 >= %1% mm）：\n"
+msgstr "以下物件距離世界座標系原點太遠（距離 >= %1% mm）：\n"
 
 #, c-format, boost-format
 msgid "The position or size of some models exceeds the %s's printable range."
@@ -7056,8 +7055,7 @@ msgstr "%s噴嘴不可以列印%s"
 
 #, boost-format
 msgid "Mixing %1% with %2% in printing is not recommended.\n"
-msgstr ""
-"不建議在列印中混用 %1% 與 %2%。\n"
+msgstr "不建議在列印中混用 %1% 與 %2%。\n"
 
 msgid " nozzle"
 msgstr "噴嘴"
@@ -7298,8 +7296,7 @@ msgid "Enabling traditional timelapse photography may cause surface imperfection
 msgstr "開啟傳統模式延時攝影可能導致表面瑕疵，建議修改為平滑模式。"
 
 msgid "\n"
-msgstr ""
-"\n"
+msgstr "\n"
 
 msgid "(Path to modify: 'Process'-'Others'-'Special Mode'-'Timelapsed')"
 msgstr "（修改路徑：“工藝”-”其他“-”特殊模式“-”延時攝影“）"
@@ -11857,14 +11854,12 @@ msgstr "秒"
 msgid "Cooling overhang threshold"
 msgstr "冷卻懸空閾值"
 
-#, c-format
 msgid "Force cooling fan to be specific speed when overhang degree of printed part exceeds this value. Expressed as percentage which indicides how much width of the line without support from lower layer. 0% means forcing cooling for all outer wall no matter how much overhang degree"
 msgstr "當列印件的懸空程度超過此值時，強制冷卻風扇達到特定速度。用百分比表示，表明沒有下層支撐的線的寬度是多少。0%%意味著無論懸垂程度如何，都要對所有外壁強制冷卻。"
 
 msgid "Overhang threshold for participating cooling"
 msgstr "參與冷卻降速的懸垂閾值"
 
-#, c-format
 msgid "Decide which overhang part join the cooling function to slow down the speed.Expressed as percentage which indicides how much width of the line without support from lower layer. 100% means forcing cooling for all outer wall no matter how much overhang degree"
 msgstr "決定多少閾值的懸垂參與冷卻降速.用百分比表示超出線寬的範圍。"
 
@@ -11980,11 +11975,17 @@ msgstr "Brim型別"
 msgid "This controls the generation of the brim at outer and/or inner side of models. Auto means the brim width is analysed and calculated automatically."
 msgstr "該引數控制在模型的外側和/或內側生成brim。自動是指自動分析和計算邊框的寬度。"
 
-msgid "Brim-object gap"
-msgstr "Brim與模型的間隙"
+msgid "★ Brim-object gap"
+msgstr "★ Brim 與模型間隙"
 
-msgid "A gap between innermost brim line and object can make brim be removed more easily"
-msgstr "在brim和模型之間設定間隙，能夠讓brim更容易剝離"
+msgid "A gap between innermost brim line and object can make brim be removed more easily. Negative values make the brim overlap the object."
+msgstr "最內側 Brim 線與模型之間的間隙，可讓 Brim 更容易移除。負值會讓 Brim 與模型重疊。"
+
+msgid "★ Brim layers"
+msgstr "★ Brim 層數"
+
+msgid "The number of layers on which the brim will be printed."
+msgstr "列印 Brim 的層數。"
 
 msgid "Compatible machine"
 msgstr "相容的機器"
@@ -12262,7 +12263,6 @@ msgstr "除了橋接外的底面填充的走線圖案"
 msgid "Bottom surface density"
 msgstr "底面密度"
 
-#, c-format
 msgid "Density of bottom surface infill, 100% means a fully solid filled top layer.Lower values create a textured bottom surface, Intended for aesthetic or functional purposes, not to fix issues such as over-extrusion.WARNING: Lowering this value may negatively affect bed adhesion."
 msgstr "底面的填充密度，100%%表示底面為完全實心填充。較低數值會產生紋理化的底面，旨在滿足美觀或功能需求，而非用於修復諸如過度擠出等問題。警告：降低此值可能會負面影響列印平臺附著性。"
 
@@ -12763,7 +12763,6 @@ msgstr "稀疏填充圖案的角度，決定走線的開始或整體方向。"
 msgid "Sparse infill density"
 msgstr "稀疏填充密度"
 
-#, c-format
 msgid "Density of internal sparse infill, 100% means solid throughout"
 msgstr "稀疏填充密度, 100%% 意味著完全實心。"
 
@@ -13854,6 +13853,33 @@ msgstr "內部實心填充的速度，不是頂面和底面。"
 msgid "Spiralize smooths out the z moves of the outer contour. And turns a solid model into a single walled print with solid bottom layers. The final generated model has no seam"
 msgstr "沿著物件的外輪廓螺旋上升，將實體模型轉變為只有底面實心層和側面單層牆壁的列印。最後生成的列印件沒有接縫。"
 
+msgid "★ Vase reinforcement multiplier"
+msgstr "★ 花瓶增強倍數"
+
+msgid "Additional inward wall multiplier for the first spiral vase layers. Decimal values are distributed across rounded reinforcement loops."
+msgstr ""
+
+msgid "★ Vase reinforcement height"
+msgstr "★ 花瓶增強高度"
+
+msgid "Height of spiral vase reinforcement. A plain number means layer count; a value ending with mm means model height."
+msgstr ""
+
+msgid "layers or mm"
+msgstr ""
+
+msgid "★ Fade vase reinforcement"
+msgstr "★ 漸消花瓶增強"
+
+msgid "Linearly fade the spiral vase reinforcement multiplier over the reinforcement height."
+msgstr ""
+
+msgid "★ Fade end multiplier"
+msgstr "★ 漸消結束倍數"
+
+msgid "Spiral vase reinforcement multiplier at the end of the reinforcement height."
+msgstr ""
+
 msgid "Smooth Spiral"
 msgstr "平滑旋轉花瓶"
 
@@ -14488,6 +14514,9 @@ msgstr "--use-firmware-retraction 與 --wipe 不相容"
 #, c-format, boost-format
 msgid " doesn't work at 100%% density "
 msgstr " 填充圖案不支援 100%% 密度"
+
+msgid "Invalid spiral vase reinforcement height: "
+msgstr ""
 
 msgid "Invalid value when spiral vase mode is enabled: "
 msgstr "旋轉花瓶模式下非法的值"
@@ -15550,6 +15579,9 @@ msgstr "基於模板建立"
 msgid "Create Based on Current Printer"
 msgstr "基於當前印表機建立"
 
+msgid "Rectangle"
+msgstr "矩形"
+
 msgid "wiki"
 msgstr "wiki"
 
@@ -15579,9 +15611,6 @@ msgstr "請輸入自定義噴嘴直徑"
 
 msgid "Can't find my nozzle diameter"
 msgstr "無法找到我的噴嘴直徑"
-
-msgid "Rectangle"
-msgstr "矩形"
 
 msgid "Printable Space"
 msgstr "可列印形狀"
@@ -17274,6 +17303,15 @@ msgid ""
 msgstr ""
 "一次成功的可靠性\n"
 "更少盯機，更可預測的產出。例如：小型列印農場列印 PETG 零件可降低意外失敗的機率，讓批次按計劃推進。"
+
+#~ msgid "Spiral mode only works when wall loops is 1, support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."
+#~ msgstr "花瓶模式僅在以下條件下可用：牆壁環數設定為 1，支撐禁用，觸碰裹頭檢測禁用，頂殼層數為 0，稀疏填充密度為 0，延時攝影型別為傳統，並且 Z 方向牆速度平滑不啟用。"
+
+#~ msgid "Brim-object gap"
+#~ msgstr "Brim與模型的間隙"
+
+#~ msgid "A gap between innermost brim line and object can make brim be removed more easily"
+#~ msgstr "在brim和模型之間設定間隙，能夠讓brim更容易剝離"
 
 #~ msgid "There is a G-code script present in the current 3mf file, please verify the content of the script."
 #~ msgstr "當前 3mf 檔案中存在 G-code 指令碼，請核實指令碼內容。"
@@ -20976,9 +21014,6 @@ msgstr ""
 #~ msgstr ""
 #~ "當前無相同的備用耗材，暫時無法自動補給。\n"
 #~ "（目前支援品牌、材料種類、顏色相同的耗材的自動補給）"
-
-#~ msgid "Load shape from STL..."
-#~ msgstr "從STL檔案載入形狀..."
 
 #~ msgid "Invalid nozzle diameter"
 #~ msgstr "非法噴嘴口徑"

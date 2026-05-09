@@ -22,6 +22,7 @@
 #include <math.h>
 #include <utility>
 #include <string_view>
+#include <memory>
 
 #include <boost/algorithm/string.hpp>
 #include <boost/algorithm/string/find.hpp>
@@ -79,6 +80,29 @@ namespace Slic3r {
 #define _(s) Slic3r::I18N::translate(s)
 #define _L(s) Slic3r::I18N::translate(s)
 
+static void adjust_brim_entity_layer_height(ExtrusionEntity &entity, const float layer_height)
+{
+    auto adjust_path = [layer_height](ExtrusionPath &path) {
+        if (path.height > 0.f && layer_height > 0.f) {
+            path.mm3_per_mm *= double(layer_height / path.height);
+            path.height = layer_height;
+        }
+    };
+
+    if (auto *path = dynamic_cast<ExtrusionPath *>(&entity)) {
+        adjust_path(*path);
+    } else if (auto *loop = dynamic_cast<ExtrusionLoop *>(&entity)) {
+        for (ExtrusionPath &path : loop->paths)
+            adjust_path(path);
+    } else if (auto *multipath = dynamic_cast<ExtrusionMultiPath *>(&entity)) {
+        for (ExtrusionPath &path : multipath->paths)
+            adjust_path(path);
+    } else if (auto *collection = dynamic_cast<ExtrusionEntityCollection *>(&entity)) {
+        for (ExtrusionEntity *child : collection->entities)
+            adjust_brim_entity_layer_height(*child, layer_height);
+    }
+}
+
 #define NOZZLE_ID_FOR_GCODE(RESULT, ID) RESULT->is_support_dynamic_nozzle_map() ? ID : -1
 
 static const float g_min_purge_volume = 100.f;
@@ -89,6 +113,11 @@ static const double smooth_speed_step = 10;
 static const double not_split_length = scale_(1.0);
 static const double max_step_length = scale_(1.0); // cut path if the path too long
 static const double min_step_length = scale_(0.4); // cut step
+
+static bool is_flsun_printer_model(const PrintConfig &config)
+{
+    return config.printer_model.value.rfind("FLSun", 0) == 0;
+}
 
 Vec2d travel_point_1;
 Vec2d travel_point_2;
@@ -1920,17 +1949,18 @@ namespace DoExport {
         const bool                   has_wipe_tower,
 	    const WipeTowerData         &wipe_tower_data,
 	    const std::vector<Extruder> &extruders,
-		PrintStatistics 		    &print_statistics)
+		PrintStatistics 		    &print_statistics,
+        bool                         format_filament_stats = false)
     {
 		std::string filament_stats_string_out;
 
 	    print_statistics.clear();
         print_statistics.total_toolchanges = std::max(0, wipe_tower_data.number_of_toolchanges);
 	    if (! extruders.empty()) {
-	        //std::pair<std::string, unsigned int> out_filament_used_mm ("; filament used [mm] = ", 0);
-	        //std::pair<std::string, unsigned int> out_filament_used_cm3("; filament used [cm3] = ", 0);
-	        //std::pair<std::string, unsigned int> out_filament_used_g  ("; filament used [g] = ", 0);
-	        //std::pair<std::string, unsigned int> out_filament_cost    ("; filament cost = ", 0);
+	        std::pair<std::string, unsigned int> out_filament_used_mm ("; filament used [mm] = ", 0);
+	        std::pair<std::string, unsigned int> out_filament_used_cm3("; filament used [cm3] = ", 0);
+	        std::pair<std::string, unsigned int> out_filament_used_g  ("; filament used [g] = ", 0);
+	        std::pair<std::string, unsigned int> out_filament_cost    ("; filament cost = ", 0);
 	        for (const Extruder &extruder : extruders) {
 	            double used_filament   = extruder.used_filament() + (has_wipe_tower ? wipe_tower_data.used_filament[extruder.id()] : 0.f);
 	            double extruded_volume = extruder.extruded_volume() + (has_wipe_tower ? wipe_tower_data.used_filament[extruder.id()] * 2.4052f : 0.f); // assumes 1.75mm filament diameter
@@ -1950,14 +1980,18 @@ namespace DoExport {
 	                dst.first += buf;
 	                ++ dst.second;
 	            };
-	            //append(out_filament_used_mm,  "%.2lf", used_filament);
-	            //append(out_filament_used_cm3, "%.2lf", extruded_volume * 0.001);
+                if (format_filament_stats) {
+	                append(out_filament_used_mm,  "%.2lf", used_filament);
+	                append(out_filament_used_cm3, "%.2lf", extruded_volume * 0.001);
+                }
 	            if (filament_weight > 0.) {
 	                print_statistics.total_weight = print_statistics.total_weight + filament_weight;
-	                //append(out_filament_used_g, "%.2lf", filament_weight);
+                    if (format_filament_stats)
+	                    append(out_filament_used_g, "%.2lf", filament_weight);
 	                if (filament_cost > 0.) {
 	                    print_statistics.total_cost = print_statistics.total_cost + filament_cost;
-	                    //append(out_filament_cost, "%.2lf", filament_cost);
+                        if (format_filament_stats)
+	                        append(out_filament_cost, "%.2lf", filament_cost);
 	                }
 	            }
 	            print_statistics.total_used_filament += used_filament;
@@ -1965,12 +1999,16 @@ namespace DoExport {
 	            print_statistics.total_wipe_tower_filament += has_wipe_tower ? used_filament - extruder.used_filament() : 0.;
 	            print_statistics.total_wipe_tower_cost += has_wipe_tower ? (extruded_volume - extruder.extruded_volume())* extruder.filament_density() * 0.001 * extruder.filament_cost() * 0.001 : 0.;
 	        }
-	        //filament_stats_string_out += out_filament_used_mm.first;
-            //filament_stats_string_out += "\n" + out_filament_used_cm3.first;
-            //if (out_filament_used_g.second)
-                //filament_stats_string_out += "\n" + out_filament_used_g.first;
-            //if (out_filament_cost.second)
-            //    filament_stats_string_out += "\n" + out_filament_cost.first;
+            if (format_filament_stats) {
+	            filament_stats_string_out += out_filament_used_mm.first;
+                filament_stats_string_out += "\n" + out_filament_used_cm3.first;
+                if (out_filament_used_g.second)
+                    filament_stats_string_out += "\n" + out_filament_used_g.first;
+                if (out_filament_cost.second)
+                    filament_stats_string_out += "\n" + out_filament_cost.first;
+                if (!filament_stats_string_out.empty())
+                    filament_stats_string_out += "\n";
+            }
         }
         return filament_stats_string_out;
     }
@@ -2230,15 +2268,14 @@ void GCode::_do_export(Print& print, GCodeOutputStream &file, ThumbnailsGenerato
 
     file.write_format("; HEADER_BLOCK_END\n\n");
 
-    //BBS: write global config at the beginning of gcode file because printer need these config information
-    // Append full config, delimited by two 'phony' configuration keys CONFIG_BLOCK_START and CONFIG_BLOCK_END.
-    // The delimiters are structured as configuration key / value pairs to be parsable by older versions of PrusaSlicer G-code viewer.
-    {
+    const bool is_flsun_printer = is_flsun_printer_model(print.config());
+
+    auto write_config_block = [&]() {
         file.write("; CONFIG_BLOCK_START\n");
         std::string full_config;
         DynamicPrintConfig print_cfg_temp = print.full_print_config();
 
-        {//correct the flush_volumes_matrix with flush_multiplier values
+        { //correct the flush_volumes_matrix with flush_multiplier values
             std::vector<double> temp_cfg_flush_multiplier   = print_cfg_temp.option<ConfigOptionFloats>("flush_multiplier")->values;
             std::vector<double> temp_flush_volumes_matrix = print_cfg_temp.option<ConfigOptionFloats>("flush_volumes_matrix")->values;
             auto                temp_filament_color         = print_cfg_temp.option<ConfigOptionStrings>("filament_colour")->values;
@@ -2267,7 +2304,14 @@ void GCode::_do_export(Print& print, GCodeOutputStream &file, ThumbnailsGenerato
         if (!full_config.empty())
             file.write(full_config);
         file.write("; CONFIG_BLOCK_END\n\n");
-    }
+    };
+
+    //BBS: write global config at the beginning of gcode file because printer need these config information.
+    // FLSun firmware/UI expects the FlsunSlicer order: header, thumbnails, executable, then config.
+    // Append full config, delimited by two 'phony' configuration keys CONFIG_BLOCK_START and CONFIG_BLOCK_END.
+    // The delimiters are structured as configuration key / value pairs to be parsable by older versions of PrusaSlicer G-code viewer.
+    if (!is_flsun_printer)
+        write_config_block();
 
     //BBS: add plate id into thumbnail render logic
     if(!print.is_BBL_Printer()){
@@ -2301,7 +2345,7 @@ void GCode::_do_export(Print& print, GCodeOutputStream &file, ThumbnailsGenerato
     file.write_format("; EXECUTABLE_BLOCK_START\n");
 
     // OrcaSlicer: Orca's implementation for skipping object, for klipper firmware printer only
-    if (this->config().exclude_object && print.config().gcode_flavor.value == gcfKlipper)
+    if (!is_flsun_printer && this->config().exclude_object && print.config().gcode_flavor.value == gcfKlipper)
         file.write(set_object_info(&print));
 
     // adds tags for time estimators
@@ -3103,8 +3147,14 @@ void GCode::_do_export(Print& print, GCodeOutputStream &file, ThumbnailsGenerato
         has_wipe_tower, print.wipe_tower_data(),
         m_writer.extruders(),
         // Modifies
-        print.m_print_statistics));
+        print.m_print_statistics,
+        is_flsun_printer));
     print.m_print_statistics.initial_tool = initial_extruder_id;
+
+    if (is_flsun_printer) {
+        file.write_format(";%s\n", GCodeProcessor::reserved_tag(GCodeProcessor::ETags::Estimated_Printing_Time_Placeholder).c_str());
+        write_config_block();
+    }
 
     bool activate_air_filtration = false;
     for (const auto& extruder : m_writer.extruders())
@@ -4040,7 +4090,6 @@ GCode::LayerResult GCode::process_layer(
         if (enable) {
             for (const LayerRegion *layer_region : layer.regions())
                 if (size_t(layer_region->region().config().bottom_shell_layers.value) > layer.id() ||
-                    layer_region->perimeters.items_count() > 1u ||
                     layer_region->fills.items_count() > 0) {
                     enable = false;
                     break;
@@ -4809,7 +4858,7 @@ GCode::LayerResult GCode::process_layer(
                 }
                 //Orca's implementation for skipping object, for klipper firmware printer only
                 bool reset_e = false;
-                if (this->config().exclude_object && print.config().gcode_flavor.value == gcfKlipper) {
+                if (!is_flsun_printer_model(print.config()) && this->config().exclude_object && print.config().gcode_flavor.value == gcfKlipper) {
                     gcode += std::string("EXCLUDE_OBJECT_START NAME=") +
                         get_instance_name(&instance_to_print.print_object, inst.id) + "\n";
                     reset_e = true;
@@ -4828,18 +4877,32 @@ GCode::LayerResult GCode::process_layer(
                     m_layer = layers[instance_to_print.layer_id].support_layer;
                     m_object_layer_over_raft = false;
 
-                    //BBS: print supports' brims first
-                    if (this->m_objSupportsWithBrim.find(instance_to_print.print_object.id()) != this->m_objSupportsWithBrim.end() && !print_wipe_extrusions) {
-                        this->set_origin(0., 0.);
-                        m_avoid_crossing_perimeters.use_external_mp();
-                        for (const ExtrusionEntity* ee : print.m_supportBrimMap.at(instance_to_print.print_object.id()).entities) {
-                            gcode += this->extrude_entity(*ee, "brim", NOZZLE_CONFIG(support_speed));
-                        }
-                        m_avoid_crossing_perimeters.use_external_mp(false);
-                        // Allow a straight travel move to the first object point.
-                        m_avoid_crossing_perimeters.disable_once();
-                        this->m_objSupportsWithBrim.erase(instance_to_print.print_object.id());
-                    }
+	                    // BBS: print supports' brims first. Multi-layer brim reuses the first generated brim geometry
+	                    // and rescales extrusion for each target layer height.
+	                    const ObjectID support_brim_object_id = instance_to_print.print_object.id();
+	                    const size_t   support_brim_layer_id  = layer_to_print.support_layer->id();
+	                    const size_t   support_brim_layers    = size_t(std::max(1, instance_to_print.print_object.config().brim_layers.value));
+	                    auto           support_brim_it        = print.m_supportBrimMap.find(support_brim_object_id);
+	                    if (support_brim_layer_id < support_brim_layers &&
+	                        support_brim_it != print.m_supportBrimMap.end() &&
+	                        !support_brim_it->second.entities.empty() &&
+	                        this->m_objSupportsWithBrimPrinted.insert({ support_brim_object_id, support_brim_layer_id }).second &&
+	                        !print_wipe_extrusions) {
+	                        this->set_origin(0., 0.);
+	                        m_avoid_crossing_perimeters.use_external_mp();
+	                        for (const ExtrusionEntity* ee : support_brim_it->second.entities) {
+	                            if (support_brim_layer_id == 0) {
+	                                gcode += this->extrude_entity(*ee, "brim", NOZZLE_CONFIG(support_speed));
+	                            } else {
+	                                std::unique_ptr<ExtrusionEntity> brim_entity(ee->clone());
+	                                adjust_brim_entity_layer_height(*brim_entity, float(layer_to_print.support_layer->height));
+	                                gcode += this->extrude_entity(*brim_entity, "brim", NOZZLE_CONFIG(support_speed));
+	                            }
+	                        }
+	                        m_avoid_crossing_perimeters.use_external_mp(false);
+	                        // Allow a straight travel move to the first object point.
+	                        m_avoid_crossing_perimeters.disable_once();
+	                    }
                     // When starting a new object, use the external motion planner for the first travel move.
                     const Point& offset = instance_to_print.print_object.instances()[instance_to_print.instance_id].shift;
                     std::pair<const PrintObject*, Point> this_object_copy(&instance_to_print.print_object, offset);
@@ -4874,20 +4937,34 @@ GCode::LayerResult GCode::process_layer(
                 // Sequential tool path ordering of multiple parts within the same object, aka. perimeter tracking (#5511)
                 for (ObjectByExtruder::Island &island : instance_to_print.object_by_extruder.islands) {
                     const auto& by_region_specific = is_anything_overridden ? island.by_region_per_copy(by_region_per_copy_cache, static_cast<unsigned int>(instance_to_print.instance_id), extruder_id, print_wipe_extrusions != 0) : island.by_region;
-                    //BBS: add brim by obj by extruder
-                    if (first_layer) {
-                        if (this->m_objsWithBrim.find(instance_to_print.print_object.id()) != this->m_objsWithBrim.end() && !print_wipe_extrusions) {
-                            this->set_origin(0., 0.);
-                            m_avoid_crossing_perimeters.use_external_mp();
-                            for (const ExtrusionEntity* ee : print.m_brimMap.at(instance_to_print.print_object.id()).entities) {
-                                gcode += this->extrude_entity(*ee, "brim", NOZZLE_CONFIG(support_speed));
-                            }
-                            m_avoid_crossing_perimeters.use_external_mp(false);
-                            // Allow a straight travel move to the first object point.
-                            m_avoid_crossing_perimeters.disable_once();
-                            this->m_objsWithBrim.erase(instance_to_print.print_object.id());
-                        }
-                    }
+	                    // BBS: add brim by obj by extruder. Multi-layer brim reuses the first generated brim geometry
+	                    // and rescales extrusion for each target layer height.
+	                    {
+	                        const ObjectID object_brim_object_id = instance_to_print.print_object.id();
+	                        const size_t   object_brim_layer_id  = layer_to_print.layer()->id();
+	                        const size_t   object_brim_layers    = size_t(std::max(1, instance_to_print.print_object.config().brim_layers.value));
+	                        auto           object_brim_it        = print.m_brimMap.find(object_brim_object_id);
+	                        if (object_brim_layer_id < object_brim_layers &&
+	                            object_brim_it != print.m_brimMap.end() &&
+	                            !object_brim_it->second.entities.empty() &&
+	                            this->m_objsWithBrimPrinted.insert({ object_brim_object_id, object_brim_layer_id }).second &&
+	                            !print_wipe_extrusions) {
+	                            this->set_origin(0., 0.);
+	                            m_avoid_crossing_perimeters.use_external_mp();
+	                            for (const ExtrusionEntity* ee : object_brim_it->second.entities) {
+	                                if (object_brim_layer_id == 0) {
+	                                    gcode += this->extrude_entity(*ee, "brim", NOZZLE_CONFIG(support_speed));
+	                                } else {
+	                                    std::unique_ptr<ExtrusionEntity> brim_entity(ee->clone());
+	                                    adjust_brim_entity_layer_height(*brim_entity, float(layer_to_print.layer()->height));
+	                                    gcode += this->extrude_entity(*brim_entity, "brim", NOZZLE_CONFIG(support_speed));
+	                                }
+	                            }
+	                            m_avoid_crossing_perimeters.use_external_mp(false);
+	                            // Allow a straight travel move to the first object point.
+	                            m_avoid_crossing_perimeters.disable_once();
+	                        }
+	                    }
                     // When starting a new object, use the external motion planner for the first travel move.
                     const Point& offset = instance_to_print.print_object.instances()[instance_to_print.instance_id].shift;
                     std::pair<const PrintObject*, Point> this_object_copy(&instance_to_print.print_object, offset);
@@ -4964,7 +5041,7 @@ GCode::LayerResult GCode::process_layer(
                     m_writer.set_object_end_str(end_str);
                 }
                 //Orca's implementation for skipping object, for klipper firmware printer only
-                if (this->config().exclude_object && print.config().gcode_flavor.value == gcfKlipper) {
+                if (!is_flsun_printer_model(print.config()) && this->config().exclude_object && print.config().gcode_flavor.value == gcfKlipper) {
                     gcode += std::string("EXCLUDE_OBJECT_END NAME=") +
                         get_instance_name(&instance_to_print.print_object, inst.id) + "\n";
                     reset_e = true;
@@ -5054,7 +5131,7 @@ GCode::LayerResult GCode::process_layer(
                     m_writer.set_object_start_str(start_str);
                 }
                 bool reset_e = false;
-                if (this->config().exclude_object && print.config().gcode_flavor.value == gcfKlipper) {
+                if (!is_flsun_printer_model(print.config()) && this->config().exclude_object && print.config().gcode_flavor.value == gcfKlipper) {
                     gcode += std::string("EXCLUDE_OBJECT_START NAME=")
                         + get_instance_name(&instance_to_print.print_object, inst.id) + "\n";
                     reset_e = true;
@@ -5118,7 +5195,7 @@ GCode::LayerResult GCode::process_layer(
                         end_str += "M625\n";
                     m_writer.set_object_end_str(end_str);
                 }
-                if (this->config().exclude_object && print.config().gcode_flavor.value == gcfKlipper) {
+                if (!is_flsun_printer_model(print.config()) && this->config().exclude_object && print.config().gcode_flavor.value == gcfKlipper) {
                     gcode += std::string("EXCLUDE_OBJECT_END NAME=")
                         + get_instance_name(&instance_to_print.print_object, inst.id) + "\n";
                     reset_e = true;
@@ -5454,10 +5531,14 @@ std::string GCode::extrude_loop(ExtrusionLoop loop, std::string description, dou
     // or randomize if requested
     Point last_pos = this->last_pos();
     bool  satisfy_scarf_seam_angle_threshold = false;
-    if (!m_config.spiral_mode && description == "perimeter") {
+    if (description == "perimeter") {
         assert(m_layer != nullptr);
-        bool is_outer_wall_first = m_config.wall_sequence == WallSequence::OuterInner;
-        m_seam_placer.place_seam(m_layer, loop, is_outer_wall_first, this->last_pos(), satisfy_scarf_seam_angle_threshold);
+        if (m_config.spiral_mode) {
+            m_seam_placer.place_spiral_vase_seam(m_layer, loop, this->last_pos());
+        } else {
+            bool is_outer_wall_first = m_config.wall_sequence == WallSequence::OuterInner;
+            m_seam_placer.place_seam(m_layer, loop, is_outer_wall_first, this->last_pos(), satisfy_scarf_seam_angle_threshold);
+        }
     } else
         loop.split_at(last_pos, false);
 
@@ -5479,8 +5560,9 @@ std::string GCode::extrude_loop(ExtrusionLoop loop, std::string description, dou
     // clip the path to avoid the extruder to get exactly on the first point of the loop;
     // if polyline was shorter than the clipping distance we'd get a null polyline, so
     // we discard it in that case
+    const bool   spiral_vase_perimeter = m_config.spiral_mode && description == "perimeter";
     const double seam_gap    = scale_(EXTRUDER_CONFIG(nozzle_diameter)) * (m_config.seam_gap.value / 100);
-    const double clip_length = m_enable_loop_clipping && !enable_seam_slope ? seam_gap : 0;
+    const double clip_length = m_enable_loop_clipping && !enable_seam_slope && !spiral_vase_perimeter ? seam_gap : 0;
      // get paths
     ExtrusionPaths paths;
     bool set_holes_and_compensation_speed = loop.get_customize_flag() == CustomizeFlag::cfCircleCompensation && !loop.has_overhang_paths();
@@ -7578,7 +7660,7 @@ std::string GCode::set_object_info(Print* print)
         size_t inst_id = 0;
         for (PrintInstance& inst : object->instances()) {
             inst.id = inst_id++;
-            if (this->config().exclude_object && print->config().gcode_flavor.value == gcfKlipper) {
+            if (!is_flsun_printer_model(print->config()) && this->config().exclude_object && print->config().gcode_flavor.value == gcfKlipper) {
                 auto bbox = inst.get_bounding_box();
                 auto center = print->translate_to_print_space(Vec2d(bbox.center().x(), bbox.center().y()));
                 gcode << "EXCLUDE_OBJECT_DEFINE NAME=" << get_instance_name(object, inst) << " CENTER=" << center.x()

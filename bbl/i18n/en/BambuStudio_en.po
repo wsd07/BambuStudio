@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bambu Studio\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-28 17:39+0800\n"
+"POT-Creation-Date: 2026-05-09 21:03+0800\n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3879,6 +3879,9 @@ msgstr "Rectangular"
 msgid "Circular"
 msgstr "Circular"
 
+msgid "Load shape from STL..."
+msgstr "Load shape from STL..."
+
 msgid "Settings"
 msgstr "Settings"
 
@@ -4114,7 +4117,7 @@ msgstr ""
 "lock depth should smaller than skin depth.\n"
 "Reset to half of skin depth"
 
-msgid "Spiral mode only works when wall loops is 1, support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."
+msgid "Spiral mode only works when support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."
 msgstr ""
 
 msgid " But machines with I3 structure will not generate timelapse videos."
@@ -11761,14 +11764,12 @@ msgstr "s"
 msgid "Cooling overhang threshold"
 msgstr "Cooling overhang threshold"
 
-#, c-format
 msgid "Force cooling fan to be specific speed when overhang degree of printed part exceeds this value. Expressed as percentage which indicides how much width of the line without support from lower layer. 0% means forcing cooling for all outer wall no matter how much overhang degree"
 msgstr "Force cooling fan to be a specific speed when overhang degree of printed part exceeds this value. This is expressed as a percentage which indicates how much width of the line without support from lower layer. 0% means forcing cooling for all outer wall no matter the overhang degree."
 
 msgid "Overhang threshold for participating cooling"
 msgstr ""
 
-#, c-format
 msgid "Decide which overhang part join the cooling function to slow down the speed.Expressed as percentage which indicides how much width of the line without support from lower layer. 100% means forcing cooling for all outer wall no matter how much overhang degree"
 msgstr "Sets the overhang percentage (unsupported width ratio) required to activate print speed-reducing cooling. At 100%% cooling engages for all outer walls regardless of overhang angle"
 
@@ -11884,11 +11885,17 @@ msgstr "Brim type"
 msgid "This controls the generation of the brim at outer and/or inner side of models. Auto means the brim width is analysed and calculated automatically."
 msgstr "This controls the generation of the brim at outer and/or inner side of models. Auto means the brim width is analyzed and calculated automatically."
 
-msgid "Brim-object gap"
-msgstr "Brim-object gap"
+msgid "★ Brim-object gap"
+msgstr "★ Brim-object gap"
 
-msgid "A gap between innermost brim line and object can make brim be removed more easily"
-msgstr "This creates a gap between the innermost brim line and the object and can make the brim easier to remove."
+msgid "A gap between innermost brim line and object can make brim be removed more easily. Negative values make the brim overlap the object."
+msgstr "A gap between innermost brim line and object can make brim be removed more easily. Negative values make the brim overlap the object."
+
+msgid "★ Brim layers"
+msgstr "★ Brim layers"
+
+msgid "The number of layers on which the brim will be printed."
+msgstr "The number of layers on which the brim will be printed."
 
 msgid "Compatible machine"
 msgstr "Compatible machine"
@@ -12148,7 +12155,6 @@ msgstr "This is the line pattern of bottom surface infill, not including bridge 
 msgid "Bottom surface density"
 msgstr ""
 
-#, c-format
 msgid "Density of bottom surface infill, 100% means a fully solid filled top layer.Lower values create a textured bottom surface, Intended for aesthetic or functional purposes, not to fix issues such as over-extrusion.WARNING: Lowering this value may negatively affect bed adhesion."
 msgstr ""
 
@@ -12644,7 +12650,6 @@ msgstr "This is the angle for sparse infill pattern, which controls the start or
 msgid "Sparse infill density"
 msgstr "Sparse infill density"
 
-#, c-format
 msgid "Density of internal sparse infill, 100% means solid throughout"
 msgstr "This is the density of internal sparse infill. 100% means that the object will be solid throughout."
 
@@ -13725,6 +13730,33 @@ msgstr "This is the speed for internal solid infill, not including the top or bo
 msgid "Spiralize smooths out the z moves of the outer contour. And turns a solid model into a single walled print with solid bottom layers. The final generated model has no seam"
 msgstr "This enables spiraling, which smooths out the Z moves of the outer contour and turns a solid model into a single walled print with solid bottom layers. The final generated model has no seam."
 
+msgid "★ Vase reinforcement multiplier"
+msgstr "★ Vase reinforcement multiplier"
+
+msgid "Additional inward wall multiplier for the first spiral vase layers. Decimal values are distributed across rounded reinforcement loops."
+msgstr "Additional inward wall multiplier for the first spiral vase layers. Decimal values are distributed across rounded reinforcement loops."
+
+msgid "★ Vase reinforcement height"
+msgstr "★ Vase reinforcement height"
+
+msgid "Height of spiral vase reinforcement. A plain number means layer count; a value ending with mm means model height."
+msgstr "Height of spiral vase reinforcement. A plain number means layer count; a value ending with mm means model height."
+
+msgid "layers or mm"
+msgstr "layers or mm"
+
+msgid "★ Fade vase reinforcement"
+msgstr "★ Fade vase reinforcement"
+
+msgid "Linearly fade the spiral vase reinforcement multiplier over the reinforcement height."
+msgstr "Linearly fade the spiral vase reinforcement multiplier over the reinforcement height."
+
+msgid "★ Fade end multiplier"
+msgstr "★ Fade end multiplier"
+
+msgid "Spiral vase reinforcement multiplier at the end of the reinforcement height."
+msgstr "Spiral vase reinforcement multiplier at the end of the reinforcement height."
+
 msgid "Smooth Spiral"
 msgstr "Smooth Spiral"
 
@@ -14357,6 +14389,9 @@ msgstr "--use-firmware-retraction is not compatible with --wipe"
 #, c-format, boost-format
 msgid " doesn't work at 100%% density "
 msgstr " doesn't work at 100%% density "
+
+msgid "Invalid spiral vase reinforcement height: "
+msgstr "Invalid spiral vase reinforcement height: "
 
 msgid "Invalid value when spiral vase mode is enabled: "
 msgstr "Invalid value when spiral vase mode is enabled: "
@@ -15389,6 +15424,9 @@ msgstr "Create from Template"
 msgid "Create Based on Current Printer"
 msgstr "Create Based on Current Printer"
 
+msgid "Rectangle"
+msgstr "Rectangle"
+
 msgid "wiki"
 msgstr "wiki"
 
@@ -15418,9 +15456,6 @@ msgstr ""
 
 msgid "Can't find my nozzle diameter"
 msgstr ""
-
-msgid "Rectangle"
-msgstr "Rectangle"
 
 msgid "Printable Space"
 msgstr "Printable Space"
@@ -17096,6 +17131,24 @@ msgid ""
 "First-Time-Right Reliability\n"
 "Less babysitting, more predictable output. Example: a small farm running PETG parts avoids 'fail at hour 6' surprises and keeps batches on schedule."
 msgstr ""
+
+#~ msgid "Brim-object gap"
+#~ msgstr "Brim-object gap"
+
+#~ msgid "A gap between innermost brim line and object can make brim be removed more easily"
+#~ msgstr "This creates a gap between the innermost brim line and the object and can make the brim easier to remove."
+
+#~ msgid "Vase reinforcement multiplier"
+#~ msgstr "Vase reinforcement multiplier"
+
+#~ msgid "Vase reinforcement height"
+#~ msgstr "Vase reinforcement height"
+
+#~ msgid "Fade vase reinforcement"
+#~ msgstr "Fade vase reinforcement"
+
+#~ msgid "Fade end multiplier"
+#~ msgstr "Fade end multiplier"
 
 #~ msgid "Shift+"
 #~ msgstr "Shift+"
@@ -18886,9 +18939,6 @@ msgstr ""
 
 #~ msgid "Load process/machine settings from the specified file"
 #~ msgstr "Load process/machine settings from the specified file"
-
-#~ msgid "Load shape from STL..."
-#~ msgstr "Load shape from STL..."
 
 #~ msgid "Load slicing data"
 #~ msgstr "Load slicing data"

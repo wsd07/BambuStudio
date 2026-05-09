@@ -904,6 +904,7 @@ PRINT_CONFIG_CLASS_DEFINE(
     PrintObjectConfig,
 
     ((ConfigOptionFloat,               brim_object_gap))
+    ((ConfigOptionInt,                 brim_layers))
     ((ConfigOptionEnum<BrimType>,      brim_type))
     ((ConfigOptionFloat,               brim_width))
     ((ConfigOptionBool,                bridge_no_support))
@@ -1439,6 +1440,10 @@ PRINT_CONFIG_CLASS_DERIVED_DEFINE(
     ((ConfigOptionInt,                skirt_loops))
     ((ConfigOptionInts,               slow_down_layer_time))
     ((ConfigOptionBool,               spiral_mode))
+    ((ConfigOptionFloat,              spiral_vase_reinforcement_multiplier))
+    ((ConfigOptionString,             spiral_vase_reinforcement_height))
+    ((ConfigOptionBool,               spiral_vase_reinforcement_fade))
+    ((ConfigOptionFloat,              spiral_vase_reinforcement_fade_end_multiplier))
     ((ConfigOptionBool,               spiral_mode_smooth))
     ((ConfigOptionFloatOrPercent,     spiral_mode_max_xy_smoothing))
     ((ConfigOptionInt,                standby_temperature_delta))

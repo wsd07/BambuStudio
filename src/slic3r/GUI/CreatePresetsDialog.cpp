@@ -3,6 +3,7 @@
 #include <set>
 #include <unordered_map>
 #include <unordered_set>
+#include <cmath>
 #include <openssl/md5.h>
 #include <openssl/evp.h>
 #include <boost/nowide/cstdio.hpp>
@@ -410,6 +411,21 @@ static wxString get_curr_radio_type(std::vector<std::pair<RadioBox *, wxString>>
         }
     }
     return "";
+}
+
+static std::vector<Vec2d> make_circular_bed_shape(double diameter)
+{
+    const double radius = diameter / 2.0;
+    const double two_pi = 2.0 * std::acos(-1.0);
+    const int    edges  = 72;
+
+    std::vector<Vec2d> points;
+    points.reserve(edges);
+    for (int i = 1; i <= edges; ++i) {
+        const double angle = i * two_pi / edges;
+        points.emplace_back(radius * std::cos(angle), radius * std::sin(angle));
+    }
+    return points;
 }
 
 static std::string calculate_md5(const std::string &input)
@@ -1483,6 +1499,8 @@ CreatePrinterPresetDialog::CreatePrinterPresetDialog(wxWindow *parent)
     m_create_type.create_nozzle     = _L("Create Nozzle for Existing Printer");
     m_create_type.base_template     = _L("Create from Template");
     m_create_type.base_curr_printer = _L("Create Based on Current Printer");
+    m_bed_shape_type.rectangle      = _L("Rectangle");
+    m_bed_shape_type.circle         = _L("Circle");
     this->SetBackgroundColour(*wxWHITE);
     SetSizeHints(wxDefaultSize, wxDefaultSize);
 
@@ -1872,10 +1890,12 @@ wxBoxSizer *CreatePrinterPresetDialog::create_bed_shape_item(wxWindow *parent)
     optionSizer->SetMinSize(OPTION_SIZE);
     horizontal_sizer->Add(optionSizer, 0, wxEXPAND | wxALL | wxALIGN_CENTER_VERTICAL, FromDIP(10));
 
-    wxBoxSizer *  bed_shape_sizer       = new wxBoxSizer(wxVERTICAL);
-    wxStaticText *static_bed_shape_text = new wxStaticText(parent, wxID_ANY, _L("Rectangle"), wxDefaultPosition, wxDefaultSize);
-    bed_shape_sizer->Add(static_bed_shape_text, 0, wxEXPAND | wxALL, 0);
+    wxBoxSizer *bed_shape_sizer = new wxBoxSizer(wxHORIZONTAL);
+    bed_shape_sizer->Add(create_radio_item(m_bed_shape_type.rectangle, parent, wxEmptyString, m_bed_shape_btns), 0, wxEXPAND | wxALL | wxALIGN_CENTER_VERTICAL, 0);
+    bed_shape_sizer->Add(0, 0, 0, wxEXPAND | wxLEFT, FromDIP(20));
+    bed_shape_sizer->Add(create_radio_item(m_bed_shape_type.circle, parent, wxEmptyString, m_bed_shape_btns), 0, wxEXPAND | wxALL | wxALIGN_CENTER_VERTICAL, 0);
     horizontal_sizer->Add(bed_shape_sizer, 0, wxEXPAND | wxALL | wxALIGN_CENTER_VERTICAL, FromDIP(10));
+    select_curr_radiobox(m_bed_shape_btns, 0);
 
     return horizontal_sizer;
 }
@@ -2366,6 +2386,9 @@ void CreatePrinterPresetDialog::generate_process_presets_data(std::vector<Preset
 
 void CreatePrinterPresetDialog::update_preset_list_size()
 {
+    if (!m_scrolled_preset_window || !m_preset_template_panel || !m_page2)
+        return;
+
     m_scrolled_preset_window->Freeze();
     m_preset_template_panel->SetSizerAndFit(m_filament_sizer);
     m_preset_template_panel->SetMinSize(wxSize(FromDIP(660), -1));
@@ -3261,6 +3284,7 @@ bool CreatePrinterPresetDialog::save_printable_area_config(Preset *preset)
     DynamicPrintConfig &config                     = preset->config;
 
     if (curr_selected_printer_type == m_create_type.create_printer) {
+        const bool is_circular_bed = get_curr_radio_type(m_bed_shape_btns) == m_bed_shape_type.circle;
         double x = 0;
         m_bed_size_x_input->GetTextCtrl()->GetValue().ToDouble(&x);
         double y = 0;
@@ -3270,18 +3294,23 @@ bool CreatePrinterPresetDialog::save_printable_area_config(Preset *preset)
         double dy = 0;
         m_bed_origin_y_input->GetTextCtrl()->GetValue().ToDouble(&dy);
         // range check begin
-        if (x == 0 || y == 0) { return false; }
-        double x0 = 0.0;
-        double y0 = 0.0;
-        double x1 = x;
-        double y1 = y;
-        if (dx >= x || dy >= y) { return false; }
-        x0 -= dx;
-        x1 -= dx;
-        y0 -= dy;
-        y1 -= dy;
-        // range check end
-        std::vector<Vec2d> points = {Vec2d(x0, y0), Vec2d(x1, y0), Vec2d(x1, y1), Vec2d(x0, y1)};
+        if (x == 0 || (!is_circular_bed && y == 0)) { return false; }
+        std::vector<Vec2d> points;
+        if (is_circular_bed) {
+            points = make_circular_bed_shape(x);
+        } else {
+            double x0 = 0.0;
+            double y0 = 0.0;
+            double x1 = x;
+            double y1 = y;
+            if (dx >= x || dy >= y) { return false; }
+            x0 -= dx;
+            x1 -= dx;
+            y0 -= dy;
+            y1 -= dy;
+            // range check end
+            points = {Vec2d(x0, y0), Vec2d(x1, y0), Vec2d(x1, y1), Vec2d(x0, y1)};
+        }
         config.set_key_value("printable_area", new ConfigOptionPoints(points));
 
         double max_print_height = 0;
@@ -3306,6 +3335,7 @@ bool CreatePrinterPresetDialog::save_printable_area_config(Preset *preset)
 }
 
 bool CreatePrinterPresetDialog::check_printable_area() {
+    const bool is_circular_bed = get_curr_radio_type(m_bed_shape_btns) == m_bed_shape_type.circle;
     double x = 0;
     m_bed_size_x_input->GetTextCtrl()->GetValue().ToDouble(&x);
     double y = 0;
@@ -3315,9 +3345,11 @@ bool CreatePrinterPresetDialog::check_printable_area() {
     double dy = 0;
     m_bed_origin_y_input->GetTextCtrl()->GetValue().ToDouble(&dy);
     // range check begin
-    if (x == 0 || y == 0) {
+    if (x == 0 || (!is_circular_bed && y == 0)) {
         return false;
     }
+    if (is_circular_bed)
+        return true;
     double x0 = 0.0;
     double y0 = 0.0;
     double x1 = x;

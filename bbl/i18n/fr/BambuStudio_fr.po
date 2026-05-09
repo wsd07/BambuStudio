@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bambu Studio\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-28 17:39+0800\n"
+"POT-Creation-Date: 2026-05-09 21:03+0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -3897,6 +3897,9 @@ msgstr "Rectangle"
 msgid "Circular"
 msgstr "Circulaire"
 
+msgid "Load shape from STL..."
+msgstr "Charger une forme depuis un STL..."
+
 msgid "Settings"
 msgstr "Réglages"
 
@@ -4145,8 +4148,8 @@ msgstr ""
 "la profondeur du verrouillage doit être inférieure à la profondeur de la peau.\n"
 "Réinitialiser à 50%% de la profondeur de la peau"
 
-msgid "Spiral mode only works when wall loops is 1, support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."
-msgstr "Le mode spirale ne fonctionne que lorsque le nombre de parois est égal à 1, que les supports sont désactivés, que la détection d'encrassement par palpage est désactivée, que le nombre de couches supérieures est de 0, que la densité de remplissage est de 0, que le type de timelapse est « traditionnel » et que le lissage de la vitesse des parois dans la direction Z est désactivé."
+msgid "Spiral mode only works when support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."
+msgstr ""
 
 msgid " But machines with I3 structure will not generate timelapse videos."
 msgstr " Mais les machines avec une structure I3 ne généreront pas de vidéos timelapse."
@@ -10150,7 +10153,7 @@ msgid "Note"
 msgstr ""
 
 msgid "The color has been selected, you can choose OK to continue or manually adjust it."
-msgstr "La couleur a été sélectionnée, vous pouvez choisir OK pour continuer ou l 'ajuster manuellement."
+msgstr "La couleur a été sélectionnée, vous pouvez choisir OK pour continuer ou l"
 
 msgctxt "ObjImport"
 msgid "Original"
@@ -11895,14 +11898,12 @@ msgstr "s"
 msgid "Cooling overhang threshold"
 msgstr "Ventiler les surplombs dépassant"
 
-#, c-format
 msgid "Force cooling fan to be specific speed when overhang degree of printed part exceeds this value. Expressed as percentage which indicides how much width of the line without support from lower layer. 0% means forcing cooling for all outer wall no matter how much overhang degree"
 msgstr "Forcer le ventilateur de refroidissement à atteindre une vitesse spécifique lorsque le degré de surplomb de la pièce imprimée dépasse cette valeur. Ceci est exprimé en pourcentage qui indique la largeur de la ligne sans support provenant de la couche inférieure. 0%% signifie un refroidissement forcé de toutes les parois extérieures, quel que soit le degré de surplomb."
 
 msgid "Overhang threshold for participating cooling"
 msgstr "Seuil de dépassement pour le refroidissement actif"
 
-#, c-format
 msgid "Decide which overhang part join the cooling function to slow down the speed.Expressed as percentage which indicides how much width of the line without support from lower layer. 100% means forcing cooling for all outer wall no matter how much overhang degree"
 msgstr "Décider quelle partie en surplomb rejoint la fonction de refroidissement pour ralentir la vitesse. Exprimé en pourcentage, il indique la largeur de la ligne sans le soutien de la couche inférieure. 100%% signifie que le refroidissement est forcé pour toutes les parois extérieures, quel que soit le degré de surplomb."
 
@@ -12018,11 +12019,17 @@ msgstr "Type de bordure"
 msgid "This controls the generation of the brim at outer and/or inner side of models. Auto means the brim width is analysed and calculated automatically."
 msgstr "Cela contrôle la génération de bordure extérieur et/ou intérieur des modèles. Auto signifie que la largeur de bordure est analysée et calculée automatiquement."
 
-msgid "Brim-object gap"
-msgstr "Écart bord-objet"
+msgid "★ Brim-object gap"
+msgstr "★ Brim-object gap"
 
-msgid "A gap between innermost brim line and object can make brim be removed more easily"
-msgstr "Cela crée un espace entre la ligne la plus intérieure du bord et l'objet et peut rendre le bord plus facile à enlever."
+msgid "A gap between innermost brim line and object can make brim be removed more easily. Negative values make the brim overlap the object."
+msgstr "A gap between innermost brim line and object can make brim be removed more easily. Negative values make the brim overlap the object."
+
+msgid "★ Brim layers"
+msgstr "★ Brim layers"
+
+msgid "The number of layers on which the brim will be printed."
+msgstr "The number of layers on which the brim will be printed."
 
 msgid "Compatible machine"
 msgstr "Dispositif compatible"
@@ -12300,7 +12307,6 @@ msgstr "Motif de ligne du remplissage de la surface inférieure, pas du rempliss
 msgid "Bottom surface density"
 msgstr "Densité de la surface inférieure"
 
-#, c-format
 msgid "Density of bottom surface infill, 100% means a fully solid filled top layer.Lower values create a textured bottom surface, Intended for aesthetic or functional purposes, not to fix issues such as over-extrusion.WARNING: Lowering this value may negatively affect bed adhesion."
 msgstr "Densité du remplissage de la surface inférieure, 100%% signifie une couche supérieure entièrement solide. Des valeurs plus basses créent une surface inférieure texturée. Destiné à des fins esthétiques ou fonctionnelles, pas pour corriger des problèmes tels que la surextrusion. AVERTISSEMENT : Réduire cette valeur peut nuire à l'adhérence au plateau."
 
@@ -12798,7 +12804,6 @@ msgstr "Il s'agit de l'angle du motif de remplissage interne, qui contrôle le d
 msgid "Sparse infill density"
 msgstr "Densité de remplissage"
 
-#, c-format
 msgid "Density of internal sparse infill, 100% means solid throughout"
 msgstr "Densité du remplissage interne, 100%% signifie plein"
 
@@ -13889,6 +13894,33 @@ msgstr "Vitesse du remplissage solide interne uniquement, pas de la surface sup�
 msgid "Spiralize smooths out the z moves of the outer contour. And turns a solid model into a single walled print with solid bottom layers. The final generated model has no seam"
 msgstr "L'impression se fera de manière continue tout en élevant le Z, contrairement à l'impression classique couche par couche. Cela transformera un modèle solide en une impression à paroi unique sans remplissage et sans jointure."
 
+msgid "★ Vase reinforcement multiplier"
+msgstr "★ Vase reinforcement multiplier"
+
+msgid "Additional inward wall multiplier for the first spiral vase layers. Decimal values are distributed across rounded reinforcement loops."
+msgstr "Multiplicateur de parois supplementaires vers l interieur pour les premieres couches en vase spirale. Les decimales sont reparties sur le nombre de boucles de renfort arrondi."
+
+msgid "★ Vase reinforcement height"
+msgstr "★ Vase reinforcement height"
+
+msgid "Height of spiral vase reinforcement. A plain number means layer count; a value ending with mm means model height."
+msgstr "Hauteur du renfort en vase spirale. Un nombre seul indique un nombre de couches; une valeur finissant par mm indique une hauteur du modele."
+
+msgid "layers or mm"
+msgstr "couches ou mm"
+
+msgid "★ Fade vase reinforcement"
+msgstr "★ Fade vase reinforcement"
+
+msgid "Linearly fade the spiral vase reinforcement multiplier over the reinforcement height."
+msgstr "Attenue lineairement le multiplicateur de renfort sur la hauteur de renfort."
+
+msgid "★ Fade end multiplier"
+msgstr "★ Fade end multiplier"
+
+msgid "Spiral vase reinforcement multiplier at the end of the reinforcement height."
+msgstr "Multiplicateur de renfort en vase spirale a la fin de la hauteur de renfort."
+
 msgid "Smooth Spiral"
 msgstr "Spirale lisse"
 
@@ -14524,6 +14556,9 @@ msgstr "--use-firmware-retraction n'est pas compatible avec --wipe"
 msgid " doesn't work at 100%% density "
 msgstr " ne fonctionne pas à une densité de 100%% "
 
+msgid "Invalid spiral vase reinforcement height: "
+msgstr "Hauteur de renfort vase invalide : "
+
 msgid "Invalid value when spiral vase mode is enabled: "
 msgstr "Valeur non valide lorsque le mode vase en spirale est activé: "
 
@@ -14830,10 +14865,10 @@ msgid ""
 "4. Weak Structural Integrity: Prints break easily or don't seem as sturdy as they should be."
 msgstr ""
 "Après avoir utilisé la calibration de la dynamique du débit, certains problèmes d’extrusion peuvent encore apparaître, tels que :\n"
-"	1. Sur-extrusion : excès de matière sur l’objet imprimé, formation de blobs ou de bourrelets, ou encore couches plus épaisses que prévu et non uniformes.\n"
-"	2. Sous-extrusion : couches très fines, remplissage fragile, ou trous dans la couche supérieure du modèle, même lors d’une impression lente.\n"
-"	3. Mauvaise qualité de surface : la surface des impressions paraît rugueuse ou irrégulière.\n"
-"	4. Faible intégrité structurelle : les pièces se cassent facilement ou ne semblent pas aussi solides qu’elles devraient l’être."
+"\t1. Sur-extrusion : excès de matière sur l’objet imprimé, formation de blobs ou de bourrelets, ou encore couches plus épaisses que prévu et non uniformes.\n"
+"\t2. Sous-extrusion : couches très fines, remplissage fragile, ou trous dans la couche supérieure du modèle, même lors d’une impression lente.\n"
+"\t3. Mauvaise qualité de surface : la surface des impressions paraît rugueuse ou irrégulière.\n"
+"\t4. Faible intégrité structurelle : les pièces se cassent facilement ou ne semblent pas aussi solides qu’elles devraient l’être."
 
 msgid "In addition, Flow Rate Calibration is crucial for foaming materials like LW-PLA used in RC planes. These materials expand greatly when heated, and calibration provides a useful reference flow rate."
 msgstr "En outre, l'étalonnage du débit est crucial pour les matériaux expansifs tels que le LW-PLA utilisé dans le modélisme. Ces matériaux se dilatent considérablement lorsqu'ils sont chauffés et l'étalonnage fournit un débit de référence utile."
@@ -15587,6 +15622,9 @@ msgstr "Créer à partir d'un Modèle"
 msgid "Create Based on Current Printer"
 msgstr "Créer à partir de l'Imprimante Actuelle"
 
+msgid "Rectangle"
+msgstr "Rectangle"
+
 msgid "wiki"
 msgstr "wiki"
 
@@ -15616,9 +15654,6 @@ msgstr "Diamètre de buse personnalisé"
 
 msgid "Can't find my nozzle diameter"
 msgstr "Je ne trouve pas le diamètre de ma buse"
-
-msgid "Rectangle"
-msgstr "Rectangle"
 
 msgid "Printable Space"
 msgstr "Espace Imprimable"
@@ -16871,7 +16906,7 @@ msgid "Starting: Checking air vent"
 msgstr "Démarrage : Vérification des évents d'air"
 
 msgid "Terms of Bambu Lab User Experience Improvement Program"
-msgstr "Conditions du programme d'am lioration de l'exp e9rience utilisateur Bambu Lab"
+msgstr "Conditions du programme d'am"
 
 msgid "Recent Helio Runs"
 msgstr "Dernières Exécutions Helio"
@@ -17330,6 +17365,27 @@ msgid ""
 msgstr ""
 "Fiabilité Garantie du Premier Coup\n"
 "Moins de surveillance, une production plus prévisible. Exemple : une petite exploitation agricole produisant des pièces en PETG évite les mauvaises surprises \"panne au bout de 6 h\" et respecte les délais de production."
+
+#~ msgid "Brim-object gap"
+#~ msgstr "Écart bord-objet"
+
+#~ msgid "A gap between innermost brim line and object can make brim be removed more easily"
+#~ msgstr "Cela crée un espace entre la ligne la plus intérieure du bord et l'objet et peut rendre le bord plus facile à enlever."
+
+#~ msgid "Vase reinforcement multiplier"
+#~ msgstr "Multiplicateur de renfort vase"
+
+#~ msgid "Vase reinforcement height"
+#~ msgstr "Hauteur de renfort vase"
+
+#~ msgid "Fade vase reinforcement"
+#~ msgstr "Attenuer le renfort vase"
+
+#~ msgid "Fade end multiplier"
+#~ msgstr "Multiplicateur final"
+
+#~ msgid "Spiral mode only works when wall loops is 1, support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."
+#~ msgstr "Le mode spirale ne fonctionne que lorsque le nombre de parois est égal à 1, que les supports sont désactivés, que la détection d'encrassement par palpage est désactivée, que le nombre de couches supérieures est de 0, que la densité de remplissage est de 0, que le type de timelapse est « traditionnel » et que le lissage de la vitesse des parois dans la direction Z est désactivé."
 
 #~ msgid "Shift+"
 #~ msgstr "Maj+"
@@ -19941,9 +19997,6 @@ msgstr ""
 
 #~ msgid "Load process/machine settings from the specified file"
 #~ msgstr "Charger les paramètres de processus/machine à partir du fichier spécifié"
-
-#~ msgid "Load shape from STL..."
-#~ msgstr "Charger une forme depuis un STL..."
 
 #~ msgid "Load slicing data"
 #~ msgstr "Charger les données de tranchage"

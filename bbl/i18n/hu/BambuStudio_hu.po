@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bambu Studio\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-28 17:39+0800\n"
+"POT-Creation-Date: 2026-05-09 21:03+0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -3906,6 +3906,9 @@ msgstr "Téglalap"
 msgid "Circular"
 msgstr "Kör"
 
+msgid "Load shape from STL..."
+msgstr "Forma betöltése STL-ből..."
+
 msgid "Settings"
 msgstr "Beállítások"
 
@@ -4154,8 +4157,8 @@ msgstr ""
 "a zárási mélységnek kisebb kell lennie, mint a bőr mélysége.\n"
 "Visszaállítás 50%% mélységre"
 
-msgid "Spiral mode only works when wall loops is 1, support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."
-msgstr "A spirál mód csak akkor működik, ha a falak száma 1, a támasz le van tiltva, a tapintással történő anyagfelhalmozódás észlelése ki van kapcsolva, a felső héjrétegek száma 0, a ritkás kitöltés sűrűsége 0, a timelapse típusa hagyományos és a fal sebességének z irányban történő simítása ki van kapcsolva."
+msgid "Spiral mode only works when support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."
+msgstr ""
 
 msgid " But machines with I3 structure will not generate timelapse videos."
 msgstr " Az I3-szerkezetű gépek azonban nem fognak timelapse videókat készíteni."
@@ -11909,14 +11912,12 @@ msgstr "mp"
 msgid "Cooling overhang threshold"
 msgstr "Túlnyúlás hűtésének küszöbértéke"
 
-#, c-format
 msgid "Force cooling fan to be specific speed when overhang degree of printed part exceeds this value. Expressed as percentage which indicides how much width of the line without support from lower layer. 0% means forcing cooling for all outer wall no matter how much overhang degree"
 msgstr "Kényszeríti a hűtőventilátort, hogy egy adott fordulatszámot használjon, ha a túlnyúlás mértéke meghaladja ezt az értéket. Százalékban van kifejezve, ami azt jelzi, hogy a nyomtatott vonal hány százaléka maradhat az alsóbb rétegek alátámasztása nélkül. A 0%%-os érték bekapcsolja a hűtést a külső fal teljes szélességén, függetlenül a túlnyúlás mértékétől."
 
 msgid "Overhang threshold for participating cooling"
 msgstr "Túlnyúlás hűtésének küszöbértéke"
 
-#, c-format
 msgid "Decide which overhang part join the cooling function to slow down the speed.Expressed as percentage which indicides how much width of the line without support from lower layer. 100% means forcing cooling for all outer wall no matter how much overhang degree"
 msgstr "Eldönti, hogy melyik túlnyúló rész vesz részt a hűtésben a sebesség csökkentése érdekében. Értéke az alátámasztás nélküli vonal szélessége százalékban kifejezve. A 100%% azt jelenti, hogy a hűtést az összes külső falra kényszeríti, függetlenül attól, hogy mennyi a túlnyúlás mértéke."
 
@@ -12032,11 +12033,17 @@ msgstr "Perem típusa"
 msgid "This controls the generation of the brim at outer and/or inner side of models. Auto means the brim width is analysed and calculated automatically."
 msgstr "Ez szabályozza a perem generálását a modellek külső és/vagy belső oldalán. Az Auto azt jelenti, hogy a perem szélessége automatikusan kerül kiszámításra."
 
-msgid "Brim-object gap"
-msgstr "Perem-tárgy közötti rés"
+msgid "★ Brim-object gap"
+msgstr "★ Brim-object gap"
 
-msgid "A gap between innermost brim line and object can make brim be removed more easily"
-msgstr "A legbelső peremvonal és a tárgy közötti rés, amely megkönnyítheti a perem eltávolítását."
+msgid "A gap between innermost brim line and object can make brim be removed more easily. Negative values make the brim overlap the object."
+msgstr "A gap between innermost brim line and object can make brim be removed more easily. Negative values make the brim overlap the object."
+
+msgid "★ Brim layers"
+msgstr "★ Brim layers"
+
+msgid "The number of layers on which the brim will be printed."
+msgstr "The number of layers on which the brim will be printed."
 
 msgid "Compatible machine"
 msgstr "Kompatibilis gép"
@@ -12314,7 +12321,6 @@ msgstr "Az alsó felület kitöltésének mintája, kivéve az áthidalásokat"
 msgid "Bottom surface density"
 msgstr "Alsó felület sűrűsége"
 
-#, c-format
 msgid "Density of bottom surface infill, 100% means a fully solid filled top layer.Lower values create a textured bottom surface, Intended for aesthetic or functional purposes, not to fix issues such as over-extrusion.WARNING: Lowering this value may negatively affect bed adhesion."
 msgstr "Az alsó felület kitöltési sűrűsége. A 100%% teljesen szilárd, kitöltött alsó réteget jelent. Alacsonyabb értékek texturált alsó felületet hoznak létre. Esztétikai vagy funkcionális célokra szolgál, nem problémák, például túlzott extrudálás javítására. FIGYELEM: az érték csökkentése negatívan befolyásolhatja az asztalra tapadást."
 
@@ -12812,7 +12818,6 @@ msgstr "A ritkás kitöltési minta szöge, amely a vonal kezdő vagy fő irány
 msgid "Sparse infill density"
 msgstr "Kitöltés sűrűsége"
 
-#, c-format
 msgid "Density of internal sparse infill, 100% means solid throughout"
 msgstr "A belső ritkás kitöltés sűrűsége. A 100%%-os érték azt jelenti, hogy az objektum tömör lesz"
 
@@ -13903,6 +13908,33 @@ msgstr "A belső szilárd kitöltés sebessége, de az az érték nem vonatkozik
 msgid "Spiralize smooths out the z moves of the outer contour. And turns a solid model into a single walled print with solid bottom layers. The final generated model has no seam"
 msgstr "A spirál mód kisimítja a külső kontúr Z-mozgásait. A tömör modellt egyfalú nyomatokká alakítja, tömör alsó rétegekkel. A végső modellen nincsenek varratok."
 
+msgid "★ Vase reinforcement multiplier"
+msgstr "★ Vase reinforcement multiplier"
+
+msgid "Additional inward wall multiplier for the first spiral vase layers. Decimal values are distributed across rounded reinforcement loops."
+msgstr "Additional inward wall multiplier for the first spiral vase layers. Decimal values are distributed across rounded reinforcement loops."
+
+msgid "★ Vase reinforcement height"
+msgstr "★ Vase reinforcement height"
+
+msgid "Height of spiral vase reinforcement. A plain number means layer count; a value ending with mm means model height."
+msgstr "Height of spiral vase reinforcement. A plain number means layer count; a value ending with mm means model height."
+
+msgid "layers or mm"
+msgstr "layers or mm"
+
+msgid "★ Fade vase reinforcement"
+msgstr "★ Fade vase reinforcement"
+
+msgid "Linearly fade the spiral vase reinforcement multiplier over the reinforcement height."
+msgstr "Linearly fade the spiral vase reinforcement multiplier over the reinforcement height."
+
+msgid "★ Fade end multiplier"
+msgstr "★ Fade end multiplier"
+
+msgid "Spiral vase reinforcement multiplier at the end of the reinforcement height."
+msgstr "Spiral vase reinforcement multiplier at the end of the reinforcement height."
+
 msgid "Smooth Spiral"
 msgstr "Sima spirál"
 
@@ -14537,6 +14569,9 @@ msgstr "A --use-firmware-retraction nem kompatibilis a --wipe paranccsal"
 #, c-format, boost-format
 msgid " doesn't work at 100%% density "
 msgstr " nem működik 100%%-os sűrűséggel "
+
+msgid "Invalid spiral vase reinforcement height: "
+msgstr "Invalid spiral vase reinforcement height: "
 
 msgid "Invalid value when spiral vase mode is enabled: "
 msgstr "Érvénytelen érték, ha a spirálváza mód engedélyezve van: "
@@ -15601,6 +15636,9 @@ msgstr "Létrehozás sablonból"
 msgid "Create Based on Current Printer"
 msgstr "Létrehozás az aktuális nyomtató alapján"
 
+msgid "Rectangle"
+msgstr "Négyzet"
+
 msgid "wiki"
 msgstr "wiki"
 
@@ -15630,9 +15668,6 @@ msgstr "Add meg az egyedi fúvókaátmérőt"
 
 msgid "Can't find my nozzle diameter"
 msgstr "Nem találom a fúvókám átmérőjét"
-
-msgid "Rectangle"
-msgstr "Négyzet"
 
 msgid "Printable Space"
 msgstr "Nyomtatási terület"
@@ -17341,6 +17376,27 @@ msgid ""
 msgstr ""
 "Elsőre megbízható\n"
 "Kevesebb figyelem, kiszámíthatóbb eredmények. Példa: egy kis műhely, amely PETG tárgyakat gyárt, elkerülheti a „6. órában le kell állítani“ meglepetéseket, és tartani tudja a határidőket."
+
+#~ msgid "Brim-object gap"
+#~ msgstr "Perem-tárgy közötti rés"
+
+#~ msgid "A gap between innermost brim line and object can make brim be removed more easily"
+#~ msgstr "A legbelső peremvonal és a tárgy közötti rés, amely megkönnyítheti a perem eltávolítását."
+
+#~ msgid "Vase reinforcement multiplier"
+#~ msgstr "Vase reinforcement multiplier"
+
+#~ msgid "Vase reinforcement height"
+#~ msgstr "Vase reinforcement height"
+
+#~ msgid "Fade vase reinforcement"
+#~ msgstr "Fade vase reinforcement"
+
+#~ msgid "Fade end multiplier"
+#~ msgstr "Fade end multiplier"
+
+#~ msgid "Spiral mode only works when wall loops is 1, support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."
+#~ msgstr "A spirál mód csak akkor működik, ha a falak száma 1, a támasz le van tiltva, a tapintással történő anyagfelhalmozódás észlelése ki van kapcsolva, a felső héjrétegek száma 0, a ritkás kitöltés sűrűsége 0, a timelapse típusa hagyományos és a fal sebességének z irányban történő simítása ki van kapcsolva."
 
 #~ msgid "Shift+"
 #~ msgstr "Shift+"
@@ -19946,9 +20002,6 @@ msgstr ""
 
 #~ msgid "Load process/machine settings from the specified file"
 #~ msgstr "Folyamat/gépbeállítások betöltése a megadott fájlból"
-
-#~ msgid "Load shape from STL..."
-#~ msgstr "Forma betöltése STL-ből..."
 
 #~ msgid "Load slicing data"
 #~ msgstr "Szeletelési adatok betöltése"

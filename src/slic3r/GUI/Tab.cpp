@@ -3182,6 +3182,7 @@ void TabPrint::build()
         optgroup->append_single_option_line("brim_type", "auto-brim");
         optgroup->append_single_option_line("brim_width", "auto-brim#manual");
         optgroup->append_single_option_line("brim_object_gap", "auto-brim#brim-object-gap");
+        optgroup->append_single_option_line("brim_layers", "auto-brim#brim-object-gap");
 
         optgroup = page->new_optgroup(L("Prime tower"), L"param_tower");
         optgroup->append_single_option_line("enable_prime_tower","parameter/prime-tower");
@@ -3206,6 +3207,10 @@ void TabPrint::build()
         optgroup->append_single_option_line("slicing_mode", "special-slicing-modes");
         optgroup->append_single_option_line("print_sequence", "sequent-print");
         optgroup->append_single_option_line("spiral_mode", "spiral-vase");
+        optgroup->append_single_option_line("spiral_vase_reinforcement_multiplier", "spiral-vase");
+        optgroup->append_single_option_line("spiral_vase_reinforcement_height", "spiral-vase");
+        optgroup->append_single_option_line("spiral_vase_reinforcement_fade", "spiral-vase");
+        optgroup->append_single_option_line("spiral_vase_reinforcement_fade_end_multiplier", "spiral-vase");
         optgroup->append_single_option_line("spiral_mode_smooth", "spiral-vase#smooth");
         optgroup->append_single_option_line("spiral_mode_max_xy_smoothing", "spiral-vase#max-xy-smoothing");
         optgroup->append_single_option_line("timelapse_type", "Timelapse");

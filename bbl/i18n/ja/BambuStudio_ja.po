@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bambu Studio\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-28 17:39+0800\n"
+"POT-Creation-Date: 2026-05-09 21:03+0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -3891,6 +3891,9 @@ msgstr "長方形"
 msgid "Circular"
 msgstr "円形"
 
+msgid "Load shape from STL..."
+msgstr "STLからシェープデータを読込む"
+
 msgid "Settings"
 msgstr "設定"
 
@@ -4135,8 +4138,8 @@ msgstr ""
 "ロック深さはスキン深さより小さくする必要があります。\n"
 "スキン深さの50%%にリセットされます。"
 
-msgid "Spiral mode only works when wall loops is 1, support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."
-msgstr "スパイラルモードが有効になるのは、以下の条件をすべて満たしている場合のみです：ウォールループが1、サポート無効、プロービングによるクラッピング検出が無効、トップシェル層が0、粗い充填密度が0、タイムラプスタイプが従来型、Z方向のウォール速度スムージングが無効であること。"
+msgid "Spiral mode only works when support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."
+msgstr ""
 
 msgid " But machines with I3 structure will not generate timelapse videos."
 msgstr "しかし、I3構造のマシンはタイムラプスビデオを生成しません。"
@@ -11857,14 +11860,12 @@ msgstr "s"
 msgid "Cooling overhang threshold"
 msgstr "オーバーハングの冷却閾値"
 
-#, c-format
 msgid "Force cooling fan to be specific speed when overhang degree of printed part exceeds this value. Expressed as percentage which indicides how much width of the line without support from lower layer. 0% means forcing cooling for all outer wall no matter how much overhang degree"
 msgstr "印刷部分のオーバーハング角度がこの値を超えた場合、冷却ファンを特定の速度で強制的に動作させます。この値は、下のレイヤーからのサポートがない線の幅の割合（%%）として表されます。0%%に設定すると、オーバーハング角度に関係なく、すべての外壁の冷却が強制されます。"
 
 msgid "Overhang threshold for participating cooling"
 msgstr "冷却に参加するためのオーバーハングしきい値"
 
-#, c-format
 msgid "Decide which overhang part join the cooling function to slow down the speed.Expressed as percentage which indicides how much width of the line without support from lower layer. 100% means forcing cooling for all outer wall no matter how much overhang degree"
 msgstr "どのオーバーハング部分が冷却機能により速度低下の対象となるかを決定します。これは、下層にサポートがない場合の線幅をパーセンテージで表現しており、100%%の場合はオーバーハングの程度に関係なくすべての外壁が強制的に冷却されることを意味します。"
 
@@ -11980,11 +11981,17 @@ msgstr "ブリムタイプ"
 msgid "This controls the generation of the brim at outer and/or inner side of models. Auto means the brim width is analysed and calculated automatically."
 msgstr "モデルの外側および/または内側にブリムを生成するかを制御します。「自動」に設定すると、ブリムの幅が解析され、自動的に計算されます。"
 
-msgid "Brim-object gap"
-msgstr "ブリムとオブジェクトの間隔"
+msgid "★ Brim-object gap"
+msgstr "★ Brim-object gap"
 
-msgid "A gap between innermost brim line and object can make brim be removed more easily"
-msgstr "最内側のブリムラインとオブジェクトの間に隙間があると、ブリムがより簡単に取り外せるようになります。"
+msgid "A gap between innermost brim line and object can make brim be removed more easily. Negative values make the brim overlap the object."
+msgstr "A gap between innermost brim line and object can make brim be removed more easily. Negative values make the brim overlap the object."
+
+msgid "★ Brim layers"
+msgstr "★ Brim layers"
+
+msgid "The number of layers on which the brim will be printed."
+msgstr "The number of layers on which the brim will be printed."
 
 msgid "Compatible machine"
 msgstr "対応機種"
@@ -12262,7 +12269,6 @@ msgstr "底面のインフィル パターンです、ブリッジインフィ�
 msgid "Bottom surface density"
 msgstr "ボトム表面密度"
 
-#, c-format
 msgid "Density of bottom surface infill, 100% means a fully solid filled top layer.Lower values create a textured bottom surface, Intended for aesthetic or functional purposes, not to fix issues such as over-extrusion.WARNING: Lowering this value may negatively affect bed adhesion."
 msgstr ""
 "ボトム表面のインフィル密度です。100%% ではボトム層が完全にソリッドになり、値を下げるとテクスチャ状の表面になります。これは見た目や機能上の目的のための設定で、押出過多などの問題を解決するためのものではありません。\n"
@@ -12773,7 +12779,6 @@ msgstr "スパースインフィルパターンの角度：線の開始または
 msgid "Sparse infill density"
 msgstr "充填密度"
 
-#, c-format
 msgid "Density of internal sparse infill, 100% means solid throughout"
 msgstr "内部スパース インフィルの密度です。100%%の場合、全体がソリッドになります。"
 
@@ -13869,6 +13874,33 @@ msgstr "トップ面と底面を除く、内部ソリッドインフィルの造
 msgid "Spiralize smooths out the z moves of the outer contour. And turns a solid model into a single walled print with solid bottom layers. The final generated model has no seam"
 msgstr "スパイラルモードでは、輪郭面を一筆書きで造形します。また、ソリッドモデルをソリッドな底層を持つ単層壁の造形に変えます。Z方向の移動に段差がないので、最終的に生成されるモデルには継ぎ目がありません。"
 
+msgid "★ Vase reinforcement multiplier"
+msgstr "★ Vase reinforcement multiplier"
+
+msgid "Additional inward wall multiplier for the first spiral vase layers. Decimal values are distributed across rounded reinforcement loops."
+msgstr "スパイラル花瓶の初期レイヤーに内側へ追加する壁の倍率です。小数値は丸めた補強ループ数に分配されます。"
+
+msgid "★ Vase reinforcement height"
+msgstr "★ Vase reinforcement height"
+
+msgid "Height of spiral vase reinforcement. A plain number means layer count; a value ending with mm means model height."
+msgstr "スパイラル花瓶補強の高さです。単なる数値はレイヤー数、mm で終わる値はモデル高さを意味します。"
+
+msgid "layers or mm"
+msgstr "レイヤー数または mm"
+
+msgid "★ Fade vase reinforcement"
+msgstr "★ Fade vase reinforcement"
+
+msgid "Linearly fade the spiral vase reinforcement multiplier over the reinforcement height."
+msgstr "補強高さの範囲でスパイラル花瓶補強倍率を線形に減少させます。"
+
+msgid "★ Fade end multiplier"
+msgstr "★ Fade end multiplier"
+
+msgid "Spiral vase reinforcement multiplier at the end of the reinforcement height."
+msgstr "補強高さの終端でのスパイラル花瓶補強倍率です。"
+
 msgid "Smooth Spiral"
 msgstr "スムーススパイラル"
 
@@ -14507,6 +14539,9 @@ msgstr "--use-firmware-retraction は --wipe と互換性がありません。"
 #, c-format, boost-format
 msgid " doesn't work at 100%% density "
 msgstr "100%%の密度では動作しません"
+
+msgid "Invalid spiral vase reinforcement height: "
+msgstr "無効な花瓶補強高さ: "
 
 msgid "Invalid value when spiral vase mode is enabled: "
 msgstr "スパイラルベースモードが有効な場合、無効な値です："
@@ -15182,9 +15217,9 @@ msgid ""
 "Start temp >= End temp + 5)"
 msgstr ""
 "有効な値を入力してください：\n"
-"	•	開始温度：350度以下\n"
-"	•	終了温度：180度 以上\n"
-"	•	開始温度は終了温度より5 度以上高くしてください"
+"\t•\t開始温度：350度以下\n"
+"\t•\t終了温度：180度 以上\n"
+"\t•\t開始温度は終了温度より5 度以上高くしてください"
 
 msgid "Max volumetric speed test"
 msgstr "最大体積速度テスト"
@@ -15204,9 +15239,9 @@ msgid ""
 "end >= start + step)"
 msgstr ""
 "有効な値を入力してください：\n"
-"	•	開始値（start） > 0\n"
-"	•	ステップサイズ（step） ≥ 0\n"
-"	•	終了値（end） ≥ 開始値 + ステップサイズ"
+"\t•\t開始値（start） > 0\n"
+"\t•\tステップサイズ（step） ≥ 0\n"
+"\t•\t終了値（end） ≥ 開始値 + ステップサイズ"
 
 msgid "VFA test"
 msgstr "VFA テスト"
@@ -15223,9 +15258,9 @@ msgid ""
 "end >= start + step)"
 msgstr ""
 "有効な値を入力してください：\n"
-"	•	開始値（start） > 10\n"
-"	•	ステップサイズ（step） ≥ 0\n"
-"	•	終了値（end） ≥ 開始値 + ステップサイズ"
+"\t•\t開始値（start） > 10\n"
+"\t•\tステップサイズ（step） ≥ 0\n"
+"\t•\t終了値（end） ≥ 開始値 + ステップサイズ"
 
 msgid "Start retraction length: "
 msgstr "引き込み開始の長さ： "
@@ -15572,6 +15607,9 @@ msgstr "テンプレートから作成"
 msgid "Create Based on Current Printer"
 msgstr "現在のプリンタに基づいて作成"
 
+msgid "Rectangle"
+msgstr "長方形"
+
 msgid "wiki"
 msgstr "Wiki"
 
@@ -15601,9 +15639,6 @@ msgstr "カスタムノズル径を入力"
 
 msgid "Can't find my nozzle diameter"
 msgstr "ノズル径が見つかりませんか？"
-
-msgid "Rectangle"
-msgstr "長方形"
 
 msgid "Printable Space"
 msgstr "造形可能領域"
@@ -17305,6 +17340,27 @@ msgid ""
 msgstr ""
 "一発成功の信頼性\n"
 "見守りの手間を減らし、より予測可能な造形を実現。例：PETG 部品を小規模ファームで運用する場合でも、「6時間目で失敗」といった不意打ちを避け、バッチを計画どおりに進められます。"
+
+#~ msgid "Brim-object gap"
+#~ msgstr "ブリムとオブジェクトの間隔"
+
+#~ msgid "A gap between innermost brim line and object can make brim be removed more easily"
+#~ msgstr "最内側のブリムラインとオブジェクトの間に隙間があると、ブリムがより簡単に取り外せるようになります。"
+
+#~ msgid "Vase reinforcement multiplier"
+#~ msgstr "花瓶補強倍率"
+
+#~ msgid "Vase reinforcement height"
+#~ msgstr "花瓶補強高さ"
+
+#~ msgid "Fade vase reinforcement"
+#~ msgstr "花瓶補強をフェード"
+
+#~ msgid "Fade end multiplier"
+#~ msgstr "フェード終了倍率"
+
+#~ msgid "Spiral mode only works when wall loops is 1, support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."
+#~ msgstr "スパイラルモードが有効になるのは、以下の条件をすべて満たしている場合のみです：ウォールループが1、サポート無効、プロービングによるクラッピング検出が無効、トップシェル層が0、粗い充填密度が0、タイムラプスタイプが従来型、Z方向のウォール速度スムージングが無効であること。"
 
 #~ msgid "Shift+"
 #~ msgstr "Shift+"
@@ -19994,9 +20050,6 @@ msgstr ""
 
 #~ msgid "Load process/machine settings from the specified file"
 #~ msgstr "指定ファイルから設定値を読込む"
-
-#~ msgid "Load shape from STL..."
-#~ msgstr "STLからシェープデータを読込む"
 
 #~ msgid "Load slicing data"
 #~ msgstr "スライスデータを読込み"

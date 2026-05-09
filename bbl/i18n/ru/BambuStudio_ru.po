@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bambu Studio 2.0.2 Public Release\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-28 17:39+0800\n"
+"POT-Creation-Date: 2026-05-09 21:03+0800\n"
 "PO-Revision-Date: 2025-04-22 16:37+0700\n"
 "Last-Translator: \n"
 "Language-Team: Andylg <andylg@yandex.ru>\n"
@@ -3980,6 +3980,9 @@ msgstr "Прямоугольная"
 msgid "Circular"
 msgstr "Круглая"
 
+msgid "Load shape from STL..."
+msgstr ""
+
 msgid "Settings"
 msgstr "Настройки"
 
@@ -4209,7 +4212,7 @@ msgid ""
 "Reset to 50%% of skin depth"
 msgstr ""
 
-msgid "Spiral mode only works when wall loops is 1, support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."
+msgid "Spiral mode only works when support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."
 msgstr ""
 
 msgid " But machines with I3 structure will not generate timelapse videos."
@@ -12056,14 +12059,14 @@ msgstr "с"
 msgid "Cooling overhang threshold"
 msgstr "Порог нависания для включения обдува"
 
-#, fuzzy, c-format
+#, fuzzy
 msgid "Force cooling fan to be specific speed when overhang degree of printed part exceeds this value. Expressed as percentage which indicides how much width of the line without support from lower layer. 0% means forcing cooling for all outer wall no matter how much overhang degree"
 msgstr "Принудительное включение вентилятора обдува модели на определенную скорость, если степень нависания печатаемой части превышает данное значение. Выражается в процентах и показывает, насколько велика ширина периметра без поддержки со стороны нижнего слоя. 0% означает принудительное охлаждение всего внешнего периметра независимо от степени нависания."
 
 msgid "Overhang threshold for participating cooling"
 msgstr "Порог нависания участвующий в охлаждении"
 
-#, fuzzy, c-format
+#, fuzzy
 msgid "Decide which overhang part join the cooling function to slow down the speed.Expressed as percentage which indicides how much width of the line without support from lower layer. 100% means forcing cooling for all outer wall no matter how much overhang degree"
 msgstr "Когда этот параметр включён, нависающая часть участвует в замедлении печати для лучшего охлаждения слоёв, предотвращая проблему внезапного увеличения скорости печати на локальном участке нависания. Процент представляет собой степень нависания. Например, если задано 25%, то все линии с нависанием менее 25% будут участвовать в охлаждении и замедлении, а 100% означает, что все нависающие линии будут участвовать в охлаждении и замедлении."
 
@@ -12181,11 +12184,17 @@ msgstr "Тип каймы"
 msgid "This controls the generation of the brim at outer and/or inner side of models. Auto means the brim width is analysed and calculated automatically."
 msgstr "Этот параметр управляет формированием каймы на внешней/внутренней стороне моделей. Авто означает, что ширина каймы анализируется и рассчитывается автоматически."
 
-msgid "Brim-object gap"
-msgstr "Смещение каймы"
+msgid "★ Brim-object gap"
+msgstr "★ Brim-object gap"
 
-msgid "A gap between innermost brim line and object can make brim be removed more easily"
-msgstr "Смещение каймы от печатаемой модели, может облегчить её удаление."
+msgid "A gap between innermost brim line and object can make brim be removed more easily. Negative values make the brim overlap the object."
+msgstr "A gap between innermost brim line and object can make brim be removed more easily. Negative values make the brim overlap the object."
+
+msgid "★ Brim layers"
+msgstr "★ Brim layers"
+
+msgid "The number of layers on which the brim will be printed."
+msgstr "The number of layers on which the brim will be printed."
 
 msgid "Compatible machine"
 msgstr "Совместимые принтеры"
@@ -12451,7 +12460,6 @@ msgstr "Шаблон заполнения нижней поверхности, �
 msgid "Bottom surface density"
 msgstr ""
 
-#, c-format
 msgid "Density of bottom surface infill, 100% means a fully solid filled top layer.Lower values create a textured bottom surface, Intended for aesthetic or functional purposes, not to fix issues such as over-extrusion.WARNING: Lowering this value may negatively affect bed adhesion."
 msgstr ""
 
@@ -12970,7 +12978,7 @@ msgstr "Угол ориентации шаблона разреженного з
 msgid "Sparse infill density"
 msgstr "Плотность заполнения"
 
-#, fuzzy, c-format
+#, fuzzy
 msgid "Density of internal sparse infill, 100% means solid throughout"
 msgstr "Плотность внутреннего заполнения, выраженная в процентах. 100% означает сплошное заполнение."
 
@@ -14068,6 +14076,33 @@ msgstr "Скорость печати внутреннего сплошного 
 msgid "Spiralize smooths out the z moves of the outer contour. And turns a solid model into a single walled print with solid bottom layers. The final generated model has no seam"
 msgstr "Печать пустотелых и тонкостенных моделей по спирали. Модель печатается в одну стенку без верхней поверхности, заполнения и поддержки. При этом сопло при печати движется непрерывно по спирали вверх, что создаёт ровное и эстетически привлекательное изделие без шва."
 
+msgid "★ Vase reinforcement multiplier"
+msgstr "★ Vase reinforcement multiplier"
+
+msgid "Additional inward wall multiplier for the first spiral vase layers. Decimal values are distributed across rounded reinforcement loops."
+msgstr "Множитель дополнительных внутренних стенок для первых слоев спиральной вазы. Дробные значения распределяются по округленному числу контуров усиления."
+
+msgid "★ Vase reinforcement height"
+msgstr "★ Vase reinforcement height"
+
+msgid "Height of spiral vase reinforcement. A plain number means layer count; a value ending with mm means model height."
+msgstr "Высота усиления спиральной вазы. Число без единицы означает количество слоев; значение с mm означает высоту модели."
+
+msgid "layers or mm"
+msgstr "слои или mm"
+
+msgid "★ Fade vase reinforcement"
+msgstr "★ Fade vase reinforcement"
+
+msgid "Linearly fade the spiral vase reinforcement multiplier over the reinforcement height."
+msgstr "Линейно уменьшает множитель усиления спиральной вазы по высоте усиления."
+
+msgid "★ Fade end multiplier"
+msgstr "★ Fade end multiplier"
+
+msgid "Spiral vase reinforcement multiplier at the end of the reinforcement height."
+msgstr "Множитель усиления спиральной вазы в конце высоты усиления."
+
 msgid "Smooth Spiral"
 msgstr "Сглаживать спиральные контуры"
 
@@ -14729,6 +14764,9 @@ msgstr "--use-firmware-retraction не совместим с --wipe"
 #, c-format, boost-format
 msgid " doesn't work at 100%% density "
 msgstr " не работает при 100%% заполнении "
+
+msgid "Invalid spiral vase reinforcement height: "
+msgstr "Недопустимая высота усиления вазы: "
 
 msgid "Invalid value when spiral vase mode is enabled: "
 msgstr "Недопустимое значение при включенном режиме спиральной вазы: "
@@ -15800,6 +15838,9 @@ msgstr "Создать из шаблона"
 msgid "Create Based on Current Printer"
 msgstr "Создать на основе профиля выбранного принтера"
 
+msgid "Rectangle"
+msgstr "Прямоугольник"
+
 msgid "wiki"
 msgstr "Wiki-страница"
 
@@ -15829,9 +15870,6 @@ msgstr "Введите свой диаметр сопла"
 
 msgid "Can't find my nozzle diameter"
 msgstr "Не могу найти свой диаметр сопла"
-
-msgid "Rectangle"
-msgstr "Прямоугольник"
 
 msgid "Printable Space"
 msgstr "Область печати"
@@ -17534,6 +17572,24 @@ msgid ""
 "First-Time-Right Reliability\n"
 "Less babysitting, more predictable output. Example: a small farm running PETG parts avoids 'fail at hour 6' surprises and keeps batches on schedule."
 msgstr ""
+
+#~ msgid "Brim-object gap"
+#~ msgstr "Смещение каймы"
+
+#~ msgid "A gap between innermost brim line and object can make brim be removed more easily"
+#~ msgstr "Смещение каймы от печатаемой модели, может облегчить её удаление."
+
+#~ msgid "Vase reinforcement multiplier"
+#~ msgstr "Множитель усиления вазы"
+
+#~ msgid "Vase reinforcement height"
+#~ msgstr "Высота усиления вазы"
+
+#~ msgid "Fade vase reinforcement"
+#~ msgstr "Плавно уменьшать усиление вазы"
+
+#~ msgid "Fade end multiplier"
+#~ msgstr "Конечный множитель затухания"
 
 #~ msgid "Shift+"
 #~ msgstr "Shift+"

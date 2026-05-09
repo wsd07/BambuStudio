@@ -107,13 +107,18 @@ void change_opt_value(DynamicPrintConfig& config, const t_config_option_key& opt
 {
 	try{
 
-        if (config.def()->get(opt_key)->type == coBools && config.def()->get(opt_key)->nullable) {
+        const ConfigOptionDef *opt_def = config.def()->get(opt_key);
+        if (opt_def == nullptr)
+            return;
+        if (!config.has(opt_key))
+            config.set_key_value(opt_key, opt_def->create_default_option());
+
+        if (opt_def->type == coBools && opt_def->nullable) {
             auto vec_new = std::make_unique<ConfigOptionBoolsNullable>(std::vector<unsigned char>{boost::any_cast<unsigned char>(value)});
             config.option<ConfigOptionBoolsNullable>(opt_key)->set_at(vec_new.get(), opt_index, 0);
             return;
         }
 
-        const ConfigOptionDef *opt_def = config.def()->get(opt_key);
 		switch (opt_def->type) {
 		case coFloatOrPercent:{
 			std::string str = boost::any_cast<std::string>(value);

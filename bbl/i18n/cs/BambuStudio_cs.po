@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bambu Studio\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-28 17:39+0800\n"
+"POT-Creation-Date: 2026-05-09 21:03+0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Jakub Hencl <jakub.hencl@seznam.cz>\n"
 "Language-Team: \n"
@@ -3930,6 +3930,9 @@ msgstr "Obdélníkový"
 msgid "Circular"
 msgstr "Kruhový"
 
+msgid "Load shape from STL..."
+msgstr ""
+
 msgid "Settings"
 msgstr "Nastavení"
 
@@ -4214,8 +4217,8 @@ msgstr ""
 "Obnoveno na 50%% tloušťky slupkyHloubka zámku by měla být menší než hloubka povrchu.\n"
 "Nastaveno na 50%% hloubky povrchu"
 
-msgid "Spiral mode only works when wall loops is 1, support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."
-msgstr "Spirálový režim funguje pouze tehdy, když je počet smyček stěn 1, podpěry jsou vypnuté, detekce shlukování sondováním je vypnutá, počet horních vrstev je 0, hustota řídké výplně je 0, typ časosběru je tradiční a vyhlazování rychlosti stěn v ose Z je vypnuté."
+msgid "Spiral mode only works when support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."
+msgstr ""
 
 msgid " But machines with I3 structure will not generate timelapse videos."
 msgstr " Ale stroje s konstrukcí I3 nevytvářejí videa typu timelapse."
@@ -12024,14 +12027,12 @@ msgstr "s"
 msgid "Cooling overhang threshold"
 msgstr "Prahová hodnota chlazení převisů"
 
-#, c-format
 msgid "Force cooling fan to be specific speed when overhang degree of printed part exceeds this value. Expressed as percentage which indicides how much width of the line without support from lower layer. 0% means forcing cooling for all outer wall no matter how much overhang degree"
 msgstr "Vynutí nastavenou rychlost ventilátoru chlazení, pokud míra převisu tištěné části překročí tuto hodnotu.Hodnota je vyjádřena v procentech a určuje, jak velká část šířky extruze není podepřena spodní vrstvou. 0%%  znamená vynucené chlazení všech vnějších stěn bez ohledu na velikost převisu"
 
 msgid "Overhang threshold for participating cooling"
 msgstr "Práh převisu pro aktivaci chlazení"
 
-#, c-format
 msgid "Decide which overhang part join the cooling function to slow down the speed.Expressed as percentage which indicides how much width of the line without support from lower layer. 100% means forcing cooling for all outer wall no matter how much overhang degree"
 msgstr "Určuje, které části převisů budou zpomalovány kvůli chlazení.Hodnota je vyjádřena v procentech a určuje, jak velká část šířky extruze není podepřena spodní vrstvou. 100%%   znamená vynucené chlazení všech vnějších stěn bez ohledu na velikost převisu"
 
@@ -12147,11 +12148,17 @@ msgstr "Typ lemu"
 msgid "This controls the generation of the brim at outer and/or inner side of models. Auto means the brim width is analysed and calculated automatically."
 msgstr "Toto nastavení určuje generování lemu na vnější a/nebo vnitřní straně modelů. Auto znamená, že šířka lemu je analyzována a automaticky vypočítána."
 
-msgid "Brim-object gap"
-msgstr "Mezera mezi lemem a objektem"
+msgid "★ Brim-object gap"
+msgstr "★ Brim-object gap"
 
-msgid "A gap between innermost brim line and object can make brim be removed more easily"
-msgstr "Mezera mezi nejvnitřnější čarou lemu a objektem může usnadnit odstranění lemu"
+msgid "A gap between innermost brim line and object can make brim be removed more easily. Negative values make the brim overlap the object."
+msgstr "A gap between innermost brim line and object can make brim be removed more easily. Negative values make the brim overlap the object."
+
+msgid "★ Brim layers"
+msgstr "★ Brim layers"
+
+msgid "The number of layers on which the brim will be printed."
+msgstr "The number of layers on which the brim will be printed."
 
 msgid "Compatible machine"
 msgstr "Kompatibilní zařízení"
@@ -12440,7 +12447,6 @@ msgstr "Vzor linií výplně spodní plochy, nikoli přemosťovací výplně"
 msgid "Bottom surface density"
 msgstr "Hustota spodního povrchu"
 
-#, c-format
 msgid "Density of bottom surface infill, 100% means a fully solid filled top layer.Lower values create a textured bottom surface, Intended for aesthetic or functional purposes, not to fix issues such as over-extrusion.WARNING: Lowering this value may negatively affect bed adhesion."
 msgstr "Hustota výplně spodního povrchu. 100%%  znamená zcela plnou vrstvu.Nižší hodnoty vytvářejí texturovaný spodní povrch. Toto nastavení je určeno pro estetické nebo funkční účely, nikoli pro řešení problémů, jako je nadměrná extruze.VAROVÁNÍ: Snížení této hodnoty může negativně ovlivnit přilnavost k podložce."
 
@@ -12939,7 +12945,6 @@ msgstr "Úhel pro vzor řídké výplně, který určuje počáteční nebo hlav
 msgid "Sparse infill density"
 msgstr "Hustota řídké výplně"
 
-#, c-format
 msgid "Density of internal sparse infill, 100% means solid throughout"
 msgstr "Hustota vnitřní řídké výplně. 100%%  znamená plnou výplň"
 
@@ -14032,6 +14037,33 @@ msgstr "Rychlost vnitřní plné výplně, mimo horní a spodní povrch"
 msgid "Spiralize smooths out the z moves of the outer contour. And turns a solid model into a single walled print with solid bottom layers. The final generated model has no seam"
 msgstr "Spiralizace vyhlazuje pohyby v ose Z z vnějšího obrysu. A převádí plný model na tisk s jednou stěnou a plnými spodními vrstvami. Výsledný vygenerovaný model nemá žádný spoj"
 
+msgid "★ Vase reinforcement multiplier"
+msgstr "★ Vase reinforcement multiplier"
+
+msgid "Additional inward wall multiplier for the first spiral vase layers. Decimal values are distributed across rounded reinforcement loops."
+msgstr ""
+
+msgid "★ Vase reinforcement height"
+msgstr "★ Vase reinforcement height"
+
+msgid "Height of spiral vase reinforcement. A plain number means layer count; a value ending with mm means model height."
+msgstr ""
+
+msgid "layers or mm"
+msgstr ""
+
+msgid "★ Fade vase reinforcement"
+msgstr "★ Fade vase reinforcement"
+
+msgid "Linearly fade the spiral vase reinforcement multiplier over the reinforcement height."
+msgstr ""
+
+msgid "★ Fade end multiplier"
+msgstr "★ Fade end multiplier"
+
+msgid "Spiral vase reinforcement multiplier at the end of the reinforcement height."
+msgstr ""
+
 msgid "Smooth Spiral"
 msgstr "Plynulá spirála"
 
@@ -14667,6 +14699,9 @@ msgstr "--use-firmware-retraction není kompatibilní s --wipe"
 #, c-format, boost-format
 msgid " doesn't work at 100%% density "
 msgstr " nefunguje při 100%% hustotě "
+
+msgid "Invalid spiral vase reinforcement height: "
+msgstr ""
 
 msgid "Invalid value when spiral vase mode is enabled: "
 msgstr "Neplatná hodnota při aktivovaném režimu spirálové vázy: "
@@ -15765,6 +15800,9 @@ msgstr "Vytvořit ze šablony"
 msgid "Create Based on Current Printer"
 msgstr "Vytvořit na základě aktuální tiskárny"
 
+msgid "Rectangle"
+msgstr "Obdélník"
+
 msgid "wiki"
 msgstr "wiki"
 
@@ -15794,9 +15832,6 @@ msgstr "Zadejte vlastní průměr trysky"
 
 msgid "Can't find my nozzle diameter"
 msgstr "Nemůžete najít průměr své trysky"
-
-msgid "Rectangle"
-msgstr "Obdélník"
 
 msgid "Printable Space"
 msgstr "Tisknutelný prostor"
@@ -17386,7 +17421,8 @@ msgstr ""
 "Věděli jste, že model s mnoha částmi můžete rozdělit na jednotlivé tiskové desky připravené k tisku? Díky tomu bude snazší mít přehled o všech dílech.Rozdělit tisk na podložky\n"
 "Věděli jste, že můžete model s mnoha částmi rozdělit na jednotlivé podložky připravené k tisku? Tímto bude proces sledování všech částí jednodušší."
 
-#: resources/data/hints.ini: [hint:Speed up your print with Adaptive Layer Height]
+#: resources/data/hints.ini: [hint:Speed up your print with Adaptive Layer
+#: Height]
 msgid ""
 "Speed up your print with Adaptive Layer Height\n"
 "Did you know that you can print a model even faster, by using the Adaptive Layer Height option? Check it out!"
@@ -17467,7 +17503,8 @@ msgstr ""
 "Věděli jste, že pro zvýšení pevnosti modelu můžete použít více perimetrů a vyšší hustotu výplně?Zvyšte pevnost\n"
 "Věděli jste, že použitím více smyček stěn a vyšší hustoty řídké výplně můžete zvýšit pevnost modelu?"
 
-#: resources/data/hints.ini: [hint:When need to print with the printer door opened]
+#: resources/data/hints.ini: [hint:When need to print with the printer door
+#: opened]
 msgid ""
 "When need to print with the printer door opened\n"
 "Did you know that opening the printer door can reduce the probability of extruder/hotend clogging when printing lower temperature filament with a higher enclosure temperature. More info about this in the Wiki."
@@ -17485,7 +17522,8 @@ msgstr ""
 "Věděli jste, že u materiálů náchylných k deformaci, jako je ABS, může správné zvýšení teploty vyhřívané podložky snížit pravděpodobnost deformace.Zabraňte deformaci\n"
 "Věděli jste, že při tisku materiálů, které jsou náchylné k deformaci, například ABS, může vhodné zvýšení teploty podložky snížit pravděpodobnost deformace."
 
-#: resources/data/helio_hints.ini: [hint: Run Nylon & PC (and other advanced materials) Like a Pro]
+#: resources/data/helio_hints.ini: [hint: Run Nylon & PC (and other advanced
+#: materials) Like a Pro]
 msgid ""
 "Run Nylon & PC (and other advanced materials) Like a Pro\n"
 "Printing Nylon 612 or Polycarbonate or other advanced materials? Helio helps you avoid the 'almost worked' failure."
@@ -17493,7 +17531,8 @@ msgstr ""
 "Tiskněte Nylon & PC (a další pokročilé materiály) jako profík\n"
 "Tisknete Nylon 612, polykarbonát nebo jiné pokročilé materiály? Helio vám pomůže vyhnout se selhání typu „málem to vyšlo“."
 
-#: resources/data/helio_hints.ini: [hint: Make Prints up to 30% Faster (Safely)]
+#: resources/data/helio_hints.ini: [hint: Make Prints up to 30% Faster
+#: (Safely)]
 msgid ""
 "Make Prints up to 30% Faster (Safely)\n"
 "Get real throughput, not risky 'speed mode'. A print that normally takes 8 hours might drop to ~5.6 hours."
@@ -17501,7 +17540,8 @@ msgstr ""
 "Zrychlete tisk až o 30 % (bezpečně)\n"
 "Získejte skutečně vyšší rychlost tisku, ne riskantní „speed mode“. Tisk, který běžně trvá 8 hodin, se může zkrátit na ~5,6 hodiny."
 
-#: resources/data/helio_hints.ini: [hint: Stop Wasting Precious Design Time on Tuning]
+#: resources/data/helio_hints.ini: [hint: Stop Wasting Precious Design Time on
+#: Tuning]
 msgid ""
 "Stop Wasting Precious Design Time on Tuning\n"
 "Fewer trial prints, faster dial-in. Instead of multiple test prints, detect issues and print first time right."
@@ -17509,7 +17549,8 @@ msgstr ""
 "Přestaňte plýtvat drahocenným časem na ladění\n"
 "Méně zkušebních tisků, rychlejší vyladění. Místo několika testovacích tisků odhalte problémy a tiskněte správně hned napoprvé."
 
-#: resources/data/helio_hints.ini: [hint: Cut Warping on ASA/ABS and other advanced materials]
+#: resources/data/helio_hints.ini: [hint: Cut Warping on ASA/ABS and other
+#: advanced materials]
 msgid ""
 "Cut Warping on ASA/ABS and other advanced materials\n"
 "Warping ruins long jobs. Helio shows where risk is highest before you print, and, with enhance, cuts the risk of warping to almost nil."
@@ -17548,6 +17589,15 @@ msgid ""
 msgstr ""
 "Spolehlivost hned napoprvé\n"
 "Méně dohledu, předvídatelnější výsledky. Příklad: malá farma tisknoucí díly z PETG se vyhne překvapením typu „selhání v 6. hodině“ a udrží výrobu podle plánu."
+
+#~ msgid "Spiral mode only works when wall loops is 1, support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."
+#~ msgstr "Spirálový režim funguje pouze tehdy, když je počet smyček stěn 1, podpěry jsou vypnuté, detekce shlukování sondováním je vypnutá, počet horních vrstev je 0, hustota řídké výplně je 0, typ časosběru je tradiční a vyhlazování rychlosti stěn v ose Z je vypnuté."
+
+#~ msgid "Brim-object gap"
+#~ msgstr "Mezera mezi lemem a objektem"
+
+#~ msgid "A gap between innermost brim line and object can make brim be removed more easily"
+#~ msgstr "Mezera mezi nejvnitřnější čarou lemu a objektem může usnadnit odstranění lemu"
 
 #~ msgid "Shift+"
 #~ msgstr "Shift+"

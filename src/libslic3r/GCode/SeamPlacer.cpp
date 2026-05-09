@@ -7,6 +7,7 @@
 #include <random>
 #include <algorithm>
 #include <queue>
+#include <limits>
 
 #include "libslic3r/AABBTreeLines.hpp"
 #include "libslic3r/KDTreeIndirect.hpp"
@@ -1525,6 +1526,85 @@ void SeamPlacer::place_seam(const Layer *layer, ExtrusionLoop &loop, bool extern
         // Insert it.
         loop.split_at(seam_point, true);
     }
+}
+
+void SeamPlacer::place_spiral_vase_seam(const Layer *layer, ExtrusionLoop &loop, const Point &last_pos) const
+{
+    using namespace SeamPlacerImpl;
+    const PrintObject *po = layer->object();
+    assert(dynamic_cast<const SupportLayer *>(layer) == nullptr);
+    assert(layer->id() >= po->slicing_parameters().raft_layers());
+    const size_t layer_index = layer->id() - po->slicing_parameters().raft_layers();
+    const double unscaled_z  = layer->slice_z;
+
+    auto object_it = m_seam_per_object.find(po);
+    if (object_it == m_seam_per_object.end() || layer_index >= object_it->second.layers.size()) {
+        loop.split_at(last_pos, false);
+        return;
+    }
+
+    const PrintObjectSeamData::LayerSeams &layer_perimeters = object_it->second.layers[layer_index];
+    if (layer_perimeters.points.empty() || layer_perimeters.points_tree == nullptr) {
+        loop.split_at(last_pos, false);
+        return;
+    }
+
+    size_t closest_perimeter_point_index;
+    {
+        const Point &fp         = loop.first_point();
+        Vec2f        unscaled_p = unscaled<float>(fp);
+        closest_perimeter_point_index = find_closest_point(*layer_perimeters.points_tree.get(), to_3d(unscaled_p, float(unscaled_z)));
+    }
+
+    const Perimeter &perimeter = layer_perimeters.points[closest_perimeter_point_index].perimeter;
+    const Vec2f      preferred = unscaled<float>(last_pos);
+    auto squared_distance_to_last_pos = [&preferred](const SeamCandidate &candidate) {
+        return (candidate.position.head<2>() - preferred).squaredNorm();
+    };
+
+    size_t seam_index    = perimeter.start_index;
+    float  best_distance = std::numeric_limits<float>::max();
+
+    for (size_t index = perimeter.start_index; index < perimeter.end_index; ++index) {
+        const SeamCandidate &candidate = layer_perimeters.points[index];
+        if (candidate.type == EnforcedBlockedSeamPoint::Enforced) {
+            float distance = squared_distance_to_last_pos(candidate);
+            if (distance < best_distance) {
+                best_distance = distance;
+                seam_index    = index;
+            }
+        }
+    }
+
+    if (best_distance == std::numeric_limits<float>::max()) {
+        for (size_t index = perimeter.start_index; index < perimeter.end_index; ++index) {
+            const SeamCandidate &candidate = layer_perimeters.points[index];
+            float distance = squared_distance_to_last_pos(candidate);
+            if (distance < best_distance) {
+                best_distance = distance;
+                seam_index    = index;
+            }
+        }
+    }
+
+    const Vec3f &seam_position = layer_perimeters.points[seam_index].position;
+    Point seam_point = Point::new_scale(seam_position.x(), seam_position.y());
+
+    double best_vertex_distance = std::numeric_limits<double>::max();
+    Point  best_vertex          = seam_point;
+    for (const ExtrusionPath &path : loop.paths) {
+        for (const Point &point : path.polyline.points) {
+            double distance = (point - seam_point).cast<double>().squaredNorm();
+            if (distance < best_vertex_distance) {
+                best_vertex_distance = distance;
+                best_vertex          = point;
+            }
+        }
+    }
+    seam_point = best_vertex;
+
+    if (!loop.split_at_vertex(seam_point, scaled<double>(0.0015)))
+        loop.split_at(seam_point, true);
 }
 
 } // namespace Slic3r

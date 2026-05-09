@@ -163,9 +163,17 @@ private:
         wxString base_curr_printer;
     };
 
+    struct BedShapeType
+    {
+        wxString rectangle;
+        wxString circle;
+    };
+
     CreatePrinterType                                  m_create_type;
+    BedShapeType                                      m_bed_shape_type;
     std::vector<std::pair<RadioBox *, wxString>>       m_create_type_btns;
     std::vector<std::pair<RadioBox *, wxString>>       m_create_presets_btns;
+    std::vector<std::pair<RadioBox *, wxString>>       m_bed_shape_btns;
     std::vector<std::pair<::CheckBox *, Preset *>>           m_filament_preset;
     std::vector<std::pair<::CheckBox *, Preset *>>           m_process_preset;
     std::unordered_map<std::string, std::shared_ptr<Preset>> m_printer_name_to_preset;

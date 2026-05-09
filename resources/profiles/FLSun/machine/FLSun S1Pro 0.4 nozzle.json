@@ -1,0 +1,306 @@
+{
+    "type": "machine",
+    "setting_id": "GM003",
+    "name": "FLSun S1Pro 0.4 nozzle",
+    "from": "system",
+    "instantiation": "true",
+    "inherits": "fdm_machine_common",
+    "printer_model": "FLSun S1Pro",
+    "default_filament_profile": "FLSun S1Pro Generic PLA-HS",
+    "default_print_profile": "0.20mm Standard @FLSun S1Pro Generic PLA-HS",
+    "gcode_flavor": "klipper",
+    "nozzle_diameter": [
+        "0.4"
+    ],
+    "bed_exclude_area": [
+        "0x0"
+    ],
+    "printable_area": [
+        "159.392x13.945",
+        "157.57x27.7838",
+        "154.549x41.4112",
+        "150.351x54.7234",
+        "145.01x67.6191",
+        "138.564x80.0002",
+        "131.065x91.7725",
+        "122.567x102.846",
+        "113.137x113.137",
+        "102.846x122.567",
+        "91.7725x131.065",
+        "80.0003x138.564",
+        "67.6191x145.01",
+        "54.7234x150.351",
+        "41.4112x154.549",
+        "27.7838x157.57",
+        "13.945x159.392",
+        "9.79721e-15x160",
+        "-13.945x159.392",
+        "-27.7838x157.57",
+        "-41.4112x154.549",
+        "-54.7234x150.351",
+        "-67.6191x145.01",
+        "-80.0002x138.564",
+        "-91.7725x131.065",
+        "-102.846x122.567",
+        "-113.137x113.137",
+        "-122.567x102.846",
+        "-131.065x91.7725",
+        "-138.564x80.0003",
+        "-145.01x67.6191",
+        "-150.351x54.7234",
+        "-154.549x41.4112",
+        "-157.57x27.7838",
+        "-159.392x13.945",
+        "-160x1.95944e-14",
+        "-159.392x-13.945",
+        "-157.57x-27.7838",
+        "-154.549x-41.4112",
+        "-150.351x-54.7234",
+        "-145.01x-67.6191",
+        "-138.564x-80.0003",
+        "-131.065x-91.7725",
+        "-122.567x-102.846",
+        "-113.137x-113.137",
+        "-102.846x-122.567",
+        "-91.7725x-131.065",
+        "-80.0003x-138.564",
+        "-67.6191x-145.01",
+        "-54.7234x-150.351",
+        "-41.4112x-154.549",
+        "-27.7838x-157.57",
+        "-13.945x-159.392",
+        "-2.93916e-14x-160",
+        "13.945x-159.392",
+        "27.7838x-157.57",
+        "41.4112x-154.549",
+        "54.7234x-150.351",
+        "67.6191x-145.01",
+        "80.0002x-138.564",
+        "91.7725x-131.065",
+        "102.846x-122.567",
+        "113.137x-113.137",
+        "122.567x-102.846",
+        "131.065x-91.7725",
+        "138.564x-80.0002",
+        "145.01x-67.6191",
+        "150.351x-54.7234",
+        "154.549x-41.4112",
+        "157.57x-27.7838",
+        "159.392x-13.945",
+        "160x-3.91888e-14"
+    ],
+    "hot_bed_model": "flsun_s1_buildplate_model.stl",
+    "max_model": "S1MaxVolumn.STL",
+    "weight_scale": "0.92",
+    "cylinder_height": "383",
+    "printable_height": "428",
+    "machine_end_gcode": "M107\nM104 S0\nM104 S0\nM140 S0\nG92 E0\nG91\nG1 Z+0.5  F6000\nG28 \nG90 ;absolute positioning",
+    "machine_start_gcode": "G21\nG90\nM83\nG28 ; home all axes\nM140 S[first_layer_bed_temperature] is_AB\nM104 S[first_layer_temperature]\nG1 F3000 Z1\nG1 X-155 Y0 Z0.4\nM109 S[first_layer_temperature]\nM190 S[first_layer_bed_temperature] is_AB\nM107\nG92 E0\nG3 X0 Y-155 I155 Z0.3 E30 F2000\nG92 E0",
+    "layer_change_gcode": "",
+    "machine_pause_gcode": "M600",
+    "scan_first_layer": "0",
+    "nozzle_type": "hardened_steel",
+    "auxiliary_fan": "0",
+    "hot_bed_partition": "1",
+    "adaptive_bed_mesh_margin": "0",
+    "bbl_use_printhost": "0",
+    "bed_mesh_max": "99999,99999",
+    "bed_mesh_min": "-99999,-99999",
+    "bed_mesh_probe_distance": "50,50",
+    "before_layer_change_gcode": ";BEFORE_LAYER_CHANGE\n;[layer_z]\n",
+    "best_object_pos": "0.5,0.5",
+    "change_extrusion_role_gcode": "",
+    "change_filament_gcode": "",
+    "cooling_tube_length": "5",
+    "cooling_tube_retraction": "91.5",
+    "deretraction_speed": [
+        "0"
+    ],
+    "disable_m73": "0",
+    "emit_machine_limits_to_gcode": "1",
+    "enable_filament_ramming": "1",
+    "enable_long_retraction_when_cut": "0",
+    "extra_loading_move": "-2",
+    "extruder_clearance_height_to_lid": "140",
+    "extruder_clearance_height_to_rod": "36",
+    "extruder_clearance_radius": "65",
+    "extruder_colour": [
+        "#018001"
+    ],
+    "extruder_offset": [
+        "0x0"
+    ],
+    "fan_kickstart": "0",
+    "fan_speedup_overhangs": "1",
+    "fan_speedup_time": "0",
+    "head_wrap_detect_zone": [],
+    "high_current_on_filament_swap": "0",
+    "host_type": "prusalink",
+    "long_retractions_when_cut": [
+        "0"
+    ],
+    "machine_load_filament_time": "0",
+    "machine_max_acceleration_e": [
+        "40000",
+        "5000"
+    ],
+    "machine_max_acceleration_extruding": [
+        "40000",
+        "20000"
+    ],
+    "machine_max_acceleration_retracting": [
+        "40000",
+        "5000"
+    ],
+    "machine_max_acceleration_travel": [
+        "40000",
+        "20000"
+    ],
+    "machine_max_acceleration_x": [
+        "40000",
+        "20000"
+    ],
+    "machine_max_acceleration_y": [
+        "40000",
+        "20000"
+    ],
+    "machine_max_acceleration_z": [
+        "40000",
+        "500"
+    ],
+    "machine_max_jerk_e": [
+        "100",
+        "2.5"
+    ],
+    "machine_max_jerk_x": [
+        "3000",
+        "12"
+    ],
+    "machine_max_jerk_y": [
+        "3000",
+        "12"
+    ],
+    "machine_max_jerk_z": [
+        "3000",
+        "0.4"
+    ],
+    "machine_max_speed_e": [
+        "3000",
+        "30"
+    ],
+    "machine_max_speed_x": [
+        "3000",
+        "1000"
+    ],
+    "machine_max_speed_y": [
+        "3000",
+        "1000"
+    ],
+    "machine_max_speed_z": [
+        "3000",
+        "20"
+    ],
+    "machine_min_extruding_rate": [
+        "0",
+        "0"
+    ],
+    "machine_min_travel_rate": [
+        "0",
+        "0"
+    ],
+    "machine_unload_filament_time": "0",
+    "manual_filament_change": "0",
+    "max_layer_height": [
+        "0.35"
+    ],
+    "min_layer_height": [
+        "0.07"
+    ],
+    "nozzle_height": "4",
+    "nozzle_hrc": "0",
+    "nozzle_volume": "0",
+    "parking_pos_retraction": "92",
+    "preferred_orientation": "0",
+    "print_host": "",
+    "print_host_webui": "",
+    "printer_notes": "",
+    "printer_settings_id": "FLSun S1Pro 0.4 nozzle",
+    "printer_structure": "delta",
+    "printer_technology": "FFF",
+    "printer_variant": "0.4",
+    "printhost_apikey": "",
+    "printhost_authorization_type": "key",
+    "printhost_cafile": "",
+    "printhost_password": "",
+    "printhost_port": "",
+    "printhost_ssl_ignore_revoke": "0",
+    "printhost_user": "",
+    "printing_by_object_gcode": "",
+    "purge_in_prime_tower": "1",
+    "retract_before_wipe": [
+        "30%"
+    ],
+    "retract_length_toolchange": [
+        "2"
+    ],
+    "retract_lift_above": [
+        "0"
+    ],
+    "retract_lift_below": [
+        "0"
+    ],
+    "retract_lift_enforce": [
+        "All Surfaces"
+    ],
+    "retract_restart_extra": [
+        "-0.05"
+    ],
+    "retract_restart_extra_toolchange": [
+        "0"
+    ],
+    "retract_when_changing_layer": [
+        "1"
+    ],
+    "retraction_distances_when_cut": [
+        "18"
+    ],
+    "retraction_length": [
+        "1"
+    ],
+    "retraction_minimum_travel": [
+        "1"
+    ],
+    "retraction_speed": [
+        "80"
+    ],
+    "silent_mode": "0",
+    "single_extruder_multi_material": "1",
+    "support_air_filtration": "1",
+    "support_chamber_temp_control": "0",
+    "support_multi_bed_types": "0",
+    "template_custom_gcode": "",
+    "thumbnail_size": "48x48, 300x300",
+    "thumbnails_format": "PNG",
+    "time_cost": "0",
+    "time_lapse_gcode": "",
+    "upward_compatible_machine": [],
+    "use_firmware_retraction": "0",
+    "use_relative_e_distances": "1",
+    "version": "2.0.2.0",
+    "wipe": [
+        "1"
+    ],
+    "wipe_distance": [
+        "2"
+    ],
+    "z_hop": [
+        "0.4"
+    ],
+    "z_hop_threshold": [
+        "60"
+    ],
+    "z_hop_types": [
+        "Slope Lift"
+    ],
+    "z_offset": "0"
+}

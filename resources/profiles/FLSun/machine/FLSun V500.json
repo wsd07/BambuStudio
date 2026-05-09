@@ -1,0 +1,12 @@
+{
+    "type": "machine_model",
+    "name": "FLSun V500",
+    "model_id": "FLSun-V500",
+    "nozzle_diameter": "0.4;0.6;0.8",
+    "machine_tech": "FFF",
+    "family": "FLSun",
+    "bed_model": "flsun_s1_buildplate_model.stl",
+    "bed_texture": "flsun_s1_buildplate_texture.svg",
+    "hotend_model": "",
+    "default_materials": "FLSun V500 Generic PETG"
+}

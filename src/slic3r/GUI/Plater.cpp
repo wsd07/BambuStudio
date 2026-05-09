@@ -651,7 +651,7 @@ struct Sidebar::priv
     ExtruderGroup *single_extruder = nullptr;
 
     int  FromDIP(int n) { return plater->FromDIP(n); }
-    void layout_printer(bool isBBL, bool isDual);
+    void layout_printer(bool isBBL, bool isDual, bool show_nozzle_panel = true);
 
     void flush_printer_sync(bool restart = false);
     void show_filament_switcher_dialog(bool is_ready, bool is_manual);
@@ -751,9 +751,10 @@ struct Sidebar::priv
 #endif
 };
 
-void Sidebar::priv::layout_printer(bool isBBL, bool isDual)
+void Sidebar::priv::layout_printer(bool isBBL, bool isDual, bool show_nozzle_panel)
 {
-    isDual = isDual && isBBL;  // It indicates a multi-extruder layout.
+    show_nozzle_panel = show_nozzle_panel || isBBL;
+    isDual = isDual && show_nozzle_panel;  // It indicates a multi-extruder layout.
     // Printer - preset
     if (auto sizer = static_cast<wxBoxSizer *>(panel_printer_preset->GetSizer());
             sizer == nullptr || isBBL != (sizer->GetOrientation() == wxVERTICAL)) {
@@ -820,8 +821,8 @@ void Sidebar::priv::layout_printer(bool isBBL, bool isDual)
     btn_sync_printer->Show(isBBL);
     panel_printer_bed->Show(isBBL);
     vsizer_printer->GetItem(2)->GetSizer()->GetItem(1)->Show(isDual);
-    vsizer_printer->GetItem(2)->Show(isBBL && isDual);
-    vsizer_printer->GetItem(3)->Show(isBBL && !isDual);
+    vsizer_printer->GetItem(2)->Show(show_nozzle_panel && isDual);
+    vsizer_printer->GetItem(3)->Show(show_nozzle_panel && !isDual);
 }
 
 void Sidebar::priv::flush_printer_sync(bool restart)
@@ -3492,7 +3493,8 @@ void Sidebar::update_presets(Preset::Type preset_type)
 
         bool isBBL = printer_preset.is_bbl_vendor_preset(wxGetApp().preset_bundle);
         bool is_dual_extruder = extruder_variants->size() == 2;
-        p->layout_printer(isBBL, is_dual_extruder);
+        bool show_nozzle_panel = extruder_variants != nullptr && !extruder_variants->values.empty();
+        p->layout_printer(isBBL, is_dual_extruder, show_nozzle_panel);
 
         // Update nozzle titles from printer config (e.g. "Main Nozzle" / "Auxiliary Nozzle" for N6)
         // UI left = DEPUTY_EXTRUDER_ID(1), UI right = MAIN_EXTRUDER_ID(0)
@@ -6800,7 +6802,7 @@ Plater::priv::priv(Plater *q, MainFrame *main_frame)
         "extruder_clearance_dist_to_rod", "extruder_clearance_max_radius",
         "extruder_clearance_height_to_lid", "extruder_clearance_height_to_rod",
 		"nozzle_height", "skirt_loops", "skirt_distance",
-        "brim_width", "brim_object_gap", "brim_type", "nozzle_diameter", "single_extruder_multi_material",
+        "brim_width", "brim_object_gap", "brim_layers", "brim_type", "nozzle_diameter", "single_extruder_multi_material",
         "enable_prime_tower", "wipe_tower_x", "wipe_tower_y", "prime_tower_width", "prime_tower_brim_width", "prime_tower_skip_points", "prime_tower_enable_framework","prime_tower_max_speed",
         "prime_tower_rib_wall","prime_tower_extra_rib_length", "prime_tower_rib_width","prime_tower_fillet_wall", "prime_tower_infill_gap","filament_prime_volume","filament_prime_volume_nc",
         "extruder_colour", "filament_colour", "filament_type", "material_colour", "printable_height", "extruder_printable_height", "printer_model", "printer_technology",

@@ -1,0 +1,880 @@
+{
+    "name": "FLSun",
+    "version": "03.00.00.18",
+    "force_update": "0",
+    "update_addr": "",
+    "min_slic3r_version": "3.0.0.0",
+    "description": "FLSun configurations",
+    "machine_model_list": [
+        {
+            "name": "FLSun V400Max",
+            "sub_path": "machine/FLSun V400Max.json"
+        },
+        {
+            "name": "FLSun T1Max",
+            "sub_path": "machine/FLSun T1Max.json"
+        },
+        {
+            "name": "FLSun T1E",
+            "sub_path": "machine/FLSun T1E.json"
+        },
+        {
+            "name": "FLSun S1",
+            "sub_path": "machine/FLSun S1.json"
+        },
+        {
+            "name": "FLSun S1Pro",
+            "sub_path": "machine/FLSun S1Pro.json"
+        },
+        {
+            "name": "FLSun T1",
+            "sub_path": "machine/FLSun T1.json"
+        },
+        {
+            "name": "FLSun T1Pro",
+            "sub_path": "machine/FLSun T1Pro.json"
+        },
+        {
+            "name": "FLSun V400",
+            "sub_path": "machine/FLSun V400.json"
+        },
+        {
+            "name": "FLSun SR",
+            "sub_path": "machine/FLSun SR.json"
+        },
+        {
+            "name": "FLSun QQ-S Pro",
+            "sub_path": "machine/FLSun QQ-S Pro.json"
+        },
+        {
+            "name": "FLSun Q5",
+            "sub_path": "machine/FLSun Q5.json"
+        },
+        {
+            "name": "FLSun V500",
+            "sub_path": "machine/FLSun V500.json"
+        }
+    ],
+    "process_list": [
+        {
+            "name": "fdm_process_common",
+            "sub_path": "process/fdm_process_common.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun Q5",
+            "sub_path": "process/0.20mm Standard @FLSun Q5.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun QQSPro",
+            "sub_path": "process/0.20mm Standard @FLSun QQSPro.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun SR",
+            "sub_path": "process/0.20mm Standard @FLSun SR.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun V400",
+            "sub_path": "process/0.20mm Standard @FLSun V400.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun T1E Generic PLA",
+            "sub_path": "process/0.20mm Standard @FLSun T1E Generic PLA.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun T1E Generic PLA+",
+            "sub_path": "process/0.20mm Standard @FLSun T1E Generic PLA+.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun T1E Generic PLA-HS",
+            "sub_path": "process/0.20mm Standard @FLSun T1E Generic PLA-HS.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun T1E Generic PLA-Silk",
+            "sub_path": "process/0.20mm Standard @FLSun T1E Generic PLA-Silk.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun T1E Generic PETG",
+            "sub_path": "process/0.20mm Standard @FLSun T1E Generic PETG.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun T1E Generic ABS",
+            "sub_path": "process/0.20mm Standard @FLSun T1E Generic ABS.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun T1E Generic PET",
+            "sub_path": "process/0.20mm Standard @FLSun T1E Generic PET.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun T1E Generic TPU",
+            "sub_path": "process/0.20mm Standard @FLSun T1E Generic TPU.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun T1Max Generic PLA",
+            "sub_path": "process/0.20mm Standard @FLSun T1Max Generic PLA.json"
+        },
+        {
+            "name": "0.20mm High Speed @FLSun T1Max Generic PLA",
+            "sub_path": "process/0.20mm High Speed @FLSun T1Max Generic PLA.json"
+        },
+        {
+            "name": "0.20mm High Quality @FLSun T1Max Generic PLA",
+            "sub_path": "process/0.20mm High Quality @FLSun T1Max Generic PLA.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun T1Max Generic PLA+",
+            "sub_path": "process/0.20mm Standard @FLSun T1Max Generic PLA+.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun T1Max Generic PLA-Silk",
+            "sub_path": "process/0.20mm Standard @FLSun T1Max Generic PLA-Silk.json"
+        },
+        {
+            "name": "0.20mm High Speed @FLSun T1Max Generic PLA-Silk",
+            "sub_path": "process/0.20mm High Speed @FLSun T1Max Generic PLA-Silk.json"
+        },
+        {
+            "name": "0.20mm High Quality @FLSun T1Max Generic PLA-Silk",
+            "sub_path": "process/0.20mm High Quality @FLSun T1Max Generic PLA-Silk.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun T1Max Generic PETG",
+            "sub_path": "process/0.20mm Standard @FLSun T1Max Generic PETG.json"
+        },
+        {
+            "name": "0.20mm High Quality @FLSun T1Max Generic PETG",
+            "sub_path": "process/0.20mm High Quality @FLSun T1Max Generic PETG.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun T1Max Generic TPU",
+            "sub_path": "process/0.20mm Standard @FLSun T1Max Generic TPU.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun T1Pro FLSun PLA-HS",
+            "sub_path": "process/0.20mm Standard @FLSun T1Pro FLSun PLA-HS.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun T1Pro Generic PLA",
+            "sub_path": "process/0.20mm Standard @FLSun T1Pro Generic PLA.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun T1Pro Generic PLA+",
+            "sub_path": "process/0.20mm Standard @FLSun T1Pro Generic PLA+.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun T1Pro Generic PLA-HS",
+            "sub_path": "process/0.20mm Standard @FLSun T1Pro Generic PLA-HS.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun T1Pro Generic PLA-Silk",
+            "sub_path": "process/0.20mm Standard @FLSun T1Pro Generic PLA-Silk.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun T1Pro Generic PETG",
+            "sub_path": "process/0.20mm Standard @FLSun T1Pro Generic PETG.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun T1Pro Generic PA",
+            "sub_path": "process/0.20mm Standard @FLSun T1Pro Generic PA.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun T1Pro Generic PC",
+            "sub_path": "process/0.20mm Standard @FLSun T1Pro Generic PC.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun T1Pro Generic ABS",
+            "sub_path": "process/0.20mm Standard @FLSun T1Pro Generic ABS.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun T1Pro Generic ASA",
+            "sub_path": "process/0.20mm Standard @FLSun T1Pro Generic ASA.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun T1Pro Generic PET",
+            "sub_path": "process/0.20mm Standard @FLSun T1Pro Generic PET.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun T1Pro Generic TPU-95A",
+            "sub_path": "process/0.20mm Standard @FLSun T1Pro Generic TPU-95A.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun T1 FLSun PLA-HS",
+            "sub_path": "process/0.20mm Standard @FLSun T1 FLSun PLA-HS.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun T1 Generic PLA",
+            "sub_path": "process/0.20mm Standard @FLSun T1 Generic PLA.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun T1 Generic PLA+",
+            "sub_path": "process/0.20mm Standard @FLSun T1 Generic PLA+.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun T1 Generic PLA-HS",
+            "sub_path": "process/0.20mm Standard @FLSun T1 Generic PLA-HS.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun T1 Generic PLA-Silk",
+            "sub_path": "process/0.20mm Standard @FLSun T1 Generic PLA-Silk.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun T1 Generic PETG",
+            "sub_path": "process/0.20mm Standard @FLSun T1 Generic PETG.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun T1 Generic PA",
+            "sub_path": "process/0.20mm Standard @FLSun T1 Generic PA.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun T1 Generic PC",
+            "sub_path": "process/0.20mm Standard @FLSun T1 Generic PC.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun T1 Generic ABS",
+            "sub_path": "process/0.20mm Standard @FLSun T1 Generic ABS.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun T1 Generic ASA",
+            "sub_path": "process/0.20mm Standard @FLSun T1 Generic ASA.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun T1 Generic PET",
+            "sub_path": "process/0.20mm Standard @FLSun T1 Generic PET.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun T1 Generic TPU-95A",
+            "sub_path": "process/0.20mm Standard @FLSun T1 Generic TPU-95A.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun S1Pro FLSun PLA-HS",
+            "sub_path": "process/0.20mm Standard @FLSun S1Pro FLSun PLA-HS.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun S1Pro Generic PLA",
+            "sub_path": "process/0.20mm Standard @FLSun S1Pro Generic PLA.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun S1Pro Generic PLA+",
+            "sub_path": "process/0.20mm Standard @FLSun S1Pro Generic PLA+.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun S1Pro Generic PLA-CF",
+            "sub_path": "process/0.20mm Standard @FLSun S1Pro Generic PLA-CF.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun S1Pro Generic PLA-HS",
+            "sub_path": "process/0.20mm Standard @FLSun S1Pro Generic PLA-HS.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun S1Pro Generic PLA-Silk",
+            "sub_path": "process/0.20mm Standard @FLSun S1Pro Generic PLA-Silk.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun S1Pro Generic PETG",
+            "sub_path": "process/0.20mm Standard @FLSun S1Pro Generic PETG.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun S1Pro Generic PA",
+            "sub_path": "process/0.20mm Standard @FLSun S1Pro Generic PA.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun S1Pro Generic PC",
+            "sub_path": "process/0.20mm Standard @FLSun S1Pro Generic PC.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun S1Pro Generic ABS",
+            "sub_path": "process/0.20mm Standard @FLSun S1Pro Generic ABS.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun S1Pro Generic ASA",
+            "sub_path": "process/0.20mm Standard @FLSun S1Pro Generic ASA.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun S1Pro Generic PET",
+            "sub_path": "process/0.20mm Standard @FLSun S1Pro Generic PET.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun S1Pro Generic TPU-95A",
+            "sub_path": "process/0.20mm Standard @FLSun S1Pro Generic TPU-95A.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun S1Pro Esun ePLA-Lite",
+            "sub_path": "process/0.20mm Standard @FLSun S1Pro Esun ePLA-Lite.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun S1 FLSun PLA-HS",
+            "sub_path": "process/0.20mm Standard @FLSun S1 FLSun PLA-HS.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun S1 Generic PLA",
+            "sub_path": "process/0.20mm Standard @FLSun S1 Generic PLA.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun S1 Generic PLA+",
+            "sub_path": "process/0.20mm Standard @FLSun S1 Generic PLA+.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun S1 Generic PLA-CF",
+            "sub_path": "process/0.20mm Standard @FLSun S1 Generic PLA-CF.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun S1 Generic PLA-HS",
+            "sub_path": "process/0.20mm Standard @FLSun S1 Generic PLA-HS.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun S1 Generic PLA-Silk",
+            "sub_path": "process/0.20mm Standard @FLSun S1 Generic PLA-Silk.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun S1 Generic PETG",
+            "sub_path": "process/0.20mm Standard @FLSun S1 Generic PETG.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun S1 Generic PA",
+            "sub_path": "process/0.20mm Standard @FLSun S1 Generic PA.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun S1 Generic PC",
+            "sub_path": "process/0.20mm Standard @FLSun S1 Generic PC.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun S1 Generic ABS",
+            "sub_path": "process/0.20mm Standard @FLSun S1 Generic ABS.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun S1 Generic ASA",
+            "sub_path": "process/0.20mm Standard @FLSun S1 Generic ASA.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun S1 Generic PET",
+            "sub_path": "process/0.20mm Standard @FLSun S1 Generic PET.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun S1 Generic TPU-95A",
+            "sub_path": "process/0.20mm Standard @FLSun S1 Generic TPU-95A.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun S1 Esun ePLA-Lite",
+            "sub_path": "process/0.20mm Standard @FLSun S1 Esun ePLA-Lite.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun V400Max Generic PLA",
+            "sub_path": "process/0.20mm Standard @FLSun V400Max Generic PLA.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun V400Max Generic PLA-CF",
+            "sub_path": "process/0.20mm Standard @FLSun V400Max Generic PLA-CF.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun V400Max Generic PLA-Silk",
+            "sub_path": "process/0.20mm Standard @FLSun V400Max Generic PLA-Silk.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun V400Max Generic PETG",
+            "sub_path": "process/0.20mm Standard @FLSun V400Max Generic PETG.json"
+        },
+        {
+            "name": "0.30mm Standard @FLSun V400Max 0.6nozzle Generic PLA",
+            "sub_path": "process/0.30mm Standard @FLSun V400Max 0.6nozzle Generic PLA.json"
+        },
+        {
+            "name": "0.30mm Standard @FLSun V400Max 0.6nozzle Generic PLA-CF",
+            "sub_path": "process/0.30mm Standard @FLSun V400Max 0.6nozzle Generic PLA-CF.json"
+        },
+        {
+            "name": "0.30mm Standard @FLSun V400Max 0.6nozzle Generic PLA-Silk",
+            "sub_path": "process/0.30mm Standard @FLSun V400Max 0.6nozzle Generic PLA-Silk.json"
+        },
+        {
+            "name": "0.30mm Standard @FLSun V400Max 0.6nozzle Generic PETG",
+            "sub_path": "process/0.30mm Standard @FLSun V400Max 0.6nozzle Generic PETG.json"
+        },
+        {
+            "name": "0.40mm Standard @FLSun V400Max 0.8nozzle Generic PLA",
+            "sub_path": "process/0.40mm Standard @FLSun V400Max 0.8nozzle Generic PLA.json"
+        },
+        {
+            "name": "0.40mm Standard @FLSun V400Max 0.8nozzle Generic PLA-CF",
+            "sub_path": "process/0.40mm Standard @FLSun V400Max 0.8nozzle Generic PLA-CF.json"
+        },
+        {
+            "name": "0.40mm Standard @FLSun V400Max 0.8nozzle Generic PLA-Silk",
+            "sub_path": "process/0.40mm Standard @FLSun V400Max 0.8nozzle Generic PLA-Silk.json"
+        },
+        {
+            "name": "0.40mm Standard @FLSun V400Max 0.8nozzle Generic PETG",
+            "sub_path": "process/0.40mm Standard @FLSun V400Max 0.8nozzle Generic PETG.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun V500 Generic PLA",
+            "sub_path": "process/0.20mm Standard @FLSun V500 Generic PLA.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun V500 Generic PETG",
+            "sub_path": "process/0.20mm Standard @FLSun V500 Generic PETG.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun V500 Generic PLA-CF",
+            "sub_path": "process/0.20mm Standard @FLSun V500 Generic PLA-CF.json"
+        },
+        {
+            "name": "0.20mm Standard @FLSun V500 Generic PLA-Silk",
+            "sub_path": "process/0.20mm Standard @FLSun V500 Generic PLA-Silk.json"
+        }
+    ],
+    "filament_list": [
+        {
+            "name": "fdm_filament_common",
+            "sub_path": "filament/fdm_filament_common.json"
+        },
+        {
+            "name": "fdm_filament_pla",
+            "sub_path": "filament/fdm_filament_pla.json"
+        },
+        {
+            "name": "fdm_filament_tpu",
+            "sub_path": "filament/fdm_filament_tpu.json"
+        },
+        {
+            "name": "fdm_filament_pet",
+            "sub_path": "filament/fdm_filament_pet.json"
+        },
+        {
+            "name": "fdm_filament_abs",
+            "sub_path": "filament/fdm_filament_abs.json"
+        },
+        {
+            "name": "fdm_filament_pc",
+            "sub_path": "filament/fdm_filament_pc.json"
+        },
+        {
+            "name": "fdm_filament_asa",
+            "sub_path": "filament/fdm_filament_asa.json"
+        },
+        {
+            "name": "fdm_filament_pva",
+            "sub_path": "filament/fdm_filament_pva.json"
+        },
+        {
+            "name": "fdm_filament_pa",
+            "sub_path": "filament/fdm_filament_pa.json"
+        },
+        {
+            "name": "FLSun Generic PLA",
+            "sub_path": "filament/FLSun Generic PLA.json"
+        },
+        {
+            "name": "FLSun Generic ABS",
+            "sub_path": "filament/FLSun Generic ABS.json"
+        },
+        {
+            "name": "FLSun Generic PETG",
+            "sub_path": "filament/FLSun Generic PETG.json"
+        },
+        {
+            "name": "FLSun Generic TPU",
+            "sub_path": "filament/FLSun Generic TPU.json"
+        },
+        {
+            "name": "FLSun Generic ASA",
+            "sub_path": "filament/FLSun Generic ASA.json"
+        },
+        {
+            "name": "FLSun T1E Generic PLA",
+            "sub_path": "filament/FLSun T1E Generic PLA.json"
+        },
+        {
+            "name": "FLSun T1E Generic PLA+",
+            "sub_path": "filament/FLSun T1E Generic PLA+.json"
+        },
+        {
+            "name": "FLSun T1E Generic PLA-HS",
+            "sub_path": "filament/FLSun T1E Generic PLA-HS.json"
+        },
+        {
+            "name": "FLSun T1E Generic PLA-Silk",
+            "sub_path": "filament/FLSun T1E Generic PLA-Silk.json"
+        },
+        {
+            "name": "FLSun T1E Generic PETG",
+            "sub_path": "filament/FLSun T1E Generic PETG.json"
+        },
+        {
+            "name": "FLSun T1E Generic ABS",
+            "sub_path": "filament/FLSun T1E Generic ABS.json"
+        },
+        {
+            "name": "FLSun T1E Generic PET",
+            "sub_path": "filament/FLSun T1E Generic PET.json"
+        },
+        {
+            "name": "FLSun T1E Generic TPU",
+            "sub_path": "filament/FLSun T1E Generic TPU.json"
+        },
+        {
+            "name": "FLSun T1Max Generic PLA",
+            "sub_path": "filament/FLSun T1Max Generic PLA.json"
+        },
+        {
+            "name": "FLSun T1Max Generic PLA+",
+            "sub_path": "filament/FLSun T1Max Generic PLA+.json"
+        },
+        {
+            "name": "FLSun T1Max Generic PLA-Silk",
+            "sub_path": "filament/FLSun T1Max Generic PLA-Silk.json"
+        },
+        {
+            "name": "FLSun T1Max Generic PETG",
+            "sub_path": "filament/FLSun T1Max Generic PETG.json"
+        },
+        {
+            "name": "FLSun T1Max Generic TPU",
+            "sub_path": "filament/FLSun T1Max Generic TPU.json"
+        },
+        {
+            "name": "FLSun T1Pro FLSun PLA-HS",
+            "sub_path": "filament/FLSun T1Pro FLSun PLA-HS.json"
+        },
+        {
+            "name": "FLSun T1Pro Generic PLA",
+            "sub_path": "filament/FLSun T1Pro Generic PLA.json"
+        },
+        {
+            "name": "FLSun T1Pro Generic PLA+",
+            "sub_path": "filament/FLSun T1Pro Generic PLA+.json"
+        },
+        {
+            "name": "FLSun T1Pro Generic PLA-HS",
+            "sub_path": "filament/FLSun T1Pro Generic PLA-HS.json"
+        },
+        {
+            "name": "FLSun T1Pro Generic PLA-Silk",
+            "sub_path": "filament/FLSun T1Pro Generic PLA-Silk.json"
+        },
+        {
+            "name": "FLSun T1Pro Generic PETG",
+            "sub_path": "filament/FLSun T1Pro Generic PETG.json"
+        },
+        {
+            "name": "FLSun T1Pro Generic PA",
+            "sub_path": "filament/FLSun T1Pro Generic PA.json"
+        },
+        {
+            "name": "FLSun T1Pro Generic PC",
+            "sub_path": "filament/FLSun T1Pro Generic PC.json"
+        },
+        {
+            "name": "FLSun T1Pro Generic ABS",
+            "sub_path": "filament/FLSun T1Pro Generic ABS.json"
+        },
+        {
+            "name": "FLSun T1Pro Generic ASA",
+            "sub_path": "filament/FLSun T1Pro Generic ASA.json"
+        },
+        {
+            "name": "FLSun T1Pro Generic PET",
+            "sub_path": "filament/FLSun T1Pro Generic PET.json"
+        },
+        {
+            "name": "FLSun T1Pro Generic TPU-95A",
+            "sub_path": "filament/FLSun T1Pro Generic TPU-95A.json"
+        },
+        {
+            "name": "FLSun T1 FLSun PLA-HS",
+            "sub_path": "filament/FLSun T1 FLSun PLA-HS.json"
+        },
+        {
+            "name": "FLSun T1 Generic PLA",
+            "sub_path": "filament/FLSun T1 Generic PLA.json"
+        },
+        {
+            "name": "FLSun T1 Generic PLA+",
+            "sub_path": "filament/FLSun T1 Generic PLA+.json"
+        },
+        {
+            "name": "FLSun T1 Generic PLA-HS",
+            "sub_path": "filament/FLSun T1 Generic PLA-HS.json"
+        },
+        {
+            "name": "FLSun T1 Generic PLA-Silk",
+            "sub_path": "filament/FLSun T1 Generic PLA-Silk.json"
+        },
+        {
+            "name": "FLSun T1 Generic PETG",
+            "sub_path": "filament/FLSun T1 Generic PETG.json"
+        },
+        {
+            "name": "FLSun T1 Generic PA",
+            "sub_path": "filament/FLSun T1 Generic PA.json"
+        },
+        {
+            "name": "FLSun T1 Generic PC",
+            "sub_path": "filament/FLSun T1 Generic PC.json"
+        },
+        {
+            "name": "FLSun T1 Generic ABS",
+            "sub_path": "filament/FLSun T1 Generic ABS.json"
+        },
+        {
+            "name": "FLSun T1 Generic ASA",
+            "sub_path": "filament/FLSun T1 Generic ASA.json"
+        },
+        {
+            "name": "FLSun T1 Generic PET",
+            "sub_path": "filament/FLSun T1 Generic PET.json"
+        },
+        {
+            "name": "FLSun T1 Generic TPU-95A",
+            "sub_path": "filament/FLSun T1 Generic TPU-95A.json"
+        },
+        {
+            "name": "FLSun S1Pro FLSun PLA-HS",
+            "sub_path": "filament/FLSun S1Pro FLSun PLA-HS.json"
+        },
+        {
+            "name": "FLSun S1Pro Generic PLA",
+            "sub_path": "filament/FLSun S1Pro Generic PLA.json"
+        },
+        {
+            "name": "FLSun S1Pro Generic PLA+",
+            "sub_path": "filament/FLSun S1Pro Generic PLA+.json"
+        },
+        {
+            "name": "FLSun S1Pro Generic PLA-CF",
+            "sub_path": "filament/FLSun S1Pro Generic PLA-CF.json"
+        },
+        {
+            "name": "FLSun S1Pro Generic PLA-HS",
+            "sub_path": "filament/FLSun S1Pro Generic PLA-HS.json"
+        },
+        {
+            "name": "FLSun S1Pro Generic PLA-Silk",
+            "sub_path": "filament/FLSun S1Pro Generic PLA-Silk.json"
+        },
+        {
+            "name": "FLSun S1Pro Generic PETG",
+            "sub_path": "filament/FLSun S1Pro Generic PETG.json"
+        },
+        {
+            "name": "FLSun S1Pro Generic PA",
+            "sub_path": "filament/FLSun S1Pro Generic PA.json"
+        },
+        {
+            "name": "FLSun S1Pro Generic PC",
+            "sub_path": "filament/FLSun S1Pro Generic PC.json"
+        },
+        {
+            "name": "FLSun S1Pro Generic ABS",
+            "sub_path": "filament/FLSun S1Pro Generic ABS.json"
+        },
+        {
+            "name": "FLSun S1Pro Generic ASA",
+            "sub_path": "filament/FLSun S1Pro Generic ASA.json"
+        },
+        {
+            "name": "FLSun S1Pro Generic PET",
+            "sub_path": "filament/FLSun S1Pro Generic PET.json"
+        },
+        {
+            "name": "FLSun S1Pro Generic TPU-95A",
+            "sub_path": "filament/FLSun S1Pro Generic TPU-95A.json"
+        },
+        {
+            "name": "FLSun S1Pro Esun ePLA-Lite",
+            "sub_path": "filament/FLSun S1Pro Esun ePLA-Lite.json"
+        },
+        {
+            "name": "FLSun S1 FLSun PLA-HS",
+            "sub_path": "filament/FLSun S1 FLSun PLA-HS.json"
+        },
+        {
+            "name": "FLSun S1 Generic PLA",
+            "sub_path": "filament/FLSun S1 Generic PLA.json"
+        },
+        {
+            "name": "FLSun S1 Generic PLA+",
+            "sub_path": "filament/FLSun S1 Generic PLA+.json"
+        },
+        {
+            "name": "FLSun S1 Generic PLA-CF",
+            "sub_path": "filament/FLSun S1 Generic PLA-CF.json"
+        },
+        {
+            "name": "FLSun S1 Generic PLA-HS",
+            "sub_path": "filament/FLSun S1 Generic PLA-HS.json"
+        },
+        {
+            "name": "FLSun S1 Generic PLA-Silk",
+            "sub_path": "filament/FLSun S1 Generic PLA-Silk.json"
+        },
+        {
+            "name": "FLSun S1 Generic PETG",
+            "sub_path": "filament/FLSun S1 Generic PETG.json"
+        },
+        {
+            "name": "FLSun S1 Generic PA",
+            "sub_path": "filament/FLSun S1 Generic PA.json"
+        },
+        {
+            "name": "FLSun S1 Generic PC",
+            "sub_path": "filament/FLSun S1 Generic PC.json"
+        },
+        {
+            "name": "FLSun S1 Generic ABS",
+            "sub_path": "filament/FLSun S1 Generic ABS.json"
+        },
+        {
+            "name": "FLSun S1 Generic ASA",
+            "sub_path": "filament/FLSun S1 Generic ASA.json"
+        },
+        {
+            "name": "FLSun S1 Generic PET",
+            "sub_path": "filament/FLSun S1 Generic PET.json"
+        },
+        {
+            "name": "FLSun S1 Generic TPU-95A",
+            "sub_path": "filament/FLSun S1 Generic TPU-95A.json"
+        },
+        {
+            "name": "FLSun S1 Esun ePLA-Lite",
+            "sub_path": "filament/FLSun S1 Esun ePLA-Lite.json"
+        },
+        {
+            "name": "FLSun V400Max Generic PLA",
+            "sub_path": "filament/FLSun V400Max Generic PLA.json"
+        },
+        {
+            "name": "FLSun V400Max Generic PLA-CF",
+            "sub_path": "filament/FLSun V400Max Generic PLA-CF.json"
+        },
+        {
+            "name": "FLSun V400Max Generic PLA-Silk",
+            "sub_path": "filament/FLSun V400Max Generic PLA-Silk.json"
+        },
+        {
+            "name": "FLSun V400Max Generic PETG",
+            "sub_path": "filament/FLSun V400Max Generic PETG.json"
+        },
+        {
+            "name": "FLSun V400Max 0.6nozzle Generic PLA",
+            "sub_path": "filament/FLSun V400Max 0.6nozzle Generic PLA.json"
+        },
+        {
+            "name": "FLSun V400Max 0.6nozzle Generic PLA-CF",
+            "sub_path": "filament/FLSun V400Max 0.6nozzle Generic PLA-CF.json"
+        },
+        {
+            "name": "FLSun V400Max 0.6nozzle Generic PLA-Silk",
+            "sub_path": "filament/FLSun V400Max 0.6nozzle Generic PLA-Silk.json"
+        },
+        {
+            "name": "FLSun V400Max 0.6nozzle Generic PETG",
+            "sub_path": "filament/FLSun V400Max 0.6nozzle Generic PETG.json"
+        },
+        {
+            "name": "FLSun V400Max 0.8nozzle Generic PLA",
+            "sub_path": "filament/FLSun V400Max 0.8nozzle Generic PLA.json"
+        },
+        {
+            "name": "FLSun V400Max 0.8nozzle Generic PLA-CF",
+            "sub_path": "filament/FLSun V400Max 0.8nozzle Generic PLA-CF.json"
+        },
+        {
+            "name": "FLSun V400Max 0.8nozzle Generic PLA-Silk",
+            "sub_path": "filament/FLSun V400Max 0.8nozzle Generic PLA-Silk.json"
+        },
+        {
+            "name": "FLSun V400Max 0.8nozzle Generic PETG",
+            "sub_path": "filament/FLSun V400Max 0.8nozzle Generic PETG.json"
+        },
+        {
+            "name": "FLSun V500 Generic PLA",
+            "sub_path": "filament/FLSun V500 Generic PLA.json"
+        },
+        {
+            "name": "FLSun V500 Generic PETG",
+            "sub_path": "filament/FLSun V500 Generic PETG.json"
+        },
+        {
+            "name": "FLSun V500 Generic PLA-CF",
+            "sub_path": "filament/FLSun V500 Generic PLA-CF.json"
+        },
+        {
+            "name": "FLSun V500 Generic PLA-Silk",
+            "sub_path": "filament/FLSun V500 Generic PLA-Silk.json"
+        }
+    ],
+    "machine_list": [
+        {
+            "name": "fdm_machine_common",
+            "sub_path": "machine/fdm_machine_common.json"
+        },
+        {
+            "name": "FLSun Q5 0.4 nozzle",
+            "sub_path": "machine/FLSun Q5 0.4 nozzle.json"
+        },
+        {
+            "name": "FLSun QQ-S Pro 0.4 nozzle",
+            "sub_path": "machine/FLSun QQ-S Pro 0.4 nozzle.json"
+        },
+        {
+            "name": "FLSun Super Racer 0.4 nozzle",
+            "sub_path": "machine/FLSun SR 0.4 nozzle.json"
+        },
+        {
+            "name": "FLSun V400 0.4 nozzle",
+            "sub_path": "machine/FLSun V400 0.4 nozzle.json"
+        },
+        {
+            "name": "FLSun T1 0.4 nozzle",
+            "sub_path": "machine/FLSun T1 0.4 nozzle.json"
+        },
+        {
+            "name": "FLSun T1Pro 0.4 nozzle",
+            "sub_path": "machine/FLSun T1Pro 0.4 nozzle.json"
+        },
+        {
+            "name": "FLSun T1E 0.4 nozzle",
+            "sub_path": "machine/FLSun T1E 0.4 nozzle.json"
+        },
+        {
+            "name": "FLSun T1Max 0.4 nozzle",
+            "sub_path": "machine/FLSun T1Max 0.4 nozzle.json"
+        },
+        {
+            "name": "FLSun S1 0.4 nozzle",
+            "sub_path": "machine/FLSun S1 0.4 nozzle.json"
+        },
+        {
+            "name": "FLSun S1Pro 0.4 nozzle",
+            "sub_path": "machine/FLSun S1Pro 0.4 nozzle.json"
+        },
+        {
+            "name": "FLSun V400Max 0.4 nozzle",
+            "sub_path": "machine/FLSun V400Max 0.4 nozzle.json"
+        },
+        {
+            "name": "FLSun V400Max 0.6 nozzle",
+            "sub_path": "machine/FLSun V400Max 0.6 nozzle.json"
+        },
+        {
+            "name": "FLSun V400Max 0.8 nozzle",
+            "sub_path": "machine/FLSun V400Max 0.8 nozzle.json"
+        },
+        {
+            "name": "FLSun V400Max 1.0 nozzle",
+            "sub_path": "machine/FLSun V400Max 1.0 nozzle.json"
+        },
+        {
+            "name": "FLSun V400Max 1.2 nozzle",
+            "sub_path": "machine/FLSun V400Max 1.2 nozzle.json"
+        },
+        {
+            "name": "FLSun V400Max 1.5 nozzle",
+            "sub_path": "machine/FLSun V400Max 1.5 nozzle.json"
+        },
+        {
+            "name": "FLSun V500 0.4 nozzle",
+            "sub_path": "machine/FLSun V500 0.4 nozzle.json"
+        }
+    ]
+}

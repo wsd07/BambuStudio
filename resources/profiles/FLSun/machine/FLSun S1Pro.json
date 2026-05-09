@@ -1,0 +1,12 @@
+{
+    "type": "machine_model",
+    "name": "FLSun S1Pro",
+    "model_id": "FLSun S1Pro",
+    "nozzle_diameter": "0.4",
+    "machine_tech": "FFF",
+    "family": "FLSun",
+    "bed_model": "flsun_s1_buildplate_model.stl",
+    "bed_texture": "flsun_s1_buildplate_texture.svg",
+    "hotend_model": "",
+    "default_materials": "FLSun S1Pro FLSun PLA-HS;FLSun S1Pro Generic PLA;FLSun S1Pro Generic PLA+;FLSun S1Pro Generic PLA-CF;FLSun S1Pro Generic PLA-HS;FLSun S1Pro Generic PLA-Silk;FLSun S1Pro Generic PETG;FLSun S1Pro Generic PA;FLSun S1Pro Generic PC;FLSun S1Pro Generic ABS;FLSun S1Pro Generic ASA;FLSun S1Pro Generic PET;FLSun S1Pro Generic TPU-95A;FLSun S1Pro Esun ePLA-Lite"
+}

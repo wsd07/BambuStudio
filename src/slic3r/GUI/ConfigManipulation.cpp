@@ -432,8 +432,7 @@ void ConfigManipulation::update_print_fff_config(DynamicPrintConfig* config, con
                                      config->opt_bool("enable_wrapping_detection"));
     }
     if (config->opt_bool("spiral_mode") && !adjust_spiral_mode_params) {
-        adjust_spiral_mode_params = (config->opt_int("wall_loops") != 1 ||
-                                     config->opt_int("top_shell_layers") != 0 || sparse_infill_density != 0 ||
+        adjust_spiral_mode_params = (config->opt_int("top_shell_layers") != 0 || sparse_infill_density != 0 ||
                                      config->opt_bool("enable_support") ||
                                      config->opt_int("enforce_support_layers") != 0 ||
                                      config->opt_bool("detect_thin_wall"));
@@ -461,7 +460,6 @@ void ConfigManipulation::update_print_fff_config(DynamicPrintConfig* config, con
             new_conf.set_key_value("z_direction_outwall_speed_continuous", new ConfigOptionBool(false));
             new_conf.set_key_value("enable_wrapping_detection", new ConfigOptionBool(false));
             if (config->opt_bool("spiral_mode")) {
-                    new_conf.set_key_value("wall_loops", new ConfigOptionInt(1));
                     new_conf.set_key_value("top_shell_layers", new ConfigOptionInt(0));
                     new_conf.set_key_value("sparse_infill_density", new ConfigOptionPercent(0));
                     new_conf.set_key_value("enable_support", new ConfigOptionBool(false));
@@ -831,8 +829,21 @@ void ConfigManipulation::toggle_print_fff_options(DynamicPrintConfig *config, in
     for (auto el : {"sparse_infill_lattice_angle_1", "sparse_infill_lattice_angle_2"}) toggle_line(el, lattice_options);
 
     bool has_spiral_vase         = config->opt_bool("spiral_mode");
+    const ConfigOptionFloat *spiral_vase_reinforcement_multiplier_opt =
+        config->option<ConfigOptionFloat>("spiral_vase_reinforcement_multiplier");
+    const ConfigOptionBool *spiral_vase_reinforcement_fade_opt =
+        config->option<ConfigOptionBool>("spiral_vase_reinforcement_fade");
+    bool has_spiral_vase_reinforcement =
+        has_spiral_vase && spiral_vase_reinforcement_multiplier_opt != nullptr &&
+        spiral_vase_reinforcement_multiplier_opt->value > 0;
     toggle_line("spiral_mode_smooth", has_spiral_vase);
     toggle_line("spiral_mode_max_xy_smoothing", config->opt_bool("spiral_mode_smooth"));
+    toggle_line("spiral_vase_reinforcement_multiplier", has_spiral_vase);
+    toggle_line("spiral_vase_reinforcement_height", has_spiral_vase_reinforcement);
+    toggle_line("spiral_vase_reinforcement_fade", has_spiral_vase_reinforcement);
+    toggle_line("spiral_vase_reinforcement_fade_end_multiplier",
+        has_spiral_vase_reinforcement && spiral_vase_reinforcement_fade_opt != nullptr &&
+        spiral_vase_reinforcement_fade_opt->value);
     toggle_field("z_direction_outwall_speed_continuous", !has_spiral_vase);
     bool has_top_solid_infill 	 = config->opt_int("top_shell_layers") > 0;
     bool has_bottom_solid_infill = config->opt_int("bottom_shell_layers") > 0;
@@ -877,6 +888,7 @@ void ConfigManipulation::toggle_print_fff_options(DynamicPrintConfig *config, in
 
     bool have_brim = (config->opt_enum<BrimType>("brim_type") != btNoBrim);
     toggle_field("brim_object_gap", have_brim);
+    toggle_field("brim_layers", have_brim);
     bool have_brim_width = (config->opt_enum<BrimType>("brim_type") != btNoBrim) && config->opt_enum<BrimType>("brim_type") != btAutoBrim && config->opt_enum<BrimType>("brim_type") != btBrimEars;
     toggle_field("brim_width", have_brim_width);
     // wall_filament uses the same logic as in Print::extruders()
@@ -1125,7 +1137,7 @@ void ConfigManipulation::toggle_print_sla_options(DynamicPrintConfig* config)
 
 int ConfigManipulation::show_spiral_mode_settings_dialog(bool is_object_config)
 {
-    wxString msg_text = _(L("Spiral mode only works when wall loops is 1, support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."));
+    wxString msg_text = _(L("Spiral mode only works when support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."));
     auto printer_structure_opt = wxGetApp().preset_bundle->printers.get_edited_preset().config.option<ConfigOptionEnum<PrinterStructure>>("printer_structure");
     if (printer_structure_opt && printer_structure_opt->value == PrinterStructure::psI3) {
         msg_text += _(L(" But machines with I3 structure will not generate timelapse videos."));

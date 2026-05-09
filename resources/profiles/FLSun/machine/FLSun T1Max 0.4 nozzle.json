@@ -1,0 +1,323 @@
+{
+    "apply_top_surface_compensation": "0",
+    "auxiliary_fan": "0",
+    "bed_custom_model": "",
+    "bed_custom_texture": "",
+    "bed_exclude_area": [
+        "0x0"
+    ],
+    "bed_temperature_formula": "by_first_filament",
+    "before_layer_change_gcode": ";BEFORE_LAYER_CHANGE\n;[layer_z]\n",
+    "best_object_pos": "0.5,0.5",
+    "change_filament_gcode": "",
+    "default_filament_profile": [
+        "FLSun T1Max Generic PLA-HS"
+    ],
+    "default_nozzle_volume_type": [
+        "Standard"
+    ],
+    "default_print_profile": "0.20mm Standard @FLSun T1Max Generic PLA-HS",
+    "deretraction_speed": [
+        "45"
+    ],
+    "enable_long_retraction_when_cut": "0",
+    "enable_pre_heating": "0",
+    "extruder_clearance_dist_to_rod": "40",
+    "extruder_clearance_height_to_lid": "140",
+    "extruder_clearance_height_to_rod": "36",
+    "extruder_clearance_max_radius": "68",
+    "extruder_colour": [
+        "#018001"
+    ],
+    "extruder_offset": [
+        "0x0"
+    ],
+    "extruder_printable_area": [],
+    "extruder_printable_height": [
+        "0"
+    ],
+    "extruder_type": [
+        "Direct Drive"
+    ],
+    "extruder_variant_list": [
+        "Direct Drive Standard"
+    ],
+    "from": "system",
+    "gcode_flavor": "klipper",
+    "grab_length": [
+        "0"
+    ],
+    "head_wrap_detect_zone": [],
+    "host_type": "octoprint",
+    "hotend_cooling_rate": [
+        "2"
+    ],
+    "hotend_heating_rate": [
+        "2"
+    ],
+    "inherits": "fdm_machine_common",
+    "layer_change_gcode": "",
+    "long_retractions_when_cut": [
+        "0"
+    ],
+    "machine_end_gcode": "M107\nM104 S0\nM104 S0\nM140 S0\nG92 E0\nG91\nG1 E-0.8 F1800 \nG1 Z+0.5  F6000\nG28 \nG90 ;absolute positioning\nTIMELAPSE_RENDER",
+    "machine_load_filament_time": "0",
+    "machine_max_acceleration_e": [
+        "20000",
+        "5000"
+    ],
+    "machine_max_acceleration_extruding": [
+        "20000",
+        "20000"
+    ],
+    "machine_max_acceleration_retracting": [
+        "20000",
+        "5000"
+    ],
+    "machine_max_acceleration_travel": [
+        "20000",
+        "20000"
+    ],
+    "machine_max_acceleration_x": [
+        "20000",
+        "20000"
+    ],
+    "machine_max_acceleration_y": [
+        "20000",
+        "20000"
+    ],
+    "machine_max_acceleration_z": [
+        "5000",
+        "500"
+    ],
+    "machine_max_jerk_e": [
+        "100",
+        "2.5"
+    ],
+    "machine_max_jerk_x": [
+        "300",
+        "12"
+    ],
+    "machine_max_jerk_y": [
+        "300",
+        "12"
+    ],
+    "machine_max_jerk_z": [
+        "300",
+        "0.4"
+    ],
+    "machine_max_speed_e": [
+        "1000",
+        "30"
+    ],
+    "machine_max_speed_x": [
+        "1000",
+        "1000"
+    ],
+    "machine_max_speed_y": [
+        "1000",
+        "1000"
+    ],
+    "machine_max_speed_z": [
+        "1000",
+        "20"
+    ],
+    "machine_min_extruding_rate": [
+        "0",
+        "0"
+    ],
+    "machine_min_travel_rate": [
+        "0",
+        "0"
+    ],
+    "machine_pause_gcode": "M600",
+    "machine_prepare_compensation_time": "260",
+    "machine_start_gcode": "G21\nG90\nM83\nG28 ; home all axes\nM104 S140\nM140 S[first_layer_bed_temperature]\nM109 S140\nM190 S[first_layer_bed_temperature]\nG1 X0 Y0 Z20 F4000\nclean_nozzle\nG1 X0 Y0 Z20\nprobe_height\nG1 X0 Y0 Z20\nM140 S[first_layer_bed_temperature]\nM104 S[first_layer_temperature]\nG1 F3000 Z1\nG1 X-150 Y0 Z0.4\nM109 S[first_layer_temperature]\nM190 S[first_layer_bed_temperature]\nM107\nG92 E0\nG3 X0 Y-150 I150 Z0.3 E30 F2000\nG92 E0",
+    "machine_switch_extruder_time": "5",
+    "machine_unload_filament_time": "0",
+    "master_extruder_id": "1",
+    "max_layer_height": [
+        "0.32"
+    ],
+    "min_layer_height": [
+        "0.08"
+    ],
+    "name": "FLSun T1Max 0.4 nozzle",
+    "nozzle_diameter": [
+        "0.4"
+    ],
+    "nozzle_flush_dataset": [
+        "0"
+    ],
+    "nozzle_height": "4",
+    "nozzle_type": [
+        "hardened_steel"
+    ],
+    "nozzle_volume": [
+        "0"
+    ],
+    "physical_extruder_map": [
+        "0"
+    ],
+    "print_host": "",
+    "print_host_webui": "",
+    "printable_area": [
+        "149.43x13.0734",
+        "147.722x26.0473",
+        "144.889x38.823",
+        "140.954x51.3032",
+        "135.947x63.393",
+        "129.904x75.0003",
+        "122.873x86.0368",
+        "114.907x96.4185",
+        "106.066x106.066",
+        "96.4185x114.907",
+        "86.0368x122.873",
+        "75.0003x129.904",
+        "63.393x135.947",
+        "51.3032x140.954",
+        "38.823x144.889",
+        "26.0473x147.722",
+        "13.0734x149.43",
+        "9.18489e-15x150.001",
+        "-13.0734x149.43",
+        "-26.0473x147.722",
+        "-38.823x144.889",
+        "-51.3032x140.954",
+        "-63.393x135.947",
+        "-75.0003x129.904",
+        "-86.0368x122.873",
+        "-96.4185x114.907",
+        "-106.066x106.066",
+        "-114.907x96.4185",
+        "-122.873x86.0368",
+        "-129.904x75.0003",
+        "-135.947x63.393",
+        "-140.954x51.3032",
+        "-144.889x38.823",
+        "-147.722x26.0473",
+        "-149.43x13.0734",
+        "-150.001x1.83698e-14",
+        "-149.43x-13.0734",
+        "-147.722x-26.0473",
+        "-144.889x-38.823",
+        "-140.954x-51.3032",
+        "-135.947x-63.393",
+        "-129.904x-75.0003",
+        "-122.873x-86.0368",
+        "-114.907x-96.4185",
+        "-106.066x-106.066",
+        "-96.4185x-114.907",
+        "-86.0368x-122.873",
+        "-75.0003x-129.904",
+        "-63.393x-135.947",
+        "-51.3032x-140.954",
+        "-38.823x-144.889",
+        "-26.0473x-147.722",
+        "-13.0734x-149.43",
+        "-2.75547e-14x-150.001",
+        "13.0734x-149.43",
+        "26.0473x-147.722",
+        "38.823x-144.889",
+        "51.3032x-140.954",
+        "63.393x-135.947",
+        "75.0003x-129.904",
+        "86.0368x-122.873",
+        "96.4185x-114.907",
+        "106.066x-106.066",
+        "114.907x-96.4185",
+        "122.873x-86.0368",
+        "129.904x-75.0003",
+        "135.947x-63.393",
+        "140.954x-51.3032",
+        "144.889x-38.823",
+        "147.722x-26.0473",
+        "149.43x-13.0734",
+        "150.001x-3.67396e-14"
+    ],
+    "printable_height": "296.5",
+    "printer_extruder_id": [
+        "1"
+    ],
+    "printer_extruder_variant": [
+        "Direct Drive Standard"
+    ],
+    "printer_model": "FLSun T1Max",
+    "printer_notes": "",
+    "printer_settings_id": "FLSun T1Max 0.4 nozzle",
+    "printer_structure": "delta",
+    "printer_technology": "FFF",
+    "printer_variant": "0.4",
+    "printhost_apikey": "",
+    "printhost_authorization_type": "key",
+    "printhost_cafile": "",
+    "printhost_password": "",
+    "printhost_port": "",
+    "printhost_ssl_ignore_revoke": "0",
+    "printhost_user": "",
+    "printing_by_object_gcode": "",
+    "retract_before_wipe": [
+        "0%"
+    ],
+    "retract_length_toolchange": [
+        "2"
+    ],
+    "retract_lift_above": [
+        "0"
+    ],
+    "retract_lift_below": [
+        "0"
+    ],
+    "retract_restart_extra": [
+        "0"
+    ],
+    "retract_restart_extra_toolchange": [
+        "0"
+    ],
+    "retract_when_changing_layer": [
+        "1"
+    ],
+    "retraction_distances_when_cut": [
+        "18"
+    ],
+    "retraction_length": [
+        "0.8"
+    ],
+    "retraction_minimum_travel": [
+        "1"
+    ],
+    "retraction_speed": [
+        "45"
+    ],
+    "scan_first_layer": "0",
+    "silent_mode": "0",
+    "single_extruder_multi_material": "1",
+    "support_air_filtration": "1",
+    "support_chamber_temp_control": "0",
+    "template_custom_gcode": "",
+    "thumbnail_size": [
+        "48x48",
+        "300x300"
+    ],
+    "time_lapse_gcode": "",
+    "upward_compatible_machine": [],
+    "use_firmware_retraction": "0",
+    "use_relative_e_distances": "1",
+    "version": "3.0.0.7",
+    "wipe": [
+        "1"
+    ],
+    "wipe_distance": [
+        "2"
+    ],
+    "z_hop": [
+        "0.4"
+    ],
+    "z_hop_types": [
+        "Slope Lift"
+    ],
+    "z_offset": "0",
+    "type": "machine",
+    "setting_id": "GM003",
+    "instantiation": "true"
+}

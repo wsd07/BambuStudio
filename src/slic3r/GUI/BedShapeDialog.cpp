@@ -196,9 +196,8 @@ void BedShapePanel::build_panel(const ConfigOptionPoints& default_pt, const Conf
     // BBS hide
     BedShape::append_option_line(optgroup, BedShape::Parameter::RectOrigin, m_can_edit);
     activate_options_page(optgroup);
-    // BBS hide
-   /* optgroup = init_shape_options_page(BedShape::get_name(BedShape::PageType::Circle));
-    BedShape::append_option_line(optgroup, BedShape::Parameter::Diameter);
+    optgroup = init_shape_options_page(BedShape::get_name(BedShape::PageType::Circle));
+    BedShape::append_option_line(optgroup, BedShape::Parameter::Diameter, m_can_edit);
     activate_options_page(optgroup);
 
     optgroup = init_shape_options_page(BedShape::get_name(BedShape::PageType::Custom));
@@ -206,6 +205,7 @@ void BedShapePanel::build_panel(const ConfigOptionPoints& default_pt, const Conf
 	line.full_width = 1;
 	line.widget = [this](wxWindow* parent) {
         Button* shape_btn = new Button(parent, _L("Load shape from STL..."));
+        shape_btn->Enable(m_can_edit);
         wxSizer* shape_sizer = new wxBoxSizer(wxHORIZONTAL);
         shape_sizer->Add(shape_btn, 1, wxEXPAND);
 
@@ -219,7 +219,7 @@ void BedShapePanel::build_panel(const ConfigOptionPoints& default_pt, const Conf
 		return sizer;
 	};
 	optgroup->append_line(line);
-    activate_options_page(optgroup);*/
+    activate_options_page(optgroup);
 
     wxPanel* texture_panel = init_texture_panel();
     wxPanel* model_panel = init_model_panel();

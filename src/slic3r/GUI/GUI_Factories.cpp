@@ -84,9 +84,9 @@ std::map<std::string, std::vector<SimpleSettingData>>  SettingsFactory::OBJECT_C
                     {"precise_z_height", "",10}
 
                     }},
-    { L("Support"), {{"brim_type", "",1},{"brim_width", "",2},{"brim_object_gap", "",3},
-                    {"enable_support", "",4},{"support_type", "",5},{"support_threshold_angle", "",6},{"support_on_build_plate_only", "",7},
-                    {"support_filament", "",8},{"support_interface_filament", "",9},{"support_expansion", "",24},{"support_style", "",25},
+    { L("Support"), {{"brim_type", "",1},{"brim_width", "",2},{"brim_object_gap", "",3},{"brim_layers", "",4},
+                    {"enable_support", "",5},{"support_type", "",6},{"support_threshold_angle", "",7},{"support_on_build_plate_only", "",8},
+                    {"support_filament", "",9},{"support_interface_filament", "",10},{"support_expansion", "",24},{"support_style", "",25},
                     {"tree_support_branch_angle", "",10}, {"tree_support_wall_count", "",11},{"tree_support_branch_diameter_angle", "",11},//tree support
                     {"support_top_z_distance", "",13},{"support_bottom_z_distance", "",12},{"support_base_pattern", "",14},{"support_base_pattern_spacing", "",15},
                     {"support_interface_top_layers", "",16},{"support_interface_bottom_layers", "",17},{"support_interface_spacing", "",18},{"support_bottom_interface_spacing", "",19},
@@ -158,7 +158,7 @@ std::vector<SimpleSettingData> SettingsFactory::get_visible_options(const std::s
         "support_top_z_distance", "support_base_pattern", "support_base_pattern_spacing", "support_interface_top_layers", "support_interface_bottom_layers", "support_interface_spacing", "support_bottom_interface_spacing", "support_object_xy_distance",
         "support_object_first_layer_gap",
         //adhesion
-        "brim_type", "brim_width", "brim_object_gap", "raft_layers"
+        "brim_type", "brim_width", "brim_object_gap", "brim_layers", "raft_layers"
         };*/
     std::vector<SimpleSettingData> options;
     std::map<std::string, std::vector<SimpleSettingData>>::iterator it;
