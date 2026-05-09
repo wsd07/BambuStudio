@@ -1,0 +1,12 @@
+{
+    "type": "machine_model",
+    "machine_tech": "FFF",
+    "family": "Anycubic",
+    "name": "Anycubic Kobra 1 Max",
+    "model_id": "Anycubic Kobra 1 Max",
+    "nozzle_diameter": "0.4",
+    "bed_model": "Anycubic Kobra 1 Max_buildplate_model.stl",
+    "bed_texture": "Anycubic Kobra 1 Max_buildplate_texture.png",
+    "hotend_model": "",
+    "default_materials": "Anycubic Generic ABS;Anycubic Generic PLA;Anycubic Generic PETG"
+}

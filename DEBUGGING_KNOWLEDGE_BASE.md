@@ -149,3 +149,21 @@
 - 根因或当前最佳判断：官方上游会频繁更新 `.po` 翻译文件，而本项目新增了 Brim、多墙花瓶、FLSun 等自定义设置并重新生成 gettext 资源。`.po` 文件属于高频生成产物，rebase 时容易同时命中官方翻译调整和本地新增 msgid，直接手工逐段解冲突成本高且容易漏掉新增自定义项翻译。
 - 修复方案或临时绕过方式：rebase 冲突时优先保留上游版本的冲突 `.po` 文件，也就是在 rebase 过程中对这些文件执行 `git checkout --ours <po 文件>`；随后重新执行 `cmake --build build/arm64 --target gettext_make_pot` 和 `cmake --build build/arm64 --target gettext_merge_po_with_pot`，再补齐本项目新增 msgid 的翻译，最后执行 `cmake --build build/arm64 --target gettext_po_to_mo` 生成 `.mo`。这样可以把官方翻译更新作为基底，再叠加本项目自定义字段。
 - 验证结果：所有 18 个 `.po` 文件均包含本项目新增的 `★ Brim-object gap`、`★ Brim layers`、`★ Vase reinforcement multiplier`、`★ Fade vase reinforcement` 等 msgid 且有非空 msgstr；`git diff --check` 通过；`cmake --build build/arm64 --config Release --parallel 8` 编译和链接成功，仅有项目既有 warning。
+
+## 2026-05-09 - 移植 AnycubicSlicerNext 官方配置时的兼容性问题
+
+- 日期：2026-05-09
+- 现象：把 `/Applications/AnycubicSlicerNext.app/Contents/Resources/profiles/Anycubic` 迁入本项目后，JSON 结构本身可解析，但直接用当前 BambuStudio 命令行加载部分 Anycubic 配置会失败：一类是通用 `@acbase` 耗材引用了不存在的旧机型名；另一类是部分机器的 `retraction_distances_when_cut` 为 `0`，当前项目要求范围为 `10-18`；还有一类是部分耗材的 `filament_flush_temp` 为 `nil`，当前项目要求数值范围 `0-1500`；另外少数继承型工艺没有显式 `compatible_printers`，直接用 `--load-settings` 单独加载时会报 process not compatible with printer。
+- 受影响的命令、界面、模块或文件：`resources/profiles/Anycubic.json`；`resources/profiles/Anycubic/{machine,filament,process}`；`build/arm64/BambuStudio/BambuStudio.app/Contents/MacOS/BambuStudio --load-settings ... --load-filaments ... --export-settings ...`。
+- 根因或当前最佳判断：AnycubicSlicerNext 是基于同类切片器的改版，但它的 profile schema 与本项目当前 `PrintConfig` 值域并不完全一致。官方 Anycubic 包里还保留了少量历史机型名和对本 fork 更宽松的字段取值；如果原样迁入，会在当前 BambuStudio 的 profile 反序列化或兼容性检查阶段被拒绝。
+- 修复方案或临时绕过方式：整包替换项目内旧 Anycubic vendor profile 后，对迁入配置做最小兼容修正：将 `Anycubic Kobra/Kobra Max/Kobra Plus 0.4 nozzle` 映射为新版存在的 `Anycubic Kobra 1/Kobra 1 Max/Kobra 1 Plus 0.4 nozzle`，移除不存在的 `Anycubic Kobra Neo 0.4 nozzle` 引用；把禁用长回抽场景下仍存在的 `retraction_distances_when_cut: 0` 修正为当前值域允许的 `10`；把 `filament_flush_temp: nil` 修正为 `0`；对缺少 `compatible_printers` 的实例化工艺按名称补上对应 printer preset。由于项目旧 Anycubic vendor 版本是 `02.00.00.02`，而 AnycubicSlicerNext 官方包版本为 `1.3.2603.16`，直接沿用官方版本号可能被 updater 判定为旧版本，因此迁入后把 `resources/profiles/Anycubic.json` 提升为 `03.00.00.01`，确保启动时能覆盖旧缓存。
+- 验证结果：迁入后 `resources/profiles/Anycubic` 共 479 个文件，vendor 版本为 `03.00.00.01`，描述中保留来源 `AnycubicSlicerNext 1.3.2603.16`；结构化校验确认 438 个 JSON 文件全部可解析，14 个 machine model、32 个 machine、246 个 filament、145 个 process 的 vendor 列表、继承链、默认工艺/耗材引用、兼容打印机引用均无缺失；命令行验证通过 31 个机器默认组合、229 个实例化耗材、142 个实例化工艺的加载与 `--export-settings`。
+
+## 2026-05-09 - 沙箱内 `git commit` 无法创建 `.git/index.lock`
+
+- 日期：2026-05-09
+- 现象：AnycubicSlicerNext 配置迁移完成并 `git add` 后，普通沙箱内执行 `git commit -m "custom: migrate AnycubicSlicerNext profiles"` 失败，提示 `fatal: Unable to create '/Users/shidongwang/Desktop/work/BambuStudio/.git/index.lock': Operation not permitted`。
+- 受影响的命令、界面、模块或文件：`git commit`；`.git/index.lock`；当前工作区 `/Users/shidongwang/Desktop/work/BambuStudio`。
+- 根因或当前最佳判断：与此前 `git fetch` 不能写入 `.git/FETCH_HEAD` 属于同类环境问题；当前 Codex 沙箱可编辑工作区普通文件，但对 `.git` 内部锁文件和元数据写入有限制，提交操作需要创建 lock 并更新索引/对象，因此被拦截。
+- 修复方案或临时绕过方式：对需要写入 `.git` 元数据的提交命令使用提升权限执行；不要手工创建、删除或绕过 `.git/index.lock`。
+- 验证结果：使用提升权限重新执行 `git commit -m "custom: migrate AnycubicSlicerNext profiles"` 成功，生成提交 `38efb0532 custom: migrate AnycubicSlicerNext profiles`。
