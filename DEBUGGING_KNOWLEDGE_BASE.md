@@ -167,3 +167,12 @@
 - 根因或当前最佳判断：与此前 `git fetch` 不能写入 `.git/FETCH_HEAD` 属于同类环境问题；当前 Codex 沙箱可编辑工作区普通文件，但对 `.git` 内部锁文件和元数据写入有限制，提交操作需要创建 lock 并更新索引/对象，因此被拦截。
 - 修复方案或临时绕过方式：对需要写入 `.git` 元数据的提交命令使用提升权限执行；不要手工创建、删除或绕过 `.git/index.lock`。
 - 验证结果：使用提升权限重新执行 `git commit -m "custom: migrate AnycubicSlicerNext profiles"` 成功，生成提交 `38efb0532 custom: migrate AnycubicSlicerNext profiles`。
+
+## 2026-05-10 - AnycubicSlicerNext 配置启动加载失败
+
+- 日期：2026-05-10
+- 现象：启动 BambuStudio 时弹窗提示 `Failed loading configuration file .../system/Anycubic/process/0.08mm Standard @Anycubic Kobra X 0.4 nozzle.json`，最初没有显示字段级原因；增强错误信息后依次暴露 `Can not find inherits:` 和 `Found duplicated settings in vendor BBL's json file lists: Generic ABS, Generic PETG, Generic PLA`。
+- 受影响的命令、界面、模块或文件：BambuStudio 启动；`src/libslic3r/PresetBundle.cpp`；`resources/profiles/Anycubic.json`；`resources/profiles/Anycubic/filament/Generic ABS.json`、`Generic PETG.json`、`Generic PLA.json`；用户缓存目录 `~/Library/Application Support/BambuStudio/system/Anycubic*`。
+- 根因或当前最佳判断：AnycubicSlicerNext 官方 process JSON 会写入 `"inherits": ""`。当前 BambuStudio vendor 加载器只要看到 `inherits` key 就会尝试查找父级，即使值为空字符串，因此把空继承误判为缺失父级。修复后继续加载时，又发现 Anycubic 迁入包包含三个裸名通用耗材 `Generic ABS`、`Generic PETG`、`Generic PLA`，这些名字与 BBL vendor 自带通用耗材在全局 preset 合并时冲突。另一个干扰因素是 updater 失败后会留下“新 Anycubic.json 索引 + 旧 Anycubic 目录内容”的半更新缓存，导致后续报错不稳定。
+- 修复方案或临时绕过方式：在 `PresetBundle.cpp` 的并行和非并行 vendor 加载路径中，把 `inherits` key 存在但值为空的情况按“无继承”处理；同时保留配置加载失败时带出 `reason` 的错误信息，方便之后定位字段级原因。将 Anycubic 裸名通用耗材重命名为 `Anycubic Generic ABS`、`Anycubic Generic PETG`、`Anycubic Generic PLA`，并同步更新 `Anycubic.json` 的 `filament_list`。验证时手动清理并重建 `~/Library/Application Support/BambuStudio/system/Anycubic*`，避免旧缓存参与判断。
+- 验证结果：`cmake --build build/arm64 --config Release --parallel 8` 编译和链接成功，仅有项目既有 warning；`./BuildMac.sh -s -x -b -c Release` 成功刷新 app 包；跨 vendor filament 裸名重复检查结果为 `dups 0`；用户缓存中的 Anycubic vendor 版本为 `03.00.00.01`，不再包含裸名 `Generic ABS/PETG/PLA`，改为 `Anycubic Generic ABS/PETG/PLA`；用户确认启动后不再报错。

@@ -1165,16 +1165,16 @@
             "sub_path": "filament/Anycubic PLA Metal @Anycubic Kobra 3 V2 0.8 nozzle.json"
         },
         {
-            "name": "Generic ABS",
-            "sub_path": "filament/Generic ABS.json"
+            "name": "Anycubic Generic ABS",
+            "sub_path": "filament/Anycubic Generic ABS.json"
         },
         {
-            "name": "Generic PETG",
-            "sub_path": "filament/Generic PETG.json"
+            "name": "Anycubic Generic PETG",
+            "sub_path": "filament/Anycubic Generic PETG.json"
         },
         {
-            "name": "Generic PLA",
-            "sub_path": "filament/Generic PLA.json"
+            "name": "Anycubic Generic PLA",
+            "sub_path": "filament/Anycubic Generic PLA.json"
         }
     ],
     "process_list": [

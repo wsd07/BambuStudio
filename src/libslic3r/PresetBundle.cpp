@@ -4731,7 +4731,7 @@ std::pair<PresetsConfigSubstitutions, size_t> PresetBundle::load_vendor_configs_
                 filament_id = filament_it->second;
             //check whether it inherits other preset or not
             auto it1 = key_values.find(BBL_JSON_KEY_INHERITS);
-            if (it1 != key_values.end()) {
+            if (it1 != key_values.end() && !it1->second.empty()) {
                 inherits = it1->second;
                 auto it2 = config_maps.find(inherits);
                 if (it2 != config_maps.end()) {
@@ -4981,7 +4981,7 @@ std::pair<PresetsConfigSubstitutions, size_t> PresetBundle::load_vendor_configs_
                 filament_id = filament_it->second;
             //check whether it inherits other preset or not
             auto it1 = key_values.find(BBL_JSON_KEY_INHERITS);
-            if (it1 != key_values.end()) {
+            if (it1 != key_values.end() && !it1->second.empty()) {
                 inherits = it1->second;
                 auto it2 = config_maps.find(inherits);
                 if (it2 != config_maps.end()) {
@@ -5222,7 +5222,9 @@ std::pair<PresetsConfigSubstitutions, size_t> PresetBundle::load_vendor_configs_
             std::string subfile_path = path + "/" + vendor_name + "/" + loadData->subfile.second;
             BOOST_LOG_TRIVIAL(error) << __FUNCTION__ << boost::format(", got error when parse process setting from %1%") % subfile_path;
             throw ConfigurationError(
-                (boost::format("Failed loading configuration file %1%\nSuggest closing studio, deleting all files in %2%, and restarting studio") % subfile_path % path).str());
+                (boost::format("Failed loading configuration file %1%: %2%\nSuggest closing studio, deleting all files in %3%, and restarting studio") %
+                 subfile_path % reason % path)
+                    .str());
         }
     }
 #else
@@ -5233,7 +5235,9 @@ std::pair<PresetsConfigSubstitutions, size_t> PresetBundle::load_vendor_configs_
             //parse error
             std::string subfile_path = path + "/" + vendor_name + "/" + subfile.second;
             BOOST_LOG_TRIVIAL(error) << __FUNCTION__ << boost::format(", got error when parse process setting from %1%") % subfile_path;
-            throw ConfigurationError((boost::format("Failed loading configuration file %1%\nSuggest closing studio, deleting all files in %2%, and restarting studio") % subfile_path % path).str());
+            throw ConfigurationError((boost::format("Failed loading configuration file %1%: %2%\nSuggest closing studio, deleting all files in %3%, and restarting studio") %
+                                      subfile_path % reason % path)
+                                         .str());
         }
     }
 #endif
@@ -5266,7 +5270,9 @@ std::pair<PresetsConfigSubstitutions, size_t> PresetBundle::load_vendor_configs_
             std::string subfile_path = path + "/" + vendor_name + "/" + loadData->subfile.second;
             BOOST_LOG_TRIVIAL(error) << __FUNCTION__ << boost::format(", got error when parse filament setting from %1%") % subfile_path;
             throw ConfigurationError(
-                (boost::format("Failed loading configuration file %1%\nSuggest closing studio, deleting all files in %2%, and restarting studio") % subfile_path % path).str());
+                (boost::format("Failed loading configuration file %1%: %2%\nSuggest closing studio, deleting all files in %3%, and restarting studio") %
+                 subfile_path % reason % path)
+                    .str());
         }
     }
 #else
@@ -5277,7 +5283,9 @@ std::pair<PresetsConfigSubstitutions, size_t> PresetBundle::load_vendor_configs_
             //parse error
             std::string subfile_path = path + "/" + vendor_name + "/" + subfile.second;
             BOOST_LOG_TRIVIAL(error) << __FUNCTION__ << boost::format(", got error when parse filament setting from %1%") % subfile_path;
-            throw ConfigurationError((boost::format("Failed loading configuration file %1%\nSuggest closing studio, deleting all files in %2%, and restarting studio") % subfile_path % path).str());
+            throw ConfigurationError((boost::format("Failed loading configuration file %1%: %2%\nSuggest closing studio, deleting all files in %3%, and restarting studio") %
+                                      subfile_path % reason % path)
+                                         .str());
         }
     }
 #endif
@@ -5311,7 +5319,9 @@ std::pair<PresetsConfigSubstitutions, size_t> PresetBundle::load_vendor_configs_
             std::string subfile_path = path + "/" + vendor_name + "/" + loadData->subfile.second;
             BOOST_LOG_TRIVIAL(error) << __FUNCTION__ << boost::format(", got error when parse printer setting from %1%") % subfile_path;
             throw ConfigurationError(
-                (boost::format("Failed loading configuration file %1%\nSuggest closing studio, deleting all files in %2%, and restarting studio") % subfile_path % path).str());
+                (boost::format("Failed loading configuration file %1%: %2%\nSuggest closing studio, deleting all files in %3%, and restarting studio") %
+                 subfile_path % reason % path)
+                    .str());
         }
     }
 
@@ -5323,7 +5333,9 @@ std::pair<PresetsConfigSubstitutions, size_t> PresetBundle::load_vendor_configs_
             //parse error
             std::string subfile_path = path + "/" + vendor_name + "/" + subfile.second;
             BOOST_LOG_TRIVIAL(error) << __FUNCTION__ << boost::format(", got error when parse printer setting from %1%") % subfile_path;
-            throw ConfigurationError((boost::format("Failed loading configuration file %1%\nSuggest closing studio, deleting all files in %2%, and restarting studio") % subfile_path % path).str());
+            throw ConfigurationError((boost::format("Failed loading configuration file %1%: %2%\nSuggest closing studio, deleting all files in %3%, and restarting studio") %
+                                      subfile_path % reason % path)
+                                         .str());
         }
     }
 #endif

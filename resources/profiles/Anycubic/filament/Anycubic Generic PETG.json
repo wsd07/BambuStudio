@@ -6,7 +6,7 @@
     "is_custom_defined": "0",
     "instantiation": "true",
     "version": "1.3.2412.27",
-    "name": "Generic PETG",
+    "name": "Anycubic Generic PETG",
     "inherits": "Anycubic PETG @acbase",
     "filament_vendor": [
         "Generic"
