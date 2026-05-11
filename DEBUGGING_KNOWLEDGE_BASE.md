@@ -185,3 +185,12 @@
 - 根因或当前最佳判断：Preset 脏状态比较默认只比较 reference preset 和 edited preset 两边都存在的 key。老工程或老预设在新增参数出现前保存，不包含这些 key；用户后续在 UI 中修改时虽然会把 key 写入 edited config，但 reference config 缺 key，`ConfigBase::equals/diff` 会忽略它，导致 UI 不认为该参数已修改，也没有恢复按钮状态。另一个独立问题是花瓶增强四个参数没有加入切片失效判断，修改后可能复用旧的 perimeter 结果，表现为“参数改了但切片没变”。
 - 修复方案或临时绕过方式：在 `Preset.cpp` 中为本项目新增参数增加“缺失时按默认值比较”的 dirty 检查列表，包含 `brim_object_gap`、`brim_layers`、`spiral_vase_reinforcement_multiplier`、`spiral_vase_reinforcement_height`、`spiral_vase_reinforcement_fade`、`spiral_vase_reinforcement_fade_end_multiplier`。当一侧缺 key、另一侧为默认值时不标脏；当一侧缺 key、另一侧为非默认值时标脏并返回具体 dirty option。把花瓶增强四个参数加入 `Print::invalidate_state_by_config_options` 和 `PrintObject::invalidate_state_by_config_options` 的 perimeter 失效路径，确保参数变更会重新生成相关走线。
 - 验证结果：首次编译发现 `clonable_ptr` 不能直接与 `nullptr` 比较，改为使用 `default_value.get()` 后，`cmake --build build/arm64 --config Release --parallel 8` 编译和链接成功，仅有项目既有 warning；`git diff --check` 通过；`open -n build/arm64/src/BambuStudio.app` 后进程保持运行，没有启动级崩溃。
+
+## 2026-05-11 - 启动时未响应卡在最近工程缩略图加载
+
+- 日期：2026-05-11
+- 现象：修改后启动 BambuStudio，主界面迟迟不出现，活动监视器显示 `Bambu Studio（未响应）`，但没有生成崩溃日志。
+- 受影响的命令、界面、模块或文件：BambuStudio 启动；`sample <pid>`；`src/slic3r/GUI/MainFrame.cpp`；`MainFrame::FileHistory::LoadThumbnails()`；最近工程列表里的 3MF 文件。
+- 根因或当前最佳判断：进程采样显示主线程在 `MainFrame::init_menubar_as_editor -> FileHistory::LoadThumbnails -> tbb::parallel_for -> bbs_3mf_get_thumbnail -> open_zip_reader -> fopen` 中同步等待。最近工程包含外部盘或同步盘上的 3MF 时，`fopen` 可能长时间阻塞；由于启动流程会等待所有缩略图任务完成，导致整个主界面初始化被拖住，看起来像启动失败。该问题与新增参数 dirty 判断无直接调用栈关系，只是最近文件路径状态触发了旧的同步缩略图加载缺陷。
+- 修复方案或临时绕过方式：把 `FileHistory::LoadThumbnails()` 改为启动时只标记已调用，不再同步读取最近工程的 3MF 缩略图。最近工程列表仍保留，缩略图保持为空，避免任何不可用路径阻塞主界面。临时绕过方式是清空最近工程列表或确保外部盘路径可快速访问。
+- 验证结果：`cmake --build build/arm64 --config Release --parallel 8` 编译和链接成功，仅有项目既有 warning；`./BuildMac.sh -s -x -b -c Release` 成功刷新 app 包；关闭旧的未响应进程后，`open -n build/arm64/BambuStudio/BambuStudio.app` 启动成功；再次 `sample` 新进程显示主线程已进入 `wxApp::OnRun -> NSApplication run` 正常事件循环，不再卡在 `FileHistory::LoadThumbnails`。
