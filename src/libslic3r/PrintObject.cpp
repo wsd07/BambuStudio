@@ -1112,6 +1112,10 @@ bool PrintObject::invalidate_state_by_config_options(
             || opt_key == "initial_layer_line_width"
             || opt_key == "inner_wall_line_width"
             || opt_key == "infill_wall_overlap"
+            || opt_key == "spiral_vase_reinforcement_multiplier"
+            || opt_key == "spiral_vase_reinforcement_height"
+            || opt_key == "spiral_vase_reinforcement_fade"
+            || opt_key == "spiral_vase_reinforcement_fade_end_multiplier"
             || opt_key == "apply_scarf_seam_on_circles") {
             steps.emplace_back(posPerimeters);
         } else if (opt_key == "gap_infill_speed" || opt_key == "filter_out_gap_fill") {

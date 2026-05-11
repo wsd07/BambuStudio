@@ -3052,12 +3052,65 @@ static constexpr const std::initializer_list<const char*> optional_keys { "compa
 //BBS: skip these keys for dirty check
 static std::set<std::string> skipped_in_dirty = {"printer_settings_id", "print_settings_id", "filament_settings_id"};
 
+// Custom options may be missing from presets saved before the option existed.
+// Treat a missing side as the option default so UI dirty markers and restore buttons still work.
+static constexpr const std::initializer_list<const char*> custom_missing_default_dirty_keys {
+    "brim_object_gap",
+    "brim_layers",
+    "spiral_vase_reinforcement_multiplier",
+    "spiral_vase_reinforcement_height",
+    "spiral_vase_reinforcement_fade",
+    "spiral_vase_reinforcement_fade_end_multiplier"
+};
+
+static bool custom_option_equals_default(const ConfigOption *opt, const std::string &opt_key)
+{
+    if (opt == nullptr)
+        return true;
+
+    const ConfigOptionDef *def = print_config_def.get(opt_key);
+    const ConfigOption    *default_opt = def == nullptr ? nullptr : def->default_value.get();
+    return default_opt == nullptr || *opt == *default_opt;
+}
+
+static bool custom_missing_default_option_differs(const ConfigBase &edited, const ConfigBase &reference, const std::string &opt_key)
+{
+    const bool edited_has    = edited.has(opt_key);
+    const bool reference_has = reference.has(opt_key);
+    if (edited_has == reference_has)
+        return false;
+
+    const ConfigOption *existing = edited_has ? edited.option(opt_key) : reference.option(opt_key);
+    return !custom_option_equals_default(existing, opt_key);
+}
+
+static void update_custom_missing_default_dirty_options(
+    std::vector<std::string> &changed,
+    const ConfigBase         &edited,
+    const ConfigBase         &reference)
+{
+    for (const char *opt_key_cstr : custom_missing_default_dirty_keys) {
+        const std::string opt_key(opt_key_cstr);
+        auto              iter       = std::find(changed.begin(), changed.end(), opt_key);
+        const bool        one_missing = edited.has(opt_key) != reference.has(opt_key);
+        if (custom_missing_default_option_differs(edited, reference, opt_key)) {
+            if (iter == changed.end())
+                changed.emplace_back(opt_key);
+        } else if (one_missing && iter != changed.end()) {
+            changed.erase(iter);
+        }
+    }
+}
+
 bool PresetCollection::is_dirty(const Preset *edited, const Preset *reference)
 {
     if (edited != nullptr && reference != nullptr) {
         // Only compares options existing in both configs.
         if (! reference->config.equals(edited->config, &skipped_in_dirty))
             return true;
+        for (const char *opt_key : custom_missing_default_dirty_keys)
+            if (custom_missing_default_option_differs(edited->config, reference->config, opt_key))
+                return true;
         // The "compatible_printers" option key is handled differently from the others:
         // It is not mandatory. If the key is missing, it means it is compatible with any printer.
         // If the key exists and it is empty, it means it is compatible with no printer.
@@ -3082,6 +3135,7 @@ std::vector<std::string> PresetCollection::dirty_options(const Preset *edited, c
         for (auto &opt_key : optional_keys)
             if (reference->config.has(opt_key) != edited->config.has(opt_key))
                 changed.emplace_back(opt_key);
+        update_custom_missing_default_dirty_options(changed, edited->config, reference->config);
     }
     return changed;
 }
@@ -3102,6 +3156,7 @@ std::vector<std::string> PresetCollection::dirty_options_without_option_list(con
             if (reference->config.has(opt_key) != edited->config.has(opt_key))
                 changed.emplace_back(opt_key);
         }
+        update_custom_missing_default_dirty_options(changed, edited->config, reference->config);
         auto iter = changed.begin();
         while (iter != changed.end()) {
             if (option_ignore_list.find(*iter) != option_ignore_list.end()) {

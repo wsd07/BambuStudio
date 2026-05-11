@@ -176,3 +176,12 @@
 - 根因或当前最佳判断：AnycubicSlicerNext 官方 process JSON 会写入 `"inherits": ""`。当前 BambuStudio vendor 加载器只要看到 `inherits` key 就会尝试查找父级，即使值为空字符串，因此把空继承误判为缺失父级。修复后继续加载时，又发现 Anycubic 迁入包包含三个裸名通用耗材 `Generic ABS`、`Generic PETG`、`Generic PLA`，这些名字与 BBL vendor 自带通用耗材在全局 preset 合并时冲突。另一个干扰因素是 updater 失败后会留下“新 Anycubic.json 索引 + 旧 Anycubic 目录内容”的半更新缓存，导致后续报错不稳定。
 - 修复方案或临时绕过方式：在 `PresetBundle.cpp` 的并行和非并行 vendor 加载路径中，把 `inherits` key 存在但值为空的情况按“无继承”处理；同时保留配置加载失败时带出 `reason` 的错误信息，方便之后定位字段级原因。将 Anycubic 裸名通用耗材重命名为 `Anycubic Generic ABS`、`Anycubic Generic PETG`、`Anycubic Generic PLA`，并同步更新 `Anycubic.json` 的 `filament_list`。验证时手动清理并重建 `~/Library/Application Support/BambuStudio/system/Anycubic*`，避免旧缓存参与判断。
 - 验证结果：`cmake --build build/arm64 --config Release --parallel 8` 编译和链接成功，仅有项目既有 warning；`./BuildMac.sh -s -x -b -c Release` 成功刷新 app 包；跨 vendor filament 裸名重复检查结果为 `dups 0`；用户缓存中的 Anycubic vendor 版本为 `03.00.00.01`，不再包含裸名 `Generic ABS/PETG/PLA`，改为 `Anycubic Generic ABS/PETG/PLA`；用户确认启动后不再报错。
+
+## 2026-05-11 - 新增参数后续修改不变橙色且不触发重新切片
+
+- 日期：2026-05-11
+- 现象：`★ 花瓶增强倍数`、`★ 花瓶增强高度`、`★ 渐消花瓶增强` 等新增参数在工程第一次打开后修改能影响切片，但后续再次修改不再生效；修改这些参数时，界面标签也不会变成橙色，旁边缺少恢复到保存配置/系统配置的按钮状态。
+- 受影响的命令、界面、模块或文件：工艺参数“其他/特殊模式”页面；`src/libslic3r/Preset.cpp`；`src/libslic3r/Print.cpp`；`src/libslic3r/PrintObject.cpp`；新增的 Brim 和花瓶增强参数。
+- 根因或当前最佳判断：Preset 脏状态比较默认只比较 reference preset 和 edited preset 两边都存在的 key。老工程或老预设在新增参数出现前保存，不包含这些 key；用户后续在 UI 中修改时虽然会把 key 写入 edited config，但 reference config 缺 key，`ConfigBase::equals/diff` 会忽略它，导致 UI 不认为该参数已修改，也没有恢复按钮状态。另一个独立问题是花瓶增强四个参数没有加入切片失效判断，修改后可能复用旧的 perimeter 结果，表现为“参数改了但切片没变”。
+- 修复方案或临时绕过方式：在 `Preset.cpp` 中为本项目新增参数增加“缺失时按默认值比较”的 dirty 检查列表，包含 `brim_object_gap`、`brim_layers`、`spiral_vase_reinforcement_multiplier`、`spiral_vase_reinforcement_height`、`spiral_vase_reinforcement_fade`、`spiral_vase_reinforcement_fade_end_multiplier`。当一侧缺 key、另一侧为默认值时不标脏；当一侧缺 key、另一侧为非默认值时标脏并返回具体 dirty option。把花瓶增强四个参数加入 `Print::invalidate_state_by_config_options` 和 `PrintObject::invalidate_state_by_config_options` 的 perimeter 失效路径，确保参数变更会重新生成相关走线。
+- 验证结果：首次编译发现 `clonable_ptr` 不能直接与 `nullptr` 比较，改为使用 `default_value.get()` 后，`cmake --build build/arm64 --config Release --parallel 8` 编译和链接成功，仅有项目既有 warning；`git diff --check` 通过；`open -n build/arm64/src/BambuStudio.app` 后进程保持运行，没有启动级崩溃。
