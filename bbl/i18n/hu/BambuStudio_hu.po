@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bambu Studio\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-09 21:03+0800\n"
+"POT-Creation-Date: 2026-05-15 20:34+0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -947,8 +947,8 @@ msgstr "A tárgy hozzárendelése a másik oldalhoz"
 msgid "Cut"
 msgstr "Vágás"
 
-msgid "non-manifold edges be caused by cut tool, do you want to fix it now?"
-msgstr "A vágás után hibás élek keletkeztek, szeretnéd most javítani őket?"
+msgid "Open edges may be caused by the cut tool, do you want to fix it now?"
+msgstr ""
 
 msgid "Repairing model object"
 msgstr "Modell javítása"
@@ -1995,11 +1995,11 @@ msgstr "Mód nézet betöltése"
 msgid "Choose one file (3mf):"
 msgstr "Válassz ki egy fájlt (3mf):"
 
-msgid "Choose one or more files (3mf/step/stl/svg/obj/amf/usd*/abc/ply):"
-msgstr "Válassz ki egy vagy több fájlt (3mf/step/stl/svg/obj/amf/usd*/abc/ply):"
+msgid "Choose one or more files (3mf/step/stl/svg/obj/amf/gltf/glb/fbx/usd*/abc/ply):"
+msgstr ""
 
-msgid "Choose one or more files (3mf/step/stl/svg/obj/amf):"
-msgstr "Válassz ki egy vagy több fájlt (3mf/step/stl/svg/obj/amf):"
+msgid "Choose one or more files (3mf/step/stl/svg/obj/amf/gltf/glb/fbx):"
+msgstr ""
 
 msgid "Choose one file (gcode/.gco/.g/.ngc/ngc):"
 msgstr "Válassz ki egy fájlt (gcode/.gco/.g/.ngc/ngc):"
@@ -2556,19 +2556,26 @@ msgstr[0] "%1$d hiba megjavítva"
 msgstr[1] "%1$d hiba megjavítva"
 
 #, c-format, boost-format
-msgid "Error: %1$d non-manifold edge."
-msgid_plural "Error: %1$d non-manifold edges."
-msgstr[0] "Hiba: %1$d hibás él."
-msgstr[1] "Hiba: %1$d hibás él."
-
-msgid "Remaining errors"
-msgstr "Fennmaradó hibák"
+msgid "Error: %1$d non-manifold edges, %2$d non-manifold vertices"
+msgstr ""
 
 #, c-format, boost-format
-msgid "%1$d non-manifold edge"
-msgid_plural "%1$d non-manifold edges"
-msgstr[0] "%1$d hibás él"
-msgstr[1] "%1$d hibás él"
+msgid "Error: %1$d non-manifold edge"
+msgid_plural "Error: %1$d non-manifold edges"
+msgstr[0] ""
+msgstr[1] ""
+
+#, c-format, boost-format
+msgid "Error: %1$d non-manifold vertex"
+msgid_plural "Error: %1$d non-manifold vertices"
+msgstr[0] ""
+msgstr[1] ""
+
+#, c-format, boost-format
+msgid "Info: %1$d open edge"
+msgid_plural "Info: %1$d open edges"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Right click the icon to fix model object"
 msgstr "Kattints jobb gombbal az ikonra a modell objektum javításához"
@@ -3180,11 +3187,14 @@ msgstr "Orientáció"
 msgid "Filling"
 msgstr "Kitöltés"
 
-msgid "Bed filling done."
-msgstr "Asztal feltöltve."
+msgid "Bed filling aborted: invalid bed shape."
+msgstr ""
 
 msgid "Bed filling canceled."
 msgstr "Asztal feltöltése megszakítva."
+
+msgid "Bed filling done."
+msgstr "Asztal feltöltve."
 
 #. TRN: This is the title of the action appearing in undo/redo stack.
 #. It is same for Text and SVG.
@@ -3314,6 +3324,67 @@ msgstr "Az tárgyasztal termikus előfűtése segít optimalizálni az első ré
 #, c-format, boost-format
 msgid "Remaining time: %dmin%ds"
 msgstr "Hátralévő idő: %dp%dmp"
+
+msgid "Project Filaments"
+msgstr "Projekt filamentek"
+
+msgid "New Filaments"
+msgstr ""
+
+msgid "Add Material"
+msgstr ""
+
+#, c-format, boost-format
+msgid "The project supports up to %d filaments. Extra filaments will be discarded."
+msgstr ""
+
+msgid "Import Model"
+msgstr ""
+
+msgid "Original"
+msgstr "Eredeti"
+
+msgid "Multi-Color"
+msgstr ""
+
+msgid "Filament Mapping"
+msgstr ""
+
+msgid "Color Count"
+msgstr ""
+
+msgid "Smooth Level"
+msgstr ""
+
+msgid "Automatically determine the optimal color count only and recompute filament mapping"
+msgstr ""
+
+msgid "Convert texture to painting using the specified color count and smooth level"
+msgstr ""
+
+msgid "Reminder: parameters changed, click Apply to take effect"
+msgstr ""
+
+msgid "Auto-merge same filament"
+msgstr ""
+
+msgid "Automatically merge identical filaments into existing filaments in the project"
+msgstr ""
+
+msgid "Skip Matching"
+msgstr ""
+
+msgid "Skip filament mapping and import as a single-color model"
+msgstr ""
+
+msgid "Processing"
+msgstr ""
+
+msgid "Computing texture colors..."
+msgstr ""
+
+msgid "Computation failed. Please adjust parameters and retry."
+msgstr ""
 
 msgid "Choose SLA archive:"
 msgstr "Válaszd ki az SLA-archívumot:"
@@ -4157,6 +4228,13 @@ msgstr ""
 "a zárási mélységnek kisebb kell lennie, mint a bőr mélysége.\n"
 "Visszaállítás 50%% mélységre"
 
+msgid ""
+"Alternate extra wall doesn't work well when ensure vertical shell thickness is set to Enable.\n"
+"Change these settings automatically?\n"
+"Yes - Change ensure vertical shell thickness to Partial and enable alternate extra wall\n"
+"No  - Don't use alternate extra wall"
+msgstr ""
+
 msgid "Spiral mode only works when support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."
 msgstr ""
 
@@ -4616,7 +4694,7 @@ msgid "Fan Speed"
 msgstr "Ventilátor fordulatszám"
 
 msgid "AUX Fan Speed"
-msgstr ""
+msgstr "AUX-ventilátor sebessége"
 
 msgid "Flow"
 msgstr "Anyagáramlás"
@@ -4694,7 +4772,7 @@ msgid "Fan Speed (%)"
 msgstr "Ventilátor fordulatszám (%)"
 
 msgid "AUX  Fan Speed (%)"
-msgstr ""
+msgstr "AUX-ventilátor sebessége (%)"
 
 msgid "Temperature (°C)"
 msgstr "Hőmérséklet (°C)"
@@ -4850,7 +4928,7 @@ msgid "Fan Speed: "
 msgstr "Ventilátor fordulatszám: "
 
 msgid "AUX Fan Speed: "
-msgstr ""
+msgstr "AUX-ventilátor sebessége: "
 
 msgid "Temperature: "
 msgstr "Hőmérséklet: "
@@ -4936,7 +5014,7 @@ msgid "Increase/decrease edit area"
 msgstr "Szerkesztési terület növelése/csökkentése"
 
 msgid "The variable layer height profile has been reset because some layer heights exceed the allowed range of the current nozzle."
-msgstr ""
+msgstr "A változó rétegmagasság-profil visszaállításra került, mert egyes rétegmagasságok meghaladják az aktuális fúvóka megengedett tartományát."
 
 msgid "Sequence"
 msgstr "Sorrend"
@@ -5355,7 +5433,7 @@ msgid "Project"
 msgstr "Projekt"
 
 msgid "Filament Manager"
-msgstr ""
+msgstr "Filamentkezelő"
 
 msgid "Yes"
 msgstr "Igen"
@@ -5639,6 +5717,15 @@ msgstr "Kijelölés megszüntetése"
 
 msgid "Deselects all objects"
 msgstr "Megszünteti az összes objektum kijelölését"
+
+msgid "Enter Camera Full Screen"
+msgstr ""
+
+msgid "Show the Device camera in full screen"
+msgstr ""
+
+msgid "Exit Camera Full Screen"
+msgstr ""
 
 msgid "Use Perspective View"
 msgstr "Perspektivikus nézet használata"
@@ -5967,6 +6054,42 @@ msgstr "DLL betöltési hiba"
 msgid "Loading..."
 msgstr "Betöltés…"
 
+msgid "Timelapse"
+msgstr "Timelapse"
+
+msgid "Switch to timelapse files."
+msgstr "Váltás timelapse fájlokra."
+
+msgid "Video"
+msgstr "Videó"
+
+msgid "Switch to video files."
+msgstr "Váltás a videófájlokra."
+
+msgid "Switch to 3mf model files."
+msgstr "Váltás 3mf modellfájlokra."
+
+msgid "Reload file list from printer."
+msgstr "Fájllista újratöltése a nyomtatóról."
+
+msgid "Delete selected files from printer."
+msgstr "Kijelölt fájlok törlése a nyomtatóról."
+
+msgid "Download"
+msgstr "Letöltés"
+
+msgid "Download selected files from printer."
+msgstr "Kiválasztott fájlok letöltése a nyomtatóról."
+
+msgid "Select"
+msgstr "Kiválasztás"
+
+msgid "Batch manage files."
+msgstr "Fájlok kötegelt kezelése."
+
+msgid "Internal"
+msgstr "Belső"
+
 msgid "Year"
 msgstr "Év"
 
@@ -5984,39 +6107,6 @@ msgstr "Fájlok csoportosítása hónap szerint, elöl a legújabb."
 
 msgid "Show all files, recent first."
 msgstr "Minden fájl megjelenítése, elöl a legújabb."
-
-msgid "Timelapse"
-msgstr "Timelapse"
-
-msgid "Switch to timelapse files."
-msgstr "Váltás timelapse fájlokra."
-
-msgid "Video"
-msgstr "Videó"
-
-msgid "Switch to video files."
-msgstr "Váltás a videófájlokra."
-
-msgid "Switch to 3mf model files."
-msgstr "Váltás 3mf modellfájlokra."
-
-msgid "Delete selected files from printer."
-msgstr "Kijelölt fájlok törlése a nyomtatóról."
-
-msgid "Download"
-msgstr "Letöltés"
-
-msgid "Download selected files from printer."
-msgstr "Kiválasztott fájlok letöltése a nyomtatóról."
-
-msgid "Select"
-msgstr "Kiválasztás"
-
-msgid "Batch manage files."
-msgstr "Fájlok kötegelt kezelése."
-
-msgid "Reload file list from printer."
-msgstr "Fájllista újratöltése a nyomtatóról."
 
 msgid "No printers."
 msgstr "Nincs nyomtató."
@@ -6241,6 +6331,9 @@ msgstr ""
 
 msgid "Go to Login"
 msgstr "Ugrás a bejelentkezéshez"
+
+msgid "Camera Full Screen"
+msgstr ""
 
 msgctxt "Quit_Switching"
 msgid "Quit"
@@ -6645,13 +6738,13 @@ msgid "Collapse"
 msgstr "Összecsuk"
 
 msgid "View details"
-msgstr ""
+msgstr "Részletek megtekintése"
 
 msgid "Execute"
 msgstr "Végrehajtás"
 
 msgid "Do not execute"
-msgstr ""
+msgstr "Ne hajtsa végre"
 
 #, c-format, boost-format
 msgid "%s info"
@@ -7128,10 +7221,6 @@ msgstr "Kérjük, módosítsd a fúvóka típusát, vagy változtasd meg a filam
 msgid "Risk of nozzle clumping detected with the current high-temperature filament (%s). We recommend enabling clumping detection (via probing). This feature uses a quick probing sequence to check for nozzle buildup during the print and utilizes the prime tower to absorb oozing before resuming."
 msgstr "A rendszer magas kockázatot észlelt a filament fúvókára való feltapadására a jelenlegi magas hőmérsékletű filamentnél (%s). Javasoljuk a filament fúvókára való feltapadás-észlelés engedélyezését. Ez a funkció ellenőrzi a fúvókát a nyomtatás során, és a törlőtorony segítségével eltünteti az esetleges szivárgást a nyomtatás folytatása előtt."
 
-#, c-format, boost-format
-msgid "High-shrinkage filament(s) detected: %s. These materials may cause dimensional deviation after cooling. If your model requires precise fitting or assembly, please refer to the Wiki guide for shrinkage testing."
-msgstr "Nagy zsugorodású filament(ek) észlelve: %s. Ezek az anyagok lehűlés után méretbeli eltérést okozhatnak. Ha a modell precíz illesztést vagy összeszerelést igényel, kérjük, tekintsd meg a Wiki-útmutatót a zsugorodás tesztelésével kapcsolatban."
-
 msgid "Printing mixed-color filament on a single-extruder printer requires frequent filament changes and flushing, which may significantly increase waste and the risk of nozzle / waste-chute clogging."
 msgstr "A vegyes színű filament nyomtatása egy extruderes nyomtatón gyakori filamentcserét és öblítést igényel, ami jelentősen megnövelheti a keletkező hulladék mennyiségét és a fúvóka / kidobónyílás eltömődésének kockázatát."
 
@@ -7243,9 +7332,6 @@ msgstr "Szinkronizálási információ"
 
 msgid "Synchronize nozzle information and the number of AMS"
 msgstr "Fúvókainformációk és az AMS-ek számának szinkronizálása"
-
-msgid "Project Filaments"
-msgstr "Projekt filamentek"
 
 msgid "Purge mode"
 msgstr "Átöblítési mód"
@@ -7412,10 +7498,10 @@ msgid "The name may show garbage characters!"
 msgstr "A névben helytelen karakterek jelenhetnek meg!"
 
 msgid "The following shells are not closed and may cause issues:"
-msgstr ""
+msgstr "A következő héjak nincsenek lezárva, és problémákat okozhatnak:"
 
 msgid "Unclosed Shell Warning"
-msgstr ""
+msgstr "Nyitott héjra vonatkozó figyelmeztetés"
 
 #, boost-format
 msgid "Failed loading file \"%1%\". An invalid configuration was found."
@@ -7447,6 +7533,13 @@ msgstr ""
 msgid "Multi-part object detected"
 msgstr "Több részből álló objektum észlelve"
 
+#, c-format, boost-format
+msgid "Computing texture colors: %s"
+msgstr ""
+
+msgid "Texture Import Warning"
+msgstr ""
+
 msgid "Load these files as a single object with multiple parts?\n"
 msgstr "Betöltöd ezeket a fájlokat több részből álló egyetlen objektumként?\n"
 
@@ -7456,11 +7549,35 @@ msgstr "Több részből álló objektumot észleltünk"
 msgid "The file does not contain any geometry data."
 msgstr "A fájl nem tartalmaz geometriai adatokat."
 
+msgid "Importing model to project..."
+msgstr ""
+
 msgid "Your object appears to be too large, Do you want to scale it down to fit the heat bed automatically?"
 msgstr "Úgy tűnik, hogy az objektum túl nagy. Szeretnéd átméretezni, hogy illeszkedjen az asztal méretéhez?"
 
 msgid "Object too large"
 msgstr "Az objektum túl nagy"
+
+msgid "Placing model on the bed..."
+msgstr ""
+
+msgid "Updating object list..."
+msgstr ""
+
+msgid "Updating 3D view..."
+msgstr ""
+
+msgid "Model imported."
+msgstr ""
+
+msgid "Texture import failed. The model appears to contain texture data, but the texture import process could not be completed. The model will be imported as geometry only."
+msgstr ""
+
+msgid "Applying texture colors..."
+msgstr ""
+
+msgid "Texture colors applied."
+msgstr ""
 
 msgid "Export STL file:"
 msgstr "STL fájl exportálása:"
@@ -7995,7 +8112,7 @@ msgstr "Negatív tárgyakat észleltünk. Exportálás előtt szeretnéd végreh
 msgid ""
 "Security Warning: This 3MF file contains post-processing script commands that will run automatically during slicing and may pose security risks!\n"
 "Please verify the file source and script contents before continuing."
-msgstr ""
+msgstr "Biztonsági figyelmeztetés: Ez a 3MF fájl utófeldolgozási parancsokat tartalmaz, amelyek automatikusan lefutnak a szeletelés során, és biztonsági kockázatot jelenthetnek! A folytatás előtt ellenőrizze a fájl forrását és a parancsfájl tartalmát."
 
 #, c-format, boost-format
 msgid "The calibration filament is currently assigned to a different extruder than the one selected in the PA Calibration dialog (%s). This may lead to incorrect calibration results. You can change the assignment in the filament grouping settings."
@@ -8061,7 +8178,7 @@ msgstr "Tálcabeállítások"
 msgid ""
 "While printing by Object, the extruder may collide skirt.\n"
 "Thus, it is recommended to reset the skirt layer to 1 to avoid that."
-msgstr ""
+msgstr "Objektum szerinti nyomtatás közben az extruder ütközhet a szoknyával. Ezért ajánlott a szoknya rétegét 1-re állítani ennek elkerülése érdekében."
 
 msgid "Prime Tower:"
 msgstr "Törlőtorony"
@@ -8283,6 +8400,12 @@ msgstr "Megszünteti a magas és alacsony hőmérsékletű filamentek vegyes nyo
 
 msgid "With this option enabled, you can print materials with a large temperature difference together."
 msgstr "Ha ez az opció be van kapcsolva, akkor nagy hőmérsékletkülönbségű anyagokat is nyomtathatsz egyszerre."
+
+msgid "Open full screen camera view on active monitor only."
+msgstr ""
+
+msgid "When enabled, the camera full screen view opens only on the monitor that contains Bambu Studio."
+msgstr ""
 
 msgid "Clear my choice for synchronizing printer preset after loading the file."
 msgstr "Törölje a nyomtatóbeállítás szinkronizálására vonatkozó választásomat a fájl betöltése után."
@@ -8917,7 +9040,7 @@ msgstr "Az ajánlott filamentelrendezéssel elérhető megtakarítás %s->"
 
 #, c-format, boost-format
 msgid "The current firmware supports a maximum of %s materials. You can either reduce the number of materials to %s or fewer on the Preparation Page, or try updating the firmware. If you are still restricted after the update, please wait for subsequent firmware support."
-msgstr ""
+msgstr "A jelenlegi firmware legfeljebb %s anyagot támogat. Az Előkészítő oldalon csökkentheti az anyagok számát legfeljebb ennyire: %s, vagy megpróbálhatja frissíteni a firmware-t. Ha a frissítés után továbbra is korlátozott a működése, várja meg a következő firmware-támogatást."
 
 #, c-format, boost-format
 msgid "Filament %s does not match the filament in AMS slot %s. Please update the printer firmware to support AMS slot assignment."
@@ -8967,9 +9090,6 @@ msgstr "Ellenőrzi az asztal szintjét. A szintezés egyenletessé teszi az extr
 
 msgid "This process determines the dynamic flow values to improve overall print quality."
 msgstr "Megkeresi a legjobb értéket a dinamikus anyagáramláshoz, hogy javítsa a nyomtatás minőségét."
-
-msgid "Internal"
-msgstr "Belső"
 
 #, c-format, boost-format
 msgid "%s space less than 10MB. Timelapse may not save properly. You can turn it off or"
@@ -11243,6 +11363,45 @@ msgstr "Helio folyamatábra"
 msgid "Fixing cold prints"
 msgstr "Hideg nyomatok javítása"
 
+msgid "Software Update"
+msgstr ""
+
+msgid "Try Now"
+msgstr ""
+
+msgid "Don't show me Beta updates again"
+msgstr ""
+
+msgid "New Bambu Studio Beta Available"
+msgstr ""
+
+msgid "Current Version"
+msgstr ""
+
+msgid "Bambu Studio Beta gives you early access to upcoming features, improvements, optimizations, and bug fixes before they are released in the stable version of Bambu Studio. It is intended for advanced users who would like to explore new functionality early and help improve the software experience."
+msgstr ""
+
+msgid "Separate configuration folder."
+msgstr ""
+
+msgid "As a beta release, some features may still be under development, and you may occasionally encounter bugs, unexpected behavior, or incomplete functionality. To prevent conflicts with the stable release, Bambu Studio Beta uses a separate configuration folder (Help -> Show Configuration Folder) and operates independently from the standard version of Bambu Studio."
+msgstr ""
+
+msgid "(Help -> Show Configuration Folder)"
+msgstr ""
+
+msgid "Why use the Beta version?"
+msgstr ""
+
+msgid "By using the Beta version and sharing feedback, bug reports, and suggestions, you can help Bambu Lab improve stability, compatibility, and future features before the official release."
+msgstr ""
+
+msgid "How to change settings?"
+msgstr ""
+
+msgid "If you prefer not to participate in the Beta program, you can disable Beta Update prompts at any time in Settings."
+msgstr ""
+
 msgid "Air Pump"
 msgstr "Légszivattyú"
 
@@ -11472,6 +11631,12 @@ msgstr "Öblítés"
 #, boost-format
 msgid "Failed to calculate line width of %1%. Can not get value of \"%2%\" "
 msgstr "Nem sikerült kiszámítani %1% vonalszélességét. A(z) „%2%“ értékét nem sikerült lekérni "
+
+msgid ""
+"Slicing failed because the extrusion line width is too small or the layer height is too large.\n"
+"\n"
+"Please increase the line width or reduce the layer height, then slice again."
+msgstr ""
 
 msgid "undefined error"
 msgstr "meghatározatlan hiba"
@@ -12034,16 +12199,16 @@ msgid "This controls the generation of the brim at outer and/or inner side of mo
 msgstr "Ez szabályozza a perem generálását a modellek külső és/vagy belső oldalán. Az Auto azt jelenti, hogy a perem szélessége automatikusan kerül kiszámításra."
 
 msgid "★ Brim-object gap"
-msgstr "★ Brim-object gap"
+msgstr ""
 
 msgid "A gap between innermost brim line and object can make brim be removed more easily. Negative values make the brim overlap the object."
-msgstr "A gap between innermost brim line and object can make brim be removed more easily. Negative values make the brim overlap the object."
+msgstr ""
 
 msgid "★ Brim layers"
-msgstr "★ Brim layers"
+msgstr ""
 
 msgid "The number of layers on which the brim will be printed."
-msgstr "The number of layers on which the brim will be printed."
+msgstr ""
 
 msgid "Compatible machine"
 msgstr "Kompatibilis gép"
@@ -12701,6 +12866,12 @@ msgstr "Vegyes filament átmenettartomány"
 msgid "Start and end ratios for the first component in gradient mode. Comma-separated pair, e.g. \"0.10,0.90\" means 10% to 90%."
 msgstr "Az első komponens kezdő és befejező arányai átmenet módban. Vesszővel elválasztott pár, pl. \"0,10,0,90\" 10%-tól 90%-ig terjedő értéket jelent."
 
+msgid "Mixed filament per-part gradient"
+msgstr ""
+
+msgid "When gradient mode is enabled, apply the gradient to each part of an assembly independently rather than treating the whole assembly as one Z range."
+msgstr ""
+
 msgid "Filament printable"
 msgstr "Nyomtatható filament"
 
@@ -12723,10 +12894,10 @@ msgid "The volume of material required to prime the extruder for a hotend change
 msgstr "Az extruder átöblítéséhez szükséges anyagmennyiség a hotend cseréjekor."
 
 msgid "Preheat temperature delta"
-msgstr ""
+msgstr "Előmelegítési hőmérséklet delta"
 
 msgid "Temperature delta applied during pre-heating before tool change."
-msgstr ""
+msgstr "Hőmérséklet-különbség alkalmazása az eszközcsere előtti előmelegítés során."
 
 msgid "Wipe tower cooling"
 msgstr "Törlőtorony hűtés"
@@ -13630,6 +13801,12 @@ msgstr "A fal beágyazása a kitöltésbe"
 msgid "Embedding the wall into parts where the wall loops are absent ensures that the wall connects seamlessly to the infill."
 msgstr "A fal beágyazása biztosítja, hogy a fal jobban kapcsolódjon a kitöltéshez."
 
+msgid "Alternate extra wall"
+msgstr ""
+
+msgid "Add an extra wall on alternating layers to improve layer bonding and part strength without the full cost of a permanent extra wall."
+msgstr ""
+
 msgid "Post-processing Scripts"
 msgstr "Utófeldolgozási szkriptek"
 
@@ -13909,31 +14086,31 @@ msgid "Spiralize smooths out the z moves of the outer contour. And turns a solid
 msgstr "A spirál mód kisimítja a külső kontúr Z-mozgásait. A tömör modellt egyfalú nyomatokká alakítja, tömör alsó rétegekkel. A végső modellen nincsenek varratok."
 
 msgid "★ Vase reinforcement multiplier"
-msgstr "★ Vase reinforcement multiplier"
+msgstr ""
 
 msgid "Additional inward wall multiplier for the first spiral vase layers. Decimal values are distributed across rounded reinforcement loops."
-msgstr "Additional inward wall multiplier for the first spiral vase layers. Decimal values are distributed across rounded reinforcement loops."
+msgstr ""
 
 msgid "★ Vase reinforcement height"
-msgstr "★ Vase reinforcement height"
+msgstr ""
 
 msgid "Height of spiral vase reinforcement. A plain number means layer count; a value ending with mm means model height."
-msgstr "Height of spiral vase reinforcement. A plain number means layer count; a value ending with mm means model height."
+msgstr ""
 
 msgid "layers or mm"
-msgstr "layers or mm"
+msgstr ""
 
 msgid "★ Fade vase reinforcement"
-msgstr "★ Fade vase reinforcement"
+msgstr ""
 
 msgid "Linearly fade the spiral vase reinforcement multiplier over the reinforcement height."
-msgstr "Linearly fade the spiral vase reinforcement multiplier over the reinforcement height."
+msgstr ""
 
 msgid "★ Fade end multiplier"
-msgstr "★ Fade end multiplier"
+msgstr ""
 
 msgid "Spiral vase reinforcement multiplier at the end of the reinforcement height."
-msgstr "Spiral vase reinforcement multiplier at the end of the reinforcement height."
+msgstr ""
 
 msgid "Smooth Spiral"
 msgstr "Sima spirál"
@@ -14551,6 +14728,12 @@ msgstr "Minimális falszélesség"
 msgid "Width of the wall that will replace thin features (according to the Minimum feature size) of the model. If the Minimum wall width is thinner than the thickness of the feature, the wall will become as thick as the feature itself. It's expressed as a percentage over nozzle diameter"
 msgstr "A fal szélessége, amely lecseréli a modell vékony részeit (a Minimális méretben megadott érték szerint). Ha a minimális falszélesség vékonyabb, mint a nyomtatandó elem vastagsága, akkor a fal olyan vastag lesz, mint maga a nyomtatott elem. A fúvóka átmérőjének százalékában van kifejezve"
 
+msgid "Override overhang speed"
+msgstr ""
+
+msgid "Override the overhang speed in process page"
+msgstr ""
+
 msgid "Detect narrow internal solid infill"
 msgstr "Keskeny belső szilárd kitöltés felismerése"
 
@@ -14571,7 +14754,7 @@ msgid " doesn't work at 100%% density "
 msgstr " nem működik 100%%-os sűrűséggel "
 
 msgid "Invalid spiral vase reinforcement height: "
-msgstr "Invalid spiral vase reinforcement height: "
+msgstr ""
 
 msgid "Invalid value when spiral vase mode is enabled: "
 msgstr "Érvénytelen érték, ha a spirálváza mód engedélyezve van: "
@@ -14663,8 +14846,8 @@ msgstr "A modellfájl hálózása sikertelen volt, vagy nincs érvényes alakzat
 msgid "The supplied file couldn't be read because it's empty"
 msgstr "A megadott fájlt nem lehet beolvasni, mert üres"
 
-msgid "Unknown file format. Input file must have .stl, .obj, .amf(.xml) extension."
-msgstr "Ismeretlen fájlformátum. A bemeneti fájlnak .stl, .obj vagy .amf (.xml) kiterjesztésűnek kell lennie."
+msgid "Unknown file format. Input file must have .stl, .obj, .amf(.xml), .gltf, .glb, .fbx extension."
+msgstr ""
 
 msgid "Unknown file format. Input file must have .3mf or .zip.amf extension."
 msgstr "Ismeretlen fájlformátum: a bemeneti fájlnak .3mf vagy .zip .amf kiterjesztésűnek kell lennie."
@@ -17054,6 +17237,9 @@ msgstr "Arány"
 msgid "Gradient Effect"
 msgstr "Színátmenet"
 
+msgid "Enable per-part gradient effect"
+msgstr ""
+
 msgid "Mixing Recommendations"
 msgstr "Keverési javaslatok"
 
@@ -17309,6 +17495,12 @@ msgstr ""
 "Vetemedés elkerülése\n"
 "Tudtad, hogy a vetemedésre hajlamos anyagok (például ABS) nyomtatásakor a tárgyasztal hőmérsékletének növelése csökkentheti a vetemedés valószínűségét?"
 
+#: resources/data/hints.ini: [hint:Filament Shrinkage]
+msgid ""
+"Filament Shrinkage\n"
+"Filaments such as %s have higher shrinkage rates, which may cause slight dimensional deviations after cooling and affect assembly fit. It is recommended to refer to the Wiki for shrinkage calibration to achieve more accurate print results."
+msgstr ""
+
 #: resources/data/helio_hints.ini: [hint: Run Nylon & PC (and other advanced
 #: materials) Like a Pro]
 msgid ""
@@ -17377,26 +17569,45 @@ msgstr ""
 "Elsőre megbízható\n"
 "Kevesebb figyelem, kiszámíthatóbb eredmények. Példa: egy kis műhely, amely PETG tárgyakat gyárt, elkerülheti a „6. órában le kell állítani“ meglepetéseket, és tartani tudja a határidőket."
 
+#~ msgid "Spiral mode only works when wall loops is 1, support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."
+#~ msgstr "A spirál mód csak akkor működik, ha a falak száma 1, a támasz le van tiltva, a tapintással történő anyagfelhalmozódás észlelése ki van kapcsolva, a felső héjrétegek száma 0, a ritkás kitöltés sűrűsége 0, a timelapse típusa hagyományos és a fal sebességének z irányban történő simítása ki van kapcsolva."
+
 #~ msgid "Brim-object gap"
 #~ msgstr "Perem-tárgy közötti rés"
 
 #~ msgid "A gap between innermost brim line and object can make brim be removed more easily"
 #~ msgstr "A legbelső peremvonal és a tárgy közötti rés, amely megkönnyítheti a perem eltávolítását."
 
-#~ msgid "Vase reinforcement multiplier"
-#~ msgstr "Vase reinforcement multiplier"
+#~ msgid "non-manifold edges be caused by cut tool, do you want to fix it now?"
+#~ msgstr "A vágás után hibás élek keletkeztek, szeretnéd most javítani őket?"
 
-#~ msgid "Vase reinforcement height"
-#~ msgstr "Vase reinforcement height"
+#~ msgid "Choose one or more files (3mf/step/stl/svg/obj/amf/usd*/abc/ply):"
+#~ msgstr "Válassz ki egy vagy több fájlt (3mf/step/stl/svg/obj/amf/usd*/abc/ply):"
 
-#~ msgid "Fade vase reinforcement"
-#~ msgstr "Fade vase reinforcement"
+#~ msgid "Choose one or more files (3mf/step/stl/svg/obj/amf):"
+#~ msgstr "Válassz ki egy vagy több fájlt (3mf/step/stl/svg/obj/amf):"
 
-#~ msgid "Fade end multiplier"
-#~ msgstr "Fade end multiplier"
+#, c-format, boost-format
+#~ msgid "Error: %1$d non-manifold edge."
+#~ msgid_plural "Error: %1$d non-manifold edges."
+#~ msgstr[0] "Hiba: %1$d hibás él."
+#~ msgstr[1] "Hiba: %1$d hibás él."
 
-#~ msgid "Spiral mode only works when wall loops is 1, support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."
-#~ msgstr "A spirál mód csak akkor működik, ha a falak száma 1, a támasz le van tiltva, a tapintással történő anyagfelhalmozódás észlelése ki van kapcsolva, a felső héjrétegek száma 0, a ritkás kitöltés sűrűsége 0, a timelapse típusa hagyományos és a fal sebességének z irányban történő simítása ki van kapcsolva."
+#~ msgid "Remaining errors"
+#~ msgstr "Fennmaradó hibák"
+
+#, c-format, boost-format
+#~ msgid "%1$d non-manifold edge"
+#~ msgid_plural "%1$d non-manifold edges"
+#~ msgstr[0] "%1$d hibás él"
+#~ msgstr[1] "%1$d hibás él"
+
+#, c-format, boost-format
+#~ msgid "High-shrinkage filament(s) detected: %s. These materials may cause dimensional deviation after cooling. If your model requires precise fitting or assembly, please refer to the Wiki guide for shrinkage testing."
+#~ msgstr "Nagy zsugorodású filament(ek) észlelve: %s. Ezek az anyagok lehűlés után méretbeli eltérést okozhatnak. Ha a modell precíz illesztést vagy összeszerelést igényel, kérjük, tekintsd meg a Wiki-útmutatót a zsugorodás tesztelésével kapcsolatban."
+
+#~ msgid "Unknown file format. Input file must have .stl, .obj, .amf(.xml) extension."
+#~ msgstr "Ismeretlen fájlformátum. A bemeneti fájlnak .stl, .obj vagy .amf (.xml) kiterjesztésűnek kell lennie."
 
 #~ msgid "Shift+"
 #~ msgstr "Shift+"

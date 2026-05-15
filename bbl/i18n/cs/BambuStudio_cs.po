@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bambu Studio\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-09 21:03+0800\n"
+"POT-Creation-Date: 2026-05-15 20:34+0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Jakub Hencl <jakub.hencl@seznam.cz>\n"
 "Language-Team: \n"
@@ -949,8 +949,8 @@ msgstr "Přiřadit díl na druhou stranu"
 msgid "Cut"
 msgstr "Oříznout"
 
-msgid "non-manifold edges be caused by cut tool, do you want to fix it now?"
-msgstr "neuzavřené hrany byly způsobeny nástrojem pro řezání. Chcete je nyní opravit?"
+msgid "Open edges may be caused by the cut tool, do you want to fix it now?"
+msgstr ""
 
 msgid "Repairing model object"
 msgstr "Probíhá oprava modelového objektu"
@@ -2006,11 +2006,11 @@ msgstr "Načítání režimu zobrazení"
 msgid "Choose one file (3mf):"
 msgstr "Vyberte jeden soubor (3mf):"
 
-msgid "Choose one or more files (3mf/step/stl/svg/obj/amf/usd*/abc/ply):"
-msgstr "Vyberte jeden nebo více souborů (3mf/step/stl/svg/obj/amf/usd*/abc/ply):"
+msgid "Choose one or more files (3mf/step/stl/svg/obj/amf/gltf/glb/fbx/usd*/abc/ply):"
+msgstr ""
 
-msgid "Choose one or more files (3mf/step/stl/svg/obj/amf):"
-msgstr "Vyberte jeden nebo více souborů (3mf/step/stl/svg/obj/amf):"
+msgid "Choose one or more files (3mf/step/stl/svg/obj/amf/gltf/glb/fbx):"
+msgstr ""
 
 msgid "Choose one file (gcode/.gco/.g/.ngc/ngc):"
 msgstr "Vyberte jeden soubor (G-kód/.gco/.g/.ngc/ngc):"
@@ -2567,19 +2567,26 @@ msgstr[0] "Opravena %1$d chyba"
 msgstr[1] "Opraveno %1$d chyb"
 
 #, c-format, boost-format
-msgid "Error: %1$d non-manifold edge."
-msgid_plural "Error: %1$d non-manifold edges."
-msgstr[0] "Chyba: %1$d ne-manifold hrana."
-msgstr[1] "Chyba: %1$d ne-manifold hran."
-
-msgid "Remaining errors"
-msgstr "Zbývající chyby"
+msgid "Error: %1$d non-manifold edges, %2$d non-manifold vertices"
+msgstr ""
 
 #, c-format, boost-format
-msgid "%1$d non-manifold edge"
-msgid_plural "%1$d non-manifold edges"
-msgstr[0] "%1$d ne-manifold hrana"
-msgstr[1] "%1$d ne-manifold hran"
+msgid "Error: %1$d non-manifold edge"
+msgid_plural "Error: %1$d non-manifold edges"
+msgstr[0] ""
+msgstr[1] ""
+
+#, c-format, boost-format
+msgid "Error: %1$d non-manifold vertex"
+msgid_plural "Error: %1$d non-manifold vertices"
+msgstr[0] ""
+msgstr[1] ""
+
+#, c-format, boost-format
+msgid "Info: %1$d open edge"
+msgid_plural "Info: %1$d open edges"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Right click the icon to fix model object"
 msgstr "Klikněte pravým tlačítkem na ikonu pro opravu modelového objektu"
@@ -3198,11 +3205,14 @@ msgstr "Orientování"
 msgid "Filling"
 msgstr "Vyplňování"
 
-msgid "Bed filling done."
-msgstr "Plnění podložky dokončeno."
+msgid "Bed filling aborted: invalid bed shape."
+msgstr ""
 
 msgid "Bed filling canceled."
 msgstr "Plnění podložky bylo zrušeno."
+
+msgid "Bed filling done."
+msgstr "Plnění podložky dokončeno."
 
 #. TRN: This is the title of the action appearing in undo/redo stack.
 #. It is same for Text and SVG.
@@ -3332,6 +3342,67 @@ msgstr "Tepelná předkondicionace vyhřívané podložky pomáhá optimalizovat
 #, c-format, boost-format
 msgid "Remaining time: %dmin%ds"
 msgstr "Zbývající čas: %dmin%ds"
+
+msgid "Project Filaments"
+msgstr "Filamenty projektu"
+
+msgid "New Filaments"
+msgstr ""
+
+msgid "Add Material"
+msgstr ""
+
+#, c-format, boost-format
+msgid "The project supports up to %d filaments. Extra filaments will be discarded."
+msgstr ""
+
+msgid "Import Model"
+msgstr ""
+
+msgid "Original"
+msgstr ""
+
+msgid "Multi-Color"
+msgstr ""
+
+msgid "Filament Mapping"
+msgstr ""
+
+msgid "Color Count"
+msgstr ""
+
+msgid "Smooth Level"
+msgstr ""
+
+msgid "Automatically determine the optimal color count only and recompute filament mapping"
+msgstr ""
+
+msgid "Convert texture to painting using the specified color count and smooth level"
+msgstr ""
+
+msgid "Reminder: parameters changed, click Apply to take effect"
+msgstr ""
+
+msgid "Auto-merge same filament"
+msgstr ""
+
+msgid "Automatically merge identical filaments into existing filaments in the project"
+msgstr ""
+
+msgid "Skip Matching"
+msgstr ""
+
+msgid "Skip filament mapping and import as a single-color model"
+msgstr ""
+
+msgid "Processing"
+msgstr ""
+
+msgid "Computing texture colors..."
+msgstr ""
+
+msgid "Computation failed. Please adjust parameters and retry."
+msgstr ""
 
 msgid "Choose SLA archive:"
 msgstr "Vyberte SLA archiv:"
@@ -4216,6 +4287,13 @@ msgstr ""
 "hloubka zámku by měla být menší než tloušťka slupky.\n"
 "Obnoveno na 50%% tloušťky slupkyHloubka zámku by měla být menší než hloubka povrchu.\n"
 "Nastaveno na 50%% hloubky povrchu"
+
+msgid ""
+"Alternate extra wall doesn't work well when ensure vertical shell thickness is set to Enable.\n"
+"Change these settings automatically?\n"
+"Yes - Change ensure vertical shell thickness to Partial and enable alternate extra wall\n"
+"No  - Don't use alternate extra wall"
+msgstr ""
 
 msgid "Spiral mode only works when support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."
 msgstr ""
@@ -5703,6 +5781,15 @@ msgstr "Odznačit vše"
 msgid "Deselects all objects"
 msgstr "Odznačit všechny objekty"
 
+msgid "Enter Camera Full Screen"
+msgstr ""
+
+msgid "Show the Device camera in full screen"
+msgstr ""
+
+msgid "Exit Camera Full Screen"
+msgstr ""
+
 msgid "Use Perspective View"
 msgstr "Použít perspektivní pohled"
 
@@ -6037,6 +6124,42 @@ msgstr "Chyba načítání DLL"
 msgid "Loading..."
 msgstr "Načítání..."
 
+msgid "Timelapse"
+msgstr "Časosběr"
+
+msgid "Switch to timelapse files."
+msgstr "Přepnout na časosběrné soubory."
+
+msgid "Video"
+msgstr "Video"
+
+msgid "Switch to video files."
+msgstr "Přepnout na videosoubory."
+
+msgid "Switch to 3mf model files."
+msgstr "Přepnout na soubory modelů 3mf."
+
+msgid "Reload file list from printer."
+msgstr "Načíst seznam souborů z tiskárny."
+
+msgid "Delete selected files from printer."
+msgstr "Smazat vybrané soubory z tiskárny."
+
+msgid "Download"
+msgstr "Stáhnout"
+
+msgid "Download selected files from printer."
+msgstr "Stáhněte vybrané soubory z tiskárny."
+
+msgid "Select"
+msgstr "Vybrat"
+
+msgid "Batch manage files."
+msgstr "Hromadná správa souborů."
+
+msgid "Internal"
+msgstr "Interní"
+
 msgid "Year"
 msgstr "Rok"
 
@@ -6054,39 +6177,6 @@ msgstr "Seskupit soubory podle měsíců, nejnovější nahoře."
 
 msgid "Show all files, recent first."
 msgstr "Zobrazit všechny soubory, nejnovější první."
-
-msgid "Timelapse"
-msgstr "Časosběr"
-
-msgid "Switch to timelapse files."
-msgstr "Přepnout na časosběrné soubory."
-
-msgid "Video"
-msgstr "Video"
-
-msgid "Switch to video files."
-msgstr "Přepnout na videosoubory."
-
-msgid "Switch to 3mf model files."
-msgstr "Přepnout na soubory modelů 3mf."
-
-msgid "Delete selected files from printer."
-msgstr "Smazat vybrané soubory z tiskárny."
-
-msgid "Download"
-msgstr "Stáhnout"
-
-msgid "Download selected files from printer."
-msgstr "Stáhněte vybrané soubory z tiskárny."
-
-msgid "Select"
-msgstr "Vybrat"
-
-msgid "Batch manage files."
-msgstr "Hromadná správa souborů."
-
-msgid "Reload file list from printer."
-msgstr "Načíst seznam souborů z tiskárny."
 
 msgid "No printers."
 msgstr "Žádné tiskárny."
@@ -6313,6 +6403,9 @@ msgstr ""
 
 msgid "Go to Login"
 msgstr "Přejít k přihlášení"
+
+msgid "Camera Full Screen"
+msgstr ""
 
 msgctxt "Quit_Switching"
 msgid "Quit"
@@ -7201,10 +7294,6 @@ msgstr "Změňte typ trysky nebo znovu přiřaďte filamenty a zkuste akci zopak
 msgid "Risk of nozzle clumping detected with the current high-temperature filament (%s). We recommend enabling clumping detection (via probing). This feature uses a quick probing sequence to check for nozzle buildup during the print and utilizes the prime tower to absorb oozing before resuming."
 msgstr "Bylo zjištěno riziko shlukování materiálu na trysce při použití aktuálního vysokoteplotního filamentu (%s). Doporučujeme povolit detekci shlukování materiálu (pomocí sondování). Tato funkce používá rychlou sekvenci sondování ke kontrole nánosu materiálu na trysce během tisku a využívá prime tower k zachycení vytékajícího materiálu před pokračováním tisku."
 
-#, c-format, boost-format
-msgid "High-shrinkage filament(s) detected: %s. These materials may cause dimensional deviation after cooling. If your model requires precise fitting or assembly, please refer to the Wiki guide for shrinkage testing."
-msgstr "Byl zjištěn filament s vysokou smrštivostí: %s. Tyto materiály mohou po ochlazení způsobit rozměrové odchylky. Pokud váš model vyžaduje přesné lícování nebo sestavení, přečtěte si prosím průvodce na Wiki pro testování smrštivosti."
-
 msgid "Printing mixed-color filament on a single-extruder printer requires frequent filament changes and flushing, which may significantly increase waste and the risk of nozzle / waste-chute clogging."
 msgstr "Tisk vícebarevného filamentu na tiskárně s jedním extruderem vyžaduje časté výměny filamentu a proplachování, což může výrazně zvýšit množství odpadu a riziko ucpání trysky / odpadního skluzu."
 
@@ -7318,9 +7407,6 @@ msgstr "Informace o synchronizaci"
 
 msgid "Synchronize nozzle information and the number of AMS"
 msgstr "Synchronizovat informace o trysce a počtu AMS"
-
-msgid "Project Filaments"
-msgstr "Filamenty projektu"
 
 msgid "Purge mode"
 msgstr "Režim pročištění"
@@ -7525,6 +7611,13 @@ msgstr "Tento soubor obsahuje několik objektů umístěných v různých výšk
 msgid "Multi-part object detected"
 msgstr "Zjištěn vícedílný objekt"
 
+#, c-format, boost-format
+msgid "Computing texture colors: %s"
+msgstr ""
+
+msgid "Texture Import Warning"
+msgstr ""
+
 msgid "Load these files as a single object with multiple parts?\n"
 msgstr "Načíst tyto soubory jako jeden vícedílný objekt?\n"
 
@@ -7534,11 +7627,35 @@ msgstr "Byl detekován vícedílný objekt"
 msgid "The file does not contain any geometry data."
 msgstr "Soubor neobsahuje žádná geometrická data."
 
+msgid "Importing model to project..."
+msgstr ""
+
 msgid "Your object appears to be too large, Do you want to scale it down to fit the heat bed automatically?"
 msgstr "Váš objekt se zdá být příliš velký. Chcete jej automaticky zmenšit, aby se vešel na vyhřívanou podložku?"
 
 msgid "Object too large"
 msgstr "Objekt je příliš velký"
+
+msgid "Placing model on the bed..."
+msgstr ""
+
+msgid "Updating object list..."
+msgstr ""
+
+msgid "Updating 3D view..."
+msgstr ""
+
+msgid "Model imported."
+msgstr ""
+
+msgid "Texture import failed. The model appears to contain texture data, but the texture import process could not be completed. The model will be imported as geometry only."
+msgstr ""
+
+msgid "Applying texture colors..."
+msgstr ""
+
+msgid "Texture colors applied."
+msgstr ""
 
 msgid "Export STL file:"
 msgstr "Exportovat soubor STL:"
@@ -8380,6 +8497,12 @@ msgstr "Odstranit omezení smíšeného tisku filamentů s vysokou a nízkou tep
 msgid "With this option enabled, you can print materials with a large temperature difference together."
 msgstr "Pokud je tato volba povolena, můžete současně tisknout materiály s velkým rozdílem teplot."
 
+msgid "Open full screen camera view on active monitor only."
+msgstr ""
+
+msgid "When enabled, the camera full screen view opens only on the monitor that contains Bambu Studio."
+msgstr ""
+
 msgid "Clear my choice for synchronizing printer preset after loading the file."
 msgstr "Vymazat mou volbu pro synchronizaci přednastavení tiskárny po načtení souboru."
 
@@ -9067,9 +9190,6 @@ msgstr "Probíhá kontrola rovinnosti vyhřívané podložky. Nivelace zajišťu
 
 msgid "This process determines the dynamic flow values to improve overall print quality."
 msgstr "Tento proces určuje dynamické hodnoty toku pro zlepšení celkové kvality tisku."
-
-msgid "Internal"
-msgstr "Interní"
 
 #, c-format, boost-format
 msgid "%s space less than 10MB. Timelapse may not save properly. You can turn it off or"
@@ -11356,6 +11476,45 @@ msgstr "Helio Flowchart"
 msgid "Fixing cold prints"
 msgstr "Řešení studených tisků"
 
+msgid "Software Update"
+msgstr ""
+
+msgid "Try Now"
+msgstr ""
+
+msgid "Don't show me Beta updates again"
+msgstr ""
+
+msgid "New Bambu Studio Beta Available"
+msgstr ""
+
+msgid "Current Version"
+msgstr ""
+
+msgid "Bambu Studio Beta gives you early access to upcoming features, improvements, optimizations, and bug fixes before they are released in the stable version of Bambu Studio. It is intended for advanced users who would like to explore new functionality early and help improve the software experience."
+msgstr ""
+
+msgid "Separate configuration folder."
+msgstr ""
+
+msgid "As a beta release, some features may still be under development, and you may occasionally encounter bugs, unexpected behavior, or incomplete functionality. To prevent conflicts with the stable release, Bambu Studio Beta uses a separate configuration folder (Help -> Show Configuration Folder) and operates independently from the standard version of Bambu Studio."
+msgstr ""
+
+msgid "(Help -> Show Configuration Folder)"
+msgstr ""
+
+msgid "Why use the Beta version?"
+msgstr ""
+
+msgid "By using the Beta version and sharing feedback, bug reports, and suggestions, you can help Bambu Lab improve stability, compatibility, and future features before the official release."
+msgstr ""
+
+msgid "How to change settings?"
+msgstr ""
+
+msgid "If you prefer not to participate in the Beta program, you can disable Beta Update prompts at any time in Settings."
+msgstr ""
+
 msgid "Air Pump"
 msgstr "Vzduchové čerpadlo"
 
@@ -11587,6 +11746,12 @@ msgstr "Propláchnout"
 #, boost-format
 msgid "Failed to calculate line width of %1%. Can not get value of \"%2%\" "
 msgstr "Nepodařilo se vypočítat šířku linie %1%. Nelze získat hodnotu „%2%“ "
+
+msgid ""
+"Slicing failed because the extrusion line width is too small or the layer height is too large.\n"
+"\n"
+"Please increase the line width or reduce the layer height, then slice again."
+msgstr ""
 
 msgid "undefined error"
 msgstr "nedefinovaná chyba"
@@ -12149,16 +12314,16 @@ msgid "This controls the generation of the brim at outer and/or inner side of mo
 msgstr "Toto nastavení určuje generování lemu na vnější a/nebo vnitřní straně modelů. Auto znamená, že šířka lemu je analyzována a automaticky vypočítána."
 
 msgid "★ Brim-object gap"
-msgstr "★ Brim-object gap"
+msgstr ""
 
 msgid "A gap between innermost brim line and object can make brim be removed more easily. Negative values make the brim overlap the object."
-msgstr "A gap between innermost brim line and object can make brim be removed more easily. Negative values make the brim overlap the object."
+msgstr ""
 
 msgid "★ Brim layers"
-msgstr "★ Brim layers"
+msgstr ""
 
 msgid "The number of layers on which the brim will be printed."
-msgstr "The number of layers on which the brim will be printed."
+msgstr ""
 
 msgid "Compatible machine"
 msgstr "Kompatibilní zařízení"
@@ -12827,6 +12992,12 @@ msgstr "Rozsah gradientu smíšeného filamentu"
 
 msgid "Start and end ratios for the first component in gradient mode. Comma-separated pair, e.g. \"0.10,0.90\" means 10% to 90%."
 msgstr "Počáteční a koncové poměry první složky v režimu gradientu. Dvojice oddělená čárkou, např. \"0.10,0.90\" znamená 10 % až 90 %."
+
+msgid "Mixed filament per-part gradient"
+msgstr ""
+
+msgid "When gradient mode is enabled, apply the gradient to each part of an assembly independently rather than treating the whole assembly as one Z range."
+msgstr ""
 
 msgid "Filament printable"
 msgstr "Filament je tisknutelný"
@@ -13757,6 +13928,12 @@ msgstr "Zapuštění stěny do výplně"
 msgid "Embedding the wall into parts where the wall loops are absent ensures that the wall connects seamlessly to the infill."
 msgstr "Zapuštění stěny do částí, kde chybí smyčky stěn, zajišťuje plynulé spojení stěny s výplní."
 
+msgid "Alternate extra wall"
+msgstr ""
+
+msgid "Add an extra wall on alternating layers to improve layer bonding and part strength without the full cost of a permanent extra wall."
+msgstr ""
+
 msgid "Post-processing Scripts"
 msgstr "Skripty pro následné zpracování"
 
@@ -14038,13 +14215,13 @@ msgid "Spiralize smooths out the z moves of the outer contour. And turns a solid
 msgstr "Spiralizace vyhlazuje pohyby v ose Z z vnějšího obrysu. A převádí plný model na tisk s jednou stěnou a plnými spodními vrstvami. Výsledný vygenerovaný model nemá žádný spoj"
 
 msgid "★ Vase reinforcement multiplier"
-msgstr "★ Vase reinforcement multiplier"
+msgstr ""
 
 msgid "Additional inward wall multiplier for the first spiral vase layers. Decimal values are distributed across rounded reinforcement loops."
 msgstr ""
 
 msgid "★ Vase reinforcement height"
-msgstr "★ Vase reinforcement height"
+msgstr ""
 
 msgid "Height of spiral vase reinforcement. A plain number means layer count; a value ending with mm means model height."
 msgstr ""
@@ -14053,13 +14230,13 @@ msgid "layers or mm"
 msgstr ""
 
 msgid "★ Fade vase reinforcement"
-msgstr "★ Fade vase reinforcement"
+msgstr ""
 
 msgid "Linearly fade the spiral vase reinforcement multiplier over the reinforcement height."
 msgstr ""
 
 msgid "★ Fade end multiplier"
-msgstr "★ Fade end multiplier"
+msgstr ""
 
 msgid "Spiral vase reinforcement multiplier at the end of the reinforcement height."
 msgstr ""
@@ -14681,6 +14858,12 @@ msgstr "Minimální šířka stěny"
 msgid "Width of the wall that will replace thin features (according to the Minimum feature size) of the model. If the Minimum wall width is thinner than the thickness of the feature, the wall will become as thick as the feature itself. It's expressed as a percentage over nozzle diameter"
 msgstr "Šířka stěny, která v modelu nahradí tenké prvky (podle minimální velikosti prvku). Pokud je minimální šířka stěny menší než tloušťka prvku, stěna bude stejně silná jako samotný prvek. Vyjadřuje se jako procento průměru trysky"
 
+msgid "Override overhang speed"
+msgstr ""
+
+msgid "Override the overhang speed in process page"
+msgstr ""
+
 msgid "Detect narrow internal solid infill"
 msgstr "Detekovat úzkou vnitřní plnou výplň"
 
@@ -14795,8 +14978,8 @@ msgstr "Síťování souboru modelu selhalo nebo nebyl nalezen žádný platný 
 msgid "The supplied file couldn't be read because it's empty"
 msgstr "Zadaný soubor nelze přečíst, protože je prázdný"
 
-msgid "Unknown file format. Input file must have .stl, .obj, .amf(.xml) extension."
-msgstr "Neznámý formát souboru. Vstupní soubor musí mít příponu .stl, .obj nebo .amf(.xml)."
+msgid "Unknown file format. Input file must have .stl, .obj, .amf(.xml), .gltf, .glb, .fbx extension."
+msgstr ""
 
 msgid "Unknown file format. Input file must have .3mf or .zip.amf extension."
 msgstr "Neznámý formát souboru. Vstupní soubor musí mít příponu .3mf nebo .zip.amf."
@@ -17241,6 +17424,9 @@ msgstr "Poměr"
 msgid "Gradient Effect"
 msgstr "Efekt přechodu"
 
+msgid "Enable per-part gradient effect"
+msgstr ""
+
 msgid "Mixing Recommendations"
 msgstr "Doporučení pro míchání"
 
@@ -17522,6 +17708,12 @@ msgstr ""
 "Věděli jste, že u materiálů náchylných k deformaci, jako je ABS, může správné zvýšení teploty vyhřívané podložky snížit pravděpodobnost deformace.Zabraňte deformaci\n"
 "Věděli jste, že při tisku materiálů, které jsou náchylné k deformaci, například ABS, může vhodné zvýšení teploty podložky snížit pravděpodobnost deformace."
 
+#: resources/data/hints.ini: [hint:Filament Shrinkage]
+msgid ""
+"Filament Shrinkage\n"
+"Filaments such as %s have higher shrinkage rates, which may cause slight dimensional deviations after cooling and affect assembly fit. It is recommended to refer to the Wiki for shrinkage calibration to achieve more accurate print results."
+msgstr ""
+
 #: resources/data/helio_hints.ini: [hint: Run Nylon & PC (and other advanced
 #: materials) Like a Pro]
 msgid ""
@@ -17598,6 +17790,37 @@ msgstr ""
 
 #~ msgid "A gap between innermost brim line and object can make brim be removed more easily"
 #~ msgstr "Mezera mezi nejvnitřnější čarou lemu a objektem může usnadnit odstranění lemu"
+
+#~ msgid "non-manifold edges be caused by cut tool, do you want to fix it now?"
+#~ msgstr "neuzavřené hrany byly způsobeny nástrojem pro řezání. Chcete je nyní opravit?"
+
+#~ msgid "Choose one or more files (3mf/step/stl/svg/obj/amf/usd*/abc/ply):"
+#~ msgstr "Vyberte jeden nebo více souborů (3mf/step/stl/svg/obj/amf/usd*/abc/ply):"
+
+#~ msgid "Choose one or more files (3mf/step/stl/svg/obj/amf):"
+#~ msgstr "Vyberte jeden nebo více souborů (3mf/step/stl/svg/obj/amf):"
+
+#, c-format, boost-format
+#~ msgid "Error: %1$d non-manifold edge."
+#~ msgid_plural "Error: %1$d non-manifold edges."
+#~ msgstr[0] "Chyba: %1$d ne-manifold hrana."
+#~ msgstr[1] "Chyba: %1$d ne-manifold hran."
+
+#~ msgid "Remaining errors"
+#~ msgstr "Zbývající chyby"
+
+#, c-format, boost-format
+#~ msgid "%1$d non-manifold edge"
+#~ msgid_plural "%1$d non-manifold edges"
+#~ msgstr[0] "%1$d ne-manifold hrana"
+#~ msgstr[1] "%1$d ne-manifold hran"
+
+#, c-format, boost-format
+#~ msgid "High-shrinkage filament(s) detected: %s. These materials may cause dimensional deviation after cooling. If your model requires precise fitting or assembly, please refer to the Wiki guide for shrinkage testing."
+#~ msgstr "Byl zjištěn filament s vysokou smrštivostí: %s. Tyto materiály mohou po ochlazení způsobit rozměrové odchylky. Pokud váš model vyžaduje přesné lícování nebo sestavení, přečtěte si prosím průvodce na Wiki pro testování smrštivosti."
+
+#~ msgid "Unknown file format. Input file must have .stl, .obj, .amf(.xml) extension."
+#~ msgstr "Neznámý formát souboru. Vstupní soubor musí mít příponu .stl, .obj nebo .amf(.xml)."
 
 #~ msgid "Shift+"
 #~ msgstr "Shift+"

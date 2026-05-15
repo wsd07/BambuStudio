@@ -1135,6 +1135,7 @@ PRINT_CONFIG_CLASS_DEFINE(
     ((ConfigOptionInt,                  seam_slope_steps))
     ((ConfigOptionBool,                 seam_slope_inner_walls))
     ((ConfigOptionBool,                 embedding_wall_into_infill))
+    ((ConfigOptionBool,                 alternate_extra_wall))
 )
 
 PRINT_CONFIG_CLASS_DEFINE(
@@ -1198,6 +1199,7 @@ PRINT_CONFIG_CLASS_DEFINE(
     ((ConfigOptionStrings,             filament_mixed_sublayer_ratios))
     ((ConfigOptionBools,               filament_mixed_gradient))
     ((ConfigOptionStrings,             filament_mixed_gradient_range))
+    ((ConfigOptionBools,               filament_mixed_gradient_per_part))
     ((ConfigOptionInts,                filament_printable))
     ((ConfigOptionInts,                filament_extruder_compatibility))
     ((ConfigOptionEnumsGeneric,        filament_scarf_seam_type))

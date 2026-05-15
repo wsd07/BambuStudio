@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Slic3rPE\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-09 21:03+0800\n"
+"POT-Creation-Date: 2026-05-15 20:34+0800\n"
 "PO-Revision-Date: 2026-05-07 16:00+0800\n"
 "Last-Translator: Jiang Yue <maze1024@gmail.com>\n"
 "Language-Team: \n"
@@ -950,8 +950,8 @@ msgstr "將零件指定給另一側"
 msgid "Cut"
 msgstr "剪下"
 
-msgid "non-manifold edges be caused by cut tool, do you want to fix it now?"
-msgstr "因切割產生了非流形邊，您是否想現在修復？"
+msgid "Open edges may be caused by the cut tool, do you want to fix it now?"
+msgstr ""
 
 msgid "Repairing model object"
 msgstr "修復模型物件"
@@ -1991,11 +1991,11 @@ msgstr "載入模式檢視"
 msgid "Choose one file (3mf):"
 msgstr "選擇一個檔案（3mf）："
 
-msgid "Choose one or more files (3mf/step/stl/svg/obj/amf/usd*/abc/ply):"
-msgstr "選擇一個或多個檔案（3mf/step/stl/svg/obj/amf/usd*/abc/ply）："
+msgid "Choose one or more files (3mf/step/stl/svg/obj/amf/gltf/glb/fbx/usd*/abc/ply):"
+msgstr ""
 
-msgid "Choose one or more files (3mf/step/stl/svg/obj/amf):"
-msgstr "選擇一個或多個檔案（3mf/step/stl/svg/obj/amf）："
+msgid "Choose one or more files (3mf/step/stl/svg/obj/amf/gltf/glb/fbx):"
+msgstr ""
 
 msgid "Choose one file (gcode/.gco/.g/.ngc/ngc):"
 msgstr "選擇一個檔案（gcode/.gco/.g/.ngc/ngc）："
@@ -2551,17 +2551,23 @@ msgid_plural "%1$d errors repaired"
 msgstr[0] "%1$d個錯誤被修復"
 
 #, c-format, boost-format
-msgid "Error: %1$d non-manifold edge."
-msgid_plural "Error: %1$d non-manifold edges."
-msgstr[0] "錯誤: %1$d 非流形邊."
-
-msgid "Remaining errors"
-msgstr "剩餘錯誤"
+msgid "Error: %1$d non-manifold edges, %2$d non-manifold vertices"
+msgstr ""
 
 #, c-format, boost-format
-msgid "%1$d non-manifold edge"
-msgid_plural "%1$d non-manifold edges"
-msgstr[0] "%1$d 非流形邊"
+msgid "Error: %1$d non-manifold edge"
+msgid_plural "Error: %1$d non-manifold edges"
+msgstr[0] ""
+
+#, c-format, boost-format
+msgid "Error: %1$d non-manifold vertex"
+msgid_plural "Error: %1$d non-manifold vertices"
+msgstr[0] ""
+
+#, c-format, boost-format
+msgid "Info: %1$d open edge"
+msgid_plural "Info: %1$d open edges"
+msgstr[0] ""
 
 msgid "Right click the icon to fix model object"
 msgstr "右鍵點選此圖示可修復模型物件"
@@ -3168,11 +3174,14 @@ msgstr "自動朝向中..."
 msgid "Filling"
 msgstr "正在填充"
 
-msgid "Bed filling done."
-msgstr "填充熱床已完成。"
+msgid "Bed filling aborted: invalid bed shape."
+msgstr ""
 
 msgid "Bed filling canceled."
 msgstr "填充熱床已取消。"
+
+msgid "Bed filling done."
+msgstr "填充熱床已完成。"
 
 #. TRN: This is the title of the action appearing in undo/redo stack.
 #. It is same for Text and SVG.
@@ -3302,6 +3311,67 @@ msgstr "保溫熱床可以最佳化首層列印質量，保溫完成後將發起
 #, c-format, boost-format
 msgid "Remaining time: %dmin%ds"
 msgstr "剩餘時間：%d分%d秒"
+
+msgid "Project Filaments"
+msgstr "專案耗材列表"
+
+msgid "New Filaments"
+msgstr ""
+
+msgid "Add Material"
+msgstr ""
+
+#, c-format, boost-format
+msgid "The project supports up to %d filaments. Extra filaments will be discarded."
+msgstr ""
+
+msgid "Import Model"
+msgstr "匯入專案"
+
+msgid "Original"
+msgstr "原始"
+
+msgid "Multi-Color"
+msgstr ""
+
+msgid "Filament Mapping"
+msgstr ""
+
+msgid "Color Count"
+msgstr ""
+
+msgid "Smooth Level"
+msgstr ""
+
+msgid "Automatically determine the optimal color count only and recompute filament mapping"
+msgstr ""
+
+msgid "Convert texture to painting using the specified color count and smooth level"
+msgstr ""
+
+msgid "Reminder: parameters changed, click Apply to take effect"
+msgstr ""
+
+msgid "Auto-merge same filament"
+msgstr ""
+
+msgid "Automatically merge identical filaments into existing filaments in the project"
+msgstr ""
+
+msgid "Skip Matching"
+msgstr ""
+
+msgid "Skip filament mapping and import as a single-color model"
+msgstr ""
+
+msgid "Processing"
+msgstr ""
+
+msgid "Computing texture colors..."
+msgstr ""
+
+msgid "Computation failed. Please adjust parameters and retry."
+msgstr ""
 
 msgid "Choose SLA archive:"
 msgstr "選擇SLA存檔："
@@ -4127,6 +4197,13 @@ msgid ""
 msgstr ""
 "互鎖深度應該比表皮深度小,\n"
 "重設為表皮深度的一半"
+
+msgid ""
+"Alternate extra wall doesn't work well when ensure vertical shell thickness is set to Enable.\n"
+"Change these settings automatically?\n"
+"Yes - Change ensure vertical shell thickness to Partial and enable alternate extra wall\n"
+"No  - Don't use alternate extra wall"
+msgstr ""
 
 msgid "Spiral mode only works when support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."
 msgstr ""
@@ -5612,6 +5689,15 @@ msgstr "取消所有選中"
 msgid "Deselects all objects"
 msgstr "取消所有選中"
 
+msgid "Enter Camera Full Screen"
+msgstr ""
+
+msgid "Show the Device camera in full screen"
+msgstr ""
+
+msgid "Exit Camera Full Screen"
+msgstr ""
+
 msgid "Use Perspective View"
 msgstr "使用透視視角"
 
@@ -5934,6 +6020,42 @@ msgstr "DLL載入錯誤"
 msgid "Loading..."
 msgstr "正在載入影片……"
 
+msgid "Timelapse"
+msgstr "延時攝影"
+
+msgid "Switch to timelapse files."
+msgstr "切換到延時攝影檔案列表。"
+
+msgid "Video"
+msgstr "錄影"
+
+msgid "Switch to video files."
+msgstr "切換到影片檔案列表。"
+
+msgid "Switch to 3mf model files."
+msgstr "切換到3MF模型檔案。"
+
+msgid "Reload file list from printer."
+msgstr "從印表機重新載入檔案列表。"
+
+msgid "Delete selected files from printer."
+msgstr "從印表機中刪除選中的檔案。"
+
+msgid "Download"
+msgstr "下載"
+
+msgid "Download selected files from printer."
+msgstr "從印表機中下載選擇的檔案。"
+
+msgid "Select"
+msgstr "選擇"
+
+msgid "Batch manage files."
+msgstr "批次管理檔案。"
+
+msgid "Internal"
+msgstr "內部"
+
 msgid "Year"
 msgstr "年"
 
@@ -5951,39 +6073,6 @@ msgstr "按月份分組，從最近的開始展示"
 
 msgid "Show all files, recent first."
 msgstr "顯示所有檔案，從最近的開始展示。"
-
-msgid "Timelapse"
-msgstr "延時攝影"
-
-msgid "Switch to timelapse files."
-msgstr "切換到延時攝影檔案列表。"
-
-msgid "Video"
-msgstr "錄影"
-
-msgid "Switch to video files."
-msgstr "切換到影片檔案列表。"
-
-msgid "Switch to 3mf model files."
-msgstr "切換到3MF模型檔案。"
-
-msgid "Delete selected files from printer."
-msgstr "從印表機中刪除選中的檔案。"
-
-msgid "Download"
-msgstr "下載"
-
-msgid "Download selected files from printer."
-msgstr "從印表機中下載選擇的檔案。"
-
-msgid "Select"
-msgstr "選擇"
-
-msgid "Batch manage files."
-msgstr "批次管理檔案。"
-
-msgid "Reload file list from printer."
-msgstr "從印表機重新載入檔案列表。"
 
 msgid "No printers."
 msgstr "未選擇印表機"
@@ -6207,6 +6296,9 @@ msgstr ""
 
 msgid "Go to Login"
 msgstr "轉到登入"
+
+msgid "Camera Full Screen"
+msgstr ""
 
 msgctxt "Quit_Switching"
 msgid "Quit"
@@ -7082,10 +7174,6 @@ msgstr "請更換噴嘴型別或重新分配耗材，然後重試。"
 msgid "Risk of nozzle clumping detected with the current high-temperature filament (%s). We recommend enabling clumping detection (via probing). This feature uses a quick probing sequence to check for nozzle buildup during the print and utilizes the prime tower to absorb oozing before resuming."
 msgstr "當前盤使用高溫材料（%s）列印，存在裹頭風險，建議開啟裹頭觸碰檢測功能（透過探針），列印過程中，該功能會快速檢測噴嘴積料，並啟用小型擦料塔吸收溢料後繼續列印。"
 
-#, c-format, boost-format
-msgid "High-shrinkage filament(s) detected: %s. These materials may cause dimensional deviation after cooling. If your model requires precise fitting or assembly, please refer to the Wiki guide for shrinkage testing."
-msgstr "檢測到高收縮率耗材：%s。這些材料在冷卻後可能會導致尺寸偏差。如果您的模型需要精確的配合或裝配，請參閱 Wiki 指南進行收縮率測試。"
-
 msgid "Printing mixed-color filament on a single-extruder printer requires frequent filament changes and flushing, which may significantly increase waste and the risk of nozzle / waste-chute clogging."
 msgstr "在單擠出頭印表機上使用混色耗材需要頻繁換料和沖刷，這可能會顯著增加廢料量以及噴嘴/廢料槽堵塞的風險。"
 
@@ -7195,9 +7283,6 @@ msgstr "同步資訊"
 
 msgid "Synchronize nozzle information and the number of AMS"
 msgstr "同步噴嘴資訊和AMS編號"
-
-msgid "Project Filaments"
-msgstr "專案耗材列表"
 
 msgid "Purge mode"
 msgstr "沖刷模式"
@@ -7403,6 +7488,13 @@ msgstr ""
 msgid "Multi-part object detected"
 msgstr "檢測到多部分物件"
 
+#, c-format, boost-format
+msgid "Computing texture colors: %s"
+msgstr ""
+
+msgid "Texture Import Warning"
+msgstr ""
+
 msgid "Load these files as a single object with multiple parts?\n"
 msgstr "將這些檔案載入為一個多零件物件？\n"
 
@@ -7412,11 +7504,35 @@ msgstr "檢測到多零件物件"
 msgid "The file does not contain any geometry data."
 msgstr "此檔案不包含任何幾何資料。"
 
+msgid "Importing model to project..."
+msgstr ""
+
 msgid "Your object appears to be too large, Do you want to scale it down to fit the heat bed automatically?"
 msgstr "物件看起來太大，希望將物件自動縮小以適應熱床嗎？"
 
 msgid "Object too large"
 msgstr "物件太大"
+
+msgid "Placing model on the bed..."
+msgstr ""
+
+msgid "Updating object list..."
+msgstr ""
+
+msgid "Updating 3D view..."
+msgstr ""
+
+msgid "Model imported."
+msgstr ""
+
+msgid "Texture import failed. The model appears to contain texture data, but the texture import process could not be completed. The model will be imported as geometry only."
+msgstr ""
+
+msgid "Applying texture colors..."
+msgstr ""
+
+msgid "Texture colors applied."
+msgstr ""
 
 msgid "Export STL file:"
 msgstr "匯出 STL 檔案："
@@ -8238,6 +8354,12 @@ msgstr "取消高低溫材料混合列印的限制。"
 msgid "With this option enabled, you can print materials with a large temperature difference together."
 msgstr "啟用此選項後，您可以同時列印具有較大溫度差異的材料。"
 
+msgid "Open full screen camera view on active monitor only."
+msgstr ""
+
+msgid "When enabled, the camera full screen view opens only on the monitor that contains Bambu Studio."
+msgstr ""
+
 msgid "Clear my choice for synchronizing printer preset after loading the file."
 msgstr "清除載入檔案後同步印表機預設的設定。"
 
@@ -8919,9 +9041,6 @@ msgstr "檢測熱床的平整度。調平可以使擠出的高度更均勻。"
 
 msgid "This process determines the dynamic flow values to improve overall print quality."
 msgstr "此過程確定動態流量校準的最佳係數，從而提升列印質量。"
-
-msgid "Internal"
-msgstr "內部"
 
 #, c-format, boost-format
 msgid "%s space less than 10MB. Timelapse may not save properly. You can turn it off or"
@@ -11185,6 +11304,45 @@ msgstr "Helio 流程圖"
 msgid "Fixing cold prints"
 msgstr "解決列印過冷"
 
+msgid "Software Update"
+msgstr ""
+
+msgid "Try Now"
+msgstr ""
+
+msgid "Don't show me Beta updates again"
+msgstr ""
+
+msgid "New Bambu Studio Beta Available"
+msgstr ""
+
+msgid "Current Version"
+msgstr ""
+
+msgid "Bambu Studio Beta gives you early access to upcoming features, improvements, optimizations, and bug fixes before they are released in the stable version of Bambu Studio. It is intended for advanced users who would like to explore new functionality early and help improve the software experience."
+msgstr ""
+
+msgid "Separate configuration folder."
+msgstr ""
+
+msgid "As a beta release, some features may still be under development, and you may occasionally encounter bugs, unexpected behavior, or incomplete functionality. To prevent conflicts with the stable release, Bambu Studio Beta uses a separate configuration folder (Help -> Show Configuration Folder) and operates independently from the standard version of Bambu Studio."
+msgstr ""
+
+msgid "(Help -> Show Configuration Folder)"
+msgstr ""
+
+msgid "Why use the Beta version?"
+msgstr ""
+
+msgid "By using the Beta version and sharing feedback, bug reports, and suggestions, you can help Bambu Lab improve stability, compatibility, and future features before the official release."
+msgstr ""
+
+msgid "How to change settings?"
+msgstr ""
+
+msgid "If you prefer not to participate in the Beta program, you can disable Beta Update prompts at any time in Settings."
+msgstr ""
+
 msgid "Air Pump"
 msgstr "氣泵"
 
@@ -11414,6 +11572,12 @@ msgstr "沖刷"
 #, boost-format
 msgid "Failed to calculate line width of %1%. Can not get value of \"%2%\" "
 msgstr "計算 %1%的線寬失敗。無法獲得 \"%2%\" 的值"
+
+msgid ""
+"Slicing failed because the extrusion line width is too small or the layer height is too large.\n"
+"\n"
+"Please increase the line width or reduce the layer height, then slice again."
+msgstr ""
 
 msgid "undefined error"
 msgstr "未定義錯誤"
@@ -11976,16 +12140,16 @@ msgid "This controls the generation of the brim at outer and/or inner side of mo
 msgstr "該引數控制在模型的外側和/或內側生成brim。自動是指自動分析和計算邊框的寬度。"
 
 msgid "★ Brim-object gap"
-msgstr "★ Brim 與模型間隙"
+msgstr ""
 
 msgid "A gap between innermost brim line and object can make brim be removed more easily. Negative values make the brim overlap the object."
-msgstr "最內側 Brim 線與模型之間的間隙，可讓 Brim 更容易移除。負值會讓 Brim 與模型重疊。"
+msgstr ""
 
 msgid "★ Brim layers"
-msgstr "★ Brim 層數"
+msgstr ""
 
 msgid "The number of layers on which the brim will be printed."
-msgstr "列印 Brim 的層數。"
+msgstr ""
 
 msgid "Compatible machine"
 msgstr "相容的機器"
@@ -12645,6 +12809,12 @@ msgstr "混色耗材漸變範圍"
 
 msgid "Start and end ratios for the first component in gradient mode. Comma-separated pair, e.g. \"0.10,0.90\" means 10% to 90%."
 msgstr "漸層模式下第一個組成耗材的起始與結束比例。以逗號分隔的一組值，例如 \"0.10,0.90\" 表示 10% 到 90%。"
+
+msgid "Mixed filament per-part gradient"
+msgstr ""
+
+msgid "When gradient mode is enabled, apply the gradient to each part of an assembly independently rather than treating the whole assembly as one Z range."
+msgstr ""
 
 msgid "Filament printable"
 msgstr "主體耗材可列印性"
@@ -13575,6 +13745,12 @@ msgstr "將牆體嵌入填充中"
 msgid "Embedding the wall into parts where the wall loops are absent ensures that the wall connects seamlessly to the infill."
 msgstr "將牆體嵌入沒有外牆的區域以確保牆體與填充物無縫連線。"
 
+msgid "Alternate extra wall"
+msgstr ""
+
+msgid "Add an extra wall on alternating layers to improve layer bonding and part strength without the full cost of a permanent extra wall."
+msgstr ""
+
 msgid "Post-processing Scripts"
 msgstr "後處理指令碼"
 
@@ -13854,13 +14030,13 @@ msgid "Spiralize smooths out the z moves of the outer contour. And turns a solid
 msgstr "沿著物件的外輪廓螺旋上升，將實體模型轉變為只有底面實心層和側面單層牆壁的列印。最後生成的列印件沒有接縫。"
 
 msgid "★ Vase reinforcement multiplier"
-msgstr "★ 花瓶增強倍數"
+msgstr ""
 
 msgid "Additional inward wall multiplier for the first spiral vase layers. Decimal values are distributed across rounded reinforcement loops."
 msgstr ""
 
 msgid "★ Vase reinforcement height"
-msgstr "★ 花瓶增強高度"
+msgstr ""
 
 msgid "Height of spiral vase reinforcement. A plain number means layer count; a value ending with mm means model height."
 msgstr ""
@@ -13869,13 +14045,13 @@ msgid "layers or mm"
 msgstr ""
 
 msgid "★ Fade vase reinforcement"
-msgstr "★ 漸消花瓶增強"
+msgstr ""
 
 msgid "Linearly fade the spiral vase reinforcement multiplier over the reinforcement height."
 msgstr ""
 
 msgid "★ Fade end multiplier"
-msgstr "★ 漸消結束倍數"
+msgstr ""
 
 msgid "Spiral vase reinforcement multiplier at the end of the reinforcement height."
 msgstr ""
@@ -14496,6 +14672,12 @@ msgstr "牆最小線寬"
 msgid "Width of the wall that will replace thin features (according to the Minimum feature size) of the model. If the Minimum wall width is thinner than the thickness of the feature, the wall will become as thick as the feature itself. It's expressed as a percentage over nozzle diameter"
 msgstr "用於替換模型細小特徵（根據最小特徵尺寸）的牆線寬。如果牆最小線寬小於最小特徵的厚度，則牆將變得和特徵本身一樣厚。引數值表示為相對噴嘴直徑的百分比"
 
+msgid "Override overhang speed"
+msgstr ""
+
+msgid "Override the overhang speed in process page"
+msgstr ""
+
 msgid "Detect narrow internal solid infill"
 msgstr "識別狹窄內部實心填充"
 
@@ -14608,8 +14790,8 @@ msgstr "模型檔案網格化失敗，或沒有有效形狀。"
 msgid "The supplied file couldn't be read because it's empty"
 msgstr "無法讀取提供的檔案，因為該檔案為空。"
 
-msgid "Unknown file format. Input file must have .stl, .obj, .amf(.xml) extension."
-msgstr "未知的檔案格式。輸入檔案的副檔名必須為.stl、.obj 或 .amf（.xml）。"
+msgid "Unknown file format. Input file must have .stl, .obj, .amf(.xml), .gltf, .glb, .fbx extension."
+msgstr ""
 
 msgid "Unknown file format. Input file must have .3mf or .zip.amf extension."
 msgstr "未知的檔案格式。輸入檔案的副檔名必須為.3mf或.zip .amf。"
@@ -16982,6 +17164,9 @@ msgstr "比例"
 msgid "Gradient Effect"
 msgstr "漸變效果"
 
+msgid "Enable per-part gradient effect"
+msgstr ""
+
 msgid "Mixing Recommendations"
 msgstr "混色推薦"
 
@@ -17236,6 +17421,12 @@ msgstr ""
 "避免翹曲\n"
 "您知道嗎？列印ABS這類易翹曲材料時，適當提高熱床溫度可以降低翹曲的機率。"
 
+#: resources/data/hints.ini: [hint:Filament Shrinkage]
+msgid ""
+"Filament Shrinkage\n"
+"Filaments such as %s have higher shrinkage rates, which may cause slight dimensional deviations after cooling and affect assembly fit. It is recommended to refer to the Wiki for shrinkage calibration to achieve more accurate print results."
+msgstr ""
+
 #: resources/data/helio_hints.ini: [hint: Run Nylon & PC (and other advanced
 #: materials) Like a Pro]
 msgid ""
@@ -17312,6 +17503,35 @@ msgstr ""
 
 #~ msgid "A gap between innermost brim line and object can make brim be removed more easily"
 #~ msgstr "在brim和模型之間設定間隙，能夠讓brim更容易剝離"
+
+#~ msgid "non-manifold edges be caused by cut tool, do you want to fix it now?"
+#~ msgstr "因切割產生了非流形邊，您是否想現在修復？"
+
+#~ msgid "Choose one or more files (3mf/step/stl/svg/obj/amf/usd*/abc/ply):"
+#~ msgstr "選擇一個或多個檔案（3mf/step/stl/svg/obj/amf/usd*/abc/ply）："
+
+#~ msgid "Choose one or more files (3mf/step/stl/svg/obj/amf):"
+#~ msgstr "選擇一個或多個檔案（3mf/step/stl/svg/obj/amf）："
+
+#, c-format, boost-format
+#~ msgid "Error: %1$d non-manifold edge."
+#~ msgid_plural "Error: %1$d non-manifold edges."
+#~ msgstr[0] "錯誤: %1$d 非流形邊."
+
+#~ msgid "Remaining errors"
+#~ msgstr "剩餘錯誤"
+
+#, c-format, boost-format
+#~ msgid "%1$d non-manifold edge"
+#~ msgid_plural "%1$d non-manifold edges"
+#~ msgstr[0] "%1$d 非流形邊"
+
+#, c-format, boost-format
+#~ msgid "High-shrinkage filament(s) detected: %s. These materials may cause dimensional deviation after cooling. If your model requires precise fitting or assembly, please refer to the Wiki guide for shrinkage testing."
+#~ msgstr "檢測到高收縮率耗材：%s。這些材料在冷卻後可能會導致尺寸偏差。如果您的模型需要精確的配合或裝配，請參閱 Wiki 指南進行收縮率測試。"
+
+#~ msgid "Unknown file format. Input file must have .stl, .obj, .amf(.xml) extension."
+#~ msgstr "未知的檔案格式。輸入檔案的副檔名必須為.stl、.obj 或 .amf（.xml）。"
 
 #~ msgid "There is a G-code script present in the current 3mf file, please verify the content of the script."
 #~ msgstr "當前 3mf 檔案中存在 G-code 指令碼，請核實指令碼內容。"
@@ -19387,9 +19607,6 @@ msgstr ""
 
 #~ msgid "Please do not mix-use the Ext with Ams"
 #~ msgstr "請勿將Ext與Ams混用"
-
-#~ msgid "Original"
-#~ msgstr "原始"
 
 #~ msgid "Only synchronize filament type and color, not included AMS slot info."
 #~ msgstr "僅同步耗材型別和顏色，不包含AMS槽位資訊。"
@@ -24057,9 +24274,6 @@ msgstr ""
 
 #~ msgid "request project id failed!"
 #~ msgstr "專案建立失敗"
-
-#~ msgid "Import Model"
-#~ msgstr "匯入專案"
 
 #~ msgid "Preselects faces by overhang angle. It is possible to restrict paintable facets to only preselected faces when the option \"%1%\" is enabled."
 #~ msgstr "根據懸空角度預選懸空面片。如果開啟了選項%1%，會限制畫刷的只能塗抹這些預選的懸空面片。"

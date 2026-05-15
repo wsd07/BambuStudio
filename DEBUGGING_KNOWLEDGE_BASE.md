@@ -194,3 +194,50 @@
 - 根因或当前最佳判断：进程采样显示主线程在 `MainFrame::init_menubar_as_editor -> FileHistory::LoadThumbnails -> tbb::parallel_for -> bbs_3mf_get_thumbnail -> open_zip_reader -> fopen` 中同步等待。最近工程包含外部盘或同步盘上的 3MF 时，`fopen` 可能长时间阻塞；由于启动流程会等待所有缩略图任务完成，导致整个主界面初始化被拖住，看起来像启动失败。该问题与新增参数 dirty 判断无直接调用栈关系，只是最近文件路径状态触发了旧的同步缩略图加载缺陷。
 - 修复方案或临时绕过方式：把 `FileHistory::LoadThumbnails()` 改为启动时只标记已调用，不再同步读取最近工程的 3MF 缩略图。最近工程列表仍保留，缩略图保持为空，避免任何不可用路径阻塞主界面。临时绕过方式是清空最近工程列表或确保外部盘路径可快速访问。
 - 验证结果：`cmake --build build/arm64 --config Release --parallel 8` 编译和链接成功，仅有项目既有 warning；`./BuildMac.sh -s -x -b -c Release` 成功刷新 app 包；关闭旧的未响应进程后，`open -n build/arm64/BambuStudio/BambuStudio.app` 启动成功；再次 `sample` 新进程显示主线程已进入 `wxApp::OnRun -> NSApplication run` 正常事件循环，不再卡在 `FileHistory::LoadThumbnails`。
+
+## 2026-05-15 - 同步 BambuStudio 官方 02.07.00.55 时的 Git 与构建问题
+
+### 追加：坏的远端引用导致 `git fetch upstream` 失败
+
+- 日期：2026-05-15
+- 现象：同步官方仓库时，第一次 `git fetch upstream` 报 `RPC failed; curl 18 Transferred a partial file` 和 `fatal: early EOF`；重试 `git fetch upstream master` 后又报 `fatal: bad object refs/remotes/origin/HEAD 2`。
+- 受影响的命令、界面、模块或文件：`git fetch upstream`；`.git/refs/remotes/origin/HEAD 2`。
+- 根因或当前最佳判断：本地 `.git/refs/remotes/origin` 下残留了一个带空格的坏引用文件 `HEAD 2`。Git 在扫描远端引用时会尝试解析它，即使本次 fetch 的目标是 `upstream`，也会被这个无效 loose ref 阻断。
+- 修复方案或临时绕过方式：删除 `.git/refs/remotes/origin/HEAD 2` 这个坏引用文件后重新 fetch。以后如果看到 `bad object refs/remotes/...`，优先检查 `.git/refs/remotes` 下是否有异常命名的 loose ref。
+- 验证结果：删除坏引用后，`git fetch upstream master` 成功，`upstream/master` 更新到 `e8c7dc1b8 feat: warn when alternate extra wall conflicts with ensure vertical shell thickness`。
+
+### 追加：gettext 生成 pot 时 DeviceWeb 下载 Node.js 失败
+
+- 日期：2026-05-15
+- 现象：合并官方翻译冲突后执行 `cmake --build build/arm64 --target gettext_make_pot`，DeviceWeb 的 Node.js 下载步骤失败，提示 `Couldn't resolve host name`。
+- 受影响的命令、界面、模块或文件：`cmake --build build/arm64 --target gettext_make_pot`；`src/slic3r/GUI/DeviceWeb/cmake/download_node.cmake`；`build/arm64/src/slic3r/GUI/DeviceWeb/node-cache`。
+- 根因或当前最佳判断：gettext 目标会构建 DeviceWeb 前端并自动下载 Node.js/pnpm；普通沙箱网络受限，DNS 解析失败。
+- 修复方案或临时绕过方式：对该目标使用已授权网络权限重跑，让 Node.js 和 pnpm 下载到 `node-cache`。后续同一构建目录会复用缓存。
+- 验证结果：重跑后成功缓存 Node.js `v22.22.2` 与 pnpm `v10.12.1`，`gettext_make_pot`、`gettext_merge_po_with_pot`、`gettext_po_to_mo` 均成功；`msgunfmt resources/i18n/zh_CN/BambuStudio.mo` 可查到 `★ 花瓶增强倍数`、`★ Brim 与模型间隙` 等中文翻译。
+
+### 追加：官方新增 Assimp 后误用 Homebrew Assimp 与 SDK zlib 路径
+
+- 日期：2026-05-15
+- 现象：官方新版引入 Assimp 后，直接编译主工程失败，提示缺少 `/Library/Developer/CommandLineTools/SDKs/MacOSX26.sdk/usr/lib/libz.tbd`；改为构建项目依赖 Assimp 时，又在 Assimp 内置 zlib 编译阶段报 `_stdio.h` 中 `fdopen` 相关错误。
+- 受影响的命令、界面、模块或文件：`cmake --build build/arm64 --config Release --parallel 8`；`./BuildMac.sh -d -x -a arm64 -c Release`；`deps/Assimp/Assimp.cmake`；CMake 缓存中的 `assimp_DIR`。
+- 根因或当前最佳判断：本地项目依赖中还没有 Assimp，CMake 先找到 Homebrew 的 `/opt/homebrew/lib/libassimp.6.0.4.dylib`，其传递依赖把不存在的 CLT `MacOSX26.sdk` zlib 路径带进主工程。改用项目依赖构建时，Assimp 自带 zlib 的 `zutil.h` 会把 `fdopen` 定义成宏，和当前 Xcode 26.1 SDK 的 `_stdio.h` 声明冲突。
+- 修复方案或临时绕过方式：先构建项目内 Assimp 依赖，并清理主工程缓存的 `assimp_DIR`，让主工程链接 `deps/build/arm64/BambuStudio_deps/usr/local/lib/libassimp.a`。在 `deps/Assimp/Assimp.cmake` 中将 `ASSIMP_BUILD_ZLIB` 改为 `OFF`，使用外部/system zlib，避开 Assimp 内置 zlib 与 SDK 头文件冲突。
+- 验证结果：`./BuildMac.sh -d -x -a arm64 -c Release` 成功安装 Assimp 到 `deps/build/arm64/BambuStudio_deps/usr/local/lib/cmake/assimp-5.4`；重新配置后主工程 `build.ninja` 链接项目内 `libassimp.a`，不再引用 Homebrew Assimp。
+
+### 追加：当前 Xcode/CLT 组合下低部署目标触发 WebKit/AppKit 可用性错误
+
+- 日期：2026-05-15
+- 现象：主工程按默认目标编译时，WebKit `WKDownload` 可用性检查失败；改用 `./BuildMac.sh -s -x -a arm64 -c Release -t 11.3` 后，又在 `src/slic3r/Utils/MacDarkMode.mm` 遇到 `NSTextCursorAccessoryPlacement` 和 `NSBezierPathElementCubicCurveTo` 只在 macOS 14.0 或更新版本可用的 `-Wunguarded-availability-new` 错误。
+- 受影响的命令、界面、模块或文件：`./BuildMac.sh -s -x -a arm64 -c Release -t 11.3`；`src/slic3r/Utils/MacDarkMode.mm`；CMake 缓存中的 Xcode 26.1 sysroot 与 CLT MacOSX15 framework/library 路径。
+- 根因或当前最佳判断：当前机器的 Xcode 26.1 SDK 暴露了更多 macOS 14 API 可用性标记，而项目把相关 warning 作为 error；同时历史 CMake cache 中还能看到 Xcode sysroot 与 CommandLineTools MacOSX15 SDK 路径混用。对本机开发运行而言，继续压低到 10.15/11.3 会不断触发新版 SDK 可用性检查。
+- 修复方案或临时绕过方式：本地二次开发构建使用 `./BuildMac.sh -s -x -a arm64 -c Release -t 14.0`。如果以后需要兼容更低 macOS，需要单独为上游新增 API 加 `@available`/宏保护，并清理重建 CMake 缓存以统一 SDK 路径。
+- 验证结果：使用 `-t 14.0` 后主工程完整编译并链接成功，生成 `build/arm64/BambuStudio/BambuStudio.app/Contents/MacOS/BambuStudio`。链接阶段仍有 Homebrew 库 deployment target warning，但未阻断本地 app 打包。
+
+### 追加：官方新代码误把 `DevFilaSystem` 方法当成 `MachineObject` 方法调用
+
+- 日期：2026-05-15
+- 现象：同步官方新版后编译失败，`src/slic3r/GUI/AMSMaterialsSetting.cpp:1168` 报 `no member named 'get_extruder_id_by_ams_id' in 'Slic3r::MachineObject'`。
+- 受影响的命令、界面、模块或文件：`./BuildMac.sh -s -x -a arm64 -c Release -t 11.3 -b`；`src/slic3r/GUI/AMSMaterialsSetting.cpp`；`MachineObject`；`DevFilaSystem`。
+- 根因或当前最佳判断：上游新增代码调用了 `obj->get_extruder_id_by_ams_id(...)`，但当前代码结构里该能力属于 `DevFilaSystem`，实际接口为 `GetExtruderIdByAmsId(...)`。
+- 修复方案或临时绕过方式：改为通过 `obj->GetFilaSystem()->GetExtruderIdByAmsId(std::to_string(ams_id))` 取得挤出机 ID。
+- 验证结果：修改后该文件通过编译；最终 `./BuildMac.sh -s -x -a arm64 -c Release -t 14.0` 完整编译和链接成功。

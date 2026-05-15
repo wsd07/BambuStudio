@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bambu Studio 2.0.2 Public Release\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-09 21:03+0800\n"
+"POT-Creation-Date: 2026-05-15 20:34+0800\n"
 "PO-Revision-Date: 2025-04-22 16:37+0700\n"
 "Last-Translator: \n"
 "Language-Team: Andylg <andylg@yandex.ru>\n"
@@ -968,8 +968,8 @@ msgstr "Переназначение стороны части модели"
 msgid "Cut"
 msgstr "Разрезать"
 
-msgid "non-manifold edges be caused by cut tool, do you want to fix it now?"
-msgstr "При работе режущего инструмента образовались открытые рёбра. Хотите починить это сейчас?"
+msgid "Open edges may be caused by the cut tool, do you want to fix it now?"
+msgstr ""
 
 msgid "Repairing model object"
 msgstr "Починка модели"
@@ -2029,11 +2029,11 @@ msgstr "Загрузка режима отображения"
 msgid "Choose one file (3mf):"
 msgstr "Выберите один файл (3mf):"
 
-msgid "Choose one or more files (3mf/step/stl/svg/obj/amf/usd*/abc/ply):"
-msgstr "Выберите один или несколько файлов (3mf/step/stl/svg/obj/amf/usd*/abc/ply):"
+msgid "Choose one or more files (3mf/step/stl/svg/obj/amf/gltf/glb/fbx/usd*/abc/ply):"
+msgstr ""
 
-msgid "Choose one or more files (3mf/step/stl/svg/obj/amf):"
-msgstr "Выберите один или несколько файлов (3mf/step/stl/svg/obj/amf):"
+msgid "Choose one or more files (3mf/step/stl/svg/obj/amf/gltf/glb/fbx):"
+msgstr ""
 
 msgid "Choose one file (gcode/.gco/.g/.ngc/ngc):"
 msgstr "Выберите один файл (gcode/.gco/.g/.ngc/ngc):"
@@ -2598,21 +2598,29 @@ msgstr[1] "Исправлено %1$d ошибки"
 msgstr[2] "Исправлено %1$d ошибок"
 
 #, c-format, boost-format
-msgid "Error: %1$d non-manifold edge."
-msgid_plural "Error: %1$d non-manifold edges."
-msgstr[0] "Ошибка: %1$d открытое ребро."
-msgstr[1] "Ошибка: %1$d открытых ребра."
-msgstr[2] "Ошибка: %1$d открытых рёбер."
-
-msgid "Remaining errors"
-msgstr "Осталось ошибок"
+msgid "Error: %1$d non-manifold edges, %2$d non-manifold vertices"
+msgstr ""
 
 #, c-format, boost-format
-msgid "%1$d non-manifold edge"
-msgid_plural "%1$d non-manifold edges"
-msgstr[0] "%1$d открытое ребро"
-msgstr[1] "%1$d открытых ребра"
-msgstr[2] "%1$d открытых рёбер"
+msgid "Error: %1$d non-manifold edge"
+msgid_plural "Error: %1$d non-manifold edges"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#, c-format, boost-format
+msgid "Error: %1$d non-manifold vertex"
+msgid_plural "Error: %1$d non-manifold vertices"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#, c-format, boost-format
+msgid "Info: %1$d open edge"
+msgid_plural "Info: %1$d open edges"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 msgid "Right click the icon to fix model object"
 msgstr "Нажмите правой кнопкой мыши на значок, чтобы починить модель."
@@ -3242,11 +3250,14 @@ msgstr "Ориентация"
 msgid "Filling"
 msgstr "Заполнение стола"
 
-msgid "Bed filling done."
-msgstr "Заполнение стола закончено."
+msgid "Bed filling aborted: invalid bed shape."
+msgstr ""
 
 msgid "Bed filling canceled."
 msgstr "Заполнение стола отменено."
+
+msgid "Bed filling done."
+msgstr "Заполнение стола закончено."
 
 #. TRN: This is the title of the action appearing in undo/redo stack.
 #. It is same for Text and SVG.
@@ -3376,6 +3387,67 @@ msgstr ""
 
 #, c-format, boost-format
 msgid "Remaining time: %dmin%ds"
+msgstr ""
+
+msgid "Project Filaments"
+msgstr "Материалы проекта"
+
+msgid "New Filaments"
+msgstr ""
+
+msgid "Add Material"
+msgstr ""
+
+#, c-format, boost-format
+msgid "The project supports up to %d filaments. Extra filaments will be discarded."
+msgstr ""
+
+msgid "Import Model"
+msgstr ""
+
+msgid "Original"
+msgstr ""
+
+msgid "Multi-Color"
+msgstr ""
+
+msgid "Filament Mapping"
+msgstr ""
+
+msgid "Color Count"
+msgstr ""
+
+msgid "Smooth Level"
+msgstr ""
+
+msgid "Automatically determine the optimal color count only and recompute filament mapping"
+msgstr ""
+
+msgid "Convert texture to painting using the specified color count and smooth level"
+msgstr ""
+
+msgid "Reminder: parameters changed, click Apply to take effect"
+msgstr ""
+
+msgid "Auto-merge same filament"
+msgstr ""
+
+msgid "Automatically merge identical filaments into existing filaments in the project"
+msgstr ""
+
+msgid "Skip Matching"
+msgstr ""
+
+msgid "Skip filament mapping and import as a single-color model"
+msgstr ""
+
+msgid "Processing"
+msgstr ""
+
+msgid "Computing texture colors..."
+msgstr ""
+
+msgid "Computation failed. Please adjust parameters and retry."
 msgstr ""
 
 msgid "Choose SLA archive:"
@@ -4210,6 +4282,13 @@ msgstr ""
 msgid ""
 "lock depth should smaller than skin depth.\n"
 "Reset to 50%% of skin depth"
+msgstr ""
+
+msgid ""
+"Alternate extra wall doesn't work well when ensure vertical shell thickness is set to Enable.\n"
+"Change these settings automatically?\n"
+"Yes - Change ensure vertical shell thickness to Partial and enable alternate extra wall\n"
+"No  - Don't use alternate extra wall"
 msgstr ""
 
 msgid "Spiral mode only works when support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."
@@ -5718,6 +5797,15 @@ msgstr "Снять выбор со всего"
 msgid "Deselects all objects"
 msgstr "Снять выбор со всех моделей"
 
+msgid "Enter Camera Full Screen"
+msgstr ""
+
+msgid "Show the Device camera in full screen"
+msgstr ""
+
+msgid "Exit Camera Full Screen"
+msgstr ""
+
 msgid "Use Perspective View"
 msgstr "Вид в перспективе"
 
@@ -6049,6 +6137,42 @@ msgstr ""
 msgid "Loading..."
 msgstr "Загрузка..."
 
+msgid "Timelapse"
+msgstr "Таймлапсы"
+
+msgid "Switch to timelapse files."
+msgstr "Переключиться на файлы таймлапсов."
+
+msgid "Video"
+msgstr "Видео"
+
+msgid "Switch to video files."
+msgstr "Переключиться на видеофайлы."
+
+msgid "Switch to 3mf model files."
+msgstr "Переключиться на файлы моделей в формате 3mf."
+
+msgid "Reload file list from printer."
+msgstr "Перезагрузка списка файлов с принтера."
+
+msgid "Delete selected files from printer."
+msgstr "Удалить выбранные файлы с принтера."
+
+msgid "Download"
+msgstr "Скачать"
+
+msgid "Download selected files from printer."
+msgstr "Скачать выбранные файлы с принтера."
+
+msgid "Select"
+msgstr "Выбрать"
+
+msgid "Batch manage files."
+msgstr "Пакетное управление файлами."
+
+msgid "Internal"
+msgstr ""
+
 msgid "Year"
 msgstr "Год"
 
@@ -6066,39 +6190,6 @@ msgstr "Группировать файлы по месяцам (по убыва
 
 msgid "Show all files, recent first."
 msgstr "Показать все файлы (недавние первые)"
-
-msgid "Timelapse"
-msgstr "Таймлапсы"
-
-msgid "Switch to timelapse files."
-msgstr "Переключиться на файлы таймлапсов."
-
-msgid "Video"
-msgstr "Видео"
-
-msgid "Switch to video files."
-msgstr "Переключиться на видеофайлы."
-
-msgid "Switch to 3mf model files."
-msgstr "Переключиться на файлы моделей в формате 3mf."
-
-msgid "Delete selected files from printer."
-msgstr "Удалить выбранные файлы с принтера."
-
-msgid "Download"
-msgstr "Скачать"
-
-msgid "Download selected files from printer."
-msgstr "Скачать выбранные файлы с принтера."
-
-msgid "Select"
-msgstr "Выбрать"
-
-msgid "Batch manage files."
-msgstr "Пакетное управление файлами."
-
-msgid "Reload file list from printer."
-msgstr "Перезагрузка списка файлов с принтера."
 
 msgid "No printers."
 msgstr "Принтеры отсутствуют."
@@ -6331,6 +6422,9 @@ msgstr ""
 # ??? Перейти к входу в систему
 msgid "Go to Login"
 msgstr "Перейти к экрану авторизации"
+
+msgid "Camera Full Screen"
+msgstr ""
 
 msgctxt "Quit_Switching"
 msgid "Quit"
@@ -7231,10 +7325,6 @@ msgstr ""
 msgid "Risk of nozzle clumping detected with the current high-temperature filament (%s). We recommend enabling clumping detection (via probing). This feature uses a quick probing sequence to check for nozzle buildup during the print and utilizes the prime tower to absorb oozing before resuming."
 msgstr ""
 
-#, c-format, boost-format
-msgid "High-shrinkage filament(s) detected: %s. These materials may cause dimensional deviation after cooling. If your model requires precise fitting or assembly, please refer to the Wiki guide for shrinkage testing."
-msgstr ""
-
 msgid "Printing mixed-color filament on a single-extruder printer requires frequent filament changes and flushing, which may significantly increase waste and the risk of nozzle / waste-chute clogging."
 msgstr ""
 
@@ -7346,9 +7436,6 @@ msgstr ""
 # ???22 Синхронизация
 msgid "Synchronize nozzle information and the number of AMS"
 msgstr "Синхронизировать информацию о соплах и количестве АСПП"
-
-msgid "Project Filaments"
-msgstr "Материалы проекта"
 
 msgid "Purge mode"
 msgstr ""
@@ -7556,6 +7643,13 @@ msgstr ""
 msgid "Multi-part object detected"
 msgstr "Обнаружена модель, состоящая из нескольких частей"
 
+#, c-format, boost-format
+msgid "Computing texture colors: %s"
+msgstr ""
+
+msgid "Texture Import Warning"
+msgstr ""
+
 msgid "Load these files as a single object with multiple parts?\n"
 msgstr "Загрузить эти файлы как единую модель, состоящую из нескольких частей?\n"
 
@@ -7565,6 +7659,9 @@ msgstr "Обнаружена модель, состоящая из нескол�
 msgid "The file does not contain any geometry data."
 msgstr "Файл не содержит никаких геометрических данных."
 
+msgid "Importing model to project..."
+msgstr ""
+
 msgid "Your object appears to be too large, Do you want to scale it down to fit the heat bed automatically?"
 msgstr ""
 "Похоже, ваша модель слишком большая. \n"
@@ -7573,6 +7670,27 @@ msgstr ""
 
 msgid "Object too large"
 msgstr "Модель слишком большая"
+
+msgid "Placing model on the bed..."
+msgstr ""
+
+msgid "Updating object list..."
+msgstr ""
+
+msgid "Updating 3D view..."
+msgstr ""
+
+msgid "Model imported."
+msgstr ""
+
+msgid "Texture import failed. The model appears to contain texture data, but the texture import process could not be completed. The model will be imported as geometry only."
+msgstr ""
+
+msgid "Applying texture colors..."
+msgstr ""
+
+msgid "Texture colors applied."
+msgstr ""
 
 msgid "Export STL file:"
 msgstr "Экспорт в STL файл:"
@@ -8393,6 +8511,12 @@ msgstr "Снять ограничение на смешанную печать �
 msgid "With this option enabled, you can print materials with a large temperature difference together."
 msgstr "Если включено, вы можете одновременно печатать материалами с большой разницей температур."
 
+msgid "Open full screen camera view on active monitor only."
+msgstr ""
+
+msgid "When enabled, the camera full screen view opens only on the monitor that contains Bambu Studio."
+msgstr ""
+
 # ????? Сбросить текущий выбор...
 msgid "Clear my choice for synchronizing printer preset after loading the file."
 msgstr ""
@@ -9090,9 +9214,6 @@ msgstr "Этот процесс проверяет ровность поверх
 # ?????81
 msgid "This process determines the dynamic flow values to improve overall print quality."
 msgstr "Этот процесс определяет значение динамического потока для улучшения общего качества печати."
-
-msgid "Internal"
-msgstr ""
 
 #, c-format, boost-format
 msgid "%s space less than 10MB. Timelapse may not save properly. You can turn it off or"
@@ -11388,6 +11509,45 @@ msgstr ""
 msgid "Fixing cold prints"
 msgstr ""
 
+msgid "Software Update"
+msgstr ""
+
+msgid "Try Now"
+msgstr ""
+
+msgid "Don't show me Beta updates again"
+msgstr ""
+
+msgid "New Bambu Studio Beta Available"
+msgstr ""
+
+msgid "Current Version"
+msgstr ""
+
+msgid "Bambu Studio Beta gives you early access to upcoming features, improvements, optimizations, and bug fixes before they are released in the stable version of Bambu Studio. It is intended for advanced users who would like to explore new functionality early and help improve the software experience."
+msgstr ""
+
+msgid "Separate configuration folder."
+msgstr ""
+
+msgid "As a beta release, some features may still be under development, and you may occasionally encounter bugs, unexpected behavior, or incomplete functionality. To prevent conflicts with the stable release, Bambu Studio Beta uses a separate configuration folder (Help -> Show Configuration Folder) and operates independently from the standard version of Bambu Studio."
+msgstr ""
+
+msgid "(Help -> Show Configuration Folder)"
+msgstr ""
+
+msgid "Why use the Beta version?"
+msgstr ""
+
+msgid "By using the Beta version and sharing feedback, bug reports, and suggestions, you can help Bambu Lab improve stability, compatibility, and future features before the official release."
+msgstr ""
+
+msgid "How to change settings?"
+msgstr ""
+
+msgid "If you prefer not to participate in the Beta program, you can disable Beta Update prompts at any time in Settings."
+msgstr ""
+
 msgid "Air Pump"
 msgstr "Воздушный насос"
 
@@ -11617,6 +11777,12 @@ msgstr "Очистка"
 #, boost-format
 msgid "Failed to calculate line width of %1%. Can not get value of \"%2%\" "
 msgstr "Не удалось вычислить ширину линии %1%. Не удается получить значение \"%2%\". "
+
+msgid ""
+"Slicing failed because the extrusion line width is too small or the layer height is too large.\n"
+"\n"
+"Please increase the line width or reduce the layer height, then slice again."
+msgstr ""
 
 msgid "undefined error"
 msgstr "неопределённая ошибка"
@@ -12185,16 +12351,16 @@ msgid "This controls the generation of the brim at outer and/or inner side of mo
 msgstr "Этот параметр управляет формированием каймы на внешней/внутренней стороне моделей. Авто означает, что ширина каймы анализируется и рассчитывается автоматически."
 
 msgid "★ Brim-object gap"
-msgstr "★ Brim-object gap"
+msgstr ""
 
 msgid "A gap between innermost brim line and object can make brim be removed more easily. Negative values make the brim overlap the object."
-msgstr "A gap between innermost brim line and object can make brim be removed more easily. Negative values make the brim overlap the object."
+msgstr ""
 
 msgid "★ Brim layers"
-msgstr "★ Brim layers"
+msgstr ""
 
 msgid "The number of layers on which the brim will be printed."
-msgstr "The number of layers on which the brim will be printed."
+msgstr ""
 
 msgid "Compatible machine"
 msgstr "Совместимые принтеры"
@@ -12856,6 +13022,12 @@ msgid "Mixed filament gradient range"
 msgstr ""
 
 msgid "Start and end ratios for the first component in gradient mode. Comma-separated pair, e.g. \"0.10,0.90\" means 10% to 90%."
+msgstr ""
+
+msgid "Mixed filament per-part gradient"
+msgstr ""
+
+msgid "When gradient mode is enabled, apply the gradient to each part of an assembly independently rather than treating the whole assembly as one Z range."
 msgstr ""
 
 msgid "Filament printable"
@@ -13795,6 +13967,12 @@ msgstr ""
 msgid "Embedding the wall into parts where the wall loops are absent ensures that the wall connects seamlessly to the infill."
 msgstr ""
 
+msgid "Alternate extra wall"
+msgstr ""
+
+msgid "Add an extra wall on alternating layers to improve layer bonding and part strength without the full cost of a permanent extra wall."
+msgstr ""
+
 msgid "Post-processing Scripts"
 msgstr "Скрипты постобработки"
 
@@ -14077,31 +14255,31 @@ msgid "Spiralize smooths out the z moves of the outer contour. And turns a solid
 msgstr "Печать пустотелых и тонкостенных моделей по спирали. Модель печатается в одну стенку без верхней поверхности, заполнения и поддержки. При этом сопло при печати движется непрерывно по спирали вверх, что создаёт ровное и эстетически привлекательное изделие без шва."
 
 msgid "★ Vase reinforcement multiplier"
-msgstr "★ Vase reinforcement multiplier"
+msgstr ""
 
 msgid "Additional inward wall multiplier for the first spiral vase layers. Decimal values are distributed across rounded reinforcement loops."
-msgstr "Множитель дополнительных внутренних стенок для первых слоев спиральной вазы. Дробные значения распределяются по округленному числу контуров усиления."
+msgstr ""
 
 msgid "★ Vase reinforcement height"
-msgstr "★ Vase reinforcement height"
+msgstr ""
 
 msgid "Height of spiral vase reinforcement. A plain number means layer count; a value ending with mm means model height."
-msgstr "Высота усиления спиральной вазы. Число без единицы означает количество слоев; значение с mm означает высоту модели."
+msgstr ""
 
 msgid "layers or mm"
-msgstr "слои или mm"
+msgstr ""
 
 msgid "★ Fade vase reinforcement"
-msgstr "★ Fade vase reinforcement"
+msgstr ""
 
 msgid "Linearly fade the spiral vase reinforcement multiplier over the reinforcement height."
-msgstr "Линейно уменьшает множитель усиления спиральной вазы по высоте усиления."
+msgstr ""
 
 msgid "★ Fade end multiplier"
-msgstr "★ Fade end multiplier"
+msgstr ""
 
 msgid "Spiral vase reinforcement multiplier at the end of the reinforcement height."
-msgstr "Множитель усиления спиральной вазы в конце высоты усиления."
+msgstr ""
 
 msgid "Smooth Spiral"
 msgstr "Сглаживать спиральные контуры"
@@ -14745,6 +14923,12 @@ msgstr "Минимальная ширина периметра"
 msgid "Width of the wall that will replace thin features (according to the Minimum feature size) of the model. If the Minimum wall width is thinner than the thickness of the feature, the wall will become as thick as the feature itself. It's expressed as a percentage over nozzle diameter"
 msgstr "Ширина периметра, которая заменит тонкие элементы (в соответствии с минимальным размером элемента) модели. Если минимальная ширина периметра меньше толщины элемента, толщина периметра будет приведена к толщине самого элемента. Если задано в процентах, то значение вычисляется относительно диаметра сопла."
 
+msgid "Override overhang speed"
+msgstr ""
+
+msgid "Override the overhang speed in process page"
+msgstr ""
+
 msgid "Detect narrow internal solid infill"
 msgstr "Обнаруживать узкую область сплошного заполнения"
 
@@ -14766,7 +14950,7 @@ msgid " doesn't work at 100%% density "
 msgstr " не работает при 100%% заполнении "
 
 msgid "Invalid spiral vase reinforcement height: "
-msgstr "Недопустимая высота усиления вазы: "
+msgstr ""
 
 msgid "Invalid value when spiral vase mode is enabled: "
 msgstr "Недопустимое значение при включенном режиме спиральной вазы: "
@@ -14858,8 +15042,8 @@ msgstr "Не удалось создать сетку для файла моде
 msgid "The supplied file couldn't be read because it's empty"
 msgstr "Предоставленный файл не может быть прочитан, так как он пуст."
 
-msgid "Unknown file format. Input file must have .stl, .obj, .amf(.xml) extension."
-msgstr "Неизвестный формат файла. Входной файл должен иметь расширение *.stl, *.obj, *.amf(.xml)."
+msgid "Unknown file format. Input file must have .stl, .obj, .amf(.xml), .gltf, .glb, .fbx extension."
+msgstr ""
 
 msgid "Unknown file format. Input file must have .3mf or .zip.amf extension."
 msgstr "Неизвестный формат файла. Входной файл должен иметь расширение *.3mf или *.zip.amf."
@@ -17267,6 +17451,9 @@ msgstr ""
 msgid "Gradient Effect"
 msgstr ""
 
+msgid "Enable per-part gradient effect"
+msgstr ""
+
 msgid "Mixing Recommendations"
 msgstr ""
 
@@ -17521,6 +17708,12 @@ msgstr ""
 "Предотвращение коробления материала\n"
 "Знаете ли вы, что при печати материалами, склонными к короблению, таких как ABS, повышение температуры подогреваемого стола может снизить эту вероятность?"
 
+#: resources/data/hints.ini: [hint:Filament Shrinkage]
+msgid ""
+"Filament Shrinkage\n"
+"Filaments such as %s have higher shrinkage rates, which may cause slight dimensional deviations after cooling and affect assembly fit. It is recommended to refer to the Wiki for shrinkage calibration to achieve more accurate print results."
+msgstr ""
+
 #: resources/data/helio_hints.ini: [hint: Run Nylon & PC (and other advanced
 #: materials) Like a Pro]
 msgid ""
@@ -17579,17 +17772,34 @@ msgstr ""
 #~ msgid "A gap between innermost brim line and object can make brim be removed more easily"
 #~ msgstr "Смещение каймы от печатаемой модели, может облегчить её удаление."
 
-#~ msgid "Vase reinforcement multiplier"
-#~ msgstr "Множитель усиления вазы"
+#~ msgid "non-manifold edges be caused by cut tool, do you want to fix it now?"
+#~ msgstr "При работе режущего инструмента образовались открытые рёбра. Хотите починить это сейчас?"
 
-#~ msgid "Vase reinforcement height"
-#~ msgstr "Высота усиления вазы"
+#~ msgid "Choose one or more files (3mf/step/stl/svg/obj/amf/usd*/abc/ply):"
+#~ msgstr "Выберите один или несколько файлов (3mf/step/stl/svg/obj/amf/usd*/abc/ply):"
 
-#~ msgid "Fade vase reinforcement"
-#~ msgstr "Плавно уменьшать усиление вазы"
+#~ msgid "Choose one or more files (3mf/step/stl/svg/obj/amf):"
+#~ msgstr "Выберите один или несколько файлов (3mf/step/stl/svg/obj/amf):"
 
-#~ msgid "Fade end multiplier"
-#~ msgstr "Конечный множитель затухания"
+#, c-format, boost-format
+#~ msgid "Error: %1$d non-manifold edge."
+#~ msgid_plural "Error: %1$d non-manifold edges."
+#~ msgstr[0] "Ошибка: %1$d открытое ребро."
+#~ msgstr[1] "Ошибка: %1$d открытых ребра."
+#~ msgstr[2] "Ошибка: %1$d открытых рёбер."
+
+#~ msgid "Remaining errors"
+#~ msgstr "Осталось ошибок"
+
+#, c-format, boost-format
+#~ msgid "%1$d non-manifold edge"
+#~ msgid_plural "%1$d non-manifold edges"
+#~ msgstr[0] "%1$d открытое ребро"
+#~ msgstr[1] "%1$d открытых ребра"
+#~ msgstr[2] "%1$d открытых рёбер"
+
+#~ msgid "Unknown file format. Input file must have .stl, .obj, .amf(.xml) extension."
+#~ msgstr "Неизвестный формат файла. Входной файл должен иметь расширение *.stl, *.obj, *.amf(.xml)."
 
 #~ msgid "Shift+"
 #~ msgstr "Shift+"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bambu Studio\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-09 21:03+0800\n"
+"POT-Creation-Date: 2026-05-15 20:34+0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -947,8 +947,8 @@ msgstr "다른 쪽에 파트 할당"
 msgid "Cut"
 msgstr "자르기"
 
-msgid "non-manifold edges be caused by cut tool, do you want to fix it now?"
-msgstr "절단 도구로 인해 매니폴드가 아닌 모서리가 발생하는 경우: 지금 수정하시겠습니까?"
+msgid "Open edges may be caused by the cut tool, do you want to fix it now?"
+msgstr ""
 
 msgid "Repairing model object"
 msgstr "모델 객체 오류수정"
@@ -1995,11 +1995,11 @@ msgstr "모드 뷰 로드"
 msgid "Choose one file (3mf):"
 msgstr "하나의 파일 선택(3mf):"
 
-msgid "Choose one or more files (3mf/step/stl/svg/obj/amf/usd*/abc/ply):"
-msgstr "하나 이상의 파일(3mf/스텝/stl/svg/obj/amf/usd*/abc/ply)을 선택합니다:"
+msgid "Choose one or more files (3mf/step/stl/svg/obj/amf/gltf/glb/fbx/usd*/abc/ply):"
+msgstr ""
 
-msgid "Choose one or more files (3mf/step/stl/svg/obj/amf):"
-msgstr "하나 이상의 파일을 선택합니다 (3mf/step/stl/svg/obj/amf):"
+msgid "Choose one or more files (3mf/step/stl/svg/obj/amf/gltf/glb/fbx):"
+msgstr ""
 
 msgid "Choose one file (gcode/.gco/.g/.ngc/ngc):"
 msgstr "하나의 파일 선택 (.gcode/.gco/.g/.ngc/ngc):"
@@ -2555,17 +2555,23 @@ msgid_plural "%1$d errors repaired"
 msgstr[0] "%1$d 오류가 복구되었습니다"
 
 #, c-format, boost-format
-msgid "Error: %1$d non-manifold edge."
-msgid_plural "Error: %1$d non-manifold edges."
-msgstr[0] "오류: %1$d 비매니폴드 모서리."
-
-msgid "Remaining errors"
-msgstr "남은 오류"
+msgid "Error: %1$d non-manifold edges, %2$d non-manifold vertices"
+msgstr ""
 
 #, c-format, boost-format
-msgid "%1$d non-manifold edge"
-msgid_plural "%1$d non-manifold edges"
-msgstr[0] "%1$d 비매니폴드 에지"
+msgid "Error: %1$d non-manifold edge"
+msgid_plural "Error: %1$d non-manifold edges"
+msgstr[0] ""
+
+#, c-format, boost-format
+msgid "Error: %1$d non-manifold vertex"
+msgid_plural "Error: %1$d non-manifold vertices"
+msgstr[0] ""
+
+#, c-format, boost-format
+msgid "Info: %1$d open edge"
+msgid_plural "Info: %1$d open edges"
+msgstr[0] ""
 
 msgid "Right click the icon to fix model object"
 msgstr "아이콘을 마우스 오른쪽 버튼으로 클릭하여 모델 객체를 수정합니다."
@@ -3175,11 +3181,14 @@ msgstr "회전 중"
 msgid "Filling"
 msgstr "채우기"
 
-msgid "Bed filling done."
-msgstr "베드 채우기 완료."
+msgid "Bed filling aborted: invalid bed shape."
+msgstr ""
 
 msgid "Bed filling canceled."
 msgstr "베드 채우기 취소됨"
+
+msgid "Bed filling done."
+msgstr "베드 채우기 완료."
 
 #. TRN: This is the title of the action appearing in undo/redo stack.
 #. It is same for Text and SVG.
@@ -3309,6 +3318,67 @@ msgstr "히트 베드의 열 예열 기능은 첫 레이어 출력 품질을 최
 #, c-format, boost-format
 msgid "Remaining time: %dmin%ds"
 msgstr "남은 시간: %d분%d초"
+
+msgid "Project Filaments"
+msgstr "프로젝트 필라멘트"
+
+msgid "New Filaments"
+msgstr ""
+
+msgid "Add Material"
+msgstr ""
+
+#, c-format, boost-format
+msgid "The project supports up to %d filaments. Extra filaments will be discarded."
+msgstr ""
+
+msgid "Import Model"
+msgstr ""
+
+msgid "Original"
+msgstr "원본"
+
+msgid "Multi-Color"
+msgstr ""
+
+msgid "Filament Mapping"
+msgstr ""
+
+msgid "Color Count"
+msgstr ""
+
+msgid "Smooth Level"
+msgstr ""
+
+msgid "Automatically determine the optimal color count only and recompute filament mapping"
+msgstr ""
+
+msgid "Convert texture to painting using the specified color count and smooth level"
+msgstr ""
+
+msgid "Reminder: parameters changed, click Apply to take effect"
+msgstr ""
+
+msgid "Auto-merge same filament"
+msgstr ""
+
+msgid "Automatically merge identical filaments into existing filaments in the project"
+msgstr ""
+
+msgid "Skip Matching"
+msgstr ""
+
+msgid "Skip filament mapping and import as a single-color model"
+msgstr ""
+
+msgid "Processing"
+msgstr ""
+
+msgid "Computing texture colors..."
+msgstr ""
+
+msgid "Computation failed. Please adjust parameters and retry."
+msgstr ""
 
 msgid "Choose SLA archive:"
 msgstr "SLA 아카이브 선택:"
@@ -4152,6 +4222,13 @@ msgstr ""
 "잠금 깊이는 표면 깊이보다 작아야 합니다.\n"
 "표면 깊이의 50%%으로 재설정"
 
+msgid ""
+"Alternate extra wall doesn't work well when ensure vertical shell thickness is set to Enable.\n"
+"Change these settings automatically?\n"
+"Yes - Change ensure vertical shell thickness to Partial and enable alternate extra wall\n"
+"No  - Don't use alternate extra wall"
+msgstr ""
+
 msgid "Spiral mode only works when support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."
 msgstr ""
 
@@ -4611,7 +4688,7 @@ msgid "Fan Speed"
 msgstr "팬 속도"
 
 msgid "AUX Fan Speed"
-msgstr ""
+msgstr "보조 팬 속도"
 
 msgid "Flow"
 msgstr "유량"
@@ -4689,7 +4766,7 @@ msgid "Fan Speed (%)"
 msgstr "팬 속도 (%)"
 
 msgid "AUX  Fan Speed (%)"
-msgstr ""
+msgstr "보조 팬 속도(%)"
 
 msgid "Temperature (°C)"
 msgstr "온도 (°C)"
@@ -4845,7 +4922,7 @@ msgid "Fan Speed: "
 msgstr "팬 속도: "
 
 msgid "AUX Fan Speed: "
-msgstr ""
+msgstr "보조 팬 속도: "
 
 msgid "Temperature: "
 msgstr "온도: "
@@ -4931,7 +5008,7 @@ msgid "Increase/decrease edit area"
 msgstr "편집 영역 늘리기/줄이기"
 
 msgid "The variable layer height profile has been reset because some layer heights exceed the allowed range of the current nozzle."
-msgstr ""
+msgstr "일부 레이어 높이가 현재 노즐의 허용 범위를 초과했기 때문에 가변 레이어 높이 프로필이 재설정되었습니다."
 
 msgid "Sequence"
 msgstr "순서"
@@ -5350,7 +5427,7 @@ msgid "Project"
 msgstr "프로젝트"
 
 msgid "Filament Manager"
-msgstr ""
+msgstr "필라멘트 관리자"
 
 msgid "Yes"
 msgstr "예"
@@ -5634,6 +5711,15 @@ msgstr "모두 선택 해제"
 
 msgid "Deselects all objects"
 msgstr "모든 객체 선택을 해제합니다."
+
+msgid "Enter Camera Full Screen"
+msgstr ""
+
+msgid "Show the Device camera in full screen"
+msgstr ""
+
+msgid "Exit Camera Full Screen"
+msgstr ""
 
 msgid "Use Perspective View"
 msgstr "원근 보기 사용"
@@ -5960,6 +6046,42 @@ msgstr "DLL 로드 오류"
 msgid "Loading..."
 msgstr "로드 중…"
 
+msgid "Timelapse"
+msgstr "타임랩스"
+
+msgid "Switch to timelapse files."
+msgstr "타임랩스 파일로 전환합니다."
+
+msgid "Video"
+msgstr "비디오"
+
+msgid "Switch to video files."
+msgstr "비디오 파일로 전환합니다."
+
+msgid "Switch to 3mf model files."
+msgstr "3MF 모델 파일로 전환"
+
+msgid "Reload file list from printer."
+msgstr "프린터에서 파일 목록을 다시 로드합니다."
+
+msgid "Delete selected files from printer."
+msgstr "프린터에서 선택한 파일을 삭제합니다."
+
+msgid "Download"
+msgstr "다운로드"
+
+msgid "Download selected files from printer."
+msgstr "프린터에서 선택한 파일을 다운로드합니다."
+
+msgid "Select"
+msgstr "선택"
+
+msgid "Batch manage files."
+msgstr "일괄 관리 파일."
+
+msgid "Internal"
+msgstr "내부"
+
 msgid "Year"
 msgstr "년"
 
@@ -5977,39 +6099,6 @@ msgstr "최근 파일부터 월별로 파일을 그룹화합니다."
 
 msgid "Show all files, recent first."
 msgstr "모든 파일을 최근 파일부터 표시합니다."
-
-msgid "Timelapse"
-msgstr "타임랩스"
-
-msgid "Switch to timelapse files."
-msgstr "타임랩스 파일로 전환합니다."
-
-msgid "Video"
-msgstr "비디오"
-
-msgid "Switch to video files."
-msgstr "비디오 파일로 전환합니다."
-
-msgid "Switch to 3mf model files."
-msgstr "3MF 모델 파일로 전환"
-
-msgid "Delete selected files from printer."
-msgstr "프린터에서 선택한 파일을 삭제합니다."
-
-msgid "Download"
-msgstr "다운로드"
-
-msgid "Download selected files from printer."
-msgstr "프린터에서 선택한 파일을 다운로드합니다."
-
-msgid "Select"
-msgstr "선택"
-
-msgid "Batch manage files."
-msgstr "일괄 관리 파일."
-
-msgid "Reload file list from printer."
-msgstr "프린터에서 파일 목록을 다시 로드합니다."
 
 msgid "No printers."
 msgstr "프린터 없음"
@@ -6233,6 +6322,9 @@ msgstr ""
 
 msgid "Go to Login"
 msgstr "로그인으로 이동"
+
+msgid "Camera Full Screen"
+msgstr ""
 
 msgctxt "Quit_Switching"
 msgid "Quit"
@@ -6637,13 +6729,13 @@ msgid "Collapse"
 msgstr "접기"
 
 msgid "View details"
-msgstr ""
+msgstr "상세 보기"
 
 msgid "Execute"
 msgstr "실행"
 
 msgid "Do not execute"
-msgstr ""
+msgstr "실행 안 함"
 
 #, c-format, boost-format
 msgid "%s info"
@@ -7116,10 +7208,6 @@ msgstr "노즐 종류를 변경하거나 필라멘트를 다시 지정한 후 �
 msgid "Risk of nozzle clumping detected with the current high-temperature filament (%s). We recommend enabling clumping detection (via probing). This feature uses a quick probing sequence to check for nozzle buildup during the print and utilizes the prime tower to absorb oozing before resuming."
 msgstr "현재 고온 필라멘트(%s) 사용 중 노즐 뭉침 위험이 감지되었습니다. 뭉침 감지 기능(프로빙 방식)을 활성화할 것을 권장합니다. 이 기능은 출력 중 노즐의 쌓임을 확인하기 위해 빠른 프로빙 시퀀스를 사용하며, 프라임 타워를 활용해 출력 재개 전에 유출을 흡수합니다."
 
-#, c-format, boost-format
-msgid "High-shrinkage filament(s) detected: %s. These materials may cause dimensional deviation after cooling. If your model requires precise fitting or assembly, please refer to the Wiki guide for shrinkage testing."
-msgstr "고수축성 필라멘트(%s)가 감지되었습니다. 이 재료는 냉각 후 치수 편차를 유발할 수 있습니다. 모델이 정밀하게 맞거나 조립되어야 하는 경우, 수축 테스트를 위한 Wiki 가이드를 참조하십시오."
-
 msgid "Printing mixed-color filament on a single-extruder printer requires frequent filament changes and flushing, which may significantly increase waste and the risk of nozzle / waste-chute clogging."
 msgstr "단일 압출기 프린터에서 혼합색 필라멘트를 출력하려면 빈번한 필라멘트 교체 및 플러싱이 필요하며, 이는 폐기물을 크게 증가시키고 노즐 / 폐기물 슈트 막힘의 위험을 높일 수 있습니다."
 
@@ -7233,9 +7321,6 @@ msgstr "동기화 정보"
 
 msgid "Synchronize nozzle information and the number of AMS"
 msgstr "노즐 정보 및 AMS 개수 동기화"
-
-msgid "Project Filaments"
-msgstr "프로젝트 필라멘트"
 
 msgid "Purge mode"
 msgstr "퍼지 모드"
@@ -7402,10 +7487,10 @@ msgid "The name may show garbage characters!"
 msgstr "이름에 이상한 문자가 표시될 수 있습니다!"
 
 msgid "The following shells are not closed and may cause issues:"
-msgstr ""
+msgstr "다음 쉘이 닫혀 있지 않아 문제가 발생할 수 있습니다."
 
 msgid "Unclosed Shell Warning"
-msgstr ""
+msgstr "닫히지 않은 쉘 경고"
 
 #, boost-format
 msgid "Failed loading file \"%1%\". An invalid configuration was found."
@@ -7440,6 +7525,13 @@ msgstr ""
 msgid "Multi-part object detected"
 msgstr "멀티 부품 객체가 감지됨"
 
+#, c-format, boost-format
+msgid "Computing texture colors: %s"
+msgstr ""
+
+msgid "Texture Import Warning"
+msgstr ""
+
 msgid "Load these files as a single object with multiple parts?\n"
 msgstr "이 파일들을 여러 부품을 지닌 단일 객체로 불러오시겠습니까?\n"
 
@@ -7449,11 +7541,35 @@ msgstr "여러 부분이 있는 물체가 감지되었습니다."
 msgid "The file does not contain any geometry data."
 msgstr "파일에는 형상 데이터가 포함되어 있지 않습니다."
 
+msgid "Importing model to project..."
+msgstr ""
+
 msgid "Your object appears to be too large, Do you want to scale it down to fit the heat bed automatically?"
 msgstr "객체가 너무 큽니다. 프린터 빌드사이즈에 맞춰 스케일을 자동으로 조정하시겠습니까?"
 
 msgid "Object too large"
 msgstr "객체가 너무 큽니다"
+
+msgid "Placing model on the bed..."
+msgstr ""
+
+msgid "Updating object list..."
+msgstr ""
+
+msgid "Updating 3D view..."
+msgstr ""
+
+msgid "Model imported."
+msgstr ""
+
+msgid "Texture import failed. The model appears to contain texture data, but the texture import process could not be completed. The model will be imported as geometry only."
+msgstr ""
+
+msgid "Applying texture colors..."
+msgstr ""
+
+msgid "Texture colors applied."
+msgstr ""
 
 msgid "Export STL file:"
 msgstr "STL 파일 내보내기:"
@@ -7989,6 +8105,8 @@ msgid ""
 "Security Warning: This 3MF file contains post-processing script commands that will run automatically during slicing and may pose security risks!\n"
 "Please verify the file source and script contents before continuing."
 msgstr ""
+"보안 경고: 이 3MF 파일에는 슬라이싱 과정에서 자동으로 실행되는 후처리 스크립트 명령이 포함되어 있으며, 이는 보안 위험을 초래할 수 있습니다!\n"
+"계속 진행하기 전에 파일 출처와 스크립트 내용을 확인하십시오."
 
 #, c-format, boost-format
 msgid "The calibration filament is currently assigned to a different extruder than the one selected in the PA Calibration dialog (%s). This may lead to incorrect calibration results. You can change the assignment in the filament grouping settings."
@@ -8055,6 +8173,8 @@ msgid ""
 "While printing by Object, the extruder may collide skirt.\n"
 "Thus, it is recommended to reset the skirt layer to 1 to avoid that."
 msgstr ""
+"객체별로 출력하는 동안 압출기가 스커트와 충돌할 수 있습니다.\n"
+"따라서 충돌을 피하기 위해 스커트 레이어를 1로 재설정하는 것이 좋습니다."
 
 msgid "Prime Tower:"
 msgstr "프라임 타워:"
@@ -8276,6 +8396,12 @@ msgstr "고온 및 저온 필라멘트 혼합 출력에 대한 제한을 제거�
 
 msgid "With this option enabled, you can print materials with a large temperature difference together."
 msgstr "이 옵션을 활성화하면 온도 차이가 큰 재료를 함께 출력할 수 있습니다."
+
+msgid "Open full screen camera view on active monitor only."
+msgstr ""
+
+msgid "When enabled, the camera full screen view opens only on the monitor that contains Bambu Studio."
+msgstr ""
 
 msgid "Clear my choice for synchronizing printer preset after loading the file."
 msgstr "파일을 로드한 후 프린터 사전 설정 동기화를 선택 취소합니다."
@@ -8910,7 +9036,7 @@ msgstr "권장 필라멘트 배열로 %s를 절약합니다->"
 
 #, c-format, boost-format
 msgid "The current firmware supports a maximum of %s materials. You can either reduce the number of materials to %s or fewer on the Preparation Page, or try updating the firmware. If you are still restricted after the update, please wait for subsequent firmware support."
-msgstr ""
+msgstr "현재 펌웨어는 최대 %s개의 재료를 지원합니다. 준비 페이지에서 재료 수를 %s개 이하로 줄이거나 펌웨어를 업데이트해 보세요. 업데이트 후에도 여전히 제한이 있는 경우 다음 펌웨어 지원이 나올 때까지 기다려 주세요."
 
 #, c-format, boost-format
 msgid "Filament %s does not match the filament in AMS slot %s. Please update the printer firmware to support AMS slot assignment."
@@ -8960,9 +9086,6 @@ msgstr "히트 베드의 평탄도를 확인합니다. 수평을 맞추면 압�
 
 msgid "This process determines the dynamic flow values to improve overall print quality."
 msgstr "이 프로세스는 동적 흐름 값을 결정하여 전체 인쇄 품질을 개선합니다."
-
-msgid "Internal"
-msgstr "내부"
 
 #, c-format, boost-format
 msgid "%s space less than 10MB. Timelapse may not save properly. You can turn it off or"
@@ -11234,6 +11357,45 @@ msgstr "Helio 흐름도"
 msgid "Fixing cold prints"
 msgstr "냉각 출력물 수정하기"
 
+msgid "Software Update"
+msgstr ""
+
+msgid "Try Now"
+msgstr ""
+
+msgid "Don't show me Beta updates again"
+msgstr ""
+
+msgid "New Bambu Studio Beta Available"
+msgstr ""
+
+msgid "Current Version"
+msgstr ""
+
+msgid "Bambu Studio Beta gives you early access to upcoming features, improvements, optimizations, and bug fixes before they are released in the stable version of Bambu Studio. It is intended for advanced users who would like to explore new functionality early and help improve the software experience."
+msgstr ""
+
+msgid "Separate configuration folder."
+msgstr ""
+
+msgid "As a beta release, some features may still be under development, and you may occasionally encounter bugs, unexpected behavior, or incomplete functionality. To prevent conflicts with the stable release, Bambu Studio Beta uses a separate configuration folder (Help -> Show Configuration Folder) and operates independently from the standard version of Bambu Studio."
+msgstr ""
+
+msgid "(Help -> Show Configuration Folder)"
+msgstr ""
+
+msgid "Why use the Beta version?"
+msgstr ""
+
+msgid "By using the Beta version and sharing feedback, bug reports, and suggestions, you can help Bambu Lab improve stability, compatibility, and future features before the official release."
+msgstr ""
+
+msgid "How to change settings?"
+msgstr ""
+
+msgid "If you prefer not to participate in the Beta program, you can disable Beta Update prompts at any time in Settings."
+msgstr ""
+
 msgid "Air Pump"
 msgstr "공기 펌프"
 
@@ -11463,6 +11625,12 @@ msgstr "플러시"
 #, boost-format
 msgid "Failed to calculate line width of %1%. Can not get value of \"%2%\" "
 msgstr "%1% 의 선 너비를 계산하지 못했습니다. \"%2%\" 가치를 가져올 수 없습니다. "
+
+msgid ""
+"Slicing failed because the extrusion line width is too small or the layer height is too large.\n"
+"\n"
+"Please increase the line width or reduce the layer height, then slice again."
+msgstr ""
 
 msgid "undefined error"
 msgstr "정의되지 않은 오류"
@@ -12025,16 +12193,16 @@ msgid "This controls the generation of the brim at outer and/or inner side of mo
 msgstr "모델의 바깥쪽 또는 안쪽 브림 생성을 제어합니다. 자동은 브림 폭이 자동으로 분석 및 계산됨을 의미합니다."
 
 msgid "★ Brim-object gap"
-msgstr "★ Brim-object gap"
+msgstr ""
 
 msgid "A gap between innermost brim line and object can make brim be removed more easily. Negative values make the brim overlap the object."
-msgstr "A gap between innermost brim line and object can make brim be removed more easily. Negative values make the brim overlap the object."
+msgstr ""
 
 msgid "★ Brim layers"
-msgstr "★ Brim layers"
+msgstr ""
 
 msgid "The number of layers on which the brim will be printed."
-msgstr "The number of layers on which the brim will be printed."
+msgstr ""
 
 msgid "Compatible machine"
 msgstr "호환 가능한 장치"
@@ -12692,6 +12860,12 @@ msgstr "혼합 필라멘트 그라디언트 범위"
 msgid "Start and end ratios for the first component in gradient mode. Comma-separated pair, e.g. \"0.10,0.90\" means 10% to 90%."
 msgstr "그라데이션 모드에서 첫 번째 구성 요소의 시작 및 종료 비율. 쉼표로 구분된 쌍, 예: \"0.10,0.90\"은 10%에서 90%를 의미합니다."
 
+msgid "Mixed filament per-part gradient"
+msgstr ""
+
+msgid "When gradient mode is enabled, apply the gradient to each part of an assembly independently rather than treating the whole assembly as one Z range."
+msgstr ""
+
 msgid "Filament printable"
 msgstr "필라멘트 출력 가능"
 
@@ -12714,10 +12888,10 @@ msgid "The volume of material required to prime the extruder for a hotend change
 msgstr "타워에서 핫엔드를 교체하기 위해 압출기를 준비하는 데 필요한 재료 부피."
 
 msgid "Preheat temperature delta"
-msgstr ""
+msgstr "예열 온도 차이"
 
 msgid "Temperature delta applied during pre-heating before tool change."
-msgstr ""
+msgstr "도구 교체 전 예열 과정에서 적용되는 온도 차이입니다."
 
 msgid "Wipe tower cooling"
 msgstr "와이프 타워 냉각"
@@ -13621,6 +13795,12 @@ msgstr "내부 채움에 벽 내장하기"
 msgid "Embedding the wall into parts where the wall loops are absent ensures that the wall connects seamlessly to the infill."
 msgstr "벽 루프가 없는 부분에 벽을 삽입하면 벽이 채움재와 원활하게 연결됩니다."
 
+msgid "Alternate extra wall"
+msgstr ""
+
+msgid "Add an extra wall on alternating layers to improve layer bonding and part strength without the full cost of a permanent extra wall."
+msgstr ""
+
 msgid "Post-processing Scripts"
 msgstr "후처리 스크립트"
 
@@ -13900,31 +14080,31 @@ msgid "Spiralize smooths out the z moves of the outer contour. And turns a solid
 msgstr "나선형 활성화, 외부 윤곽의 Z 이동을 부드럽게 하고 고형물 모델을 견고한 하단 레이어 단일 벽면 프린트로 변환할 수 있습니다. 최종적으로 생성된 모델에는 이음새가 없습니다."
 
 msgid "★ Vase reinforcement multiplier"
-msgstr "★ Vase reinforcement multiplier"
+msgstr ""
 
 msgid "Additional inward wall multiplier for the first spiral vase layers. Decimal values are distributed across rounded reinforcement loops."
-msgstr "스파이럴 화병 모드의 초기 레이어에 안쪽으로 추가되는 벽 배율입니다. 소수 값은 반올림된 보강 루프 수에 분배됩니다."
+msgstr ""
 
 msgid "★ Vase reinforcement height"
-msgstr "★ Vase reinforcement height"
+msgstr ""
 
 msgid "Height of spiral vase reinforcement. A plain number means layer count; a value ending with mm means model height."
-msgstr "스파이럴 화병 보강 높이입니다. 숫자만 입력하면 레이어 수, mm로 끝나면 모델 높이를 의미합니다."
+msgstr ""
 
 msgid "layers or mm"
-msgstr "레이어 또는 mm"
+msgstr ""
 
 msgid "★ Fade vase reinforcement"
-msgstr "★ Fade vase reinforcement"
+msgstr ""
 
 msgid "Linearly fade the spiral vase reinforcement multiplier over the reinforcement height."
-msgstr "보강 높이 범위에서 스파이럴 화병 보강 배율을 선형으로 줄입니다."
+msgstr ""
 
 msgid "★ Fade end multiplier"
-msgstr "★ Fade end multiplier"
+msgstr ""
 
 msgid "Spiral vase reinforcement multiplier at the end of the reinforcement height."
-msgstr "보강 높이 끝에서의 스파이럴 화병 보강 배율입니다."
+msgstr ""
 
 msgid "Smooth Spiral"
 msgstr "부드러운 나선형"
@@ -14542,6 +14722,12 @@ msgstr "최소 벽 너비"
 msgid "Width of the wall that will replace thin features (according to the Minimum feature size) of the model. If the Minimum wall width is thinner than the thickness of the feature, the wall will become as thick as the feature itself. It's expressed as a percentage over nozzle diameter"
 msgstr "모델의 최소 피처 크기에 따라 얇은 피처를 대체할 벽의 너비입니다. 최소 벽 너비가 피처의 두께보다 얇으면 벽이 피처 자체만큼 두꺼워집니다. 노즐 직경에 대한 백분율로 표시됩니다."
 
+msgid "Override overhang speed"
+msgstr ""
+
+msgid "Override the overhang speed in process page"
+msgstr ""
+
 msgid "Detect narrow internal solid infill"
 msgstr "좁은 내부 솔리드 채우기 감지"
 
@@ -14562,7 +14748,7 @@ msgid " doesn't work at 100%% density "
 msgstr " 100%% 밀도에서 작동하지 않습니다. "
 
 msgid "Invalid spiral vase reinforcement height: "
-msgstr "잘못된 화병 보강 높이: "
+msgstr ""
 
 msgid "Invalid value when spiral vase mode is enabled: "
 msgstr "나선형 꽃병 모드가 활성화된 경우 유효하지 않은 값: "
@@ -14654,8 +14840,8 @@ msgstr "모델 파일의 메싱이 실패했거나 유효한 형태가 없습니
 msgid "The supplied file couldn't be read because it's empty"
 msgstr "제공된 파일이 비어 있어 읽을 수 없습니다."
 
-msgid "Unknown file format. Input file must have .stl, .obj, .amf(.xml) extension."
-msgstr "알 수 없는 파일 형식: 입력 파일의 확장자는 .stl, .obj 또는 .amf(.xml)여야 합니다."
+msgid "Unknown file format. Input file must have .stl, .obj, .amf(.xml), .gltf, .glb, .fbx extension."
+msgstr ""
 
 msgid "Unknown file format. Input file must have .3mf or .zip.amf extension."
 msgstr "알 수 없는 파일 형식: 입력 파일의 확장자는.3mf 또는.zip.amf여야 합니다."
@@ -17048,6 +17234,9 @@ msgstr "비율"
 msgid "Gradient Effect"
 msgstr "그라디언트 효과"
 
+msgid "Enable per-part gradient effect"
+msgstr ""
+
 msgid "Mixing Recommendations"
 msgstr "권장 혼합"
 
@@ -17302,6 +17491,12 @@ msgstr ""
 "뒤틀림 방지\n"
 "ABS와 같이 뒤틀리기 쉬운 소재를 출력할 때 열판 온도를 적절히 높이면 뒤틀릴 확률을 줄일 수 있다는 사실을 알고 계셨나요?"
 
+#: resources/data/hints.ini: [hint:Filament Shrinkage]
+msgid ""
+"Filament Shrinkage\n"
+"Filaments such as %s have higher shrinkage rates, which may cause slight dimensional deviations after cooling and affect assembly fit. It is recommended to refer to the Wiki for shrinkage calibration to achieve more accurate print results."
+msgstr ""
+
 #: resources/data/helio_hints.ini: [hint: Run Nylon & PC (and other advanced
 #: materials) Like a Pro]
 msgid ""
@@ -17370,26 +17565,43 @@ msgstr ""
 "첫 시도 성공 신뢰성\n"
 "관리 부담 감소, 예측 가능한 생산량 증가. 예: PETG 부품을 생산하는 소규모 농장은 '6시간 후 실패'와 같은 예상치 못한 문제 발생을 방지하고 생산 일정을 준수할 수 있습니다."
 
+#~ msgid "Spiral mode only works when wall loops is 1, support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."
+#~ msgstr "나선형 모드는 벽 루프가 1 이고, 지원이 비활성화되어 있고, 프로빙을 통한 뭉침 감지가 비활성화되어 있고, 상단 셸 레이어가 0 이고, 드믄 채우기 밀도가 0 이고, 타임랩스 유형이 기존이고 z 방향의 벽 속도 평활화가 아니인 경우에만 작동합니다."
+
 #~ msgid "Brim-object gap"
 #~ msgstr "브림-출력물 간격"
 
 #~ msgid "A gap between innermost brim line and object can make brim be removed more easily"
 #~ msgstr "가장 안쪽 테두리 선과 물체 사이에 틈이 생겨 테두리를 쉽게 제거할 수 있습니다."
 
-#~ msgid "Vase reinforcement multiplier"
-#~ msgstr "화병 보강 배율"
+#~ msgid "non-manifold edges be caused by cut tool, do you want to fix it now?"
+#~ msgstr "절단 도구로 인해 매니폴드가 아닌 모서리가 발생하는 경우: 지금 수정하시겠습니까?"
 
-#~ msgid "Vase reinforcement height"
-#~ msgstr "화병 보강 높이"
+#~ msgid "Choose one or more files (3mf/step/stl/svg/obj/amf/usd*/abc/ply):"
+#~ msgstr "하나 이상의 파일(3mf/스텝/stl/svg/obj/amf/usd*/abc/ply)을 선택합니다:"
 
-#~ msgid "Fade vase reinforcement"
-#~ msgstr "화병 보강 페이드"
+#~ msgid "Choose one or more files (3mf/step/stl/svg/obj/amf):"
+#~ msgstr "하나 이상의 파일을 선택합니다 (3mf/step/stl/svg/obj/amf):"
 
-#~ msgid "Fade end multiplier"
-#~ msgstr "페이드 종료 배율"
+#, c-format, boost-format
+#~ msgid "Error: %1$d non-manifold edge."
+#~ msgid_plural "Error: %1$d non-manifold edges."
+#~ msgstr[0] "오류: %1$d 비매니폴드 모서리."
 
-#~ msgid "Spiral mode only works when wall loops is 1, support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."
-#~ msgstr "나선형 모드는 벽 루프가 1 이고, 지원이 비활성화되어 있고, 프로빙을 통한 뭉침 감지가 비활성화되어 있고, 상단 셸 레이어가 0 이고, 드믄 채우기 밀도가 0 이고, 타임랩스 유형이 기존이고 z 방향의 벽 속도 평활화가 아니인 경우에만 작동합니다."
+#~ msgid "Remaining errors"
+#~ msgstr "남은 오류"
+
+#, c-format, boost-format
+#~ msgid "%1$d non-manifold edge"
+#~ msgid_plural "%1$d non-manifold edges"
+#~ msgstr[0] "%1$d 비매니폴드 에지"
+
+#, c-format, boost-format
+#~ msgid "High-shrinkage filament(s) detected: %s. These materials may cause dimensional deviation after cooling. If your model requires precise fitting or assembly, please refer to the Wiki guide for shrinkage testing."
+#~ msgstr "고수축성 필라멘트(%s)가 감지되었습니다. 이 재료는 냉각 후 치수 편차를 유발할 수 있습니다. 모델이 정밀하게 맞거나 조립되어야 하는 경우, 수축 테스트를 위한 Wiki 가이드를 참조하십시오."
+
+#~ msgid "Unknown file format. Input file must have .stl, .obj, .amf(.xml) extension."
+#~ msgstr "알 수 없는 파일 형식: 입력 파일의 확장자는 .stl, .obj 또는 .amf(.xml)여야 합니다."
 
 #~ msgid "Shift+"
 #~ msgstr "Shift+"

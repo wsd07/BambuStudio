@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bambu Studio\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-09 21:03+0800\n"
+"POT-Creation-Date: 2026-05-15 20:34+0800\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -944,8 +944,8 @@ msgstr "Tilldela delen till den andra sidan"
 msgid "Cut"
 msgstr "Beskär"
 
-msgid "non-manifold edges be caused by cut tool, do you want to fix it now?"
-msgstr "Icke-mångsidiga kanter orsakade av skärverktyg: vill du fixa det nu?"
+msgid "Open edges may be caused by the cut tool, do you want to fix it now?"
+msgstr ""
 
 msgid "Repairing model object"
 msgstr "Reparerar modell objektet"
@@ -1992,11 +1992,11 @@ msgstr "Laddar modell vy"
 msgid "Choose one file (3mf):"
 msgstr "Välj en fil (3mf):"
 
-msgid "Choose one or more files (3mf/step/stl/svg/obj/amf/usd*/abc/ply):"
-msgstr "Välj en eller flera filer (3mf/step/stl/svg/obj/amf/usd*/abc/ply):"
+msgid "Choose one or more files (3mf/step/stl/svg/obj/amf/gltf/glb/fbx/usd*/abc/ply):"
+msgstr ""
 
-msgid "Choose one or more files (3mf/step/stl/svg/obj/amf):"
-msgstr "Välj en eller flera filer (3mf/step/stl/svg/obj/amf):"
+msgid "Choose one or more files (3mf/step/stl/svg/obj/amf/gltf/glb/fbx):"
+msgstr ""
 
 msgid "Choose one file (gcode/.gco/.g/.ngc/ngc):"
 msgstr "Välj en fil (.gcode/.gco/.g/.ngc/ngc):"
@@ -2553,19 +2553,26 @@ msgstr[0] "%1$d fel åtgärdat@%1$d felen åtgärdade"
 msgstr[1] "%1$d fel åtgärdat@%1$d felen åtgärdade"
 
 #, c-format, boost-format
-msgid "Error: %1$d non-manifold edge."
-msgid_plural "Error: %1$d non-manifold edges."
-msgstr[0] "Fel: %1$d inte mångfaldig kant.@Fel: %1$d inte mångfaldiga kanter."
-msgstr[1] "Fel: %1$d inte mångfaldig kant.@Fel: %1$d inte mångfaldiga kanter."
-
-msgid "Remaining errors"
-msgstr "Kvarstående fel"
+msgid "Error: %1$d non-manifold edges, %2$d non-manifold vertices"
+msgstr ""
 
 #, c-format, boost-format
-msgid "%1$d non-manifold edge"
-msgid_plural "%1$d non-manifold edges"
-msgstr[0] "%1$d inte mångfaldig kant@%1$d inte mångfaldiga kanter"
-msgstr[1] "%1$d inte mångfaldig kant@%1$d inte mångfaldiga kanter"
+msgid "Error: %1$d non-manifold edge"
+msgid_plural "Error: %1$d non-manifold edges"
+msgstr[0] ""
+msgstr[1] ""
+
+#, c-format, boost-format
+msgid "Error: %1$d non-manifold vertex"
+msgid_plural "Error: %1$d non-manifold vertices"
+msgstr[0] ""
+msgstr[1] ""
+
+#, c-format, boost-format
+msgid "Info: %1$d open edge"
+msgid_plural "Info: %1$d open edges"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Right click the icon to fix model object"
 msgstr "Höger klicka på ikonen för att reparera modell objektet"
@@ -3177,11 +3184,14 @@ msgstr "Placerar"
 msgid "Filling"
 msgstr "Fyllnad"
 
-msgid "Bed filling done."
-msgstr "Byggplattans fyllning utförd."
+msgid "Bed filling aborted: invalid bed shape."
+msgstr ""
 
 msgid "Bed filling canceled."
 msgstr "Byggplattans fyllning avbruten."
+
+msgid "Bed filling done."
+msgstr "Byggplattans fyllning utförd."
 
 #. TRN: This is the title of the action appearing in undo/redo stack.
 #. It is same for Text and SVG.
@@ -3311,6 +3321,67 @@ msgstr "Den uppvärmda bäddens termiska förberedning hjälper till att optimer
 #, c-format, boost-format
 msgid "Remaining time: %dmin%ds"
 msgstr "Återstående tid: %dmin%ds"
+
+msgid "Project Filaments"
+msgstr "Projekt Filament"
+
+msgid "New Filaments"
+msgstr ""
+
+msgid "Add Material"
+msgstr ""
+
+#, c-format, boost-format
+msgid "The project supports up to %d filaments. Extra filaments will be discarded."
+msgstr ""
+
+msgid "Import Model"
+msgstr ""
+
+msgid "Original"
+msgstr ""
+
+msgid "Multi-Color"
+msgstr ""
+
+msgid "Filament Mapping"
+msgstr ""
+
+msgid "Color Count"
+msgstr ""
+
+msgid "Smooth Level"
+msgstr ""
+
+msgid "Automatically determine the optimal color count only and recompute filament mapping"
+msgstr ""
+
+msgid "Convert texture to painting using the specified color count and smooth level"
+msgstr ""
+
+msgid "Reminder: parameters changed, click Apply to take effect"
+msgstr ""
+
+msgid "Auto-merge same filament"
+msgstr ""
+
+msgid "Automatically merge identical filaments into existing filaments in the project"
+msgstr ""
+
+msgid "Skip Matching"
+msgstr ""
+
+msgid "Skip filament mapping and import as a single-color model"
+msgstr ""
+
+msgid "Processing"
+msgstr ""
+
+msgid "Computing texture colors..."
+msgstr ""
+
+msgid "Computation failed. Please adjust parameters and retry."
+msgstr ""
 
 msgid "Choose SLA archive:"
 msgstr "Välj SLA arkiv:"
@@ -4154,6 +4225,13 @@ msgstr ""
 "låsdjupet bör vara mindre än ytdjupet.\n"
 "Återställ till 50%% ytdjup"
 
+msgid ""
+"Alternate extra wall doesn't work well when ensure vertical shell thickness is set to Enable.\n"
+"Change these settings automatically?\n"
+"Yes - Change ensure vertical shell thickness to Partial and enable alternate extra wall\n"
+"No  - Don't use alternate extra wall"
+msgstr ""
+
 msgid "Spiral mode only works when support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."
 msgstr ""
 
@@ -4613,7 +4691,7 @@ msgid "Fan Speed"
 msgstr "Fläkt Hastighet"
 
 msgid "AUX Fan Speed"
-msgstr ""
+msgstr "AUX-fläkthastighet"
 
 msgid "Flow"
 msgstr "Flöde"
@@ -4691,7 +4769,7 @@ msgid "Fan Speed (%)"
 msgstr "Fläkt hastighet (%)"
 
 msgid "AUX  Fan Speed (%)"
-msgstr ""
+msgstr "AUX-fläkthastighet (%)"
 
 msgid "Temperature (°C)"
 msgstr "Temperatur (°C)"
@@ -4847,7 +4925,7 @@ msgid "Fan Speed: "
 msgstr "Fläkthastighet: "
 
 msgid "AUX Fan Speed: "
-msgstr ""
+msgstr "AUX-fläkthastighet: "
 
 msgid "Temperature: "
 msgstr "Temperatur: "
@@ -4933,7 +5011,7 @@ msgid "Increase/decrease edit area"
 msgstr "Öka/minska redigeringsområdet"
 
 msgid "The variable layer height profile has been reset because some layer heights exceed the allowed range of the current nozzle."
-msgstr ""
+msgstr "Den variabla lagerhöjdsprofilen har återställts eftersom vissa lagerhöjder överskrider det tillåtna intervallet för den aktuella nozzle."
 
 msgid "Sequence"
 msgstr "Sekvens"
@@ -5352,7 +5430,7 @@ msgid "Project"
 msgstr "Projekt"
 
 msgid "Filament Manager"
-msgstr ""
+msgstr "Filamenthanterare"
 
 msgid "Yes"
 msgstr "Ja"
@@ -5636,6 +5714,15 @@ msgstr "Avmarkera alla"
 
 msgid "Deselects all objects"
 msgstr "Avmarkera alla objekt"
+
+msgid "Enter Camera Full Screen"
+msgstr ""
+
+msgid "Show the Device camera in full screen"
+msgstr ""
+
+msgid "Exit Camera Full Screen"
+msgstr ""
 
 msgid "Use Perspective View"
 msgstr "Använd Perspektiv Vy"
@@ -5964,6 +6051,42 @@ msgstr "DLL inläsningsfel"
 msgid "Loading..."
 msgstr "Laddar..."
 
+msgid "Timelapse"
+msgstr "Timelapse"
+
+msgid "Switch to timelapse files."
+msgstr "Växla till timelapse filer."
+
+msgid "Video"
+msgstr "Video"
+
+msgid "Switch to video files."
+msgstr "Växla till video filer."
+
+msgid "Switch to 3mf model files."
+msgstr "Byt till 3mf modell filer."
+
+msgid "Reload file list from printer."
+msgstr "Ladda om fil listan från printer."
+
+msgid "Delete selected files from printer."
+msgstr "Ta bort valda filer från skrivaren."
+
+msgid "Download"
+msgstr "Ladda ner"
+
+msgid "Download selected files from printer."
+msgstr "Ladda ner valda filer från skrivaren."
+
+msgid "Select"
+msgstr "Välj"
+
+msgid "Batch manage files."
+msgstr "Batch hantera filer."
+
+msgid "Internal"
+msgstr "Intern"
+
 msgid "Year"
 msgstr "År"
 
@@ -5981,39 +6104,6 @@ msgstr "Gruppera filer efter månad, senaste först."
 
 msgid "Show all files, recent first."
 msgstr "Visa alla filer, de senaste först."
-
-msgid "Timelapse"
-msgstr "Timelapse"
-
-msgid "Switch to timelapse files."
-msgstr "Växla till timelapse filer."
-
-msgid "Video"
-msgstr "Video"
-
-msgid "Switch to video files."
-msgstr "Växla till video filer."
-
-msgid "Switch to 3mf model files."
-msgstr "Byt till 3mf modell filer."
-
-msgid "Delete selected files from printer."
-msgstr "Ta bort valda filer från skrivaren."
-
-msgid "Download"
-msgstr "Ladda ner"
-
-msgid "Download selected files from printer."
-msgstr "Ladda ner valda filer från skrivaren."
-
-msgid "Select"
-msgstr "Välj"
-
-msgid "Batch manage files."
-msgstr "Batch hantera filer."
-
-msgid "Reload file list from printer."
-msgstr "Ladda om fil listan från printer."
 
 msgid "No printers."
 msgstr "Ingen printer."
@@ -6238,6 +6328,9 @@ msgstr ""
 
 msgid "Go to Login"
 msgstr "Gå till inloggning"
+
+msgid "Camera Full Screen"
+msgstr ""
 
 msgctxt "Quit_Switching"
 msgid "Quit"
@@ -6642,13 +6735,13 @@ msgid "Collapse"
 msgstr "Komprimera"
 
 msgid "View details"
-msgstr ""
+msgstr "Visa detaljer"
 
 msgid "Execute"
 msgstr "Utför"
 
 msgid "Do not execute"
-msgstr ""
+msgstr "Utför inte"
 
 #, c-format, boost-format
 msgid "%s info"
@@ -7125,10 +7218,6 @@ msgstr "Ändra nozzle typ eller tilldela filamenten på nytt och försök igen."
 msgid "Risk of nozzle clumping detected with the current high-temperature filament (%s). We recommend enabling clumping detection (via probing). This feature uses a quick probing sequence to check for nozzle buildup during the print and utilizes the prime tower to absorb oozing before resuming."
 msgstr "Risk för klumpbildning i nozzle upptäckt med det aktuella högtemperatur filamentet (%s). Vi rekommenderar att du aktiverar klumpbildnings detektering (via probning). Den här funktionen använder en snabb probningssekvens för att kontrollera om det finns nozzle avlagringar under utskriften och använder prime tornet för att absorbera läckage innan utskriften återupptas."
 
-#, c-format, boost-format
-msgid "High-shrinkage filament(s) detected: %s. These materials may cause dimensional deviation after cooling. If your model requires precise fitting or assembly, please refer to the Wiki guide for shrinkage testing."
-msgstr "Detekterat filament med hög krympning: %s. Dessa material kan orsaka dimensionsavvikelser efter kylning. Om din modell kräver exakt passform eller montering, se Wiki-guiden för krympningstestning."
-
 msgid "Printing mixed-color filament on a single-extruder printer requires frequent filament changes and flushing, which may significantly increase waste and the risk of nozzle / waste-chute clogging."
 msgstr "Att skriva ut blandfärgade filament på en printer med en extruder kräver frekventa filament byten och rensning, vilket kan öka spill och risken för igensättning av nozzle/avfallsrännan avsevärt."
 
@@ -7240,9 +7329,6 @@ msgstr "Synkroniserings information"
 
 msgid "Synchronize nozzle information and the number of AMS"
 msgstr "Synkronisera nozzle information och antalet AMS"
-
-msgid "Project Filaments"
-msgstr "Projekt Filament"
 
 msgid "Purge mode"
 msgstr "Rensnings läge"
@@ -7407,10 +7493,10 @@ msgid "The name may show garbage characters!"
 msgstr "Namnet kan visa skräptecken!"
 
 msgid "The following shells are not closed and may cause issues:"
-msgstr ""
+msgstr "Följande skal är inte stängda och kan orsaka problem:"
 
 msgid "Unclosed Shell Warning"
-msgstr ""
+msgstr "Varning för oavslutat skal"
 
 #, boost-format
 msgid "Failed loading file \"%1%\". An invalid configuration was found."
@@ -7445,6 +7531,13 @@ msgstr ""
 msgid "Multi-part object detected"
 msgstr "Objekt i flera delar har upptäckts"
 
+#, c-format, boost-format
+msgid "Computing texture colors: %s"
+msgstr ""
+
+msgid "Texture Import Warning"
+msgstr ""
+
 msgid "Load these files as a single object with multiple parts?\n"
 msgstr "Ladda dessa filer som ett enkelt objekt med multipla delar?\n"
 
@@ -7454,11 +7547,35 @@ msgstr "Objekt med flera delar upptäcktes"
 msgid "The file does not contain any geometry data."
 msgstr "Filen innehåller ingen geometrisk data."
 
+msgid "Importing model to project..."
+msgstr ""
+
 msgid "Your object appears to be too large, Do you want to scale it down to fit the heat bed automatically?"
 msgstr "Ditt objekt verkar vara för stort, vill du skala ner det för att passa byggplattan automatiskt?"
 
 msgid "Object too large"
 msgstr "Objektet är för stort"
+
+msgid "Placing model on the bed..."
+msgstr ""
+
+msgid "Updating object list..."
+msgstr ""
+
+msgid "Updating 3D view..."
+msgstr ""
+
+msgid "Model imported."
+msgstr ""
+
+msgid "Texture import failed. The model appears to contain texture data, but the texture import process could not be completed. The model will be imported as geometry only."
+msgstr ""
+
+msgid "Applying texture colors..."
+msgstr ""
+
+msgid "Texture colors applied."
+msgstr ""
 
 msgid "Export STL file:"
 msgstr "Exportera STL-fil:"
@@ -7993,7 +8110,7 @@ msgstr "Negativa delar upptäckta. Vill du utföra boolean av mesh före export?
 msgid ""
 "Security Warning: This 3MF file contains post-processing script commands that will run automatically during slicing and may pose security risks!\n"
 "Please verify the file source and script contents before continuing."
-msgstr ""
+msgstr "Säkerhetsvarning: Denna 3MF-fil innehåller skriptkommandon för efterbearbetning som körs automatiskt under beredningen och kan utgöra säkerhetsrisker! Kontrollera filkällan och skriptinnehållet innan du fortsätter."
 
 #, c-format, boost-format
 msgid "The calibration filament is currently assigned to a different extruder than the one selected in the PA Calibration dialog (%s). This may lead to incorrect calibration results. You can change the assignment in the filament grouping settings."
@@ -8059,7 +8176,7 @@ msgstr "Inställningar för platta"
 msgid ""
 "While printing by Object, the extruder may collide skirt.\n"
 "Thus, it is recommended to reset the skirt layer to 1 to avoid that."
-msgstr ""
+msgstr "Vid utskrift efter objekt kan extrudern kollidera med kjolar. Därför rekommenderas att återställa kjollagret till 1 för att undvika detta."
 
 msgid "Prime Tower:"
 msgstr ""
@@ -8281,6 +8398,12 @@ msgstr "Ta bort begränsningen för blandad utskrift av filament med hög och l�
 
 msgid "With this option enabled, you can print materials with a large temperature difference together."
 msgstr "Med detta alternativet aktiverat kan du skriva ut material med stor temperaturskillnad tillsammans."
+
+msgid "Open full screen camera view on active monitor only."
+msgstr ""
+
+msgid "When enabled, the camera full screen view opens only on the monitor that contains Bambu Studio."
+msgstr ""
 
 msgid "Clear my choice for synchronizing printer preset after loading the file."
 msgstr "Rensa mitt val för synkronisering av printerns inställning efter laddning av filen."
@@ -8915,7 +9038,7 @@ msgstr "Rekommenderat filament arrangemang sparar %s->"
 
 #, c-format, boost-format
 msgid "The current firmware supports a maximum of %s materials. You can either reduce the number of materials to %s or fewer on the Preparation Page, or try updating the firmware. If you are still restricted after the update, please wait for subsequent firmware support."
-msgstr ""
+msgstr "Den nuvarande firmware stöder maximalt %s material. Man kan antingen minska antalet material till %s eller färre på förberedelsesidan, eller försöka uppdatera firmware. Om du fortfarande är begränsad efter uppdateringen, vänta på efterföljande firmware-support."
 
 #, c-format, boost-format
 msgid "Filament %s does not match the filament in AMS slot %s. Please update the printer firmware to support AMS slot assignment."
@@ -8965,9 +9088,6 @@ msgstr "Detta kontrollerar värmebäddens planhet. Utjämning gör den extrudera
 
 msgid "This process determines the dynamic flow values to improve overall print quality."
 msgstr "Den här processen bestämmer de dynamiska flödesvärdena för att förbättra den övergripande utskriftskvaliteten."
-
-msgid "Internal"
-msgstr "Intern"
 
 #, c-format, boost-format
 msgid "%s space less than 10MB. Timelapse may not save properly. You can turn it off or"
@@ -11245,6 +11365,45 @@ msgstr "Helio flödesschema"
 msgid "Fixing cold prints"
 msgstr "Åtgärdar kalla utskrifter"
 
+msgid "Software Update"
+msgstr ""
+
+msgid "Try Now"
+msgstr ""
+
+msgid "Don't show me Beta updates again"
+msgstr ""
+
+msgid "New Bambu Studio Beta Available"
+msgstr ""
+
+msgid "Current Version"
+msgstr ""
+
+msgid "Bambu Studio Beta gives you early access to upcoming features, improvements, optimizations, and bug fixes before they are released in the stable version of Bambu Studio. It is intended for advanced users who would like to explore new functionality early and help improve the software experience."
+msgstr ""
+
+msgid "Separate configuration folder."
+msgstr ""
+
+msgid "As a beta release, some features may still be under development, and you may occasionally encounter bugs, unexpected behavior, or incomplete functionality. To prevent conflicts with the stable release, Bambu Studio Beta uses a separate configuration folder (Help -> Show Configuration Folder) and operates independently from the standard version of Bambu Studio."
+msgstr ""
+
+msgid "(Help -> Show Configuration Folder)"
+msgstr ""
+
+msgid "Why use the Beta version?"
+msgstr ""
+
+msgid "By using the Beta version and sharing feedback, bug reports, and suggestions, you can help Bambu Lab improve stability, compatibility, and future features before the official release."
+msgstr ""
+
+msgid "How to change settings?"
+msgstr ""
+
+msgid "If you prefer not to participate in the Beta program, you can disable Beta Update prompts at any time in Settings."
+msgstr ""
+
 msgid "Air Pump"
 msgstr "Luftpump"
 
@@ -11474,6 +11633,12 @@ msgstr "Rensa"
 #, boost-format
 msgid "Failed to calculate line width of %1%. Can not get value of \"%2%\" "
 msgstr "Kunde inte beräkna linje bredden för %1%. Kan inte få fram värdet för \"%2%\" "
+
+msgid ""
+"Slicing failed because the extrusion line width is too small or the layer height is too large.\n"
+"\n"
+"Please increase the line width or reduce the layer height, then slice again."
+msgstr ""
 
 msgid "undefined error"
 msgstr "Oidentifierat fel"
@@ -12036,16 +12201,16 @@ msgid "This controls the generation of the brim at outer and/or inner side of mo
 msgstr "Detta styr genereringen av brim på modellens yttre och/eller inre sida. Auto innebär att brim bredd analyseras och beräknas automatiskt."
 
 msgid "★ Brim-object gap"
-msgstr "★ Brim-object gap"
+msgstr ""
 
 msgid "A gap between innermost brim line and object can make brim be removed more easily. Negative values make the brim overlap the object."
-msgstr "A gap between innermost brim line and object can make brim be removed more easily. Negative values make the brim overlap the object."
+msgstr ""
 
 msgid "★ Brim layers"
-msgstr "★ Brim layers"
+msgstr ""
 
 msgid "The number of layers on which the brim will be printed."
-msgstr "The number of layers on which the brim will be printed."
+msgstr ""
 
 msgid "Compatible machine"
 msgstr "Kompatibel maskin"
@@ -12703,6 +12868,12 @@ msgstr "Blandat filament gradient område"
 msgid "Start and end ratios for the first component in gradient mode. Comma-separated pair, e.g. \"0.10,0.90\" means 10% to 90%."
 msgstr "Start- och slutförhållanden för den första komponenten i gradient läge. Komma avgränsade par, t.ex. \"0,10,0,90\" betyder 10 % till 90 %."
 
+msgid "Mixed filament per-part gradient"
+msgstr ""
+
+msgid "When gradient mode is enabled, apply the gradient to each part of an assembly independently rather than treating the whole assembly as one Z range."
+msgstr ""
+
 msgid "Filament printable"
 msgstr "Utskrivbart filament"
 
@@ -12725,10 +12896,10 @@ msgid "The volume of material required to prime the extruder for a hotend change
 msgstr "Volymen av material som krävs för att prima extrudern för en hotend förändring på tower."
 
 msgid "Preheat temperature delta"
-msgstr ""
+msgstr "Förvärmningstemperaturdelta"
 
 msgid "Temperature delta applied during pre-heating before tool change."
-msgstr ""
+msgstr "Temperaturdelta tillämpad under förvärmning före verktygsbyte."
 
 msgid "Wipe tower cooling"
 msgstr "Wipe Tower kylning"
@@ -13632,6 +13803,12 @@ msgstr "Bädda in väggen i fyllningen"
 msgid "Embedding the wall into parts where the wall loops are absent ensures that the wall connects seamlessly to the infill."
 msgstr "Bädda in väggen i delar där vägg öglorna är frånvarande ser till att väggen ansluts sömlöst till fyllningen."
 
+msgid "Alternate extra wall"
+msgstr ""
+
+msgid "Add an extra wall on alternating layers to improve layer bonding and part strength without the full cost of a permanent extra wall."
+msgstr ""
+
 msgid "Post-processing Scripts"
 msgstr "Skript för efterbehandling"
 
@@ -13911,31 +14088,31 @@ msgid "Spiralize smooths out the z moves of the outer contour. And turns a solid
 msgstr "Detta möjliggör spiral formning, vilket jämnar ut Z rörelserna i den yttre konturen och förvandlar en solid modell till en enda vägg med solid botten lager. Den slutliga genererade modellen har ingen söm."
 
 msgid "★ Vase reinforcement multiplier"
-msgstr "★ Vase reinforcement multiplier"
+msgstr ""
 
 msgid "Additional inward wall multiplier for the first spiral vase layers. Decimal values are distributed across rounded reinforcement loops."
-msgstr "Additional inward wall multiplier for the first spiral vase layers. Decimal values are distributed across rounded reinforcement loops."
+msgstr ""
 
 msgid "★ Vase reinforcement height"
-msgstr "★ Vase reinforcement height"
+msgstr ""
 
 msgid "Height of spiral vase reinforcement. A plain number means layer count; a value ending with mm means model height."
-msgstr "Height of spiral vase reinforcement. A plain number means layer count; a value ending with mm means model height."
+msgstr ""
 
 msgid "layers or mm"
-msgstr "layers or mm"
+msgstr ""
 
 msgid "★ Fade vase reinforcement"
-msgstr "★ Fade vase reinforcement"
+msgstr ""
 
 msgid "Linearly fade the spiral vase reinforcement multiplier over the reinforcement height."
-msgstr "Linearly fade the spiral vase reinforcement multiplier over the reinforcement height."
+msgstr ""
 
 msgid "★ Fade end multiplier"
-msgstr "★ Fade end multiplier"
+msgstr ""
 
 msgid "Spiral vase reinforcement multiplier at the end of the reinforcement height."
-msgstr "Spiral vase reinforcement multiplier at the end of the reinforcement height."
+msgstr ""
 
 msgid "Smooth Spiral"
 msgstr "Slät spiral"
@@ -14554,6 +14731,12 @@ msgstr "Minsta vägg bredd"
 msgid "Width of the wall that will replace thin features (according to the Minimum feature size) of the model. If the Minimum wall width is thinner than the thickness of the feature, the wall will become as thick as the feature itself. It's expressed as a percentage over nozzle diameter"
 msgstr "Bredden på den vägg som ska ersätta tunna element (enligt minsta storlek för element) i modellen. Om den minsta väggbredden är tunnare än tjockleken på elementet blir väggen lika tjock som själva elementet. Den uttrycks i procent av nozzel diametern."
 
+msgid "Override overhang speed"
+msgstr ""
+
+msgid "Override the overhang speed in process page"
+msgstr ""
+
 msgid "Detect narrow internal solid infill"
 msgstr "Upptäck tight inre solid ifyllnad"
 
@@ -14574,7 +14757,7 @@ msgid " doesn't work at 100%% density "
 msgstr " fungerar inte vid 100%% densitet "
 
 msgid "Invalid spiral vase reinforcement height: "
-msgstr "Invalid spiral vase reinforcement height: "
+msgstr ""
 
 msgid "Invalid value when spiral vase mode is enabled: "
 msgstr "Ogiltigt värde när spiralvas läget är aktiverat: "
@@ -14666,8 +14849,8 @@ msgstr "Meshing av en modellfil misslyckades eller ingen giltig form."
 msgid "The supplied file couldn't be read because it's empty"
 msgstr "Den medföljande filen kunde inte läsas eftersom den är tom."
 
-msgid "Unknown file format. Input file must have .stl, .obj, .amf(.xml) extension."
-msgstr "Okänt filformat. Indata filen måste ha tillägget .stl, .obj eller .amf(.xml)."
+msgid "Unknown file format. Input file must have .stl, .obj, .amf(.xml), .gltf, .glb, .fbx extension."
+msgstr ""
 
 msgid "Unknown file format. Input file must have .3mf or .zip.amf extension."
 msgstr "Okänt filformat: indata filen måste ha fil ändelsen .3mf eller .zip.amf."
@@ -17061,6 +17244,9 @@ msgstr "Förhållande"
 msgid "Gradient Effect"
 msgstr "Gradient effekt"
 
+msgid "Enable per-part gradient effect"
+msgstr ""
+
 msgid "Mixing Recommendations"
 msgstr "Blandnings rekommendationer"
 
@@ -17315,6 +17501,12 @@ msgstr ""
 "Undvik vridning\n"
 "Visste du att när du skriver ut material som är benägna att vrida, såsom ABS, kan en lämplig ökning av värmebäddens temperatur minska sannolikheten för vridning."
 
+#: resources/data/hints.ini: [hint:Filament Shrinkage]
+msgid ""
+"Filament Shrinkage\n"
+"Filaments such as %s have higher shrinkage rates, which may cause slight dimensional deviations after cooling and affect assembly fit. It is recommended to refer to the Wiki for shrinkage calibration to achieve more accurate print results."
+msgstr ""
+
 #: resources/data/helio_hints.ini: [hint: Run Nylon & PC (and other advanced
 #: materials) Like a Pro]
 msgid ""
@@ -17383,26 +17575,45 @@ msgstr ""
 "Tillförlitlighet vid första försöket\n"
 "Mindre barnpassning, mer förutsägbar produktion. Exempel: en liten farm som kör PETG delar undviker överraskningar med \"fel vid timme 6\" och håller batcherna enligt schemat."
 
+#~ msgid "Spiral mode only works when wall loops is 1, support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."
+#~ msgstr "Spiral läge fungerar bara när väggslingor är 1, support är inaktiverat, klump detektering genom probe är inaktiverad, övre skalet lager är 0, gles utfyllnad densitet är 0, timelapse typ är traditionell och utjämning vägghastighet i z riktning är falsk."
+
 #~ msgid "Brim-object gap"
 #~ msgstr "Avstånd mellan brim och modell"
 
 #~ msgid "A gap between innermost brim line and object can make brim be removed more easily"
 #~ msgstr "Detta skapar mellanrum mellan innersta brim linjen och objektet, detta kan underlätta borttagandet av brim."
 
-#~ msgid "Vase reinforcement multiplier"
-#~ msgstr "Vase reinforcement multiplier"
+#~ msgid "non-manifold edges be caused by cut tool, do you want to fix it now?"
+#~ msgstr "Icke-mångsidiga kanter orsakade av skärverktyg: vill du fixa det nu?"
 
-#~ msgid "Vase reinforcement height"
-#~ msgstr "Vase reinforcement height"
+#~ msgid "Choose one or more files (3mf/step/stl/svg/obj/amf/usd*/abc/ply):"
+#~ msgstr "Välj en eller flera filer (3mf/step/stl/svg/obj/amf/usd*/abc/ply):"
 
-#~ msgid "Fade vase reinforcement"
-#~ msgstr "Fade vase reinforcement"
+#~ msgid "Choose one or more files (3mf/step/stl/svg/obj/amf):"
+#~ msgstr "Välj en eller flera filer (3mf/step/stl/svg/obj/amf):"
 
-#~ msgid "Fade end multiplier"
-#~ msgstr "Fade end multiplier"
+#, c-format, boost-format
+#~ msgid "Error: %1$d non-manifold edge."
+#~ msgid_plural "Error: %1$d non-manifold edges."
+#~ msgstr[0] "Fel: %1$d inte mångfaldig kant.@Fel: %1$d inte mångfaldiga kanter."
+#~ msgstr[1] "Fel: %1$d inte mångfaldig kant.@Fel: %1$d inte mångfaldiga kanter."
 
-#~ msgid "Spiral mode only works when wall loops is 1, support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."
-#~ msgstr "Spiral läge fungerar bara när väggslingor är 1, support är inaktiverat, klump detektering genom probe är inaktiverad, övre skalet lager är 0, gles utfyllnad densitet är 0, timelapse typ är traditionell och utjämning vägghastighet i z riktning är falsk."
+#~ msgid "Remaining errors"
+#~ msgstr "Kvarstående fel"
+
+#, c-format, boost-format
+#~ msgid "%1$d non-manifold edge"
+#~ msgid_plural "%1$d non-manifold edges"
+#~ msgstr[0] "%1$d inte mångfaldig kant@%1$d inte mångfaldiga kanter"
+#~ msgstr[1] "%1$d inte mångfaldig kant@%1$d inte mångfaldiga kanter"
+
+#, c-format, boost-format
+#~ msgid "High-shrinkage filament(s) detected: %s. These materials may cause dimensional deviation after cooling. If your model requires precise fitting or assembly, please refer to the Wiki guide for shrinkage testing."
+#~ msgstr "Detekterat filament med hög krympning: %s. Dessa material kan orsaka dimensionsavvikelser efter kylning. Om din modell kräver exakt passform eller montering, se Wiki-guiden för krympningstestning."
+
+#~ msgid "Unknown file format. Input file must have .stl, .obj, .amf(.xml) extension."
+#~ msgstr "Okänt filformat. Indata filen måste ha tillägget .stl, .obj eller .amf(.xml)."
 
 #~ msgid "Shift+"
 #~ msgstr "Shift+"

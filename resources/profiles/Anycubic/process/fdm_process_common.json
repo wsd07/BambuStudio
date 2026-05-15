@@ -48,6 +48,7 @@
     "outer_wall_acceleration": "700",
     "outer_wall_line_width": "0.4",
     "outer_wall_speed": "45",
+    "reduce_infill_retraction_mode": "Auto",
     "overhang_1_4_speed": "0",
     "overhang_2_4_speed": "50",
     "overhang_3_4_speed": "30",
