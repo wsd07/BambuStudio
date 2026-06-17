@@ -353,3 +353,57 @@
 - 根因或当前最佳判断：当前 Bambu 分支导出缩略图读取的是 `thumbnail_size`，而不是 Prusa/Orca profile 常见的 `thumbnails` 字段；新增机器 profile 只保留了外部切片器风格的 `thumbnails`。另外，`GLCanvas3D::_render_thumbnail_internal()` 在圆形或超大热床、plate box 过滤异常时可能找不到可见模型，随后清空透明背景并返回；`ThumbnailData::is_valid()` 只检查尺寸和数据长度，不检查是否有非透明像素，因此完全透明 PNG 会被当成正常缩略图写入，最终在文件管理器里显示成黑块。
 - 修复方案或临时绕过方式：按照拓竹机器的默认缩略图逻辑，为 Naxe/Anycubic 通用机器 profile 增加 `thumbnail_size: 50x50`。在 `Plater` 的 3MF/G-code 缩略图生成入口增加透明图检测：如果第一次按 plate box 渲染得到的缩略图完全透明，则关闭 `parts_only` 和 `use_plate_box`，改用模型包围盒兜底重渲染，只有兜底结果包含非透明像素时才替换原图。
 - 验证结果：`python3 -m json.tool` 校验 Naxe/Anycubic profile 通过；`git diff --check` 通过；`./BuildMac.sh -s -x -a arm64 -c Release -t 14.0` 完整打包成功，生成 `build/arm64/BambuStudio/BambuStudio.app`。app 包内 Naxe/Anycubic profile 已同步新 `thumbnail_size`。由于系统自动审批额度限制，本次未能写入用户目录 `~/Library/Application Support/BambuStudio/system` 缓存；如果旧缓存仍覆盖 app 资源，需要获得权限后同步缓存或删除对应 system 缓存。旧文件内嵌的黑色/透明缩略图不会自动变好，需要用新版重新保存或重新导出。
+
+## 2026-06-17 - 合并官方 upstream 前必须先提交私有功能 checkpoint
+
+- 日期：2026-06-17
+- 现象：执行官方 `upstream/master` 合并前，工作区包含大量私有功能、机器配置和新增 profile。如果直接 `git merge upstream/master`，冲突解决时很难区分“用户私有功能”与“上游变更”，也难以在失败时回到清晰状态。
+- 受影响的命令、界面、模块或文件：`git status --short --branch`；`git fetch upstream master`；`git merge upstream/master`；FLSun、Anycubic、Naxe profile；花瓶加强、Brim、接缝优化、缩略图等私有功能。
+- 根因或当前最佳判断：这个仓库是长期私有 fork，同步官方更新是重复任务；未提交的大型私有改动会把“保存用户工作”和“解决上游冲突”混在一起，增加误删私有功能的风险。
+- 修复方案或临时绕过方式：合并前先检查状态并提交 checkpoint：`git add -A`，`git commit -m "custom: checkpoint private features before upstream sync"`。本次 checkpoint 为 `e73fb36c0 custom: checkpoint private features before upstream sync`。之后再 `git fetch upstream master` 和 `git merge upstream/master`。
+- 验证结果：checkpoint 提交成功；后续合并冲突只集中在 gettext 和少数源文件，私有功能可通过关键词检查逐项确认。
+
+## 2026-06-17 - 官方 02.07.01.62 合并冲突的处理要点
+
+- 日期：2026-06-17
+- 现象：合并 `upstream/master` 到私有分支时，`bbl/i18n/*.po`、`resources/i18n/*.mo`、`src/libslic3r/GCode.cpp`、`src/libslic3r/Preset.cpp`、`src/slic3r/GUI/AMSMaterialsSetting.cpp`、`src/slic3r/GUI/ConfigManipulation.cpp` 出现冲突。
+- 受影响的命令、界面、模块或文件：`git merge upstream/master`；gettext 翻译资源；`GCode.cpp`；`Preset.cpp`；`AMSMaterialsSetting.cpp`；`ConfigManipulation.cpp`。
+- 根因或当前最佳判断：上游更新了版本、翻译、Filament Manager/WebView、冲刷参数和 GUI 逻辑；私有分支同时修改了 Brim 层数、花瓶模式限制、FLSun/Anycubic/Naxe 支持等区域。
+- 修复方案或临时绕过方式：gettext 大文件冲突先采用 upstream 版本作为基底，后续用 gettext 目标和自定义 `★` 文案重新生成/补回。源文件冲突采用“保留上游新增结构 + 保留私有功能”的原则：`GCode.cpp` 保留上游 `flush_multiplier_fast` 逻辑；`Preset.cpp` 同时保留上游 `skirt_per_object` 和私有 `brim_layers`；`AMSMaterialsSetting.cpp` 保留上游 `ext_id > 0` 防护；`ConfigManipulation.cpp` 保留私有花瓶模式不强制 `wall_loops == 1`，同时加入上游 `alternate extra wall` 限制提示。
+- 验证结果：冲突源文件已手工解决并暂存；私有关键字检查确认 `spiral_vase_reinforcement_multiplier`、`brim_layers`、`seam_optimization`、`thumbnail_is_fully_transparent`、`FLSun V400Max 1.5 nozzle` 仍存在。最终 `git status`/提交验证被后续 macOS 文件读取异常阻断，需在文件系统恢复后继续。
+
+## 2026-06-17 - DeviceWeb Node 缓存目录不能放在源码上级目录
+
+- 日期：2026-06-17
+- 现象：合并官方新版本后重新配置/编译，CMake 报错：`file failed to create directory: /Users/shidongwang/Desktop/work/BambuStudio/../node-cache because: Operation not permitted`，随后 `Failed to download Node.js: NOTFOUND`。
+- 受影响的命令、界面、模块或文件：`cmake --build build/arm64 --config Release --parallel 8`；`src/slic3r/GUI/DeviceWeb/CMakeLists.txt`；DeviceWeb Node.js/pnpm 下载缓存。
+- 根因或当前最佳判断：上游 DeviceWeb CMake 默认把 `NODE_CACHE_DIR` 设置到 `${CMAKE_SOURCE_DIR}/../node-cache`，该路径位于工作区上级目录，不在当前 Codex 可写根内，也不适合作为长期工程缓存位置。
+- 修复方案或临时绕过方式：将 `NODE_CACHE_DIR` 改为 `${CMAKE_BINARY_DIR}/node-cache`，并用中文注释说明缓存放在构建目录内，避免写入源码上级目录触发沙箱或权限问题。
+- 验证结果：重新配置后 Node.js v22.22.2 和 pnpm v10.12.1 成功下载到 `build/arm64-upstream-sync/node-cache` 与 `build/arm64-clt-only/node-cache`。
+
+## 2026-06-17 - macOS `com.apple.provenance`/文件读取异常会导致 CMake、clang、git 长时间卡住
+
+- 日期：2026-06-17
+- 现象：CMake 已显示 `Configuring done` 后，长时间卡在 `Generating done` 之前；`lsof` 显示正在读 `libTKG2d.a`、`libTKCDF.a` 等依赖库并写 `build.ninja.tmp`。编译时多个 `clang`/`clang++` 进程 0% CPU，`sample` 显示卡在 `pread` 读取项目头文件或系统头文件。随后 `git grep` 也报 `short read: Operation canceled`，`git status` 长时间无输出。
+- 受影响的命令、界面、模块或文件：`cmake -S ... -B build/arm64-upstream-sync`；`cmake --build ...`；`ninja -C ...`；`git grep`；`git status`；源码文件、依赖 `.a` 文件、CLT/Xcode SDK 头文件。
+- 根因或当前最佳判断：工作区大量文件带有 `com.apple.provenance` 扩展属性，macOS 26.5.1 上 CMake/clang/git 通过大量小文件 `pread`/`fread` 访问时会出现极端延迟或 `short read`。沙箱内读取会放大问题；即使脱沙箱并统一 CLT 编译器/SDK，项目源码和 SDK 头文件读取仍可能卡住。`xattr -d com.apple.provenance` 对部分文件返回成功但属性仍显示，说明该属性在当前系统上可能受保护或由系统虚拟呈现。
+- 修复方案或临时绕过方式：优先脱离沙箱运行 CMake/编译，并统一 `DEVELOPER_DIR=/Library/Developer/CommandLineTools`、`CMAKE_C_COMPILER=/Library/Developer/CommandLineTools/usr/bin/clang`、`CMAKE_CXX_COMPILER=/Library/Developer/CommandLineTools/usr/bin/clang++`、`CMAKE_OSX_SYSROOT=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk`。若仍卡住，先用 `sample <pid> -mayDie` 和 `lsof -p <pid>` 确认是否卡在 `pread`/`fread`；避免继续盲等。可尝试对普通源码、构建目录和依赖目录执行 `xattr -dr com.apple.provenance` / `xattr -dr com.apple.quarantine`，但不要把这一步当作必定成功的修复。
+- 验证结果：脱沙箱后 CMake 生成从卡死改善为可完成；纯 CLT 配置可在 `Generating done (0.3s)` 完成。但单文件 `ninja -C build/arm64-clt-only -v src/admesh/CMakeFiles/admesh.dir/connect.cpp.o` 仍超过 1 分钟无进展，`git grep` 仍出现 `short read: Operation canceled`。本次构建和最终 merge commit 因系统文件读取异常未完成，后续需在文件系统/系统状态恢复后继续。
+
+## 2026-06-17 - 新建 `bambustudio-upstream-sync` 技能时的校验工具依赖问题
+
+- 日期：2026-06-17
+- 现象：创建复用技能时，系统 skill 模板的 `quick_validate.py` 运行失败，报 `ModuleNotFoundError: No module named 'yaml'`。
+- 受影响的命令、界面、模块或文件：`/Users/shidongwang/.codex/skills/.system/skill-creator/scripts/quick_validate.py`；`/Users/shidongwang/.codex/skills/bambustudio-upstream-sync/SKILL.md`。
+- 根因或当前最佳判断：当前系统 `python3` 环境没有安装 PyYAML，而 `quick_validate.py` 依赖 `yaml` 模块解析 frontmatter。
+- 修复方案或临时绕过方式：不要为了一个本地 skill 校验临时改全局 Python 环境；用轻量 Python 脚本检查 `SKILL.md` 是否存在 frontmatter、`name`、`description` 和正文即可。后续若要完整校验，再使用带 PyYAML 的 Python 环境。
+- 验证结果：轻量校验通过，新技能目录 `/Users/shidongwang/.codex/skills/bambustudio-upstream-sync` 已创建，包含 `SKILL.md`、`references/custom-feature-checklist.md` 和 `agents/openai.yaml`。
+
+## 2026-06-17 - DeviceWeb/Vite 构建失败：清空 `dist/img` 时出现 `ENOTEMPTY`
+
+- 日期：2026-06-17
+- 现象：官方 upstream 合并后的 macOS 打包已完成 C++ 链接，但最后的 DeviceWeb 前端构建失败，Vite 报错：`ENOTEMPTY: directory not empty, rmdir '.../src/slic3r/GUI/DeviceWeb/device_page/dist/img'`。
+- 受影响的命令、界面、模块或文件：`./BuildMac.sh -s -x -a arm64 -c Release -t 14.0`；`src/slic3r/GUI/DeviceWeb/device_page/dist`；`src/slic3r/GUI/DeviceWeb/CMakeLists.txt`。
+- 根因或当前最佳判断：`dist` 是 Vite 生成目录，之前构建留下的 `dist/img` 中仍有旧文件；Vite 在准备输出目录时调用 `emptyDir` 删除子目录，macOS 文件提供器/索引器或并发构建残留导致目录删除瞬间非空，于是前端构建失败。此问题发生在最后的 Web 资源步骤，不代表 C++ 合并或链接失败。
+- 修复方案或临时绕过方式：先删除生成目录 `src/slic3r/GUI/DeviceWeb/device_page/dist`，再重新运行打包命令或对应 build 目标。不要手改源码资源来规避；这是构建产物清理问题。
+- 验证结果：已用 `cmake -E remove_directory src/slic3r/GUI/DeviceWeb/device_page/dist` 清理旧产物，后续重新打包验证。
