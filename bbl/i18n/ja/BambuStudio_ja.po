@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bambu Studio\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-15 20:34+0800\n"
+"POT-Creation-Date: 2026-06-15 21:22+0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -948,7 +948,7 @@ msgid "Cut"
 msgstr "カット"
 
 msgid "Open edges may be caused by the cut tool, do you want to fix it now?"
-msgstr ""
+msgstr "カットツールによってオープンエッジが発生しました。今すぐ修正しますか？"
 
 msgid "Repairing model object"
 msgstr "モデルオブジェクトを修復"
@@ -1994,10 +1994,10 @@ msgid "Choose one file (3mf):"
 msgstr "ファイルを選択 (3mf):"
 
 msgid "Choose one or more files (3mf/step/stl/svg/obj/amf/gltf/glb/fbx/usd*/abc/ply):"
-msgstr ""
+msgstr "1 つまたは複数のファイル（3mf/step/stl/svg/obj/amf/gltf/glb/fbx/usd*/abc/ply）を選択します："
 
 msgid "Choose one or more files (3mf/step/stl/svg/obj/amf/gltf/glb/fbx):"
-msgstr ""
+msgstr "1 つまたは複数のファイル（3mf/step/stl/svg/obj/amf/gltf/glb/fbx）を選択します："
 
 msgid "Choose one file (gcode/.gco/.g/.ngc/ngc):"
 msgstr "1つのファイル（gcode/.gco/.g/.ngc/ngc）を選択します："
@@ -2186,11 +2186,14 @@ msgstr "SVGモディファイアを追加"
 msgid "Select settings"
 msgstr "設定を選択"
 
-msgid "Hide"
-msgstr "非表示"
+msgid "Add to New Step"
+msgstr ""
 
-msgid "Show"
-msgstr "表示"
+msgid "Add to Current Step"
+msgstr ""
+
+msgid "Add to Existing Step"
+msgstr ""
 
 msgid "Delete the selected object"
 msgstr "選択したオブジェクトを削除"
@@ -2554,7 +2557,7 @@ msgstr[0] "%1$dのエラーを修復しました"
 
 #, c-format, boost-format
 msgid "Error: %1$d non-manifold edges, %2$d non-manifold vertices"
-msgstr ""
+msgstr "エラー：%1$d 個の非多様体エッジ、%2$d 個の非多様体頂点"
 
 #, c-format, boost-format
 msgid "Error: %1$d non-manifold edge"
@@ -3174,7 +3177,7 @@ msgid "Filling"
 msgstr "充填"
 
 msgid "Bed filling aborted: invalid bed shape."
-msgstr ""
+msgstr "ベッドの充填が中止されました：無効なベッド形状です。"
 
 msgid "Bed filling canceled."
 msgstr "ベッド充填がキャンセルされました。"
@@ -3262,28 +3265,11 @@ msgstr "LAN経由で造形タスクを送信"
 msgid "Sending print job through cloud service"
 msgstr "クラウド経由で造形タスクを送信"
 
-msgid "Print task sending times out."
-msgstr "印刷タスクの送信がタイムアウトしました。"
-
 msgid "Service Unavailable"
 msgstr "サービスは利用できません"
 
 msgid "Unknown Error."
 msgstr "不明なエラーです。"
-
-msgid "Sending print configuration"
-msgstr "構成を送信"
-
-#, c-format, boost-format
-msgid "Successfully sent. Will automatically jump to the device page in %ss"
-msgstr "送信しました、%s秒後デバイスページへ移動します"
-
-#, c-format, boost-format
-msgid "Successfully sent. Will automatically jump to the next page in %ss"
-msgstr "正常に送信されました。%s秒で自動的に次のページにジャンプします。"
-
-msgid "Storage needs to be inserted before printing via LAN."
-msgstr "LAN経由で印刷する前にストレージを挿入する必要があります。"
 
 msgid "Sending gcode file over LAN"
 msgstr "LAN経由でgcodeファイルを送信"
@@ -3315,62 +3301,89 @@ msgid "Project Filaments"
 msgstr "プロジェクトフィラメント"
 
 msgid "New Filaments"
-msgstr ""
+msgstr "新しいフィラメント"
 
 msgid "Add Material"
-msgstr ""
+msgstr "素材の追加"
 
 #, c-format, boost-format
 msgid "The project supports up to %d filaments. Extra filaments will be discarded."
-msgstr ""
+msgstr "このプロジェクトがサポートするフィラメントは最大%d本までです。それ以上のフィラメントは破棄されます。"
 
 msgid "Import Model"
-msgstr ""
+msgstr "モデルをインポート"
 
 msgid "Original"
 msgstr "オリジナル"
 
 msgid "Multi-Color"
-msgstr ""
+msgstr "マルチカラー"
 
-msgid "Filament Mapping"
-msgstr ""
+msgid "Your input texture model"
+msgstr "入力されたテクスチャモデル"
+
+msgid "Processed multi-color model"
+msgstr "処理済みマルチカラーモデル"
 
 msgid "Color Count"
-msgstr ""
+msgstr "色数"
 
 msgid "Smooth Level"
-msgstr ""
+msgstr "スムーズレベル"
 
 msgid "Automatically determine the optimal color count only and recompute filament mapping"
-msgstr ""
+msgstr "最適な色数のみを自動判定し、フィラメントマッピングを再計算します"
 
 msgid "Convert texture to painting using the specified color count and smooth level"
-msgstr ""
+msgstr "指定された色数とスムーズレベルを使用して、テクスチャをペイントに変換します"
 
 msgid "Reminder: parameters changed, click Apply to take effect"
-msgstr ""
+msgstr "注意：パラメータが変更されました。「適用」をクリックして有効にしてください"
+
+msgid "Filament Mapping"
+msgstr "フィラメントマッピング"
 
 msgid "Auto-merge same filament"
-msgstr ""
+msgstr "同一フィラメントを自動結合"
 
 msgid "Automatically merge identical filaments into existing filaments in the project"
-msgstr ""
+msgstr "同一のフィラメントをプロジェクト内の既存フィラメントに自動結合します"
 
 msgid "Skip Matching"
-msgstr ""
+msgstr "マッチングをスキップ"
 
 msgid "Skip filament mapping and import as a single-color model"
-msgstr ""
+msgstr "フィラメントマッピングをスキップして、単色モデルとしてインポートします"
 
 msgid "Processing"
-msgstr ""
+msgstr "処理中"
 
 msgid "Computing texture colors..."
-msgstr ""
+msgstr "テクスチャの色を計算中..."
 
 msgid "Computation failed. Please adjust parameters and retry."
-msgstr ""
+msgstr "計算に失敗しました。パラメータを調整して再度お試しください。"
+
+msgid "The mesh has non-manifold geometry or open boundaries. You can import it as-is or repair it with Windows 3D repair service before importing."
+msgstr "メッシュには非多様体ジオメトリまたは開いた境界があります。そのままインポートするか、Windows 3D修復サービスで修復してからインポートできます。"
+
+msgid "Mesh repair"
+msgstr "メッシュ修復"
+
+msgid "Import without repair"
+msgstr "修復せずにインポート"
+
+msgid "Repair and import"
+msgstr "修復してインポート"
+
+msgid "Please note that the mesh has non-manifold geometry or open boundaries."
+msgstr "メッシュに非多様体ジオメトリまたは開いた境界があることに注意してください。"
+
+msgid "Mesh issue"
+msgstr "メッシュの問題"
+
+msgid "Continue"
+msgstr "続ける"
 
 msgid "Choose SLA archive:"
 msgstr "SLA アーカイブを選択します:"
@@ -3848,8 +3861,10 @@ msgstr "AMSタイプの切り替えにはファームウェア更新が必要で
 msgid "Arrange AMS Order"
 msgstr "AMSの順序を並べ替え"
 
-msgid "If you want a specific AMS ID sequence, please disconnect all AMS after clicking 'Reset', and then reconnect them in the desired order."
-msgstr "特定の AMS ID 順にしたい場合は、「リセット」をクリックした後、すべての AMS を一度切断し、希望する順番で再接続してください。"
+msgid ""
+"After clicking 'Reconnect', all AMS units will be automatically disconnected.\n"
+"Please reconnect them in the desired order to set a specific AMS ID sequence."
+msgstr "「再接続」をクリックすると、すべてのAMSユニットが自動的に切断されます。特定のAMS IDシーケンスを設定するには、希望する順序でユニットを再接続してください。"
 
 msgid "Are you sure to reset the ID sequence of the connected AMS?"
 msgstr "接続されている AMS の ID 順をリセットしますか？"
@@ -3960,9 +3975,6 @@ msgstr "長方形"
 
 msgid "Circular"
 msgstr "円形"
-
-msgid "Load shape from STL..."
-msgstr "STLからシェープデータを読込む"
 
 msgid "Settings"
 msgstr "設定"
@@ -4208,15 +4220,46 @@ msgstr ""
 "ロック深さはスキン深さより小さくする必要があります。\n"
 "スキン深さの50%%にリセットされます。"
 
+msgid "Alternate extra wall is incompatible with spiral vase mode. To enable alternate extra wall, the following adjustments are recommended:"
+msgstr "交替追加壁は、スパイラル花瓶モードと互換性がありません。交替追加壁を有効にするには、以下の調整をお勧めします。"
+
+msgid "Set ensure vertical shell thickness to Partial."
+msgstr "垂直シェル厚の確保を「部分」に設定します。"
+
+#, c-format, boost-format
+msgid "Set wall loops to %d."
+msgstr "壁面層数を%dに設定します。"
+
+#, c-format, boost-format
+msgid "Set sparse infill density to %d%%."
+msgstr "疎充填密度を%d%%に設定します。"
+
+msgid "Disable spiral vase mode."
+msgstr "スパイラル花瓶モードを無効にします。"
+
 msgid ""
-"Alternate extra wall doesn't work well when ensure vertical shell thickness is set to Enable.\n"
 "Change these settings automatically?\n"
-"Yes - Change ensure vertical shell thickness to Partial and enable alternate extra wall\n"
+"Yes - Apply and keep alternate extra wall enabled\n"
 "No  - Don't use alternate extra wall"
 msgstr ""
+"これらの設定を自動的に変更しますか？\n"
+"はい - 適用して交替追加壁を有効のままにします\n"
+"いいえ - 交替追加壁を使用しません"
 
-msgid "Spiral mode only works when support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."
+msgid "For alternate extra wall to work properly, the following adjustments are recommended:"
+msgstr "交替追加壁を正しく機能させるには、以下の調整をお勧めします。"
+
+msgid ""
+"Apply these adjustments?\n"
+"Yes - Apply and keep alternate extra wall enabled\n"
+"No  - Keep current settings and alternate extra wall enabled"
 msgstr ""
+"これらの調整を適用しますか？\n"
+"はい - 適用して交替追加壁を有効のままにします\n"
+"いいえ - 現在の設定を維持し、交替追加壁を有効のままにします"
+
+msgid "Spiral mode only works when wall loops is 1, support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional, smoothing wall speed in z direction is false and alternate extra wall is disabled."
+msgstr "スパイラルモードは、壁面層数が1、サポートが無効、プロービングによるクランピング検出が無効、トップ面層数が0、疎充填密度が0、タイムラプスタイプが従来型、z方向の壁速度の平滑化が無効、および交替追加壁が無効の場合にのみ機能します。"
 
 msgid " But machines with I3 structure will not generate timelapse videos."
 msgstr "しかし、I3構造のマシンはタイムラプスビデオを生成しません。"
@@ -5043,6 +5086,9 @@ msgstr "モデル「%s」の位置またはサイズが、%s の造形可能範�
 msgid " Please check and adjust the part's position or size to fit the printable range:\n"
 msgstr "印刷可能な範囲に合わせて、パーツの位置やサイズをご確認の上、調整してください：\n"
 
+msgid "Unnamed"
+msgstr ""
+
 msgid "Mirror Object"
 msgstr "オブジェクトを反転"
 
@@ -5180,8 +5226,17 @@ msgstr "カメラを最適化"
 msgid "Fit camera to scene or selected object."
 msgstr "カメラをシーンまたは選択オブジェクトに合わせます。"
 
+msgid "Unlock camera"
+msgstr ""
+
+msgid "Lock camera"
+msgstr ""
+
 msgid "Paint Toolbar"
 msgstr "ペイント ツールバー"
+
+msgid "This border is used to distinguish it from the background"
+msgstr "この境界は、背景と区別するために使用されます。"
 
 msgid "Explosion Ratio"
 msgstr "分解比率"
@@ -5194,6 +5249,15 @@ msgstr "組み立て制御"
 
 msgid "Selection Mode"
 msgstr "選択モード"
+
+msgid "OnlyCurrentStep"
+msgstr ""
+
+msgid "Highlight"
+msgstr ""
+
+msgid "Display Mode"
+msgstr ""
 
 msgid "Total Volume:"
 msgstr "消費量"
@@ -5237,6 +5301,9 @@ msgstr "G-codeはプレートの境界を超えています。"
 
 msgid "Not support printing 2 or more TPU filaments."
 msgstr "2つ以上のTPUフィラメントの印刷には対応していません。"
+
+msgid "The total printed weight exceeds this printer's recommended capacity and may cause slower printing or print defects."
+msgstr "印刷物の総重量がこのプリンターの推奨容量を超えているため、印刷速度の低下や印刷不良が発生する可能性があります。"
 
 #, c-format, boost-format
 msgid "Filament %s is placed in the %s, but the generated G-code path exceeds the printable range of the %s."
@@ -5395,6 +5462,9 @@ msgstr "プレビュー"
 
 msgid "The current page has unsaved changes. You can continue editing or choose to save/discard before leaving."
 msgstr "現在のページには未保存の変更があります。編集を続けるか、保存／破棄してから移動してください。"
+
+msgid "Home"
+msgstr ""
 
 msgid "Device"
 msgstr "デバイス"
@@ -5692,13 +5762,13 @@ msgid "Deselects all objects"
 msgstr "全てのオブジェクトを選択解除"
 
 msgid "Enter Camera Full Screen"
-msgstr ""
+msgstr "カメラ全画面を開く"
 
 msgid "Show the Device camera in full screen"
-msgstr ""
+msgstr "デバイスカメラを全画面表示します"
 
 msgid "Exit Camera Full Screen"
-msgstr ""
+msgstr "カメラ全画面を終了"
 
 msgid "Use Perspective View"
 msgstr "パースペクティブを使用"
@@ -5763,17 +5833,17 @@ msgstr "ヘルプ"
 msgid "Temperature Calibration"
 msgstr "温度キャリブレーション"
 
-msgid "Pass 1"
-msgstr "パス 1"
+msgid "Coarse"
+msgstr "粗い"
 
-msgid "Flow rate test - Pass 1"
-msgstr "流量テスト - パス 1"
+msgid "Flow rate test - Coarse"
+msgstr "流量テスト - 粗い"
 
-msgid "Pass 2"
-msgstr "パス 2"
+msgid "Fine"
+msgstr "細かい"
 
-msgid "Flow rate test - Pass 2"
-msgstr "流量テスト - パス 2"
+msgid "Flow rate test - Fine"
+msgstr "流量テスト - 細かい"
 
 msgid "Flow rate"
 msgstr "流量"
@@ -5938,6 +6008,9 @@ msgstr "プレイヤーが読み込まれていません。「再生」ボタン
 
 msgid "Plugin library failed to load. Click here to view the solution."
 msgstr "プラグインライブラリの読み込みに失敗しました。解決方法を確認するには、こちらをクリックしてください。"
+
+msgid "Loading failed. Please check the network and try again."
+msgstr "読み込みに失敗しました。ネットワーク接続を確認して、もう一度お試しください。"
 
 msgid "Temporarily closed because there is no operation for a while."
 msgstr "しばらく操作がなかったため、一時的に閉じられました。"
@@ -6298,7 +6371,7 @@ msgid "Go to Login"
 msgstr "ログインへ移動"
 
 msgid "Camera Full Screen"
-msgstr ""
+msgstr "カメラ全画面"
 
 msgctxt "Quit_Switching"
 msgid "Quit"
@@ -6856,6 +6929,9 @@ msgstr "確認"
 msgid "Error:"
 msgstr "エラー:"
 
+msgid "Enable support for"
+msgstr "サポートを有効にする対象"
+
 msgid "Open link for more info"
 msgstr "詳細はこちら"
 
@@ -6929,6 +7005,12 @@ msgctxt "Layers"
 msgid "Bottom"
 msgstr "底面"
 
+msgid "There is stringing-prone filament in the current print job. Enabling nozzle clumping detection now may degrade print quality. Are you sure you want to enable it?"
+msgstr "現在のプリントタスクでは、糸引きしやすいフィラメントが使用されています。今ノズル詰まり検知を有効にすると、印刷品質が低下する可能性があります。有効にしてもよろしいですか？"
+
+msgid "Enable Nozzle Clumping Detection"
+msgstr "ノズル詰まり検知を有効化"
+
 msgid "When enabled, the printer will automatically capture photos of printed parts and upload them to the cloud. Would you like to enable this option?"
 msgstr "この機能を有効にすると、造形中および造形完了時に自動で写真を撮影し、クラウドにアップロードします。有効にしますか？"
 
@@ -6947,8 +7029,8 @@ msgstr "造形完了後、内部循環によってチャンバー内の空気を
 msgid "Enable detection of build plate position"
 msgstr "プレート位置検出を有効"
 
-msgid "The localization tag of build plate is detected, and printing is paused if the tag is not in predefined range."
-msgstr "ビルドプレートのローカライズタグが検出され、タグがあらかじめ定義された範囲にない場合は印刷が一時停止されます。"
+msgid "Pauses printing when build plate misalignment is detected."
+msgstr "ビルドプレートの位置ずれが検出された場合、造形を一時停止します。"
 
 msgid "Build Plate Detection"
 msgstr "ビルドプレート検出"
@@ -7013,9 +7095,6 @@ msgstr "検出されたビルドプレートの種類が選択中のものと一
 msgid "Alignment Detection"
 msgstr "位置ずれ検知"
 
-msgid "Pauses printing when build plate misalignment is detected."
-msgstr "ビルドプレートの位置ずれが検出された場合、造形を一時停止します。"
-
 msgid "First Layer Inspection"
 msgstr "1層目検査"
 
@@ -7043,6 +7122,9 @@ msgstr "フィラメント絡み検出"
 msgid "Checks if the nozzle is clumping by filament or other foreign objects."
 msgstr "ノズルにフィラメントや異物が付着していないかを確認します。"
 
+msgid "On"
+msgstr "オン"
+
 msgid "Open Door Detection"
 msgstr "ドア開閉検出"
 
@@ -7060,6 +7142,15 @@ msgstr "造形ステータススナップショット"
 
 msgid "Automatically capture and upload print photos, showing defects during printing and the final result for remote viewing."
 msgstr "造形中の不具合や最終結果を確認できるよう、造形写真を自動で撮影・アップロードし、リモートで閲覧できます。"
+
+msgid "Automatically match the corresponding switch strategy for leak-prone filaments (disable blob detection) and regular filaments (enable blob detection)."
+msgstr "漏れやすいフィラメント（ブロブ検出を無効にする）と通常のフィラメント（ブロブ検出を有効にする）に対して、対応するスイッチ戦略を自動的にマッチングさせます。"
+
+msgid "Detect whether the nozzle is wrapped by filament or other foreign matter."
+msgstr "ノズルにフィラメントやその他の異物が巻き付いているかどうかを検出します。"
+
+msgid "After disabling, nozzle wrapping cannot be detected, which may lead to print failure or nozzle damage."
+msgstr "無効にすると、ノズル巻き込みを検出できなくなるため、造形不良やノズル損傷につながる可能性があります。"
 
 msgctxt "Nozzle Type"
 msgid "Type"
@@ -7492,9 +7583,15 @@ msgstr "マルチパーツ検出"
 
 #, c-format, boost-format
 msgid "Computing texture colors: %s"
-msgstr ""
+msgstr "テクスチャの色を計算中：%s"
 
 msgid "Texture Import Warning"
+msgstr "テクスチャインポート警告"
+
+msgid ""
+"The imported STEP file is split by sub-assembly, so some objects may not be placed on the build plate at first.\n"
+"It is expected if they are placed on the build plate later after translation or similar operations.\n"
+"The overall assembly can be checked from the assembly thumbnail or by entering the assembly view."
 msgstr ""
 
 msgid "Load these files as a single object with multiple parts?\n"
@@ -7507,7 +7604,7 @@ msgid "The file does not contain any geometry data."
 msgstr "このファイルにはジオメトリデータが含まれていません。"
 
 msgid "Importing model to project..."
-msgstr ""
+msgstr "モデルをプロジェクトにインポート中..."
 
 msgid "Your object appears to be too large, Do you want to scale it down to fit the heat bed automatically?"
 msgstr "オブジェクトが大きすぎるようですが、ヒートベッドに合わせて自動的に縮小しますか？"
@@ -7516,25 +7613,25 @@ msgid "Object too large"
 msgstr "オブジェクトが大きすぎます"
 
 msgid "Placing model on the bed..."
-msgstr ""
+msgstr "モデルをベッド上に配置中..."
 
 msgid "Updating object list..."
-msgstr ""
+msgstr "オブジェクトリストを更新中..."
 
 msgid "Updating 3D view..."
-msgstr ""
+msgstr "3Dビューを更新中..."
 
 msgid "Model imported."
-msgstr ""
+msgstr "モデルがインポートされました。"
 
 msgid "Texture import failed. The model appears to contain texture data, but the texture import process could not be completed. The model will be imported as geometry only."
-msgstr ""
+msgstr "テクスチャのインポートに失敗しました。モデルにはテクスチャデータが含まれているようですが、テクスチャのインポート処理を完了できませんでした。モデルはジオメトリのみとしてインポートされます。"
 
 msgid "Applying texture colors..."
-msgstr ""
+msgstr "テクスチャの色を適用中..."
 
 msgid "Texture colors applied."
-msgstr ""
+msgstr "テクスチャの色が適用されました。"
 
 msgid "Export STL file:"
 msgstr "STLファイルをエクスポート:"
@@ -8338,6 +8435,12 @@ msgstr "複数デバイス管理（Studioを再起動後に適用されます）
 msgid "With this option enabled, you can send a task to multiple devices at the same time and manage multiple devices."
 msgstr "このオプションを有効にすると、複数のデバイスに同時にタスクを送信し、複数のデバイスを管理することができます。"
 
+msgid "Take effect after restarting Studio"
+msgstr ""
+
+msgid "The Filament Manager is turned off by default on macOS because compatibility issues on some systems may cause the application to become unresponsive."
+msgstr ""
+
 msgid "Show the step mesh parameter setting dialog."
 msgstr "ステップメッシュパラメータ設定ダイアログを表示"
 
@@ -8357,16 +8460,25 @@ msgid "With this option enabled, you can print materials with a large temperatur
 msgstr "このオプションを有効にすると、温度差の大きい材料を一緒に印刷することができます。"
 
 msgid "Open full screen camera view on active monitor only."
-msgstr ""
+msgstr "アクティブなモニターでのみ、カメラの全画面表示を開きます。"
 
 msgid "When enabled, the camera full screen view opens only on the monitor that contains Bambu Studio."
-msgstr ""
+msgstr "有効にすると、カメラの全画面表示は、Bambu Studioが表示されているモニターでのみ開きます。"
 
 msgid "Clear my choice for synchronizing printer preset after loading the file."
 msgstr "ファイルを読み込んだ後にプリンタプリセットの同期を選択解除します。"
 
 msgid "Clear my choice for Load 3mf dialog settings."
 msgstr "3MF読み込みダイアログの設定選択を解除します。"
+
+msgid "Clear my choice for executing post-processing scripts."
+msgstr "後処理スクリプトを実行する際の選択をクリアします。"
+
+msgid "Show the security warning dialog again before slicing when post-processing scripts are configured."
+msgstr "後処理スクリプトが構成されている場合、スライス処理を行う前にセキュリティ警告ダイアログを再度表示します。"
+
+msgid "Clear my choice for disabling support parameter recommendation."
+msgstr "サポートパラメータの推奨を無効にする選択をクリアします。"
 
 msgid "3D Settings"
 msgstr "3D 設定"
@@ -8932,9 +9044,6 @@ msgstr "常温プレート SuperTack"
 msgid "Send print job"
 msgstr "印刷ジョブを送信"
 
-msgid "On"
-msgstr "オン"
-
 msgid "Not satisfied with the grouping of filaments? Regroup and slice ->"
 msgstr "フィラメントのグループ分けに満足していませんか？再グループ化してスライスしてください。->"
 
@@ -9043,6 +9152,9 @@ msgstr "これはヒートベッドの平坦度を確認します。レベリン
 
 msgid "This process determines the dynamic flow values to improve overall print quality."
 msgstr "このプロセスでは、全体的な印刷品質を向上させるための動的流量値を決定します。"
+
+msgid "After enabling Timelapse, regardless of whether Traditional or Smooth mode is selected, the printer will move the build plate and toolhead before each shot, which may increase the overall print time."
+msgstr "タイムラプス機能を有効にすると、従来モードまたはスムーズモードのどちらを選択しているかに関わらず、プリンターは各ショットの前にビルドプレートとツールヘッドを移動させるため、印刷にかかる総時間が長くなる可能性があります。"
 
 #, c-format, boost-format
 msgid "%s space less than 10MB. Timelapse may not save properly. You can turn it off or"
@@ -9199,11 +9311,17 @@ msgstr "現在のファームウェアバージョンでは、この造形ジョ
 msgid "The hardness of current material (%s) exceeds the hardness of %s (%s). It may cause nozzle wear, leading to material leakage and unstable flow. Please exercise caution when using it."
 msgstr "現在の材料（%s）の硬度は、%s（%s）の硬度を上回っています。そのため、ノズルの摩耗が発生し、材料漏れや流量の不安定化を引き起こす可能性があります。使用時は十分ご注意ください。"
 
+msgid "If 'Dynamic Flow Calibration' is set to Auto/On, the system will use the manual calibration value or the default value and skip the flow calibration process. You can perform a manual flow calibration for TPU filament on the 'Calibration' page."
+msgstr "「動的フローキャリブレーション」が「自動/オン」に設定されている場合、システムは手動キャリブレーション値またはデフォルト値を使用し、フローキャリブレーションのプロセスをスキップします。TPUフィラメントの手動フローキャリブレーションは、「キャリブレーション」ページで実行できます。"
+
 msgid "Some filaments may switch between extruders during printing. Manual K-value calibration cannot be applied throughout the entire print, which may affect print quality. Enabling Flow Dynamics Calibration is recommended."
 msgstr ""
 "一部のフィラメントは造形中に押出機間で切り替わる場合があります。\n"
 "手動K値キャリブレーションは造形全体には適用されないため、造形品質に影響する可能性があります。\n"
 "フローダイナミクスキャリブレーションの有効化を推奨します。"
+
+msgid "There is stringing-prone filament in this file. For best print quality, we recommend switching nozzle clumping detection to Auto mode."
+msgstr "このファイルでは、糸引きしやすいフィラメントが使用されています。最適な印刷品質を得るには、ノズル詰まり検出を自動モードに切り替えることをお勧めします。"
 
 msgid "Cool"
 msgstr "クール"
@@ -9255,6 +9373,9 @@ msgstr "ExtとAMSの混合使用はお控えください。"
 
 msgid "Invalid nozzle information, please refresh or manually set nozzle information."
 msgstr "無効なノズル情報です。更新するか、手動でノズル情報を設定してください。"
+
+msgid "Storage needs to be inserted before printing via LAN."
+msgstr "LAN経由で印刷する前にストレージを挿入する必要があります。"
 
 msgid "Storage is not available or is in read-only mode."
 msgstr "ストレージが利用できないか、読み取り専用モードになっています。"
@@ -9501,6 +9622,12 @@ msgstr "「精密Z高さ」機能と「プライムタワー」を同時に有�
 
 msgid "Prime tower is required for clumping detection. There may be flaws on the model without prime tower. Do you still want to enable clumping detection?"
 msgstr "クラミング検出にはプライムタワーが必要です。プライムタワーを使用しない場合、モデルに欠陥が生じる可能性があります。それでもクラミング検出を有効にしますか？"
+
+#, c-format, boost-format
+msgid ""
+"The selected printer has a bed temperature limit of %d°C.\n"
+"Setting a higher bed temperature may cause damage to the printer."
+msgstr "選択したプリンターのベッド温度の上限は%d°Cです。ベッド温度をこれ以上高く設定すると、プリンターの損傷につながる可能性があります。"
 
 msgid "Prime tower is required for smooth timelapse. There may be flaws on the model without prime tower. Do you want to enable prime tower?"
 msgstr "タイムラプスをスムーズに行うにはプライムタワーが必要です。プライムタワーがない場合、モデルに欠陥がある可能性があります。プライムタワーを有効にしますか？"
@@ -9840,6 +9967,12 @@ msgstr "フィラメント終了G-code"
 msgid "Multi Filament"
 msgstr "マルチフィラメント"
 
+msgid "Purge Mode: Standard"
+msgstr "パージモード：標準"
+
+msgid "Purge Mode: Fast"
+msgstr "パージモード：高速"
+
 msgid "Printable space"
 msgstr "造形可能領域"
 
@@ -9923,6 +10056,12 @@ msgstr "ファームウェアリトラクション"
 
 msgid "Detached"
 msgstr "分離的"
+
+msgid "The current preset is a project preset and can't be used to create a new preset. Please select a system preset or user preset, then try again."
+msgstr ""
+
+msgid "Unable to save preset"
+msgstr ""
 
 #, c-format, boost-format
 msgid "%d Filament Preset and %d Process Preset is attached to this printer. Those presets would be deleted if the printer is deleted."
@@ -11315,43 +11454,43 @@ msgid "Fixing cold prints"
 msgstr "低温による不具合の対処"
 
 msgid "Software Update"
-msgstr ""
+msgstr "ソフトウェアアップデート"
 
 msgid "Try Now"
-msgstr ""
+msgstr "今すぐ試す"
 
 msgid "Don't show me Beta updates again"
-msgstr ""
+msgstr "ベータ版のアップデートを再度表示しない"
 
 msgid "New Bambu Studio Beta Available"
-msgstr ""
+msgstr "新しいBambu Studioベータ版が利用可能になりました"
 
 msgid "Current Version"
-msgstr ""
+msgstr "現在のバージョン"
 
 msgid "Bambu Studio Beta gives you early access to upcoming features, improvements, optimizations, and bug fixes before they are released in the stable version of Bambu Studio. It is intended for advanced users who would like to explore new functionality early and help improve the software experience."
-msgstr ""
+msgstr "Bambu Studioベータ版では、Bambu Studio安定版にリリースされる前に、今後の新機能、改善点、最適化、バグ修正に早期アクセスできます。これは、新しい機能をいち早く試してソフトウェア体験の向上に貢献したい上級ユーザー向けです。"
 
 msgid "Separate configuration folder."
-msgstr ""
+msgstr "個別の構成フォルダ。"
 
 msgid "As a beta release, some features may still be under development, and you may occasionally encounter bugs, unexpected behavior, or incomplete functionality. To prevent conflicts with the stable release, Bambu Studio Beta uses a separate configuration folder (Help -> Show Configuration Folder) and operates independently from the standard version of Bambu Studio."
-msgstr ""
+msgstr "ベータ版のため、一部の機能はまだ開発段階にある場合があり、バグ、予期しない動作、または不完全な機能に遭遇する可能性があります。安定版との競合を避けるため、Bambu Studioベータ版は個別の設定フォルダ（ヘルプ -> 構成フォルダを表示）を使用し、標準版のBambu Studioとは独立して動作します。"
 
 msgid "(Help -> Show Configuration Folder)"
-msgstr ""
+msgstr "（ヘルプ -> 構成フォルダを表示）"
 
 msgid "Why use the Beta version?"
-msgstr ""
+msgstr "ベータ版を使用する理由は何ですか？"
 
 msgid "By using the Beta version and sharing feedback, bug reports, and suggestions, you can help Bambu Lab improve stability, compatibility, and future features before the official release."
-msgstr ""
+msgstr "ベータ版を使用し、フィードバック、バグ報告、提案を共有することで、Bambu Labが正式リリース前に安定性、互換性、および将来の機能の改善に貢献できます。"
 
 msgid "How to change settings?"
-msgstr ""
+msgstr "設定を変更するにはどうすればよいですか？"
 
 msgid "If you prefer not to participate in the Beta program, you can disable Beta Update prompts at any time in Settings."
-msgstr ""
+msgstr "ベータプログラムへの参加を希望しない場合は、いつでも設定でベータ版アップデートの通知を無効にできます。"
 
 msgid "Air Pump"
 msgstr "エアポンプ"
@@ -11452,6 +11591,9 @@ msgstr "修復された3mfファイルにはパーツが含まれていません
 msgid "Repaired 3mf file contains more than one volume"
 msgstr "修復した3mfファイルには複数のパーツが含まれています。"
 
+msgid "Repaired 3mf file contains more than one instance"
+msgstr "修復された3MFファイルには複数のインスタンスが含まれています。"
+
 msgid "Repair finished"
 msgstr "修復完了"
 
@@ -11466,6 +11608,20 @@ msgstr "構成パッケージがアップデートされました"
 
 msgid "Open G-code file:"
 msgstr "G-codeファイルを開く"
+
+msgid "Print task sending times out."
+msgstr "印刷タスクの送信がタイムアウトしました。"
+
+msgid "Sending print configuration"
+msgstr "構成を送信"
+
+#, c-format, boost-format
+msgid "Successfully sent. Will automatically jump to the device page in %ss"
+msgstr "送信しました、%s秒後デバイスページへ移動します"
+
+#, c-format, boost-format
+msgid "Successfully sent. Will automatically jump to the next page in %ss"
+msgstr "正常に送信されました。%s秒で自動的に次のページにジャンプします。"
 
 msgid "The following object(s) have empty initial layer and can't be printed. Please cut the bottom or enable supports."
 msgstr "以下のオブジェクトは一層目が空のため、印刷できません。底をカットするか、サポートを有効にしてください。"
@@ -11587,7 +11743,7 @@ msgid ""
 "Slicing failed because the extrusion line width is too small or the layer height is too large.\n"
 "\n"
 "Please increase the line width or reduce the layer height, then slice again."
-msgstr ""
+msgstr "押出の線幅が小さすぎるか、積層ピッチが大きすぎるため、スライスに失敗しました。線幅を広げるか、積層ピッチを小さくしてから、再度スライス処理を行ってください。"
 
 msgid "undefined error"
 msgstr "未定義エラー"
@@ -11744,6 +11900,9 @@ msgstr "スパイラルモードでは、[オブジェクト順]で複数のオ�
 
 msgid "The spiral vase mode does not work when an object contains more than one materials."
 msgstr "オブジェクトに複数の素材が含まれている場合、スパイラルベースモードは機能しません。"
+
+msgid "The spiral vase mode does not work when an object contains regions with different print settings."
+msgstr ""
 
 msgid "Variable layer height is not supported with Organic supports."
 msgstr "オーガニックサポートでは可変積層ピッチはサポートされていません。"
@@ -12028,12 +12187,14 @@ msgstr "s"
 msgid "Cooling overhang threshold"
 msgstr "オーバーハングの冷却閾値"
 
+#, c-format
 msgid "Force cooling fan to be specific speed when overhang degree of printed part exceeds this value. Expressed as percentage which indicides how much width of the line without support from lower layer. 0% means forcing cooling for all outer wall no matter how much overhang degree"
 msgstr "印刷部分のオーバーハング角度がこの値を超えた場合、冷却ファンを特定の速度で強制的に動作させます。この値は、下のレイヤーからのサポートがない線の幅の割合（%%）として表されます。0%%に設定すると、オーバーハング角度に関係なく、すべての外壁の冷却が強制されます。"
 
 msgid "Overhang threshold for participating cooling"
 msgstr "冷却に参加するためのオーバーハングしきい値"
 
+#, c-format
 msgid "Decide which overhang part join the cooling function to slow down the speed.Expressed as percentage which indicides how much width of the line without support from lower layer. 100% means forcing cooling for all outer wall no matter how much overhang degree"
 msgstr "どのオーバーハング部分が冷却機能により速度低下の対象となるかを決定します。これは、下層にサポートがない場合の線幅をパーセンテージで表現しており、100%%の場合はオーバーハングの程度に関係なくすべての外壁が強制的に冷却されることを意味します。"
 
@@ -12149,17 +12310,11 @@ msgstr "ブリムタイプ"
 msgid "This controls the generation of the brim at outer and/or inner side of models. Auto means the brim width is analysed and calculated automatically."
 msgstr "モデルの外側および/または内側にブリムを生成するかを制御します。「自動」に設定すると、ブリムの幅が解析され、自動的に計算されます。"
 
-msgid "★ Brim-object gap"
-msgstr ""
+msgid "Brim-object gap"
+msgstr "ブリムとオブジェクトの間隔"
 
-msgid "A gap between innermost brim line and object can make brim be removed more easily. Negative values make the brim overlap the object."
-msgstr ""
-
-msgid "★ Brim layers"
-msgstr ""
-
-msgid "The number of layers on which the brim will be printed."
-msgstr ""
+msgid "A gap between innermost brim line and object can make brim be removed more easily"
+msgstr "最内側のブリムラインとオブジェクトの間に隙間があると、ブリムがより簡単に取り外せるようになります。"
 
 msgid "Compatible machine"
 msgstr "対応機種"
@@ -12437,6 +12592,7 @@ msgstr "底面のインフィル パターンです、ブリッジインフィ�
 msgid "Bottom surface density"
 msgstr "ボトム表面密度"
 
+#, c-format
 msgid "Density of bottom surface infill, 100% means a fully solid filled top layer.Lower values create a textured bottom surface, Intended for aesthetic or functional purposes, not to fix issues such as over-extrusion.WARNING: Lowering this value may negatively affect bed adhesion."
 msgstr ""
 "ボトム表面のインフィル密度です。100%% ではボトム層が完全にソリッドになり、値を下げるとテクスチャ状の表面になります。これは見た目や機能上の目的のための設定で、押出過多などの問題を解決するためのものではありません。\n"
@@ -12619,6 +12775,9 @@ msgstr "フラッシュ温度"
 msgid "temperature when flushing filament. 0 indicates the upper bound of the recommended nozzle temperature range"
 msgstr "フィラメントをフラッシュする際の温度です。0を指定すると、ノズルの推奨温度範囲の上限が使用されます。"
 
+msgid "Flush temperature used in fast purge mode."
+msgstr "高速パージモードで使用されるフラッシュ温度。"
+
 msgid "Flush volumetric speed"
 msgstr "フラッシュの体積速度"
 
@@ -12672,6 +12831,18 @@ msgstr "ホットエンド交換時間"
 
 msgid "Time to change hotend."
 msgstr "ホットエンドの切り替えにかかる時間です。"
+
+msgid "Cut and unload from extruder time"
+msgstr ""
+
+msgid "Time to cut filament and retract it out of the extruder, used when parallel feeding is supported. For statistics only"
+msgstr ""
+
+msgid "Extruder bite time after pre-feed"
+msgstr ""
+
+msgid "Time for the extruder to bite the filament once it has been pre-fed, used when parallel feeding is supported. For statistics only"
+msgstr ""
 
 msgid "Bed temperature type"
 msgstr "ベッド温度タイプ"
@@ -12824,11 +12995,17 @@ msgstr "混合フィラメントのグラデーション範囲"
 msgid "Start and end ratios for the first component in gradient mode. Comma-separated pair, e.g. \"0.10,0.90\" means 10% to 90%."
 msgstr "グラデーションモードにおける第1構成要素の開始比率と終了比率を指定します。カンマ区切りで指定します（例：\"0.10,0.90\" は 10% から 90%を意味します）。"
 
+msgid "Mixed filament gradient curve"
+msgstr "混合フィラメント勾配曲線"
+
+msgid "Optional Photoshop-style custom curve mapping Z progress to the first component ratio. Encoded as pipe-separated control points, either \"x,y\" (legacy) or \"x,y,m_in,m_out\" when a tangent override is needed (empty token or \"nan\" means use PCHIP default). x in [0,1]; y is clamped to the configured ratio range, e.g. \"0,0.15|0.5,0.50|1,0.85\". When empty, the linear gradient_range is used instead."
+msgstr "Photoshopスタイルのオプションのカスタムカーブにより、Z方向の進行度を第1成分の比率にマッピングできます。パイプ区切りのコントロールポイントとしてエンコードされ、従来形式の「x,y」、または接線の上書きが必要な場合は「x,y,m_in,m_out」のいずれかを使用します（空のトークンまたは「nan」はPCHIPデフォルトを使用することを意味します）。xは[0,1]の範囲内であり、yは設定された比率範囲（例：「0,0.15|0.5,0.50|1,0.85」）にクランプされます。空の場合は、代わりに線形のgradient_rangeが使用されます。"
+
 msgid "Mixed filament per-part gradient"
-msgstr ""
+msgstr "パーツごとの混合フィラメントグラデーション"
 
 msgid "When gradient mode is enabled, apply the gradient to each part of an assembly independently rather than treating the whole assembly as one Z range."
-msgstr ""
+msgstr "グラデーションモードが有効になっている場合、アセンブリ全体を1つのZ範囲として扱うのではなく、アセンブリの各パーツに個別にグラデーションを適用します。"
 
 msgid "Filament printable"
 msgstr "造形可能なフィラメント"
@@ -12953,6 +13130,7 @@ msgstr "スパースインフィルパターンの角度：線の開始または
 msgid "Sparse infill density"
 msgstr "充填密度"
 
+#, c-format
 msgid "Density of internal sparse infill, 100% means solid throughout"
 msgstr "内部スパース インフィルの密度です。100%%の場合、全体がソリッドになります。"
 
@@ -13238,6 +13416,12 @@ msgstr "有効時は時計回り、無効時は反時計回りで造形します
 
 msgid "Enable clumping detection"
 msgstr "クラミング検出を有効にする"
+
+msgid "Order-independent overlap carving"
+msgstr "順序に依存しない重なり部分の切り抜き"
+
+msgid "When enabled, overlapping model parts are carved by bounding-box size so smaller embedded parts are not removed by larger parts due to volume order."
+msgstr "有効にすると、重なっているモデル部分はバウンディングボックスのサイズに基づいて切り抜かれます。これにより、体積順の影響で小さな埋め込み部品が大きな部品に削除されるのを防げます。"
 
 msgid "Clumping detection layers"
 msgstr "クラミング検出レイヤー"
@@ -13561,6 +13745,12 @@ msgstr "このG-codeは一時停止印刷のコードとして使用されます
 msgid "This G-code will be used as a custom code"
 msgstr "このG-codeがカスタム用です。"
 
+msgid "Support fast purge mode"
+msgstr "高速パージモードに対応"
+
+msgid "Whether this printer supports fast purge mode with optimized temperature and multiplier."
+msgstr "このプリンターが、最適化された温度と倍率を使用する高速パージモードに対応しているかどうかを示します。"
+
 msgid "Maximum speed X"
 msgstr "最大速度 X"
 
@@ -13635,6 +13825,30 @@ msgstr "最大振動 Z"
 
 msgid "Maximum jerk of the E axis"
 msgstr "最大振動 E"
+
+msgid "Maximum force of the Y axis"
+msgstr "Y軸の最大力"
+
+msgid "The allowed maximum output force of Y axis"
+msgstr "Y軸の許容最大出力"
+
+msgid "N"
+msgstr ""
+
+msgid "Bed mass of the Y axis"
+msgstr "Y軸のベッド質量"
+
+msgid "The machine bed mass load of Y axis"
+msgstr "Y軸のマシンベッド質量"
+
+msgid "g"
+msgstr ""
+
+msgid "The allowed max printed mass"
+msgstr "印刷可能な最大質量"
+
+msgid "The allowed max printed mass on a plate"
+msgstr "プレートに印刷できる最大質量"
 
 msgid "Minimum speed for extruding"
 msgstr "押出最低速度"
@@ -13773,10 +13987,10 @@ msgid "Embedding the wall into parts where the wall loops are absent ensures tha
 msgstr "壁ループが存在しない部分に壁を埋め込むことで、インフィルと壁がシームレスに接続されます。"
 
 msgid "Alternate extra wall"
-msgstr ""
+msgstr "代替エクストラウォール"
 
 msgid "Add an extra wall on alternating layers to improve layer bonding and part strength without the full cost of a permanent extra wall."
-msgstr ""
+msgstr "永久エクストラウォールほどのコストをかけずに、層の接着とパーツの強度を向上させるために、交互の層にエクストラウォールを追加します。"
 
 msgid "Post-processing Scripts"
 msgstr "後処理スクリプト"
@@ -13901,6 +14115,9 @@ msgstr "デフォルトノズルボリュームタイプ"
 msgid "Saving"
 msgstr "保存中..."
 
+msgid "Fast"
+msgstr "高速"
+
 msgid "length when change hotend"
 msgstr "ノズル切替時のリトラクト長さ"
 
@@ -14018,6 +14235,12 @@ msgstr "スカート距離"
 msgid "Distance from skirt to brim or object"
 msgstr "スカートからブリムまたはオブジェクトまでの距離"
 
+msgid "Skirt per object"
+msgstr "オブジェクトごとにスカートを生成"
+
+msgid "Generate independent skirt around each object in sequential printing mode. When disabled, a single skirt is drawn around all objects."
+msgstr "シーケンシャル印刷モードでは、各オブジェクトの周囲に独立したスカートを生成します。無効にすると、すべてのオブジェクトの周囲に単一のスカートが描画されます。"
+
 msgid "Skirt height"
 msgstr "スカートの高さ"
 
@@ -14054,33 +14277,6 @@ msgstr "トップ面と底面を除く、内部ソリッドインフィルの造
 msgid "Spiralize smooths out the z moves of the outer contour. And turns a solid model into a single walled print with solid bottom layers. The final generated model has no seam"
 msgstr "スパイラルモードでは、輪郭面を一筆書きで造形します。また、ソリッドモデルをソリッドな底層を持つ単層壁の造形に変えます。Z方向の移動に段差がないので、最終的に生成されるモデルには継ぎ目がありません。"
 
-msgid "★ Vase reinforcement multiplier"
-msgstr ""
-
-msgid "Additional inward wall multiplier for the first spiral vase layers. Decimal values are distributed across rounded reinforcement loops."
-msgstr ""
-
-msgid "★ Vase reinforcement height"
-msgstr ""
-
-msgid "Height of spiral vase reinforcement. A plain number means layer count; a value ending with mm means model height."
-msgstr ""
-
-msgid "layers or mm"
-msgstr ""
-
-msgid "★ Fade vase reinforcement"
-msgstr ""
-
-msgid "Linearly fade the spiral vase reinforcement multiplier over the reinforcement height."
-msgstr ""
-
-msgid "★ Fade end multiplier"
-msgstr ""
-
-msgid "Spiral vase reinforcement multiplier at the end of the reinforcement height."
-msgstr ""
-
 msgid "Smooth Spiral"
 msgstr "スムーススパイラル"
 
@@ -14098,6 +14294,12 @@ msgstr "スムーズモードまたは従来のモードが選択されると、
 
 msgid "Traditional"
 msgstr "通常"
+
+msgid "Farthest point timelapse"
+msgstr "最遠点タイムラプス"
+
+msgid "When enabled, the timelapse snapshot is taken at the farthest point from camera instead of traveling to the wipe tower or excess chute. Only effective in traditional timelapse mode on non-I3 printers."
+msgstr "有効にすると、タイムラプスのスナップショットはワイプタワーや排出シュートへ移動する代わりに、カメラから最遠点で撮影されます。I3以外のプリンターで、従来型のタイムラプスモード時にのみ有効です。"
 
 msgid "Temperature variation"
 msgstr "軟化温度"
@@ -14593,6 +14795,18 @@ msgstr "フラッシュ倍率"
 msgid "The actual flushing volumes is equal to the flush multiplier multiplied by the flushing volumes in the table."
 msgstr "実際のフラッシュ量は、フラッシュ倍率と表内のフラッシュ量を掛けた値になります。"
 
+msgid "Flush multiplier (Fast mode)"
+msgstr "フラッシュ倍率（高速モード）"
+
+msgid "The flush multiplier used in fast purge mode."
+msgstr "高速パージモードで使用されるフラッシュ倍率。"
+
+msgid "Alternate extruder printing"
+msgstr ""
+
+msgid "When the printer supports parallel (pre-)feeding, print the two extruders in an alternating order within a layer instead of finishing one extruder first. Only takes effect when the printer supports parallel feeding."
+msgstr ""
+
 msgid "Width of prime tower"
 msgstr "プライムタワーの幅"
 
@@ -14702,10 +14916,10 @@ msgid "Width of the wall that will replace thin features (according to the Minim
 msgstr "モデルの薄いフィーチャー（最小フィーチャーサイズに基づく）を置き換えるウォールの幅を設定します。最小ウォール幅がフィーチャーの厚さよりも薄い場合、ウォールはそのフィーチャーの厚さと同じになります。この値はノズル直径に対するパーセンテージで表現されます。"
 
 msgid "Override overhang speed"
-msgstr ""
+msgstr "オーバーハング速度を上書きする"
 
 msgid "Override the overhang speed in process page"
-msgstr ""
+msgstr "プロセスページでオーバーハング速度を上書きします"
 
 msgid "Detect narrow internal solid infill"
 msgstr "薄いソリッド インフィル検出"
@@ -14725,9 +14939,6 @@ msgstr "--use-firmware-retraction は --wipe と互換性がありません。"
 #, c-format, boost-format
 msgid " doesn't work at 100%% density "
 msgstr "100%%の密度では動作しません"
-
-msgid "Invalid spiral vase reinforcement height: "
-msgstr ""
 
 msgid "Invalid value when spiral vase mode is enabled: "
 msgstr "スパイラルベースモードが有効な場合、無効な値です："
@@ -14758,6 +14969,13 @@ msgstr "インフィルパスを生成"
 
 msgid "Detect overhangs for auto-lift"
 msgstr "オーバーハング自動検出"
+
+msgid "Levitating objects cannot be printed without supports."
+msgstr "浮いたオブジェクトは、サポートなしでは印刷できません。"
+
+#, c-format, boost-format
+msgid "It seems object %s has floating regions. Please re-orient the object or enable support generation."
+msgstr "オブジェクト%sに浮いた領域があるようです。オブジェクトの向きを変更するか、サポート生成を有効にしてください。"
 
 msgid "Checking support necessity"
 msgstr "サポートの必要性を確認"
@@ -14819,8 +15037,11 @@ msgstr "モデルファイルのメッシュ処理に失敗したか、有効な
 msgid "The supplied file couldn't be read because it's empty"
 msgstr "提供されたファイルは空であるため読み込めませんでした。"
 
+msgid "The file format is incompatible and cannot be parsed."
+msgstr "ファイル形式に互換性がないため、解析できません。"
+
 msgid "Unknown file format. Input file must have .stl, .obj, .amf(.xml), .gltf, .glb, .fbx extension."
-msgstr ""
+msgstr "ファイル形式が不明です。入力ファイルの拡張子は .stl、.obj、.amf(.xml)、.gltf、.glb、.fbxのいずれかである必要があります。"
 
 msgid "Unknown file format. Input file must have .3mf or .zip.amf extension."
 msgstr "不明なファイル形式です。入力ファイルは .3mf または .zip.amf 拡張子である必要があります。"
@@ -14834,11 +15055,8 @@ msgstr "load_obj: 解析に失敗しました"
 msgid "load mtl in obj: failed to parse"
 msgstr "load mtl in obj: 解析に失敗しました"
 
-msgid "The file contains polygons with more than 4 vertices."
-msgstr "ファイルに4つ以上の頂点を持つポリゴンが含まれています。"
-
-msgid "The file contains polygons with less than 2 vertices."
-msgstr "ファイルに頂点が2つ未満のポリゴンが含まれています。"
+msgid "The file contains polygons with less than 3 vertices."
+msgstr "ファイルに頂点が3つ未満のポリゴンが含まれています。"
 
 msgid "The file contains invalid vertex index."
 msgstr "ファイルに無効な頂点インデックスが含まれています"
@@ -15403,9 +15621,9 @@ msgid ""
 "Start temp >= End temp + 5)"
 msgstr ""
 "有効な値を入力してください：\n"
-"\t•\t開始温度：350度以下\n"
-"\t•\t終了温度：180度 以上\n"
-"\t•\t開始温度は終了温度より5 度以上高くしてください"
+"	•	開始温度：350度以下\n"
+"	•	終了温度：180度 以上\n"
+"	•	開始温度は終了温度より5 度以上高くしてください"
 
 msgid "Max volumetric speed test"
 msgstr "最大体積速度テスト"
@@ -15425,9 +15643,9 @@ msgid ""
 "end >= start + step)"
 msgstr ""
 "有効な値を入力してください：\n"
-"\t•\t開始値（start） > 0\n"
-"\t•\tステップサイズ（step） ≥ 0\n"
-"\t•\t終了値（end） ≥ 開始値 + ステップサイズ"
+"	•	開始値（start） > 0\n"
+"	•	ステップサイズ（step） ≥ 0\n"
+"	•	終了値（end） ≥ 開始値 + ステップサイズ"
 
 msgid "VFA test"
 msgstr "VFA テスト"
@@ -15444,9 +15662,9 @@ msgid ""
 "end >= start + step)"
 msgstr ""
 "有効な値を入力してください：\n"
-"\t•\t開始値（start） > 10\n"
-"\t•\tステップサイズ（step） ≥ 0\n"
-"\t•\t終了値（end） ≥ 開始値 + ステップサイズ"
+"	•	開始値（start） > 10\n"
+"	•	ステップサイズ（step） ≥ 0\n"
+"	•	終了値（end） ≥ 開始値 + ステップサイズ"
 
 msgid "Start retraction length: "
 msgstr "引き込み開始の長さ： "
@@ -15793,9 +16011,6 @@ msgstr "テンプレートから作成"
 msgid "Create Based on Current Printer"
 msgstr "現在のプリンタに基づいて作成"
 
-msgid "Rectangle"
-msgstr "長方形"
-
 msgid "wiki"
 msgstr "Wiki"
 
@@ -15825,6 +16040,9 @@ msgstr "カスタムノズル径を入力"
 
 msgid "Can't find my nozzle diameter"
 msgstr "ノズル径が見つかりませんか？"
+
+msgid "Rectangle"
+msgstr "長方形"
 
 msgid "Printable Space"
 msgstr "造形可能領域"
@@ -16857,9 +17075,6 @@ msgstr "このアクションは元に戻せません。続けますか?"
 msgid "Skipping objects."
 msgstr "オブジェクトをスキップします。"
 
-msgid "Continue"
-msgstr "続ける"
-
 msgid "Null Color"
 msgstr "未設定の色"
 
@@ -16913,11 +17128,11 @@ msgstr "プリンターには異なるノズルが取り付けられています
 msgid "Purge Mode Settings"
 msgstr "パージモード設定"
 
-msgid "Standard Mode"
-msgstr "標準モード"
+msgid "Perform full purging with speed and temperature transition for the best print quality."
+msgstr "最適な印刷品質を得るためには、速度と温度変化を考慮した完全なパージ処理を実行します。"
 
-msgid "Performs full priming for the best print quality. Requires more material and time."
-msgstr "最高の造形品質を得るためにフルプライミングを行います。より多くの材料と時間が必要です。"
+msgid "Uses optimized purge temperature, multiplier and stronger extrusion for faster purging. May cause slight color mixing in some extreme cases."
+msgstr "最適化されたパージ温度、倍率、およびより強力な押出により、より高速なパージを実現します。極端な場合、わずかな色混じりが生じる可能性があります。"
 
 msgid "Prime Saving"
 msgstr "プライム節約"
@@ -17207,7 +17422,7 @@ msgid "Gradient Effect"
 msgstr "グラデーション効果"
 
 msgid "Enable per-part gradient effect"
-msgstr ""
+msgstr "パーツごとのグラデーション効果を有効化"
 
 msgid "Mixing Recommendations"
 msgstr "混合の推奨設定"
@@ -17242,6 +17457,12 @@ msgstr "構成要素の上限に達しました。"
 
 msgid "Remove the third material"
 msgstr "3つ目の材料を削除してください。"
+
+msgid "Material Ratio"
+msgstr "材料比率"
+
+msgid "Model Height"
+msgstr "モデルの高さ"
 
 #: resources/data/hints.ini: [hint:How to use keyboard shortcuts]
 msgid ""
@@ -17466,7 +17687,7 @@ msgstr ""
 msgid ""
 "Filament Shrinkage\n"
 "Filaments such as %s have higher shrinkage rates, which may cause slight dimensional deviations after cooling and affect assembly fit. It is recommended to refer to the Wiki for shrinkage calibration to achieve more accurate print results."
-msgstr ""
+msgstr "フィラメントの収縮率：%sなどのフィラメントは収縮率が高いため、冷却後にわずかな寸法誤差が生じ、組み立て時の嵌合に影響を与える可能性があります。より正確な印刷結果を得るためには、Wiki を参照して収縮補正を行うことをお勧めします。"
 
 #: resources/data/helio_hints.ini: [hint: Run Nylon & PC (and other advanced
 #: materials) Like a Pro]
@@ -17536,14 +17757,44 @@ msgstr ""
 "一発成功の信頼性\n"
 "見守りの手間を減らし、より予測可能な造形を実現。例：PETG 部品を小規模ファームで運用する場合でも、「6時間目で失敗」といった不意打ちを避け、バッチを計画どおりに進められます。"
 
+#~ msgid "Hide"
+#~ msgstr "非表示"
+
+#~ msgid "Show"
+#~ msgstr "表示"
+
 #~ msgid "Spiral mode only works when wall loops is 1, support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."
 #~ msgstr "スパイラルモードが有効になるのは、以下の条件をすべて満たしている場合のみです：ウォールループが1、サポート無効、プロービングによるクラッピング検出が無効、トップシェル層が0、粗い充填密度が0、タイムラプスタイプが従来型、Z方向のウォール速度スムージングが無効であること。"
 
-#~ msgid "Brim-object gap"
-#~ msgstr "ブリムとオブジェクトの間隔"
+#~ msgid "It is recommended to perform an mannual flow calibration for TPU filament on the 'Calibration' page. If 'Dynamic Flow Calibration' is set to Auto/On, the system will use the previous calibration value and skip the flow calibration process."
+#~ msgstr "TPUフィラメントの流量校正は、「キャリブレーション」ページで手動流量キャリブレーションを行うことを推奨します。「動的流量キャリブレーション」が自動／オンに設定されている場合、前回のキャリブレーション値が使用され、流量キャリブレーションプロセスはスキップされます。"
 
-#~ msgid "A gap between innermost brim line and object can make brim be removed more easily"
-#~ msgstr "最内側のブリムラインとオブジェクトの間に隙間があると、ブリムがより簡単に取り外せるようになります。"
+#~ msgid "Pass 1"
+#~ msgstr "パス 1"
+
+#~ msgid "Flow rate test - Pass 1"
+#~ msgstr "流量テスト - パス 1"
+
+#~ msgid "Pass 2"
+#~ msgstr "パス 2"
+
+#~ msgid "Flow rate test - Pass 2"
+#~ msgstr "流量テスト - パス 2"
+
+#~ msgid "The localization tag of build plate is detected, and printing is paused if the tag is not in predefined range."
+#~ msgstr "ビルドプレートのローカライズタグが検出され、タグがあらかじめ定義された範囲にない場合は印刷が一時停止されます。"
+
+#~ msgid "The file contains polygons with more than 4 vertices."
+#~ msgstr "ファイルに4つ以上の頂点を持つポリゴンが含まれています。"
+
+#~ msgid "The file contains polygons with less than 2 vertices."
+#~ msgstr "ファイルに頂点が2つ未満のポリゴンが含まれています。"
+
+#~ msgid "Standard Mode"
+#~ msgstr "標準モード"
+
+#~ msgid "Performs full priming for the best print quality. Requires more material and time."
+#~ msgstr "最高の造形品質を得るためにフルプライミングを行います。より多くの材料と時間が必要です。"
 
 #~ msgid "non-manifold edges be caused by cut tool, do you want to fix it now?"
 #~ msgstr "カットツールによって非閉合エッジが発生しました。今すぐ修正しますか？"
@@ -17566,6 +17817,9 @@ msgstr ""
 #~ msgid "%1$d non-manifold edge"
 #~ msgid_plural "%1$d non-manifold edges"
 #~ msgstr[0] "%1$dの非多様体エッジがあります"
+
+#~ msgid "If you want a specific AMS ID sequence, please disconnect all AMS after clicking 'Reset', and then reconnect them in the desired order."
+#~ msgstr "特定の AMS ID 順にしたい場合は、「リセット」をクリックした後、すべての AMS を一度切断し、希望する順番で再接続してください。"
 
 #, c-format, boost-format
 #~ msgid "High-shrinkage filament(s) detected: %s. These materials may cause dimensional deviation after cooling. If your model requires precise fitting or assembly, please refer to the Wiki guide for shrinkage testing."
@@ -20262,6 +20516,9 @@ msgstr ""
 
 #~ msgid "Load process/machine settings from the specified file"
 #~ msgstr "指定ファイルから設定値を読込む"
+
+#~ msgid "Load shape from STL..."
+#~ msgstr "STLからシェープデータを読込む"
 
 #~ msgid "Load slicing data"
 #~ msgstr "スライスデータを読込み"

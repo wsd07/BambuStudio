@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Slic3rPE\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-15 20:34+0800\n"
+"POT-Creation-Date: 2026-06-15 21:22+0800\n"
 "PO-Revision-Date: 2025-02-20 20:32+0800\n"
 "Last-Translator: Jiang Yue <maze1024@gmail.com>\n"
 "Language-Team: \n"
@@ -1364,7 +1364,7 @@ msgid "Remove selection"
 msgstr "移除绘制"
 
 msgid "Recommend"
-msgstr ""
+msgstr "推荐"
 
 msgid "Old version"
 msgstr "旧版本"
@@ -1550,7 +1550,7 @@ msgid "Error:Detecting an incorrect mesh id or an unknown error, regenerating te
 msgstr "错误：检测到不正确的网格id或未知错误，重新生成文本可能会导致不正确的结果。请拖动文本，保存，然后重新编辑。"
 
 msgid "Warning:Due to functional upgrade, rotation information cannot be restored. Please drag or modify text,save it and reedit it will ok."
-msgstr ""
+msgstr "警告：由于功能升级，旋转信息无法恢复。请拖动或修改文本，保存后重新编辑。"
 
 msgid "Detected that text did not adhere to mesh surface. Please manually drag yellow square to mesh surface that needs to be adhered."
 msgstr "检测到文本未贴合在网格表面。请手动将黄色方块拖动到需要贴合的网格表面。"
@@ -1642,7 +1642,7 @@ msgid "There is already a text style with the same name."
 msgstr "已经存在同名的文本样式。"
 
 msgid "There are spaces or illegal characters present."
-msgstr ""
+msgstr "存在空格或非法字符。"
 
 msgid "Head diameter"
 msgstr "Brim 直径"
@@ -2081,7 +2081,7 @@ msgid "Ongoing uploads"
 msgstr "正在进行的上传"
 
 msgid "Install presets failed"
-msgstr ""
+msgstr "预设安装失败"
 
 msgid "Select a G-code file:"
 msgstr "选择一个G-code文件："
@@ -2183,11 +2183,14 @@ msgstr "添加SVG修改器"
 msgid "Select settings"
 msgstr "选择设置"
 
-msgid "Hide"
-msgstr "隐藏"
+msgid "Add to New Step"
+msgstr ""
 
-msgid "Show"
-msgstr "显示"
+msgid "Add to Current Step"
+msgstr ""
+
+msgid "Add to Existing Step"
+msgstr ""
 
 msgid "Delete the selected object"
 msgstr "删除所选对象"
@@ -3262,28 +3265,11 @@ msgstr "正在通过局域网发送打印任务"
 msgid "Sending print job through cloud service"
 msgstr "正在通过云端服务发送打印任务"
 
-msgid "Print task sending times out."
-msgstr "发送打印任务超时。"
-
 msgid "Service Unavailable"
 msgstr "服务不可用"
 
 msgid "Unknown Error."
 msgstr "未知错误。"
-
-msgid "Sending print configuration"
-msgstr "正在发送打印配置"
-
-#, c-format, boost-format
-msgid "Successfully sent. Will automatically jump to the device page in %ss"
-msgstr "已发送完成，即将自动跳转到设备页面（%s秒）"
-
-#, c-format, boost-format
-msgid "Successfully sent. Will automatically jump to the next page in %ss"
-msgstr "已成功发送。将在%ss后自动跳转到下一页。"
-
-msgid "Storage needs to be inserted before printing via LAN."
-msgstr "通过局域网发送打印任务，需要先插入存储设备。"
 
 msgid "Sending gcode file over LAN"
 msgstr "通过局域网发送gcode文件"
@@ -3333,8 +3319,11 @@ msgstr "原项目"
 msgid "Multi-Color"
 msgstr "多色"
 
-msgid "Filament Mapping"
-msgstr "耗材映射"
+msgid "Your input texture model"
+msgstr "您输入的纹理模型"
+
+msgid "Processed multi-color model"
+msgstr "处理后的多色模型"
 
 msgid "Color Count"
 msgstr "颜色数目"
@@ -3350,6 +3339,9 @@ msgstr "使用指定的颜色数目和光滑程度将纹理转换为涂色"
 
 msgid "Reminder: parameters changed, click Apply to take effect"
 msgstr "提醒：参数已更改，请点击应用生效"
+
+msgid "Filament Mapping"
+msgstr "耗材映射"
 
 msgid "Auto-merge same filament"
 msgstr "自动合并相同的耗材"
@@ -3371,6 +3363,27 @@ msgstr "正在计算纹理颜色..."
 
 msgid "Computation failed. Please adjust parameters and retry."
 msgstr "计算失败。请调整参数后重试。"
+
+msgid "The mesh has non-manifold geometry or open boundaries. You can import it as-is or repair it with Windows 3D repair service before importing."
+msgstr "网格具有非流形几何或开放边界。您可以直接导入，或在导入前使用 Windows 3D 修复服务进行修复。"
+
+msgid "Mesh repair"
+msgstr "网状修复"
+
+msgid "Import without repair"
+msgstr "不修复并导入"
+
+msgid "Repair and import"
+msgstr "修复并导入"
+
+msgid "Please note that the mesh has non-manifold geometry or open boundaries."
+msgstr "请注意，网格具有非流形或开放边界。"
+
+msgid "Mesh issue"
+msgstr "网格故障"
+
+msgid "Continue"
+msgstr "继续"
 
 msgid "Choose SLA archive:"
 msgstr "选择SLA存档："
@@ -3786,7 +3799,7 @@ msgid "Select Filament && Hotends"
 msgstr "选择材料预设和喷头"
 
 msgid "Select Filament"
-msgstr ""
+msgstr "选择耗材"
 
 msgid "AMS Settings"
 msgstr "AMS 设置"
@@ -3848,8 +3861,12 @@ msgstr "AMS 类型切换需要更新固件，耗时约 30秒。现在切换吗�
 msgid "Arrange AMS Order"
 msgstr "重新排序 AMS"
 
-msgid "If you want a specific AMS ID sequence, please disconnect all AMS after clicking 'Reset', and then reconnect them in the desired order."
-msgstr "如果您想要特定的AMS ID序列，请在点击“重置”后断开所有AMS，然后按所需顺序重新连接它们。"
+msgid ""
+"After clicking 'Reconnect', all AMS units will be automatically disconnected.\n"
+"Please reconnect them in the desired order to set a specific AMS ID sequence."
+msgstr ""
+"点击“重新连接”后，所有 AMS 单元将自动断开连接。\n"
+"请按照所需顺序重新连接，以设置特定的 AMS ID 序列。"
 
 msgid "Are you sure to reset the ID sequence of the connected AMS?"
 msgstr "您确定要重置已连接AMS的ID序列吗？"
@@ -3960,9 +3977,6 @@ msgstr "矩形"
 
 msgid "Circular"
 msgstr "圆"
-
-msgid "Load shape from STL..."
-msgstr "从STL文件加载形状..."
 
 msgid "Settings"
 msgstr "设置"
@@ -4197,15 +4211,46 @@ msgstr ""
 "互锁深度应该比表皮深度小,\n"
 "重设为表皮深度的一半"
 
+msgid "Alternate extra wall is incompatible with spiral vase mode. To enable alternate extra wall, the following adjustments are recommended:"
+msgstr "交替额外墙层与旋转花瓶模式不兼容。若要启用交替额外墙层，建议进行以下调整："
+
+msgid "Set ensure vertical shell thickness to Partial."
+msgstr "将确保垂直外壳厚度设为「部分」。"
+
+#, c-format, boost-format
+msgid "Set wall loops to %d."
+msgstr "将墙层数设为 %d。"
+
+#, c-format, boost-format
+msgid "Set sparse infill density to %d%%."
+msgstr "将稀疏填充密度设为 %d%%。"
+
+msgid "Disable spiral vase mode."
+msgstr "关闭旋转花瓶模式。"
+
 msgid ""
-"Alternate extra wall doesn't work well when ensure vertical shell thickness is set to Enable.\n"
 "Change these settings automatically?\n"
-"Yes - Change ensure vertical shell thickness to Partial and enable alternate extra wall\n"
+"Yes - Apply and keep alternate extra wall enabled\n"
 "No  - Don't use alternate extra wall"
 msgstr ""
+"是否自动修改这些设置？\n"
+"是 - 应用修改并保持交替额外墙层启用\n"
+"否 - 不使用交替额外墙层"
 
-msgid "Spiral mode only works when support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."
+msgid "For alternate extra wall to work properly, the following adjustments are recommended:"
+msgstr "为使交替额外墙层正常工作，建议进行以下调整："
+
+msgid ""
+"Apply these adjustments?\n"
+"Yes - Apply and keep alternate extra wall enabled\n"
+"No  - Keep current settings and alternate extra wall enabled"
 msgstr ""
+"是否应用这些修改？\n"
+"是 - 应用修改并保持交替额外墙层启用\n"
+"否 - 保持当前设置并启用交替额外墙层"
+
+msgid "Spiral mode only works when wall loops is 1, support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional, smoothing wall speed in z direction is false and alternate extra wall is disabled."
+msgstr "花瓶模式仅在以下条件下可用：墙壁环数设置为1，支撑禁用，触碰裹头检测禁用，顶壳层数为0，稀疏填充密度为0，延时摄影类型为传统，Z方向墙速度平滑不启用且交替额外墙层关闭。"
 
 msgid " But machines with I3 structure will not generate timelapse videos."
 msgstr "但是I3结构的机器将不会生成延时视频。"
@@ -4924,6 +4969,8 @@ msgid ""
 "An object is placed in the left/right nozzle-only area or exceeds the printable height of the left nozzle.\n"
 "Please ensure the filaments used by this object are not arranged to other nozzles."
 msgstr ""
+"对象放置在仅限左/右喷嘴的区域，或超出左喷嘴的可打印高度。\n"
+"请确保此对象使用的耗材未分配给其他喷嘴。"
 
 msgid ""
 "An object is laid over the boundary of plate or exceeds the height limit.\n"
@@ -5014,11 +5061,11 @@ msgstr "装配体的边界框过大（最大尺寸 >= %1% mm），这可能会�
 
 #, boost-format
 msgid "Following objects are too far ( distance >= %1% in ) from the original of the world coordinate system:\n"
-msgstr ""
+msgstr "以下对象距离世界坐标系原点过远（距离 >= %1% 英寸）：\n"
 
 #, boost-format
 msgid "Following objects are too far ( distance >= %1% mm ) from the original of the world coordinate system:\n"
-msgstr ""
+msgstr "以下对象距离世界坐标系原点过远（距离 >= %1% mm）：\n"
 
 #, c-format, boost-format
 msgid "The position or size of some models exceeds the %s's printable range."
@@ -5030,6 +5077,9 @@ msgstr "模型%s的位置或者尺寸超出了%s的可打印范围"
 
 msgid " Please check and adjust the part's position or size to fit the printable range:\n"
 msgstr " 请检查并调整零件的位置或尺寸以适应打印范围\n"
+
+msgid "Unnamed"
+msgstr ""
 
 msgid "Mirror Object"
 msgstr "镜像物体"
@@ -5169,8 +5219,17 @@ msgstr "相机适配"
 msgid "Fit camera to scene or selected object."
 msgstr "使相机适配场景或选定对象"
 
+msgid "Unlock camera"
+msgstr ""
+
+msgid "Lock camera"
+msgstr ""
+
 msgid "Paint Toolbar"
 msgstr "上色工具条"
+
+msgid "This border is used to distinguish it from the background"
+msgstr "此边框用于和背景做区分"
 
 msgid "Explosion Ratio"
 msgstr "爆炸比例"
@@ -5183,6 +5242,15 @@ msgstr "拼装视图控制"
 
 msgid "Selection Mode"
 msgstr "选择模式"
+
+msgid "OnlyCurrentStep"
+msgstr ""
+
+msgid "Highlight"
+msgstr ""
+
+msgid "Display Mode"
+msgstr ""
 
 msgid "Total Volume:"
 msgstr "总体积："
@@ -5226,6 +5294,9 @@ msgstr "检测超出热床边界的G-code路径。"
 
 msgid "Not support printing 2 or more TPU filaments."
 msgstr "不支持同时打印2种（或以上）TPU材料。"
+
+msgid "The total printed weight exceeds this printer's recommended capacity and may cause slower printing or print defects."
+msgstr "打印的物体总质量已超过此打印机的建议值，可能会导致打印速度变慢或出现打印缺陷。"
 
 #, c-format, boost-format
 msgid "Filament %s is placed in the %s, but the generated G-code path exceeds the printable range of the %s."
@@ -5391,6 +5462,9 @@ msgstr "预览"
 msgid "The current page has unsaved changes. You can continue editing or choose to save/discard before leaving."
 msgstr "当前页面有未保存的更改。您可以继续编辑，或选择保存/放弃后离开。"
 
+msgid "Home"
+msgstr "首页"
+
 msgid "Device"
 msgstr "设备"
 
@@ -5546,7 +5620,7 @@ msgid "Isometric View"
 msgstr "等轴测视图"
 
 msgid "Fit Camera"
-msgstr ""
+msgstr "相机适配"
 
 msgid "Start a new window"
 msgstr "打开新窗口"
@@ -5687,13 +5761,13 @@ msgid "Deselects all objects"
 msgstr "取消所有选中"
 
 msgid "Enter Camera Full Screen"
-msgstr ""
+msgstr "进入相机全屏"
 
 msgid "Show the Device camera in full screen"
-msgstr ""
+msgstr "以全屏模式显示设备相机影像"
 
 msgid "Exit Camera Full Screen"
-msgstr ""
+msgstr "退出相机全屏"
 
 msgid "Use Perspective View"
 msgstr "使用透视视角"
@@ -5758,16 +5832,16 @@ msgstr "帮助"
 msgid "Temperature Calibration"
 msgstr "温度校准"
 
-msgid "Pass 1"
+msgid "Coarse"
 msgstr "粗调"
 
-msgid "Flow rate test - Pass 1"
+msgid "Flow rate test - Coarse"
 msgstr "流量测试 - 粗调"
 
-msgid "Pass 2"
+msgid "Fine"
 msgstr "细调"
 
-msgid "Flow rate test - Pass 2"
+msgid "Flow rate test - Fine"
 msgstr "流量测试 - 细调"
 
 msgid "Flow rate"
@@ -5932,6 +6006,9 @@ msgstr "未能加载播放器，请重新点击“播放”按钮。"
 
 msgid "Plugin library failed to load. Click here to view the solution."
 msgstr "插件库加载失败，点击这里查看解决办法。"
+
+msgid "Loading failed. Please check the network and try again."
+msgstr ""
 
 msgid "Temporarily closed because there is no operation for a while."
 msgstr "长时间无操作，监控已关闭。"
@@ -6295,7 +6372,7 @@ msgid "Go to Login"
 msgstr "转到登录"
 
 msgid "Camera Full Screen"
-msgstr ""
+msgstr "相机全屏"
 
 msgctxt "Quit_Switching"
 msgid "Quit"
@@ -6851,6 +6928,9 @@ msgstr "跳转到"
 msgid "Error:"
 msgstr "错误："
 
+msgid "Enable support for"
+msgstr ""
+
 msgid "Open link for more info"
 msgstr "打开链接获取更多信息"
 
@@ -6922,6 +7002,12 @@ msgctxt "Layers"
 msgid "Bottom"
 msgstr "底部"
 
+msgid "There is stringing-prone filament in the current print job. Enabling nozzle clumping detection now may degrade print quality. Are you sure you want to enable it?"
+msgstr "当前打印文件存在易拉丝耗材，现在开启该检测可能导致打印质量下降，您确定要开启吗？"
+
+msgid "Enable Nozzle Clumping Detection"
+msgstr "裹头检测"
+
 msgid "When enabled, the printer will automatically capture photos of printed parts and upload them to the cloud. Would you like to enable this option?"
 msgstr "启用后，打印机会自动拍摄打印部件的照片并上传到云端。您想启用此选项吗？"
 
@@ -6940,8 +7026,8 @@ msgstr "每次打印结束时，通过内循环净化打印机的腔体空气。
 msgid "Enable detection of build plate position"
 msgstr "启用打印板位置检测"
 
-msgid "The localization tag of build plate is detected, and printing is paused if the tag is not in predefined range."
-msgstr "检测打印板的定位标记，如果标记不在预定义范围内时暂停打印。"
+msgid "Pauses printing when build plate misalignment is detected."
+msgstr "若检测到打印板偏移，则暂停打印。"
 
 msgid "Build Plate Detection"
 msgstr "打印板检测"
@@ -7006,9 +7092,6 @@ msgstr "检测到的打印板类型与所选类型不匹配时暂停打印。"
 msgid "Alignment Detection"
 msgstr "偏移检测"
 
-msgid "Pauses printing when build plate misalignment is detected."
-msgstr "若检测到打印板偏移，则暂停打印。"
-
 msgid "First Layer Inspection"
 msgstr "首层扫描"
 
@@ -7036,6 +7119,9 @@ msgstr "缠料检测"
 msgid "Checks if the nozzle is clumping by filament or other foreign objects."
 msgstr "检查喷嘴是否被耗材或其他异物堵塞。"
 
+msgid "On"
+msgstr "打开"
+
 msgid "Open Door Detection"
 msgstr "开门检测"
 
@@ -7053,6 +7139,15 @@ msgstr "打印状态快照"
 
 msgid "Automatically capture and upload print photos, showing defects during printing and the final result for remote viewing."
 msgstr "自动拍摄打印件照片并上传云端，包括打印过程中检测到的缺陷和任务结束时的打印件状态，便于远程查看。"
+
+msgid "Automatically match the corresponding switch strategy for leak-prone filaments (disable blob detection) and regular filaments (enable blob detection)."
+msgstr "对易拉丝耗材(关闭裹头检测)与常规耗材(开启裹头检测)自动匹配相应的开关策略。"
+
+msgid "Detect whether the nozzle is wrapped by filament or other foreign matter."
+msgstr "检测喷嘴是否被耗材或其他异物包裹住。"
+
+msgid "After disabling, nozzle wrapping cannot be detected, which may lead to print failure or nozzle damage."
+msgstr "关闭后无法发现喷嘴包裹,可能导致打印失败或喷嘴损坏。"
 
 msgctxt "Nozzle Type"
 msgid "Type"
@@ -7082,7 +7177,7 @@ msgid "TPU High flow"
 msgstr "TPU高流量"
 
 msgid "No wiki link available for this printer."
-msgstr ""
+msgstr "此打印机暂无 Wiki 链接。"
 
 msgid "Unavailable while heating maintenance function is on."
 msgstr "因其他加热维护功能已开启，本功能暂不可用。"
@@ -7144,7 +7239,7 @@ msgstr "%s喷嘴不可以打印%s"
 
 #, boost-format
 msgid "Mixing %1% with %2% in printing is not recommended.\n"
-msgstr ""
+msgstr "不建议在打印中混合使用 %1% 和 %2%。\n"
 
 msgid " nozzle"
 msgstr "喷嘴"
@@ -7491,6 +7586,12 @@ msgstr "正在计算纹理颜色：%s"
 
 msgid "Texture Import Warning"
 msgstr "导入纹理警告"
+
+msgid ""
+"The imported STEP file is split by sub-assembly, so some objects may not be placed on the build plate at first.\n"
+"It is expected if they are placed on the build plate later after translation or similar operations.\n"
+"The overall assembly can be checked from the assembly thumbnail or by entering the assembly view."
+msgstr ""
 
 msgid "Load these files as a single object with multiple parts?\n"
 msgstr "将这些文件加载为一个多零件对象？\n"
@@ -8331,6 +8432,12 @@ msgstr "多设备管理（重启Studio后生效）"
 msgid "With this option enabled, you can send a task to multiple devices at the same time and manage multiple devices."
 msgstr "启用此选项后，您可以同时向多个设备发送任务并管理多个设备。"
 
+msgid "Take effect after restarting Studio"
+msgstr "重启Studio后生效"
+
+msgid "The Filament Manager is turned off by default on macOS because compatibility issues on some systems may cause the application to become unresponsive."
+msgstr "由于某些Mac系统上的兼容性问题可能会导致应用程序无响应。因此在 macOS 上，耗材管理器默认处于关闭状态。"
+
 msgid "Show the step mesh parameter setting dialog."
 msgstr "显示step参数设置对话框。"
 
@@ -8350,16 +8457,25 @@ msgid "With this option enabled, you can print materials with a large temperatur
 msgstr "启用此选项后，您可以同时打印具有较大温度差异的材料。"
 
 msgid "Open full screen camera view on active monitor only."
-msgstr ""
+msgstr "仅在活跃的显示器上打开全屏相机视图。"
 
 msgid "When enabled, the camera full screen view opens only on the monitor that contains Bambu Studio."
-msgstr ""
+msgstr "启用后，相机全屏视图仅在包含 Bambu Studio 的显示器上打开。"
 
 msgid "Clear my choice for synchronizing printer preset after loading the file."
 msgstr "清除加载文件后同步打印机预设的设置。"
 
 msgid "Clear my choice for Load 3mf dialog settings."
 msgstr "清除 “加载 3mf” 对话框设置。"
+
+msgid "Clear my choice for executing post-processing scripts."
+msgstr "清除执行后处理脚本的设置"
+
+msgid "Show the security warning dialog again before slicing when post-processing scripts are configured."
+msgstr ""
+
+msgid "Clear my choice for disabling support parameter recommendation."
+msgstr "清除禁用支撑参数推荐的设置"
 
 msgid "3D Settings"
 msgstr "3D设置"
@@ -8925,9 +9041,6 @@ msgstr "增稳低温打印板"
 msgid "Send print job"
 msgstr "发送打印任务"
 
-msgid "On"
-msgstr "打开"
-
 msgid "Not satisfied with the grouping of filaments? Regroup and slice ->"
 msgstr "对耗材左右分组不满意？重新分组并切片 ->"
 
@@ -9036,6 +9149,9 @@ msgstr "检测热床的平整度。调平可以使挤出的高度更均匀。"
 
 msgid "This process determines the dynamic flow values to improve overall print quality."
 msgstr "此过程确定动态流量校准的最佳系数，从而提升打印质量。"
+
+msgid "After enabling Timelapse, regardless of whether Traditional or Smooth mode is selected, the printer will move the build plate and toolhead before each shot, which may increase the overall print time."
+msgstr "开启延时摄影后，无论选择传统或平滑模式，打印机都会在每层拍照前移动热床和工具头，可能增加打印时间。"
 
 #, c-format, boost-format
 msgid "%s space less than 10MB. Timelapse may not save properly. You can turn it off or"
@@ -9192,8 +9308,14 @@ msgstr "您当前的固件版本无法启动此打印作业。请更新至最新
 msgid "The hardness of current material (%s) exceeds the hardness of %s (%s). It may cause nozzle wear, leading to material leakage and unstable flow. Please exercise caution when using it."
 msgstr "当前材料（%s）的硬度高于 %s（%s）的硬度，可能导致喷嘴磨损，进而造成材料泄漏和流动不稳定。使用时请务必小心。"
 
+msgid "If 'Dynamic Flow Calibration' is set to Auto/On, the system will use the manual calibration value or the default value and skip the flow calibration process. You can perform a manual flow calibration for TPU filament on the 'Calibration' page."
+msgstr "若动态流量校准设置为自动/打开，系统将使用您的手动校准值或默认值，并跳过流量校准过程。可以在'校准'页面对TPU耗材进行手动流量校准。"
+
 msgid "Some filaments may switch between extruders during printing. Manual K-value calibration cannot be applied throughout the entire print, which may affect print quality. Enabling Flow Dynamics Calibration is recommended."
 msgstr "某些耗材在打印过程中可能会在挤出机之间切换。手动 K 值校准无法在整个打印过程中应用，这可能会影响打印质量。建议启用动态校准。"
+
+msgid "There is stringing-prone filament in this file. For best print quality, we recommend switching nozzle clumping detection to Auto mode."
+msgstr "该文件存在易拉丝耗材，为获得最佳打印质量，建议裹头检测切换至“自动模式”"
 
 msgid "Cool"
 msgstr ""
@@ -9245,6 +9367,9 @@ msgstr "请勿将Ext与AMS混用"
 
 msgid "Invalid nozzle information, please refresh or manually set nozzle information."
 msgstr "喷嘴信息无效，请刷新或手动设置喷嘴信息"
+
+msgid "Storage needs to be inserted before printing via LAN."
+msgstr "通过局域网发送打印任务，需要先插入存储设备。"
 
 msgid "Storage is not available or is in read-only mode."
 msgstr "存储设备不可用或处于只读模式。"
@@ -9490,6 +9615,12 @@ msgstr "同时启用精准Z高度和料塔将可能导致擦料塔的尺寸变�
 msgid "Prime tower is required for clumping detection. There may be flaws on the model without prime tower. Do you still want to enable clumping detection?"
 msgstr "触碰裹头检测需要擦料塔，否则打印件上可能会有瑕疵。您确定开启裹头检测吗？"
 
+#, c-format, boost-format
+msgid ""
+"The selected printer has a bed temperature limit of %d°C.\n"
+"Setting a higher bed temperature may cause damage to the printer."
+msgstr ""
+
 msgid "Prime tower is required for smooth timelapse. There may be flaws on the model without prime tower. Do you want to enable prime tower?"
 msgstr "平滑模式的延时摄影需要擦料塔，否则打印件上可能会有瑕疵。您想打开擦料塔吗？"
 
@@ -9690,7 +9821,7 @@ msgid "Filament ramming length"
 msgstr "材料预冲刷长度"
 
 msgid "Filament length used in ramming."
-msgstr "。"
+msgstr "冲刷时使用的耗材长度。"
 
 msgid "Travel time after ramming"
 msgstr "预冲刷后的空驶时间"
@@ -9824,6 +9955,12 @@ msgstr "耗材丝结束G-code"
 msgid "Multi Filament"
 msgstr "多材料"
 
+msgid "Purge Mode: Standard"
+msgstr "冲刷模式：标准"
+
+msgid "Purge Mode: Fast"
+msgstr "冲刷模式：快速"
+
 msgid "Printable space"
 msgstr "可打印区域"
 
@@ -9907,6 +10044,12 @@ msgstr "固件回抽"
 
 msgid "Detached"
 msgstr "分离的"
+
+msgid "The current preset is a project preset and can't be used to create a new preset. Please select a system preset or user preset, then try again."
+msgstr ""
+
+msgid "Unable to save preset"
+msgstr ""
 
 #, c-format, boost-format
 msgid "%d Filament Preset and %d Process Preset is attached to this printer. Those presets would be deleted if the printer is deleted."
@@ -10586,16 +10729,16 @@ msgid "Camera view - Behind"
 msgstr "摄像机视角 - 后面"
 
 msgid "Camera view - Left"
-msgstr ""
+msgstr "摄像机视角 - 左面"
 
 msgid "Camera view - Right"
-msgstr ""
+msgstr "摄像机视角 - 右面"
 
 msgid "Camera view - Isometric"
 msgstr "摄像机视角 - 等轴测"
 
 msgid "Camera view - Fit to scene or selection"
-msgstr ""
+msgstr "摄像机视角 - 适应场景或选择区域"
 
 msgid "Shift+E"
 msgstr ""
@@ -11437,6 +11580,9 @@ msgstr "修复的3mf文件不包含任何零件"
 msgid "Repaired 3mf file contains more than one volume"
 msgstr "已修复的3mf文件包含多个零件"
 
+msgid "Repaired 3mf file contains more than one instance"
+msgstr "已修复的 3mf 文件包含多个实例"
+
 msgid "Repair finished"
 msgstr "修复已完成"
 
@@ -11451,6 +11597,20 @@ msgstr "配置包已更新到"
 
 msgid "Open G-code file:"
 msgstr "打开G-code文件："
+
+msgid "Print task sending times out."
+msgstr "发送打印任务超时。"
+
+msgid "Sending print configuration"
+msgstr "正在发送打印配置"
+
+#, c-format, boost-format
+msgid "Successfully sent. Will automatically jump to the device page in %ss"
+msgstr "已发送完成，即将自动跳转到设备页面（%s秒）"
+
+#, c-format, boost-format
+msgid "Successfully sent. Will automatically jump to the next page in %ss"
+msgstr "已成功发送。将在%ss后自动跳转到下一页。"
 
 msgid "The following object(s) have empty initial layer and can't be printed. Please cut the bottom or enable supports."
 msgstr "模型出现空层无法打印。请切掉底部或打开支撑。"
@@ -11467,7 +11627,7 @@ msgid "Maybe parts of the object at these height are too thin, or the object has
 msgstr "部分模型在这些高度可能过薄，或者模型存在面片错误"
 
 msgid "Flush volumes matrix do not match to the correct size!"
-msgstr ""
+msgstr "冲刷体积矩阵与正确的尺寸不匹配！"
 
 msgid "No object can be printed. Maybe too small"
 msgstr "没有可打印的对象。可能是因为尺寸过小。"
@@ -11535,7 +11695,7 @@ msgid "Overhang wall"
 msgstr "悬空墙"
 
 msgid "Floating vertical shell"
-msgstr ""
+msgstr "悬空实心填充"
 
 msgid "Internal solid infill"
 msgstr "内部实心填充"
@@ -11733,6 +11893,9 @@ msgstr "请选择逐件打印以支持在旋转花瓶模式下打印多个对象
 msgid "The spiral vase mode does not work when an object contains more than one materials."
 msgstr "不支持在包含多个材料的打印中使用旋转花瓶模式。"
 
+msgid "The spiral vase mode does not work when an object contains regions with different print settings."
+msgstr "螺旋花瓶模式无法在包含多种打印设置区域的物体上使用"
+
 msgid "Variable layer height is not supported with Organic supports."
 msgstr "不支持同时使用可变层高和有机树支撑。"
 
@@ -11903,7 +12066,7 @@ msgid "Smoothing wall speed along Z(experimental)"
 msgstr "平滑z方向外墙速度（实验）"
 
 msgid "Smoothing outwall speed in z direction to get better surface quality. Print time will increases. This does not work on spiral vase mode."
-msgstr "。"
+msgstr "平滑 Z 方向外墙速度以获得更好的表面质量。该功能会增加打印时间，同时无法在旋转花瓶模式下生效。"
 
 msgid "Avoid crossing wall - Max detour length"
 msgstr "避免跨越外墙-最大绕行长度"
@@ -12016,12 +12179,14 @@ msgstr "秒"
 msgid "Cooling overhang threshold"
 msgstr "冷却悬空阈值"
 
+#, c-format
 msgid "Force cooling fan to be specific speed when overhang degree of printed part exceeds this value. Expressed as percentage which indicides how much width of the line without support from lower layer. 0% means forcing cooling for all outer wall no matter how much overhang degree"
 msgstr "当打印件的悬空程度超过此值时，强制冷却风扇达到特定速度。用百分比表示，表明没有下层支撑的线的宽度是多少。0%%意味着无论悬垂程度如何，都要对所有外壁强制冷却。"
 
 msgid "Overhang threshold for participating cooling"
 msgstr "参与冷却降速的悬垂阈值"
 
+#, c-format
 msgid "Decide which overhang part join the cooling function to slow down the speed.Expressed as percentage which indicides how much width of the line without support from lower layer. 100% means forcing cooling for all outer wall no matter how much overhang degree"
 msgstr "决定多少阈值的悬垂参与冷却降速.用百分比表示超出线宽的范围。"
 
@@ -12137,17 +12302,11 @@ msgstr "Brim类型"
 msgid "This controls the generation of the brim at outer and/or inner side of models. Auto means the brim width is analysed and calculated automatically."
 msgstr "该参数控制在模型的外侧和/或内侧生成brim。自动是指自动分析和计算边框的宽度。"
 
-msgid "★ Brim-object gap"
-msgstr "★ Brim 与模型间隙"
+msgid "Brim-object gap"
+msgstr "Brim与模型的间隙"
 
-msgid "A gap between innermost brim line and object can make brim be removed more easily. Negative values make the brim overlap the object."
-msgstr "最内侧 Brim 线与模型之间的间隙可以让 Brim 更容易移除。负值会让 Brim 与模型重叠。"
-
-msgid "★ Brim layers"
-msgstr "★ Brim 层数"
-
-msgid "The number of layers on which the brim will be printed."
-msgstr "打印 Brim 的层数。"
+msgid "A gap between innermost brim line and object can make brim be removed more easily"
+msgstr "在brim和模型之间设置间隙，能够让brim更容易剥离"
 
 msgid "Compatible machine"
 msgstr "兼容的机器"
@@ -12425,6 +12584,7 @@ msgstr "除了桥接外的底面填充的走线图案"
 msgid "Bottom surface density"
 msgstr "底面密度"
 
+#, c-format
 msgid "Density of bottom surface infill, 100% means a fully solid filled top layer.Lower values create a textured bottom surface, Intended for aesthetic or functional purposes, not to fix issues such as over-extrusion.WARNING: Lowering this value may negatively affect bed adhesion."
 msgstr "底面的填充密度，100%%表示底面为完全实心填充。较低数值会产生纹理化的底面，旨在满足美观或功能需求，而非用于修复诸如过度挤出等问题。警告：降低此值可能会负面影响打印平台附着性。"
 
@@ -12605,6 +12765,9 @@ msgstr "冲刷温度"
 msgid "temperature when flushing filament. 0 indicates the upper bound of the recommended nozzle temperature range"
 msgstr "耗材冲刷时的温度。0表示使用最大建议喷嘴温度。"
 
+msgid "Flush temperature used in fast purge mode."
+msgstr "快速冲刷模式下使用的冲刷温度。"
+
 msgid "Flush volumetric speed"
 msgstr "冲刷体积流量"
 
@@ -12658,6 +12821,18 @@ msgstr "热端更换时间"
 
 msgid "Time to change hotend."
 msgstr "热端更换时间。"
+
+msgid "Cut and unload from extruder time"
+msgstr ""
+
+msgid "Time to cut filament and retract it out of the extruder, used when parallel feeding is supported. For statistics only"
+msgstr ""
+
+msgid "Extruder bite time after pre-feed"
+msgstr ""
+
+msgid "Time for the extruder to bite the filament once it has been pre-fed, used when parallel feeding is supported. For statistics only"
+msgstr ""
 
 msgid "Bed temperature type"
 msgstr "热床温度类型"
@@ -12808,6 +12983,12 @@ msgstr "混色耗材渐变范围"
 msgid "Start and end ratios for the first component in gradient mode. Comma-separated pair, e.g. \"0.10,0.90\" means 10% to 90%."
 msgstr ""
 
+msgid "Mixed filament gradient curve"
+msgstr ""
+
+msgid "Optional Photoshop-style custom curve mapping Z progress to the first component ratio. Encoded as pipe-separated control points, either \"x,y\" (legacy) or \"x,y,m_in,m_out\" when a tangent override is needed (empty token or \"nan\" means use PCHIP default). x in [0,1]; y is clamped to the configured ratio range, e.g. \"0,0.15|0.5,0.50|1,0.85\". When empty, the linear gradient_range is used instead."
+msgstr ""
+
 msgid "Mixed filament per-part gradient"
 msgstr "混色耗材单个零件渐变"
 
@@ -12818,7 +12999,7 @@ msgid "Filament printable"
 msgstr "主体耗材可打印性"
 
 msgid "The filament is printable in extruder"
-msgstr ""
+msgstr "此耗材可在挤出机中打印"
 
 msgid "Filament-extruder compatibility"
 msgstr "耗材-挤出机兼容性"
@@ -12931,6 +13112,7 @@ msgstr "稀疏填充图案的角度，决定走线的开始或整体方向。"
 msgid "Sparse infill density"
 msgstr "稀疏填充密度"
 
+#, c-format
 msgid "Density of internal sparse infill, 100% means solid throughout"
 msgstr "稀疏填充密度, 100%% 意味着完全实心。"
 
@@ -13217,6 +13399,12 @@ msgstr "启用时顺时针打印，未启用时逆时针打印，不适用于旋
 
 msgid "Enable clumping detection"
 msgstr "开启触碰裹头检测"
+
+msgid "Order-independent overlap carving"
+msgstr "重叠区域稳定归属"
+
+msgid "When enabled, overlapping model parts are carved by bounding-box size so smaller embedded parts are not removed by larger parts due to volume order."
+msgstr "开启后，重叠零件按边界框大小决定切割归属，避免小零件因对象顺序被大零件覆盖。"
 
 msgid "Clumping detection layers"
 msgstr "触碰裹头检测层数"
@@ -13536,6 +13724,12 @@ msgstr "该G-code用于暂停打印。您可以在gcode预览中插入暂停G-co
 msgid "This G-code will be used as a custom code"
 msgstr "该G-code是定制化指令"
 
+msgid "Support fast purge mode"
+msgstr ""
+
+msgid "Whether this printer supports fast purge mode with optimized temperature and multiplier."
+msgstr ""
+
 msgid "Maximum speed X"
 msgstr "X最大速度"
 
@@ -13610,6 +13804,30 @@ msgstr "Z轴最大抖动"
 
 msgid "Maximum jerk of the E axis"
 msgstr "E轴最大抖动"
+
+msgid "Maximum force of the Y axis"
+msgstr ""
+
+msgid "The allowed maximum output force of Y axis"
+msgstr ""
+
+msgid "N"
+msgstr ""
+
+msgid "Bed mass of the Y axis"
+msgstr ""
+
+msgid "The machine bed mass load of Y axis"
+msgstr ""
+
+msgid "g"
+msgstr ""
+
+msgid "The allowed max printed mass"
+msgstr ""
+
+msgid "The allowed max printed mass on a plate"
+msgstr ""
 
 msgid "Minimum speed for extruding"
 msgstr "最小挤出速度"
@@ -13744,10 +13962,10 @@ msgid "Embedding the wall into parts where the wall loops are absent ensures tha
 msgstr "将墙体嵌入没有外墙的区域以确保墙体与填充物无缝连接。"
 
 msgid "Alternate extra wall"
-msgstr ""
+msgstr "交替额外墙层"
 
 msgid "Add an extra wall on alternating layers to improve layer bonding and part strength without the full cost of a permanent extra wall."
-msgstr ""
+msgstr "在奇数层额外增加一圈墙，以增强层间结合与零件强度，同时避免全程使用额外墙层所带来的耗材与时间成本。"
 
 msgid "Post-processing Scripts"
 msgstr "后处理脚本"
@@ -13872,6 +14090,9 @@ msgstr "默认喷嘴体积类型"
 msgid "Saving"
 msgstr "保存中"
 
+msgid "Fast"
+msgstr "快速"
+
 msgid "length when change hotend"
 msgstr "换热端时回抽量"
 
@@ -13904,12 +14125,6 @@ msgstr "接缝位置"
 
 msgid "The start position to print each part of outer wall"
 msgstr "开始打印外墙的位置"
-
-msgid "★ Optimize seam"
-msgstr "★ 优化接缝"
-
-msgid "When wall loops are two or more, print the inner wall paired with an outer wall immediately before that outer wall and start both near the selected seam point."
-msgstr "当墙层数为 2 或更多时，将与外墙配对的内墙紧挨外墙之前打印，并让两者都从选定接缝点附近开始。"
 
 msgid "Nearest"
 msgstr "最近"
@@ -13997,6 +14212,12 @@ msgstr "Skirt距离"
 msgid "Distance from skirt to brim or object"
 msgstr "从skirt到模型或者brim的距离"
 
+msgid "Skirt per object"
+msgstr ""
+
+msgid "Generate independent skirt around each object in sequential printing mode. When disabled, a single skirt is drawn around all objects."
+msgstr ""
+
 msgid "Skirt height"
 msgstr "Skirt高度"
 
@@ -14033,33 +14254,6 @@ msgstr "内部实心填充的速度，不是顶面和底面。"
 msgid "Spiralize smooths out the z moves of the outer contour. And turns a solid model into a single walled print with solid bottom layers. The final generated model has no seam"
 msgstr "沿着对象的外轮廓螺旋上升，将实体模型转变为只有底面实心层和侧面单层墙壁的打印。最后生成的打印件没有接缝。"
 
-msgid "★ Vase reinforcement multiplier"
-msgstr "★ 花瓶增强倍数"
-
-msgid "Additional inward wall multiplier for the first spiral vase layers. Decimal values are distributed across rounded reinforcement loops."
-msgstr "花瓶模式前段向内追加的墙倍数。小数倍数会分配到四舍五入后的加强墙圈数上。"
-
-msgid "★ Vase reinforcement height"
-msgstr "★ 花瓶增强高度"
-
-msgid "Height of spiral vase reinforcement. A plain number means layer count; a value ending with mm means model height."
-msgstr "花瓶增强的高度。不带单位的数字表示层数；以 mm 结尾表示模型高度。"
-
-msgid "layers or mm"
-msgstr "层数或 mm"
-
-msgid "★ Fade vase reinforcement"
-msgstr "★ 渐消花瓶增强"
-
-msgid "Linearly fade the spiral vase reinforcement multiplier over the reinforcement height."
-msgstr "在增强高度范围内线性降低花瓶增强倍数。"
-
-msgid "★ Fade end multiplier"
-msgstr "★ 渐消结束倍数"
-
-msgid "Spiral vase reinforcement multiplier at the end of the reinforcement height."
-msgstr "达到增强高度末端时的花瓶增强倍数。"
-
 msgid "Smooth Spiral"
 msgstr "平滑旋转花瓶"
 
@@ -14077,6 +14271,12 @@ msgstr "如果启用平滑模式或者传统模式，将在每次打印时生成
 
 msgid "Traditional"
 msgstr "传统模式"
+
+msgid "Farthest point timelapse"
+msgstr ""
+
+msgid "When enabled, the timelapse snapshot is taken at the farthest point from camera instead of traveling to the wipe tower or excess chute. Only effective in traditional timelapse mode on non-I3 printers."
+msgstr ""
 
 msgid "Temperature variation"
 msgstr "软化温度"
@@ -14568,6 +14768,18 @@ msgstr "冲刷量乘数"
 msgid "The actual flushing volumes is equal to the flush multiplier multiplied by the flushing volumes in the table."
 msgstr "实际冲刷量等于冲刷量乘数乘以表格单元中的冲刷量"
 
+msgid "Flush multiplier (Fast mode)"
+msgstr ""
+
+msgid "The flush multiplier used in fast purge mode."
+msgstr ""
+
+msgid "Alternate extruder printing"
+msgstr ""
+
+msgid "When the printer supports parallel (pre-)feeding, print the two extruders in an alternating order within a layer instead of finishing one extruder first. Only takes effect when the printer supports parallel feeding."
+msgstr ""
+
 msgid "Width of prime tower"
 msgstr "擦料塔宽度"
 
@@ -14701,9 +14913,6 @@ msgstr ""
 msgid " doesn't work at 100%% density "
 msgstr " 填充图案不支持 100%% 密度"
 
-msgid "Invalid spiral vase reinforcement height: "
-msgstr ""
-
 msgid "Invalid value when spiral vase mode is enabled: "
 msgstr "旋转花瓶模式下非法的值"
 
@@ -14733,6 +14942,13 @@ msgstr "正在生成填充走线"
 
 msgid "Detect overhangs for auto-lift"
 msgstr "探测悬空区域为自动抬升做准备"
+
+msgid "Levitating objects cannot be printed without supports."
+msgstr ""
+
+#, c-format, boost-format
+msgid "It seems object %s has floating regions. Please re-orient the object or enable support generation."
+msgstr ""
 
 msgid "Checking support necessity"
 msgstr "正在检查支撑必要性"
@@ -14789,10 +15005,13 @@ msgid "Loading of a model file failed."
 msgstr "加载模型文件失败。"
 
 msgid "Meshing of a model file failed or no valid shape."
-msgstr ""
+msgstr "模型文件网格化失败或无有效形状。"
 
 msgid "The supplied file couldn't be read because it's empty"
 msgstr "无法读取提供的文件，因为该文件为空。"
+
+msgid "The file format is incompatible and cannot be parsed."
+msgstr "文件格式不兼容，无法解析。"
 
 msgid "Unknown file format. Input file must have .stl, .obj, .amf(.xml), .gltf, .glb, .fbx extension."
 msgstr ""
@@ -14809,11 +15028,8 @@ msgstr "加载对象：无法分析"
 msgid "load mtl in obj: failed to parse"
 msgstr "在 obj 中加载 mtl：无法解析"
 
-msgid "The file contains polygons with more than 4 vertices."
-msgstr "该文件包含顶点超过4个的多边形。"
-
-msgid "The file contains polygons with less than 2 vertices."
-msgstr "该文件包含顶点少于2个的多边形。"
+msgid "The file contains polygons with less than 3 vertices."
+msgstr ""
 
 msgid "The file contains invalid vertex index."
 msgstr "文件包含无效的顶点索引。"
@@ -15765,9 +15981,6 @@ msgstr "基于模板创建"
 msgid "Create Based on Current Printer"
 msgstr "基于当前打印机创建"
 
-msgid "Rectangle"
-msgstr "矩形"
-
 msgid "wiki"
 msgstr ""
 
@@ -15797,6 +16010,9 @@ msgstr "请输入自定义喷嘴直径"
 
 msgid "Can't find my nozzle diameter"
 msgstr "无法找到我的喷嘴直径"
+
+msgid "Rectangle"
+msgstr "矩形"
 
 msgid "Printable Space"
 msgstr "可打印形状"
@@ -16140,7 +16356,7 @@ msgid "TPU 90A/TPU 85A is too soft and does not support automatic Flow Dynamics 
 msgstr "TPU 90A/TPU 85A硬度过低，不支持自动流量校准。"
 
 msgid "The number of printer extruders and the printer selected for calibration does not match."
-msgstr ""
+msgstr "打印机的挤出机数量与所选用于校准的打印机不匹配。"
 
 #, c-format, boost-format
 msgid "The type of %sextruder is bowden which does not support automatic Flow Dynamics calibration."
@@ -16695,7 +16911,7 @@ msgid "%u Selected"
 msgstr "已选择 %u项"
 
 msgid "Please select the preset to be deleted"
-msgstr ""
+msgstr "请选择要删除的预设"
 
 #, c-format, boost-format
 msgid "%d %s Preset will be deleted."
@@ -16819,9 +17035,6 @@ msgstr "此操作无法撤销，是否继续？"
 msgid "Skipping objects."
 msgstr ""
 
-msgid "Continue"
-msgstr "继续"
-
 msgid "Null Color"
 msgstr ""
 
@@ -16875,11 +17088,11 @@ msgstr "您的打印机安装了不同的喷嘴。请选择一个喷嘴进行本
 msgid "Purge Mode Settings"
 msgstr "冲刷模式"
 
-msgid "Standard Mode"
-msgstr "标准模式"
+msgid "Perform full purging with speed and temperature transition for the best print quality."
+msgstr "带有变速与变温的冲刷逻辑，冲刷更彻底，可在追求极致打印质量时使用"
 
-msgid "Performs full priming for the best print quality. Requires more material and time."
-msgstr "执行完整的冲刷流程以获得最佳打印质量，需要更多材料和时间。"
+msgid "Uses optimized purge temperature, multiplier and stronger extrusion for faster purging. May cause slight color mixing in some extreme cases."
+msgstr "使用调优过的冲刷温度、倍率与更快的冲刷挤出来缩短冲刷时长，可能会在某些极端情况产生轻微混色"
 
 msgid "Prime Saving"
 msgstr "省料模式"
@@ -17205,6 +17418,12 @@ msgstr "已达到最大组分数量"
 msgid "Remove the third material"
 msgstr "移除第三种材料"
 
+msgid "Material Ratio"
+msgstr "耗材比例"
+
+msgid "Model Height"
+msgstr "模型高度"
+
 #: resources/data/hints.ini: [hint:How to use keyboard shortcuts]
 msgid ""
 "How to use keyboard shortcuts\n"
@@ -17501,14 +17720,41 @@ msgstr ""
 "一次成功的可靠性\n"
 "更少盯机，更可预测的产出。例如：小型打印农场打印 PETG 零件可降低意外失败的概率，让批次按计划推进。"
 
+#~ msgid "Hide"
+#~ msgstr "隐藏"
+
+#~ msgid "Show"
+#~ msgstr "显示"
+
 #~ msgid "Spiral mode only works when wall loops is 1, support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."
 #~ msgstr "花瓶模式仅在以下条件下可用：墙壁环数设置为 1，支撑禁用，触碰裹头检测禁用，顶壳层数为 0，稀疏填充密度为 0，延时摄影类型为传统，并且 Z 方向墙速度平滑不启用。"
 
-#~ msgid "Brim-object gap"
-#~ msgstr "Brim与模型的间隙"
+#~ msgid "Pass 1"
+#~ msgstr "粗调"
 
-#~ msgid "A gap between innermost brim line and object can make brim be removed more easily"
-#~ msgstr "在brim和模型之间设置间隙，能够让brim更容易剥离"
+#~ msgid "Flow rate test - Pass 1"
+#~ msgstr "流量测试 - 粗调"
+
+#~ msgid "Pass 2"
+#~ msgstr "细调"
+
+#~ msgid "Flow rate test - Pass 2"
+#~ msgstr "流量测试 - 细调"
+
+#~ msgid "The localization tag of build plate is detected, and printing is paused if the tag is not in predefined range."
+#~ msgstr "检测打印板的定位标记，如果标记不在预定义范围内时暂停打印。"
+
+#~ msgid "The file contains polygons with more than 4 vertices."
+#~ msgstr "该文件包含顶点超过4个的多边形。"
+
+#~ msgid "The file contains polygons with less than 2 vertices."
+#~ msgstr "该文件包含顶点少于2个的多边形。"
+
+#~ msgid "Standard Mode"
+#~ msgstr "标准模式"
+
+#~ msgid "Performs full priming for the best print quality. Requires more material and time."
+#~ msgstr "执行完整的冲刷流程以获得最佳打印质量，需要更多材料和时间。"
 
 #~ msgid "non-manifold edges be caused by cut tool, do you want to fix it now?"
 #~ msgstr "因切割产生了非流形边，您是否想现在修复？"
@@ -17531,6 +17777,9 @@ msgstr ""
 #~ msgid "%1$d non-manifold edge"
 #~ msgid_plural "%1$d non-manifold edges"
 #~ msgstr[0] "%1$d 非流形边"
+
+#~ msgid "If you want a specific AMS ID sequence, please disconnect all AMS after clicking 'Reset', and then reconnect them in the desired order."
+#~ msgstr "如果您想要特定的AMS ID序列，请在点击“重置”后断开所有AMS，然后按所需顺序重新连接它们。"
 
 #, c-format, boost-format
 #~ msgid "High-shrinkage filament(s) detected: %s. These materials may cause dimensional deviation after cooling. If your model requires precise fitting or assembly, please refer to the Wiki guide for shrinkage testing."
@@ -19826,9 +20075,6 @@ msgstr ""
 #~ msgid "Are you sure you want to home now?"
 #~ msgstr "你确定现在要回Home点吗？"
 
-#~ msgid "Home"
-#~ msgstr "首页"
-
 #~ msgid "TPU is not supported by deputy extruder."
 #~ msgstr "副挤出机不支持TPU。"
 
@@ -21351,6 +21597,9 @@ msgstr ""
 #~ msgstr ""
 #~ "当前无相同的备用耗材，暂时无法自动补给。\n"
 #~ "（目前支持品牌、材料种类、颜色相同的耗材的自动补给）"
+
+#~ msgid "Load shape from STL..."
+#~ msgstr "从STL文件加载形状..."
 
 #~ msgid "Invalid nozzle diameter"
 #~ msgstr "非法喷嘴口径"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bambu Studio 2.0.2 Public Release\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-15 20:34+0800\n"
+"POT-Creation-Date: 2026-06-15 21:22+0800\n"
 "PO-Revision-Date: 2025-04-22 16:37+0700\n"
 "Last-Translator: \n"
 "Language-Team: Andylg <andylg@yandex.ru>\n"
@@ -2226,11 +2226,14 @@ msgstr "Добавить SVG модификатор"
 msgid "Select settings"
 msgstr "Выберите параметры"
 
-msgid "Hide"
-msgstr "Скрыть"
+msgid "Add to New Step"
+msgstr ""
 
-msgid "Show"
-msgstr "Показать"
+msgid "Add to Current Step"
+msgstr ""
+
+msgid "Add to Existing Step"
+msgstr ""
 
 msgid "Delete the selected object"
 msgstr "Удаление выбранных моделей"
@@ -3340,28 +3343,11 @@ msgstr "Отправка задания на печать по локально�
 msgid "Sending print job through cloud service"
 msgstr "Отправка задания на печать через облачную службу"
 
-msgid "Print task sending times out."
-msgstr "Время отправки задания на печать истекло."
-
 msgid "Service Unavailable"
 msgstr "Сервис недоступен"
 
 msgid "Unknown Error."
 msgstr "Неизвестная ошибка."
-
-msgid "Sending print configuration"
-msgstr "Отправка конфигурации печати"
-
-#, c-format, boost-format
-msgid "Successfully sent. Will automatically jump to the device page in %ss"
-msgstr "Успешно отправлено. Автоматический переход на страницу устройства через %s с."
-
-#, c-format, boost-format
-msgid "Successfully sent. Will automatically jump to the next page in %ss"
-msgstr "Успешно отправлено. Автоматический переход на следующую страницу через %s с."
-
-msgid "Storage needs to be inserted before printing via LAN."
-msgstr "Перед печатью по локальной сети необходимо вставить накопитель."
 
 msgid "Sending gcode file over LAN"
 msgstr "Отправка файла G-кода по локальной сети"
@@ -3411,7 +3397,10 @@ msgstr ""
 msgid "Multi-Color"
 msgstr ""
 
-msgid "Filament Mapping"
+msgid "Your input texture model"
+msgstr ""
+
+msgid "Processed multi-color model"
 msgstr ""
 
 msgid "Color Count"
@@ -3427,6 +3416,9 @@ msgid "Convert texture to painting using the specified color count and smooth le
 msgstr ""
 
 msgid "Reminder: parameters changed, click Apply to take effect"
+msgstr ""
+
+msgid "Filament Mapping"
 msgstr ""
 
 msgid "Auto-merge same filament"
@@ -3448,6 +3440,27 @@ msgid "Computing texture colors..."
 msgstr ""
 
 msgid "Computation failed. Please adjust parameters and retry."
+msgstr ""
+
+msgid "The mesh has non-manifold geometry or open boundaries. You can import it as-is or repair it with Windows 3D repair service before importing."
+msgstr ""
+
+msgid "Mesh repair"
+msgstr ""
+
+msgid "Import without repair"
+msgstr ""
+
+msgid "Repair and import"
+msgstr ""
+
+msgid "Please note that the mesh has non-manifold geometry or open boundaries."
+msgstr ""
+
+msgid "Mesh issue"
+msgstr ""
+
+msgid "Continue"
 msgstr ""
 
 msgid "Choose SLA archive:"
@@ -3939,7 +3952,9 @@ msgstr ""
 msgid "Arrange AMS Order"
 msgstr ""
 
-msgid "If you want a specific AMS ID sequence, please disconnect all AMS after clicking 'Reset', and then reconnect them in the desired order."
+msgid ""
+"After clicking 'Reconnect', all AMS units will be automatically disconnected.\n"
+"Please reconnect them in the desired order to set a specific AMS ID sequence."
 msgstr ""
 
 msgid "Are you sure to reset the ID sequence of the connected AMS?"
@@ -4051,9 +4066,6 @@ msgstr "Прямоугольная"
 
 msgid "Circular"
 msgstr "Круглая"
-
-msgid "Load shape from STL..."
-msgstr ""
 
 msgid "Settings"
 msgstr "Настройки"
@@ -4284,14 +4296,39 @@ msgid ""
 "Reset to 50%% of skin depth"
 msgstr ""
 
+msgid "Alternate extra wall is incompatible with spiral vase mode. To enable alternate extra wall, the following adjustments are recommended:"
+msgstr ""
+
+msgid "Set ensure vertical shell thickness to Partial."
+msgstr ""
+
+#, c-format, boost-format
+msgid "Set wall loops to %d."
+msgstr ""
+
+#, c-format, boost-format
+msgid "Set sparse infill density to %d%%."
+msgstr ""
+
+msgid "Disable spiral vase mode."
+msgstr ""
+
 msgid ""
-"Alternate extra wall doesn't work well when ensure vertical shell thickness is set to Enable.\n"
 "Change these settings automatically?\n"
-"Yes - Change ensure vertical shell thickness to Partial and enable alternate extra wall\n"
+"Yes - Apply and keep alternate extra wall enabled\n"
 "No  - Don't use alternate extra wall"
 msgstr ""
 
-msgid "Spiral mode only works when support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional and smoothing wall speed in z direction is false."
+msgid "For alternate extra wall to work properly, the following adjustments are recommended:"
+msgstr ""
+
+msgid ""
+"Apply these adjustments?\n"
+"Yes - Apply and keep alternate extra wall enabled\n"
+"No  - Keep current settings and alternate extra wall enabled"
+msgstr ""
+
+msgid "Spiral mode only works when wall loops is 1, support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional, smoothing wall speed in z direction is false and alternate extra wall is disabled."
 msgstr ""
 
 msgid " But machines with I3 structure will not generate timelapse videos."
@@ -5136,6 +5173,9 @@ msgstr "Расположение модели %s или её размер вых
 msgid " Please check and adjust the part's position or size to fit the printable range:\n"
 msgstr " Отрегулируйте расположение модели на столе или её размер, чтобы она поместилась в область печати:\n"
 
+msgid "Unnamed"
+msgstr ""
+
 msgid "Mirror Object"
 msgstr "Отразить модель"
 
@@ -5274,8 +5314,17 @@ msgstr "Сфокусировать камеру"
 msgid "Fit camera to scene or selected object."
 msgstr "Сфокусировать камеру на всю сцену или выбранный объект."
 
+msgid "Unlock camera"
+msgstr ""
+
+msgid "Lock camera"
+msgstr ""
+
 msgid "Paint Toolbar"
 msgstr "Панель рисования"
+
+msgid "This border is used to distinguish it from the background"
+msgstr ""
 
 msgid "Explosion Ratio"
 msgstr "Коэффициент разброса"
@@ -5289,6 +5338,15 @@ msgstr "Управление сборкой"
 # ??? Выбор режима
 msgid "Selection Mode"
 msgstr "Режим выбора"
+
+msgid "OnlyCurrentStep"
+msgstr ""
+
+msgid "Highlight"
+msgstr ""
+
+msgid "Display Mode"
+msgstr ""
 
 msgid "Total Volume:"
 msgstr "Общий объём:"
@@ -5332,6 +5390,9 @@ msgstr "Траектория перемещения в G-коде выходит
 
 msgid "Not support printing 2 or more TPU filaments."
 msgstr "Поддерживается печать только одним прутком TPU."
+
+msgid "The total printed weight exceeds this printer's recommended capacity and may cause slower printing or print defects."
+msgstr ""
 
 #, c-format, boost-format
 msgid "Filament %s is placed in the %s, but the generated G-code path exceeds the printable range of the %s."
@@ -5500,6 +5561,9 @@ msgid "Preview"
 msgstr "Предпросмотр нарезки"
 
 msgid "The current page has unsaved changes. You can continue editing or choose to save/discard before leaving."
+msgstr ""
+
+msgid "Home"
 msgstr ""
 
 msgid "Device"
@@ -5869,17 +5933,17 @@ msgstr "Помощь"
 msgid "Temperature Calibration"
 msgstr "Калибровка температуры"
 
-msgid "Pass 1"
-msgstr "Проход 1"
+msgid "Coarse"
+msgstr ""
 
-msgid "Flow rate test - Pass 1"
-msgstr "Тест скорости потока - 1-ый проход"
+msgid "Flow rate test - Coarse"
+msgstr ""
 
-msgid "Pass 2"
-msgstr "Проход 2"
+msgid "Fine"
+msgstr ""
 
-msgid "Flow rate test - Pass 2"
-msgstr "Тест скорости потока - 2-ой проход"
+msgid "Flow rate test - Fine"
+msgstr ""
 
 msgid "Flow rate"
 msgstr "Скорость потока"
@@ -6047,6 +6111,9 @@ msgid "The player is not loaded, please click \"play\" button to retry."
 msgstr "Проигрыватель не загружается. Нажмите кнопку «Воспроизвести», чтобы повторить попытку."
 
 msgid "Plugin library failed to load. Click here to view the solution."
+msgstr ""
+
+msgid "Loading failed. Please check the network and try again."
 msgstr ""
 
 msgid "Temporarily closed because there is no operation for a while."
@@ -7000,6 +7067,9 @@ msgstr "Перейти к"
 msgid "Error:"
 msgstr "Ошибка:"
 
+msgid "Enable support for"
+msgstr ""
+
 msgid "Open link for more info"
 msgstr ""
 
@@ -7073,6 +7143,12 @@ msgctxt "Layers"
 msgid "Bottom"
 msgstr "Снизу"
 
+msgid "There is stringing-prone filament in the current print job. Enabling nozzle clumping detection now may degrade print quality. Are you sure you want to enable it?"
+msgstr ""
+
+msgid "Enable Nozzle Clumping Detection"
+msgstr ""
+
 msgid "When enabled, the printer will automatically capture photos of printed parts and upload them to the cloud. Would you like to enable this option?"
 msgstr ""
 
@@ -7091,8 +7167,8 @@ msgstr ""
 msgid "Enable detection of build plate position"
 msgstr "Определение положения печатной пластины"
 
-msgid "The localization tag of build plate is detected, and printing is paused if the tag is not in predefined range."
-msgstr "Функция обнаружения метки (QR-кода) печатной пластины. Печать приостанавливается, если метка находится не в том месте."
+msgid "Pauses printing when build plate misalignment is detected."
+msgstr ""
 
 msgid "Build Plate Detection"
 msgstr "Обнаружение пластины"
@@ -7158,9 +7234,6 @@ msgstr ""
 msgid "Alignment Detection"
 msgstr ""
 
-msgid "Pauses printing when build plate misalignment is detected."
-msgstr ""
-
 msgid "First Layer Inspection"
 msgstr "Проверка первого слоя"
 
@@ -7188,6 +7261,9 @@ msgstr "Обнаружение запутывания прутка"
 msgid "Checks if the nozzle is clumping by filament or other foreign objects."
 msgstr ""
 
+msgid "On"
+msgstr "Вкл."
+
 msgid "Open Door Detection"
 msgstr ""
 
@@ -7205,6 +7281,15 @@ msgid "Print Status Snapshot"
 msgstr ""
 
 msgid "Automatically capture and upload print photos, showing defects during printing and the final result for remote viewing."
+msgstr ""
+
+msgid "Automatically match the corresponding switch strategy for leak-prone filaments (disable blob detection) and regular filaments (enable blob detection)."
+msgstr ""
+
+msgid "Detect whether the nozzle is wrapped by filament or other foreign matter."
+msgstr ""
+
+msgid "After disabling, nozzle wrapping cannot be detected, which may lead to print failure or nozzle damage."
 msgstr ""
 
 msgctxt "Nozzle Type"
@@ -7648,6 +7733,12 @@ msgid "Computing texture colors: %s"
 msgstr ""
 
 msgid "Texture Import Warning"
+msgstr ""
+
+msgid ""
+"The imported STEP file is split by sub-assembly, so some objects may not be placed on the build plate at first.\n"
+"It is expected if they are placed on the build plate later after translation or similar operations.\n"
+"The overall assembly can be checked from the assembly thumbnail or by entering the assembly view."
 msgstr ""
 
 msgid "Load these files as a single object with multiple parts?\n"
@@ -8493,6 +8584,12 @@ msgstr "Управление несколькими устройствами (в
 msgid "With this option enabled, you can send a task to multiple devices at the same time and manage multiple devices."
 msgstr "Если включено, вы сможете управлять несколькими устройствами и отправлять задания на печать на несколько устройств одновременно."
 
+msgid "Take effect after restarting Studio"
+msgstr ""
+
+msgid "The Filament Manager is turned off by default on macOS because compatibility issues on some systems may cause the application to become unresponsive."
+msgstr ""
+
 msgid "Show the step mesh parameter setting dialog."
 msgstr "Показывать диалоговое окно настройки сетки при импорте STEP файла"
 
@@ -8524,6 +8621,15 @@ msgstr ""
 "после загрузки файла."
 
 msgid "Clear my choice for Load 3mf dialog settings."
+msgstr ""
+
+msgid "Clear my choice for executing post-processing scripts."
+msgstr ""
+
+msgid "Show the security warning dialog again before slicing when post-processing scripts are configured."
+msgstr ""
+
+msgid "Clear my choice for disabling support parameter recommendation."
 msgstr ""
 
 msgid "3D Settings"
@@ -9095,9 +9201,6 @@ msgstr "Не нагрев. пластина Bambu SuperTack"
 msgid "Send print job"
 msgstr "Отправка задания на печать"
 
-msgid "On"
-msgstr "Вкл."
-
 msgid "Not satisfied with the grouping of filaments? Regroup and slice ->"
 msgstr "Не нравится, как сгруппированы материалы? Перегруппируйте и нарежьте ->"
 
@@ -9214,6 +9317,9 @@ msgstr "Этот процесс проверяет ровность поверх
 # ?????81
 msgid "This process determines the dynamic flow values to improve overall print quality."
 msgstr "Этот процесс определяет значение динамического потока для улучшения общего качества печати."
+
+msgid "After enabling Timelapse, regardless of whether Traditional or Smooth mode is selected, the printer will move the build plate and toolhead before each shot, which may increase the overall print time."
+msgstr ""
 
 #, c-format, boost-format
 msgid "%s space less than 10MB. Timelapse may not save properly. You can turn it off or"
@@ -9369,7 +9475,13 @@ msgstr ""
 msgid "The hardness of current material (%s) exceeds the hardness of %s (%s). It may cause nozzle wear, leading to material leakage and unstable flow. Please exercise caution when using it."
 msgstr ""
 
+msgid "If 'Dynamic Flow Calibration' is set to Auto/On, the system will use the manual calibration value or the default value and skip the flow calibration process. You can perform a manual flow calibration for TPU filament on the 'Calibration' page."
+msgstr ""
+
 msgid "Some filaments may switch between extruders during printing. Manual K-value calibration cannot be applied throughout the entire print, which may affect print quality. Enabling Flow Dynamics Calibration is recommended."
+msgstr ""
+
+msgid "There is stringing-prone filament in this file. For best print quality, we recommend switching nozzle clumping detection to Auto mode."
 msgstr ""
 
 msgid "Cool"
@@ -9423,6 +9535,9 @@ msgstr "Пожалуйста, не печатайте одновременно �
 
 msgid "Invalid nozzle information, please refresh or manually set nozzle information."
 msgstr "Неверная информация о сопле. Обновите или вручную введите информацию о сопле."
+
+msgid "Storage needs to be inserted before printing via LAN."
+msgstr "Перед печатью по локальной сети необходимо вставить накопитель."
 
 msgid "Storage is not available or is in read-only mode."
 msgstr "Накопитель недоступен или находится в режиме «только чтение»."
@@ -9667,6 +9782,12 @@ msgid "Enabling both precise Z height and the prime tower may cause the size of 
 msgstr "Включение опции «Точная высота по Z» вместе с черновой башней может привести к увеличению её размера. Вы уверены, что хотите включить эту опцию?"
 
 msgid "Prime tower is required for clumping detection. There may be flaws on the model without prime tower. Do you still want to enable clumping detection?"
+msgstr ""
+
+#, c-format, boost-format
+msgid ""
+"The selected printer has a bed temperature limit of %d°C.\n"
+"Setting a higher bed temperature may cause damage to the printer."
 msgstr ""
 
 msgid "Prime tower is required for smooth timelapse. There may be flaws on the model without prime tower. Do you want to enable prime tower?"
@@ -10009,6 +10130,12 @@ msgstr "Завершающий G-код прутка"
 msgid "Multi Filament"
 msgstr ""
 
+msgid "Purge Mode: Standard"
+msgstr ""
+
+msgid "Purge Mode: Fast"
+msgstr ""
+
 msgid "Printable space"
 msgstr "Область печати"
 
@@ -10092,6 +10219,12 @@ msgstr "Откат из прошивки"
 
 msgid "Detached"
 msgstr "Отсоединён"
+
+msgid "The current preset is a project preset and can't be used to create a new preset. Please select a system preset or user preset, then try again."
+msgstr ""
+
+msgid "Unable to save preset"
+msgstr ""
 
 #, c-format, boost-format
 msgid "%d Filament Preset and %d Process Preset is attached to this printer. Those presets would be deleted if the printer is deleted."
@@ -11647,6 +11780,9 @@ msgstr "Отремонтированный 3MF файл не содержит о
 msgid "Repaired 3mf file contains more than one volume"
 msgstr "Отремонтированный 3MF файл содержит более одного объёма"
 
+msgid "Repaired 3mf file contains more than one instance"
+msgstr ""
+
 msgid "Repair finished"
 msgstr "Починка модели завершена."
 
@@ -11661,6 +11797,20 @@ msgstr "Пакет профилей обновлён до "
 
 msgid "Open G-code file:"
 msgstr "Выберите G-код файл:"
+
+msgid "Print task sending times out."
+msgstr "Время отправки задания на печать истекло."
+
+msgid "Sending print configuration"
+msgstr "Отправка конфигурации печати"
+
+#, c-format, boost-format
+msgid "Successfully sent. Will automatically jump to the device page in %ss"
+msgstr "Успешно отправлено. Автоматический переход на страницу устройства через %s с."
+
+#, c-format, boost-format
+msgid "Successfully sent. Will automatically jump to the next page in %ss"
+msgstr "Успешно отправлено. Автоматический переход на следующую страницу через %s с."
 
 msgid "The following object(s) have empty initial layer and can't be printed. Please cut the bottom or enable supports."
 msgstr "Следующая модель(и) имеет пустой начальный слой и не может быть напечатана. Пожалуйста, обрежьте нижнюю часть или включите поддержку."
@@ -11939,6 +12089,9 @@ msgstr "Выберите последовательность печати «П�
 
 msgid "The spiral vase mode does not work when an object contains more than one materials."
 msgstr "Режим «Спиральная ваза» не работает, когда модель печатается несколькими материалами."
+
+msgid "The spiral vase mode does not work when an object contains regions with different print settings."
+msgstr ""
 
 msgid "Variable layer height is not supported with Organic supports."
 msgstr "Функция переменной высоты слоя не совместима с органическими поддержками."
@@ -12225,14 +12378,14 @@ msgstr "с"
 msgid "Cooling overhang threshold"
 msgstr "Порог нависания для включения обдува"
 
-#, fuzzy
+#, fuzzy, c-format
 msgid "Force cooling fan to be specific speed when overhang degree of printed part exceeds this value. Expressed as percentage which indicides how much width of the line without support from lower layer. 0% means forcing cooling for all outer wall no matter how much overhang degree"
 msgstr "Принудительное включение вентилятора обдува модели на определенную скорость, если степень нависания печатаемой части превышает данное значение. Выражается в процентах и показывает, насколько велика ширина периметра без поддержки со стороны нижнего слоя. 0% означает принудительное охлаждение всего внешнего периметра независимо от степени нависания."
 
 msgid "Overhang threshold for participating cooling"
 msgstr "Порог нависания участвующий в охлаждении"
 
-#, fuzzy
+#, fuzzy, c-format
 msgid "Decide which overhang part join the cooling function to slow down the speed.Expressed as percentage which indicides how much width of the line without support from lower layer. 100% means forcing cooling for all outer wall no matter how much overhang degree"
 msgstr "Когда этот параметр включён, нависающая часть участвует в замедлении печати для лучшего охлаждения слоёв, предотвращая проблему внезапного увеличения скорости печати на локальном участке нависания. Процент представляет собой степень нависания. Например, если задано 25%, то все линии с нависанием менее 25% будут участвовать в охлаждении и замедлении, а 100% означает, что все нависающие линии будут участвовать в охлаждении и замедлении."
 
@@ -12350,17 +12503,11 @@ msgstr "Тип каймы"
 msgid "This controls the generation of the brim at outer and/or inner side of models. Auto means the brim width is analysed and calculated automatically."
 msgstr "Этот параметр управляет формированием каймы на внешней/внутренней стороне моделей. Авто означает, что ширина каймы анализируется и рассчитывается автоматически."
 
-msgid "★ Brim-object gap"
-msgstr ""
+msgid "Brim-object gap"
+msgstr "Смещение каймы"
 
-msgid "A gap between innermost brim line and object can make brim be removed more easily. Negative values make the brim overlap the object."
-msgstr ""
-
-msgid "★ Brim layers"
-msgstr ""
-
-msgid "The number of layers on which the brim will be printed."
-msgstr ""
+msgid "A gap between innermost brim line and object can make brim be removed more easily"
+msgstr "Смещение каймы от печатаемой модели, может облегчить её удаление."
 
 msgid "Compatible machine"
 msgstr "Совместимые принтеры"
@@ -12626,6 +12773,7 @@ msgstr "Шаблон заполнения нижней поверхности, �
 msgid "Bottom surface density"
 msgstr ""
 
+#, c-format
 msgid "Density of bottom surface infill, 100% means a fully solid filled top layer.Lower values create a textured bottom surface, Intended for aesthetic or functional purposes, not to fix issues such as over-extrusion.WARNING: Lowering this value may negatively affect bed adhesion."
 msgstr ""
 
@@ -12816,6 +12964,9 @@ msgstr ""
 msgid "temperature when flushing filament. 0 indicates the upper bound of the recommended nozzle temperature range"
 msgstr ""
 
+msgid "Flush temperature used in fast purge mode."
+msgstr ""
+
 msgid "Flush volumetric speed"
 msgstr ""
 
@@ -12868,6 +13019,18 @@ msgid "Hotend change time"
 msgstr ""
 
 msgid "Time to change hotend."
+msgstr ""
+
+msgid "Cut and unload from extruder time"
+msgstr ""
+
+msgid "Time to cut filament and retract it out of the extruder, used when parallel feeding is supported. For statistics only"
+msgstr ""
+
+msgid "Extruder bite time after pre-feed"
+msgstr ""
+
+msgid "Time for the extruder to bite the filament once it has been pre-fed, used when parallel feeding is supported. For statistics only"
 msgstr ""
 
 # ???? Выбор темп. стола
@@ -13024,6 +13187,12 @@ msgstr ""
 msgid "Start and end ratios for the first component in gradient mode. Comma-separated pair, e.g. \"0.10,0.90\" means 10% to 90%."
 msgstr ""
 
+msgid "Mixed filament gradient curve"
+msgstr ""
+
+msgid "Optional Photoshop-style custom curve mapping Z progress to the first component ratio. Encoded as pipe-separated control points, either \"x,y\" (legacy) or \"x,y,m_in,m_out\" when a tangent override is needed (empty token or \"nan\" means use PCHIP default). x in [0,1]; y is clamped to the configured ratio range, e.g. \"0,0.15|0.5,0.50|1,0.85\". When empty, the linear gradient_range is used instead."
+msgstr ""
+
 msgid "Mixed filament per-part gradient"
 msgstr ""
 
@@ -13150,7 +13319,7 @@ msgstr "Угол ориентации шаблона разреженного з
 msgid "Sparse infill density"
 msgstr "Плотность заполнения"
 
-#, fuzzy
+#, fuzzy, c-format
 msgid "Density of internal sparse infill, 100% means solid throughout"
 msgstr "Плотность внутреннего заполнения, выраженная в процентах. 100% означает сплошное заполнение."
 
@@ -13429,6 +13598,12 @@ msgid "Print in clockwise when enabled, or counterclockwise when not enabled, no
 msgstr ""
 
 msgid "Enable clumping detection"
+msgstr ""
+
+msgid "Order-independent overlap carving"
+msgstr ""
+
+msgid "When enabled, overlapping model parts are carved by bounding-box size so smaller embedded parts are not removed by larger parts due to volume order."
 msgstr ""
 
 msgid "Clumping detection layers"
@@ -13757,6 +13932,12 @@ msgstr "Команды в G-коде, которые выполняются пр
 msgid "This G-code will be used as a custom code"
 msgstr "Пользовательский шаблон команд, которые выполняются при ручной вставке этого G-кода в окне предпросмотра нарезки, нажав правой кнопкой мыши на ползунок выбора слоя."
 
+msgid "Support fast purge mode"
+msgstr ""
+
+msgid "Whether this printer supports fast purge mode with optimized temperature and multiplier."
+msgstr ""
+
 msgid "Maximum speed X"
 msgstr "Максимальная скорость перемещения по X"
 
@@ -13831,6 +14012,30 @@ msgstr "Максимальный рывок по оси Z."
 
 msgid "Maximum jerk of the E axis"
 msgstr "Максимальный рывок у экструдера."
+
+msgid "Maximum force of the Y axis"
+msgstr ""
+
+msgid "The allowed maximum output force of Y axis"
+msgstr ""
+
+msgid "N"
+msgstr ""
+
+msgid "Bed mass of the Y axis"
+msgstr ""
+
+msgid "The machine bed mass load of Y axis"
+msgstr ""
+
+msgid "g"
+msgstr ""
+
+msgid "The allowed max printed mass"
+msgstr ""
+
+msgid "The allowed max printed mass on a plate"
+msgstr ""
 
 msgid "Minimum speed for extruding"
 msgstr "Минимальная скорость перемещения при печати"
@@ -14096,6 +14301,9 @@ msgstr ""
 msgid "Saving"
 msgstr ""
 
+msgid "Fast"
+msgstr ""
+
 msgid "length when change hotend"
 msgstr ""
 
@@ -14218,6 +14426,12 @@ msgstr "Расстояние до юбки"
 msgid "Distance from skirt to brim or object"
 msgstr "Расстояние между юбкой и каймой, или моделью."
 
+msgid "Skirt per object"
+msgstr ""
+
+msgid "Generate independent skirt around each object in sequential printing mode. When disabled, a single skirt is drawn around all objects."
+msgstr ""
+
 msgid "Skirt height"
 msgstr "Слоёв юбки"
 
@@ -14254,33 +14468,6 @@ msgstr "Скорость печати внутреннего сплошного 
 msgid "Spiralize smooths out the z moves of the outer contour. And turns a solid model into a single walled print with solid bottom layers. The final generated model has no seam"
 msgstr "Печать пустотелых и тонкостенных моделей по спирали. Модель печатается в одну стенку без верхней поверхности, заполнения и поддержки. При этом сопло при печати движется непрерывно по спирали вверх, что создаёт ровное и эстетически привлекательное изделие без шва."
 
-msgid "★ Vase reinforcement multiplier"
-msgstr ""
-
-msgid "Additional inward wall multiplier for the first spiral vase layers. Decimal values are distributed across rounded reinforcement loops."
-msgstr ""
-
-msgid "★ Vase reinforcement height"
-msgstr ""
-
-msgid "Height of spiral vase reinforcement. A plain number means layer count; a value ending with mm means model height."
-msgstr ""
-
-msgid "layers or mm"
-msgstr ""
-
-msgid "★ Fade vase reinforcement"
-msgstr ""
-
-msgid "Linearly fade the spiral vase reinforcement multiplier over the reinforcement height."
-msgstr ""
-
-msgid "★ Fade end multiplier"
-msgstr ""
-
-msgid "Spiral vase reinforcement multiplier at the end of the reinforcement height."
-msgstr ""
-
 msgid "Smooth Spiral"
 msgstr "Сглаживать спиральные контуры"
 
@@ -14298,6 +14485,12 @@ msgstr "Если выбран плавный или обычный режим з
 
 msgid "Traditional"
 msgstr "Обычный"
+
+msgid "Farthest point timelapse"
+msgstr ""
+
+msgid "When enabled, the timelapse snapshot is taken at the farthest point from camera instead of traveling to the wipe tower or excess chute. Only effective in traditional timelapse mode on non-I3 printers."
+msgstr ""
 
 msgid "Temperature variation"
 msgstr "Разница температур"
@@ -14805,6 +14998,18 @@ msgstr "Множитель очистки"
 msgid "The actual flushing volumes is equal to the flush multiplier multiplied by the flushing volumes in the table."
 msgstr "Реальные объёмы очистки равны множителю очистки, умноженному на объёмы очистки, указанные в таблице."
 
+msgid "Flush multiplier (Fast mode)"
+msgstr ""
+
+msgid "The flush multiplier used in fast purge mode."
+msgstr ""
+
+msgid "Alternate extruder printing"
+msgstr ""
+
+msgid "When the printer supports parallel (pre-)feeding, print the two extruders in an alternating order within a layer instead of finishing one extruder first. Only takes effect when the printer supports parallel feeding."
+msgstr ""
+
 msgid "Width of prime tower"
 msgstr "Размер черновой башни по оси X. Размер по оси Y будет автоматически вычислен исходя из необходимого объёма очистки и ширины башни. Таким образом, увеличивая ширину башни вы уменьшаете её длину и наоборот."
 
@@ -14949,9 +15154,6 @@ msgstr "--use-firmware-retraction не совместим с --wipe"
 msgid " doesn't work at 100%% density "
 msgstr " не работает при 100%% заполнении "
 
-msgid "Invalid spiral vase reinforcement height: "
-msgstr ""
-
 msgid "Invalid value when spiral vase mode is enabled: "
 msgstr "Недопустимое значение при включенном режиме спиральной вазы: "
 
@@ -14981,6 +15183,13 @@ msgstr "Генерация траектории заполнения"
 
 msgid "Detect overhangs for auto-lift"
 msgstr "Обнаруживать нависания для автоподъёма"
+
+msgid "Levitating objects cannot be printed without supports."
+msgstr ""
+
+#, c-format, boost-format
+msgid "It seems object %s has floating regions. Please re-orient the object or enable support generation."
+msgstr ""
 
 msgid "Checking support necessity"
 msgstr "Проверка необходимости поддержки"
@@ -15042,6 +15251,9 @@ msgstr "Не удалось создать сетку для файла моде
 msgid "The supplied file couldn't be read because it's empty"
 msgstr "Предоставленный файл не может быть прочитан, так как он пуст."
 
+msgid "The file format is incompatible and cannot be parsed."
+msgstr ""
+
 msgid "Unknown file format. Input file must have .stl, .obj, .amf(.xml), .gltf, .glb, .fbx extension."
 msgstr ""
 
@@ -15057,11 +15269,8 @@ msgstr "load_obj: ошибка обработки"
 msgid "load mtl in obj: failed to parse"
 msgstr "Загрузка mtl в obj: не удалось обработать"
 
-msgid "The file contains polygons with more than 4 vertices."
-msgstr "Файл содержит многоугольники с более чем 4 вершинами."
-
-msgid "The file contains polygons with less than 2 vertices."
-msgstr "Файл содержит многоугольники с менее чем 2 вершинами."
+msgid "The file contains polygons with less than 3 vertices."
+msgstr ""
 
 msgid "The file contains invalid vertex index."
 msgstr "Файл содержит неверное количество вершин."
@@ -16022,9 +16231,6 @@ msgstr "Создать из шаблона"
 msgid "Create Based on Current Printer"
 msgstr "Создать на основе профиля выбранного принтера"
 
-msgid "Rectangle"
-msgstr "Прямоугольник"
-
 msgid "wiki"
 msgstr "Wiki-страница"
 
@@ -16054,6 +16260,9 @@ msgstr "Введите свой диаметр сопла"
 
 msgid "Can't find my nozzle diameter"
 msgstr "Не могу найти свой диаметр сопла"
+
+msgid "Rectangle"
+msgstr "Прямоугольник"
 
 msgid "Printable Space"
 msgstr "Область печати"
@@ -17110,9 +17319,6 @@ msgstr ""
 msgid "Skipping objects."
 msgstr ""
 
-msgid "Continue"
-msgstr ""
-
 msgid "Null Color"
 msgstr ""
 
@@ -17166,10 +17372,10 @@ msgstr ""
 msgid "Purge Mode Settings"
 msgstr ""
 
-msgid "Standard Mode"
+msgid "Perform full purging with speed and temperature transition for the best print quality."
 msgstr ""
 
-msgid "Performs full priming for the best print quality. Requires more material and time."
+msgid "Uses optimized purge temperature, multiplier and stronger extrusion for faster purging. May cause slight color mixing in some extreme cases."
 msgstr ""
 
 msgid "Prime Saving"
@@ -17488,6 +17694,12 @@ msgstr ""
 msgid "Remove the third material"
 msgstr ""
 
+msgid "Material Ratio"
+msgstr ""
+
+msgid "Model Height"
+msgstr ""
+
 #: resources/data/hints.ini: [hint:How to use keyboard shortcuts]
 msgid ""
 "How to use keyboard shortcuts\n"
@@ -17766,11 +17978,32 @@ msgid ""
 "Less babysitting, more predictable output. Example: a small farm running PETG parts avoids 'fail at hour 6' surprises and keeps batches on schedule."
 msgstr ""
 
-#~ msgid "Brim-object gap"
-#~ msgstr "Смещение каймы"
+#~ msgid "Hide"
+#~ msgstr "Скрыть"
 
-#~ msgid "A gap between innermost brim line and object can make brim be removed more easily"
-#~ msgstr "Смещение каймы от печатаемой модели, может облегчить её удаление."
+#~ msgid "Show"
+#~ msgstr "Показать"
+
+#~ msgid "Pass 1"
+#~ msgstr "Проход 1"
+
+#~ msgid "Flow rate test - Pass 1"
+#~ msgstr "Тест скорости потока - 1-ый проход"
+
+#~ msgid "Pass 2"
+#~ msgstr "Проход 2"
+
+#~ msgid "Flow rate test - Pass 2"
+#~ msgstr "Тест скорости потока - 2-ой проход"
+
+#~ msgid "The localization tag of build plate is detected, and printing is paused if the tag is not in predefined range."
+#~ msgstr "Функция обнаружения метки (QR-кода) печатной пластины. Печать приостанавливается, если метка находится не в том месте."
+
+#~ msgid "The file contains polygons with more than 4 vertices."
+#~ msgstr "Файл содержит многоугольники с более чем 4 вершинами."
+
+#~ msgid "The file contains polygons with less than 2 vertices."
+#~ msgstr "Файл содержит многоугольники с менее чем 2 вершинами."
 
 #~ msgid "non-manifold edges be caused by cut tool, do you want to fix it now?"
 #~ msgstr "При работе режущего инструмента образовались открытые рёбра. Хотите починить это сейчас?"
