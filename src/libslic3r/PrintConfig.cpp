@@ -4682,6 +4682,13 @@ void PrintConfigDef::init_fff_params()
     def->mode = comSimple;
     def->set_default_value(new ConfigOptionEnum<SeamPosition>(spAligned));
 
+    def          = this->add("seam_optimization", coBool);
+    def->label   = L("★ Optimize seam");
+    def->category = L("Quality");
+    def->tooltip = L("When wall loops are two or more, print the inner wall paired with an outer wall immediately before that outer wall and start both near the selected seam point.");
+    def->mode    = comAdvanced;
+    def->set_default_value(new ConfigOptionBool(false));
+
     def          = this->add("seam_placement_away_from_overhangs", coBool);
     def->label   = L("Seam placement away from overhangs(experimental)");
     def->category = L("Quality");

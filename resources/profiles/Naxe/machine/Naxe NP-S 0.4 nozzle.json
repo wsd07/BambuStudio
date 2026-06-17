@@ -1,0 +1,82 @@
+{
+    "type": "machine",
+    "from": "system",
+    "setting_id": "GM_NAXE_001",
+    "inherits": "fdm_machine_common",
+    "instantiation": "true",
+    "printer_technology": "FFF",
+    "printer_settings_id": "Naxe NP-S 0.4 nozzle",
+    "printer_model": "Naxe NP-S",
+    "printer_variant": "0.4",
+    "name": "Naxe NP-S 0.4 nozzle",
+    "nozzle_diameter": [
+        "0.4"
+    ],
+    "default_print_profile": "0.16mm Standard @Naxe NP-S 0.4 nozzle",
+    "default_filament_profile": [
+        "Naxe Generic PLA @Naxe NP-S 0.4 nozzle",
+        "Naxe Generic PETG @Naxe NP-S 0.4 nozzle"
+    ],
+    "gcode_flavor": "marlin",
+    "printable_area": [
+        "0x0",
+        "300x0",
+        "300x300",
+        "0x300"
+    ],
+    "printable_height": "300",
+    "bed_exclude_area": [
+        "0x0"
+    ],
+    "extruder_clearance_height_to_rod": "30",
+    "extruder_clearance_max_radius": "80",
+    "extruder_clearance_dist_to_rod": "80",
+    "host_type": "octoprint",
+    "machine_start_gcode": "G28 X Y\nG1 Y10\nM104 S[nozzle_temperature_initial_layer]\nM190 S[bed_temperature_initial_layer_single]\nG28\nG4 S5\nG34\nG29 E0\nG21\nG90\nM83\nG1 X6 Y20 F7200\nG1 Z0.2\nM109 S[nozzle_temperature_initial_layer]\nG1 X10 Y20 Z0.2 F5000.0\nG1 X10 Y200.0 Z0.2 F900.0 E10\nG92 E0.0\nM117 Printing",
+    "machine_end_gcode": "M104 S0\nM140 S0\nG92 E1\nG1 E-1 F300\nG28 X0 Y0\nM84",
+    "machine_pause_gcode": "M600",
+    "machine_max_acceleration_z": [
+        "500",
+        "500"
+    ],
+    "machine_max_speed_e": [
+        "60",
+        "60"
+    ],
+    "machine_max_speed_z": [
+        "20",
+        "20"
+    ],
+    "machine_max_jerk_e": [
+        "5",
+        "5"
+    ],
+    "machine_max_jerk_x": [
+        "12",
+        "12"
+    ],
+    "machine_max_jerk_y": [
+        "12",
+        "12"
+    ],
+    "machine_max_jerk_z": [
+        "0.5",
+        "0.5"
+    ],
+    "retract_when_changing_layer": [
+        "1"
+    ],
+    "retraction_length": [
+        "0.2"
+    ],
+    "retraction_minimum_travel": [
+        "1.2"
+    ],
+    "retraction_speed": [
+        "45"
+    ],
+    "use_relative_e_distances": "1",
+    "support_air_filtration": "0",
+    "support_chamber_temp_control": "0",
+    "support_multi_bed_types": "1"
+}

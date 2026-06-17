@@ -1,0 +1,41 @@
+{
+    "type": "filament",
+    "from": "system",
+    "instantiation": "true",
+    "inherits": "fdm_filament_common",
+    "name": "Naxe Generic ABS @1.5米机器 0.8 nozzle",
+    "filament_settings_id": [
+        "Naxe Generic ABS @1.5米机器 0.8 nozzle"
+    ],
+    "filament_vendor": [
+        "Naxe"
+    ],
+    "filament_type": [
+        "ABS"
+    ],
+    "compatible_printers": [
+        "1.5米机器 0.8 nozzle"
+    ],
+    "filament_flow_ratio": [
+        "1"
+    ],
+    "nozzle_temperature": [
+        "215"
+    ],
+    "nozzle_temperature_initial_layer": [
+        "270"
+    ],
+    "hot_plate_temp": [
+        "0"
+    ],
+    "hot_plate_temp_initial_layer": [
+        "0"
+    ],
+    "fan_min_speed": [
+        "100"
+    ],
+    "fan_max_speed": [
+        "100"
+    ],
+    "filament_id": "NAXE_ABS_1500_08"
+}

@@ -1032,6 +1032,8 @@ boost::any ConfigOptionsGroup::get_config_value(const DynamicPrintConfig& config
             return false;
         if (opt_key2 == "spiral_vase_reinforcement_fade_end_multiplier")
             return double_to_string(0.5);
+        if (opt_key2 == "seam_optimization")
+            return false;
     }
 
     if (opt->nullable)

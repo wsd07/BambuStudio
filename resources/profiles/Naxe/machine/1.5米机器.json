@@ -1,0 +1,12 @@
+{
+    "type": "machine_model",
+    "name": "1.5米机器",
+    "model_id": "1.5米机器",
+    "nozzle_diameter": "0.8",
+    "machine_tech": "FFF",
+    "family": "Naxe",
+    "bed_model": "naxe_1500_buildplate_model.stl",
+    "bed_texture": "",
+    "hotend_model": "",
+    "default_materials": "Naxe Generic ABS @1.5米机器 0.8 nozzle"
+}

@@ -373,6 +373,7 @@ bool Print::invalidate_state_by_config_options(const ConfigOptionResolver & /* n
             || opt_key == "seam_slope_start_height"
             || opt_key == "seam_slope_gap"
             || opt_key == "seam_slope_min_length"
+            || opt_key == "seam_optimization"
             || opt_key == "spiral_vase_reinforcement_multiplier"
             || opt_key == "spiral_vase_reinforcement_height"
             || opt_key == "spiral_vase_reinforcement_fade"

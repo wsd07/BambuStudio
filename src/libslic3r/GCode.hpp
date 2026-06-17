@@ -402,7 +402,7 @@ private:
     // BBS
     std::string     change_layer(coordf_t print_z);
     std::string     extrude_entity(const ExtrusionEntity &entity, std::string description = "", double speed = -1.);
-    std::string     extrude_loop(ExtrusionLoop loop, std::string description, double speed = -1.);
+    std::string     extrude_loop(ExtrusionLoop loop, std::string description, double speed = -1., const Point *preferred_start = nullptr);
     std::string     extrude_multi_path(ExtrusionMultiPath multipath, std::string description = "", double speed = -1.);
     std::string     extrude_path(ExtrusionPath path, std::string description = "", double speed = -1.);
 

@@ -1112,6 +1112,7 @@ bool PrintObject::invalidate_state_by_config_options(
             || opt_key == "initial_layer_line_width"
             || opt_key == "inner_wall_line_width"
             || opt_key == "infill_wall_overlap"
+            || opt_key == "seam_optimization"
             || opt_key == "spiral_vase_reinforcement_multiplier"
             || opt_key == "spiral_vase_reinforcement_height"
             || opt_key == "spiral_vase_reinforcement_fade"
@@ -1335,6 +1336,7 @@ bool PrintObject::invalidate_state_by_config_options(
             steps.emplace_back(posSlice);
         } else if (
                opt_key == "seam_position"
+            || opt_key == "seam_optimization"
             || opt_key == "seam_placement_away_from_overhangs"
             || opt_key == "seam_slope_conditional"
             || opt_key == "scarf_angle_threshold"

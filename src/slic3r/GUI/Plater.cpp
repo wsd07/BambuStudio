@@ -205,6 +205,41 @@ bool& get_helio_pre_select_optimization_flag() {
     return g_helio_pre_select_optimization;
 }
 
+static bool thumbnail_is_fully_transparent(const ThumbnailData& data)
+{
+    if (!data.is_valid())
+        return false;
+
+    for (size_t i = 3; i < data.pixels.size(); i += 4)
+        if (data.pixels[i] != 0)
+            return false;
+
+    return true;
+}
+
+static void render_thumbnail_with_fallback(GLCanvas3D* canvas, ThumbnailData& data, unsigned int w, unsigned int h,
+                                           const ThumbnailsParams& thumbnail_params, Camera::EType camera_type,
+                                           Camera::ViewAngleType camera_view_angle_type = Camera::ViewAngleType::Iso,
+                                           bool for_picking = false, bool ban_light = false)
+{
+    if (!canvas)
+        return;
+
+    canvas->render_thumbnail(data, w, h, thumbnail_params, camera_type, camera_view_angle_type, for_picking, ban_light);
+    if (!thumbnail_is_fully_transparent(data))
+        return;
+
+    // 圆形或超大热床的 plate box 偶尔会过滤掉可见模型，导出前用模型包围盒兜底重渲染。
+    ThumbnailsParams fallback_params = thumbnail_params;
+    fallback_params.parts_only = false;
+    fallback_params.use_plate_box = false;
+
+    ThumbnailData fallback_data;
+    canvas->render_thumbnail(fallback_data, w, h, fallback_params, camera_type, camera_view_angle_type, for_picking, ban_light);
+    if (fallback_data.is_valid() && !thumbnail_is_fully_transparent(fallback_data))
+        data.load_from(fallback_data);
+}
+
 static bool has_importable_texture(const Slic3r::TexturedMesh& textured_mesh)
 {
     if (textured_mesh.vertices.empty() || textured_mesh.indices.empty())
@@ -14984,7 +15019,7 @@ void Plater::priv::generate_thumbnail(ThumbnailData &         data,
                                       bool                    for_picking,
                                       bool                    ban_light)
 {
-    view3D->get_canvas3d()->render_thumbnail(data, w, h, thumbnail_params, camera_type, camera_view_angle_type, for_picking, ban_light);
+    render_thumbnail_with_fallback(view3D->get_canvas3d(), data, w, h, thumbnail_params, camera_type, camera_view_angle_type, for_picking, ban_light);
 }
 
 //BBS: add plate id for thumbnail generate param
@@ -18354,13 +18389,14 @@ void Plater::update_all_plate_thumbnails(bool force_update)
         if (force_update || !plate->thumbnail_data.is_valid()) {
             thumbnail_params.background_color = Vec4f(0.0f, 0.0f, 0.0f, 0.0f);
             thumbnail_params.post_processing_enabled = b_fxaa_enabled;
-            get_view3D_canvas3D()->render_thumbnail(plate->thumbnail_data, plate->plate_thumbnail_width, plate->plate_thumbnail_height, thumbnail_params, Camera::EType::Ortho);
+            render_thumbnail_with_fallback(get_view3D_canvas3D(), plate->thumbnail_data, plate->plate_thumbnail_width, plate->plate_thumbnail_height,
+                                           thumbnail_params, Camera::EType::Ortho);
         }
         if (force_update || !plate->no_light_thumbnail_data.is_valid()) {
             thumbnail_params.background_color = Vec4f(0.0f, 0.0f, 0.0f, 0.0f);
             thumbnail_params.post_processing_enabled = b_fxaa_enabled;
-            get_view3D_canvas3D()->render_thumbnail(plate->no_light_thumbnail_data, plate->plate_thumbnail_width, plate->plate_thumbnail_height, thumbnail_params,
-                                                    Camera::EType::Ortho, Camera::ViewAngleType::Iso, false, true);
+            render_thumbnail_with_fallback(get_view3D_canvas3D(), plate->no_light_thumbnail_data, plate->plate_thumbnail_width, plate->plate_thumbnail_height,
+                                           thumbnail_params, Camera::EType::Ortho, Camera::ViewAngleType::Iso, false, true);
         }
     }
 }

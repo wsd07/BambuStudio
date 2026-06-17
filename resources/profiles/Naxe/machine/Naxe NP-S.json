@@ -1,0 +1,12 @@
+{
+    "type": "machine_model",
+    "name": "Naxe NP-S",
+    "model_id": "Naxe NP-S",
+    "nozzle_diameter": "0.4",
+    "machine_tech": "FFF",
+    "family": "Naxe",
+    "bed_model": "",
+    "bed_texture": "",
+    "hotend_model": "",
+    "default_materials": "Naxe Generic PLA @Naxe NP-S 0.4 nozzle;Naxe Generic PETG @Naxe NP-S 0.4 nozzle;Naxe Generic ABS @Naxe NP-S 0.4 nozzle;Naxe Generic PC @Naxe NP-S 0.4 nozzle;Naxe Generic TPU @Naxe NP-S 0.4 nozzle"
+}

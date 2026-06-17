@@ -47,7 +47,7 @@
     "enable_prime_tower": "1",
     "enable_support": "0",
     "enforce_support_layers": "0",
-    "ensure_vertical_shell_thickness": "ensure_all",
+    "ensure_vertical_shell_thickness": "enabled",
     "exclude_object": "0",
     "extra_perimeters_on_overhangs": "0",
     "filter_out_gap_fill": "0",

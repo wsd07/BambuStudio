@@ -5,6 +5,7 @@
     "instantiation": "false",
     "gcode_flavor": "marlin",
     "thumbnails": "230x110/PNG",
+    "thumbnail_size": "50x50",
     "thumbnails_format": "PNG",
     "version": "1.3.2411.29",
     "machine_start_gcode": "",

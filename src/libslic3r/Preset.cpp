@@ -1010,7 +1010,7 @@ static std::vector<std::string> s_Preset_print_options {
     "top_shell_layers", "top_shell_thickness", "bottom_shell_layers", "bottom_shell_thickness", "ensure_vertical_shell_thickness", "reduce_crossing_wall", "detect_thin_wall",
     "detect_overhang_wall", "top_color_penetration_layers", "bottom_color_penetration_layers",
     "infill_instead_top_bottom_surfaces",
-    "smooth_speed_discontinuity_area","smooth_coefficient", "seam_position", "seam_placement_away_from_overhangs", "wall_sequence", "is_infill_first", "sparse_infill_density", "fill_multiline",
+    "smooth_speed_discontinuity_area","smooth_coefficient", "seam_position", "seam_optimization", "seam_placement_away_from_overhangs", "wall_sequence", "is_infill_first", "sparse_infill_density", "fill_multiline",
     "sparse_infill_pattern", "sparse_infill_anchor", "sparse_infill_anchor_max", "top_surface_pattern", "monotonic_travel_into_wall",
     "locked_skin_infill_pattern", "locked_skeleton_infill_pattern",
     "bottom_surface_pattern", "internal_solid_infill_pattern", "infill_direction", "bridge_angle", "infill_shift_step", "skeleton_infill_density", "infill_lock_depth", "skin_infill_depth", "skin_infill_density",
@@ -3112,6 +3112,7 @@ static std::set<std::string> skipped_in_dirty = {"printer_settings_id", "print_s
 static constexpr const std::initializer_list<const char*> custom_missing_default_dirty_keys {
     "brim_object_gap",
     "brim_layers",
+    "seam_optimization",
     "spiral_vase_reinforcement_multiplier",
     "spiral_vase_reinforcement_height",
     "spiral_vase_reinforcement_fade",

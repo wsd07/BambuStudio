@@ -13905,6 +13905,12 @@ msgstr "接缝位置"
 msgid "The start position to print each part of outer wall"
 msgstr "开始打印外墙的位置"
 
+msgid "★ Optimize seam"
+msgstr "★ 优化接缝"
+
+msgid "When wall loops are two or more, print the inner wall paired with an outer wall immediately before that outer wall and start both near the selected seam point."
+msgstr "当墙层数为 2 或更多时，将与外墙配对的内墙紧挨外墙之前打印，并让两者都从选定接缝点附近开始。"
+
 msgid "Nearest"
 msgstr "最近"
 

@@ -1,0 +1,41 @@
+{
+    "type": "filament",
+    "from": "system",
+    "instantiation": "true",
+    "inherits": "fdm_filament_common",
+    "name": "Naxe Generic PLA @Naxe NP-S 0.4 nozzle",
+    "filament_settings_id": [
+        "Naxe Generic PLA @Naxe NP-S 0.4 nozzle"
+    ],
+    "filament_vendor": [
+        "Naxe"
+    ],
+    "filament_type": [
+        "PLA"
+    ],
+    "compatible_printers": [
+        "Naxe NP-S 0.4 nozzle"
+    ],
+    "filament_flow_ratio": [
+        "1"
+    ],
+    "nozzle_temperature": [
+        "205"
+    ],
+    "nozzle_temperature_initial_layer": [
+        "220"
+    ],
+    "hot_plate_temp": [
+        "60"
+    ],
+    "hot_plate_temp_initial_layer": [
+        "60"
+    ],
+    "fan_min_speed": [
+        "100"
+    ],
+    "fan_max_speed": [
+        "100"
+    ],
+    "filament_id": "NAXE_PLA_NPS_04"
+}

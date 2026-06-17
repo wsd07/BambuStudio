@@ -241,3 +241,115 @@
 - 根因或当前最佳判断：上游新增代码调用了 `obj->get_extruder_id_by_ams_id(...)`，但当前代码结构里该能力属于 `DevFilaSystem`，实际接口为 `GetExtruderIdByAmsId(...)`。
 - 修复方案或临时绕过方式：改为通过 `obj->GetFilaSystem()->GetExtruderIdByAmsId(std::to_string(ams_id))` 取得挤出机 ID。
 - 验证结果：修改后该文件通过编译；最终 `./BuildMac.sh -s -x -a arm64 -c Release -t 14.0` 完整编译和链接成功。
+
+## 2026-05-27 - 撤销外墙接缝点联动内墙顺序的实验修改
+
+- 日期：2026-05-27
+- 现象：之前为多墙接缝优化加入了外墙 seam 预判、外墙前内墙最近点切分、多个内墙小闭环重排、手绘接缝所在外墙组优先打印等逻辑，但实际打印/预览效果不好。
+- 受影响的命令、界面、模块或文件：`src/libslic3r/GCode.cpp`；`src/libslic3r/GCode.hpp`；`GCode::extrude_perimeters()`；`GCode::extrude_loop()`；多墙、外墙接缝、手绘接缝。
+- 根因或当前最佳判断：该实验修改在 G-code 输出阶段对既有 perimeter 顺序做二次推断和重排，容易干扰切片器原有的岛、孔、外墙、内墙输出顺序，实际效果不稳定。用户要求回退到仅保留“外圈与内孔打印方向相反”的位置。
+- 修复方案或临时绕过方式：移除 `preferred_start` 入口、外墙 seam 预判辅助函数、内墙最近点重排、手绘接缝外墙组优先打印逻辑；保留 `orient_loop_for_print()`，使外圈按 `print_in_clockwise` 输出，内孔自动使用相反方向。
+- 验证结果：`git diff --check` 通过；`rg` 确认 `preferred_start`、`PerimeterSeamPreview`、外墙 seam 预判与手绘外墙组重排相关符号已移除；`cmake --build build/arm64 --target libslic3r --config Release --parallel 8` 编译通过，仅有项目既有 warning；`./BuildMac.sh -s -x -a arm64 -c Release -t 14.0` 完整打包成功，刷新了 `build/arm64/BambuStudio/BambuStudio.app/Contents/MacOS/BambuStudio`。
+
+## 2026-05-28 - 新增“优化接缝”时必须避免全局重排墙顺序
+
+- 日期：2026-05-28
+- 现象：用户希望多墙切片时，外墙接缝点必须紧跟其相邻内墙最近点之后打印，减少接缝点前的长距离空移；同时此前“手绘接缝外墙组优先/多闭环全局重排”的实验效果不好，不能重复同类改法。
+- 受影响的命令、界面、模块或文件：工艺参数“质量/接缝”页面；`src/libslic3r/PrintConfig.cpp`；`src/slic3r/GUI/Tab.cpp`；`src/slic3r/GUI/ConfigManipulation.cpp`；`src/libslic3r/Preset.cpp`；`src/libslic3r/Print.cpp`；`src/libslic3r/PrintObject.cpp`；`src/libslic3r/GCode.cpp`；`src/libslic3r/GCode.hpp`。
+- 根因或当前最佳判断：外墙接缝点由 `GCode::extrude_loop()` 内的 `SeamPlacer` 决定，而 `GCode::extrude_perimeters()` 原本按切片器生成的墙顺序直接输出。多墙且外墙前有内墙时，如果相邻内墙没有在接缝附近结束，外墙仍能从手绘接缝点开始，但喷头会从较远处空移到该点，接缝更明显。此前全局移动外墙组会扰乱岛、孔和多闭环顺序，风险过大。
+- 修复方案或临时绕过方式：新增 `seam_optimization` 布尔参数，标签为 `★ Optimize seam`，放在“接缝位置”下方；仅当 `wall_loops >= 2` 时启用，否则灰显。G-code 输出阶段只在同一段连续、同侧的外墙和内墙组内做局部配对：预先用 `SeamPlacer` 计算外墙实际接缝点，找距离该点最近的相邻内墙闭环，把该内墙切到最近点起止并立即输出，再从同一接缝点输出外墙；不做跨岛、跨孔、跨外墙组的全局重排。新增参数同步加入旧预设缺省 dirty 比较和切片失效判断，避免“修改不变橙色/不重新切片”的旧问题。
+- 验证结果：`cmake --build build/arm64 --target libslic3r --config Release --parallel 8` 编译通过；`git diff --check` 通过；`cmake --build build/arm64 --target gettext_po_to_mo` 重新生成语言资源；`./BuildMac.sh -s -x -a arm64 -c Release -t 14.0` 完整打包成功，刷新了 `build/arm64/BambuStudio/BambuStudio.app/Contents/MacOS/BambuStudio`；`msgunfmt` 验证 app 内 `zh_CN` 为 `★ 优化接缝`、`zh_TW` 为 `★ 最佳化接縫`；`open -n build/arm64/BambuStudio/BambuStudio.app` 后用 `pgrep -fl BambuStudio` 确认进程存在。构建过程中仅有项目既有 warning。
+
+## 2026-05-28 - “优化接缝”启用后内墙和外墙中间仍插入其他走线
+
+- 日期：2026-05-28
+- 现象：勾选 `★ 优化接缝` 后，手绘接缝点对应外墙没有紧跟其内侧墙打印；实际顺序是内墙打印完后先输出大量其他结构，过一段时间才回到手绘接缝点打印外墙。另一个现象是 `★ 优化接缝` 修改后没有变成橙色，也没有恢复到保存配置/系统配置的按钮。
+- 受影响的命令、界面、模块或文件：工艺参数“质量/接缝”页面；`src/libslic3r/GCode.cpp`；`src/libslic3r/Preset.cpp`；`GCode::extrude_perimeters()`；`s_Preset_print_options`。
+- 根因或当前最佳判断：路径算法上一版只对 `region.perimeters` 中连续或相邻的内墙/外墙做配对，假设“对应内墙”和“对应外墙”在列表里挨得很近。实际复杂截面里，二者之间可能夹着孔、局部小闭环或其他墙，因此算法没有把它们作为一个立即输出的整体。UI 脏状态问题是 `seam_optimization` 虽然加入了新增参数缺省 dirty 比较列表，但没有加入 `s_Preset_print_options`，导致它没有完全进入工艺预设的普通参数集合。这是 2026-05-11 “新增参数修改不变橙色/不重新切片”问题的同类复发，说明新增参数时只凭经验补了部分注册点，没有执行固定清单去逐项核对所有必需注册位置。
+- 修复方案或临时绕过方式：在优化接缝开启时，对当前 `region.perimeters` 使用已输出标记：遇到外墙时，先用 `SeamPlacer` 预判该外墙实际接缝点，再在当前区域内所有尚未输出、同为外圈或同为内孔侧的内墙里寻找距离该接缝点最近的闭环，先将该内墙从最近点开始/结束输出，然后立即从同一个接缝点输出外墙；未匹配的剩余路径最后保持原有方式输出。把 `seam_optimization` 加入 `s_Preset_print_options`，使界面橙色脏状态和恢复按钮按普通工艺参数工作。
+- 验证结果：`git diff --check` 通过；`cmake --build build/arm64 --target libslic3r --config Release --parallel 8` 编译通过，仅有项目既有 warning；`./BuildMac.sh -s -x -a arm64 -c Release -t 14.0` 完整打包成功，刷新了 `build/arm64/BambuStudio/BambuStudio.app/Contents/MacOS/BambuStudio`，文件时间为 2026-05-28 19:58:19；后续仍需要用用户实际模型预览确认内墙和外墙是否已经紧邻输出。
+
+### 防复发规则草案
+
+以后在本项目新增任何工艺/打印机/耗材配置参数时，必须按固定清单逐项核对，而不能只改能让界面显示的最少文件：参数定义、默认值、配置序列化、预设正式字段列表、旧预设缺省 dirty 比较、切片失效判断、UI 显隐/启用逻辑、多语言、保存/恢复按钮状态、工程加载兼容性、实际切片生效验证。若新增参数在 UI 中修改后不变橙色、没有恢复按钮、修改后不触发重新切片，优先检查该参数是否缺少 `s_Preset_print_options`、旧预设缺省 dirty 列表或 invalidate 配置项。
+
+## 2026-05-28 - “优化接缝”中多个外墙共用同一个相邻内墙时需要拆段
+
+- 日期：2026-05-28
+- 现象：复杂截面中可能有多个外墙接缝点映射到同一个最外侧内墙。若仍按“一条外墙对应一整圈内墙”的方式处理，要么会重复打印内墙，要么只能让第一个外墙紧跟内墙，后续外墙仍会在其它走线之后才打印，无法满足“内墙最近点结束后立即接外墙接缝点”的目标。
+- 受影响的命令、界面、模块或文件：`src/libslic3r/GCode.cpp`；`GCode::extrude_perimeters()`；`GCode::extrude_loop()`；工艺参数 `seam_optimization`；多墙、手绘接缝、外墙与最外侧内墙配对。
+- 根因或当前最佳判断：上一版优化接缝隐含了“相邻内墙只服务一个外墙”的模型。实际偏移几何里，一个最外侧内墙可能同时邻接多个外墙或多个外墙片段，因此内墙必须按各外墙接缝投影点切成多段，每个外墙只消费自己前一段内墙，而不是整圈消费。
+- 修复方案或临时绕过方式：仅在 `seam_optimization && wall_loops >= 2 && !spiral_mode` 时启用拆段逻辑。先预判每个外墙实际接缝点，找到同侧最近的最外侧内墙点，并按该点在内墙自然打印方向上的距离分组排序；同一个内墙对应多个外墙时，对第 N 个外墙只输出“上一个接缝投影点 -> 当前接缝投影点”的内墙段，然后立即从当前外墙接缝点输出外墙。未启用“优化接缝”时保持原始输出路径。
+- 验证结果：`git diff --check` 通过；`cmake --build build/arm64 --target libslic3r --config Release --parallel 8` 编译通过，仅有项目既有 warning；`./BuildMac.sh -s -x -a arm64 -c Release -t 14.0` 完整打包成功，刷新 `build/arm64/BambuStudio/BambuStudio.app/Contents/MacOS/BambuStudio`，文件时间为 2026-05-28 20:40:59。仍需用用户实际模型在预览里验证共享内墙被拆为连续分段且每段后紧跟对应外墙。
+
+## 2026-05-28 - “优化接缝”不能在 G-code 阶段凭最近点替代外墙/内墙映射
+
+- 日期：2026-05-28
+- 现象：用户截图中一条只有一个对应外墙的最外侧内墙被拆成 3 段，说明算法把多个无关外墙误判成共享同一条内墙。进一步讨论时还误把用户解释的“偏移后重叠会由软件自身合并”理解成需要额外做布尔。
+- 受影响的命令、界面、模块或文件：`src/libslic3r/PerimeterGenerator.cpp`；`PerimeterGenerator::process_classic()`；`traverse_loops()`；`src/libslic3r/GCode.cpp`；`GCode::extrude_perimeters()`；工艺参数 `seam_optimization`。
+- 根因或当前最佳判断：外墙偏移、内墙合并已经在 `PerimeterGenerator::process_classic()` 中通过 `offset_ex` / `offset2_ex` 和后续 `contours` / `holes` 树状整理完成；G-code 阶段拿到的是已经生成和合并后的 `ExtrusionLoop`。上一版算法在 G-code 阶段只按“接缝点最近的同侧内墙”猜对应关系，没有利用“最外侧内墙”深度、同侧关系、包含关系或生成阶段父子关系，因此会把局部距离近但几何上不对应的内墙错误分配给多个外墙。
+- 修复方案或临时绕过方式：不要在 G-code 阶段重新做偏移或布尔。基于现有已生成的 perimeters 建立映射：只考虑 `elrSecondPerimeter` 标记的最外侧内墙；按外墙/内孔同侧关系和几何包含关系筛选候选。只有多个外墙经过该映射后确实指向同一条最外侧内墙时，才允许拆段；单一外墙独占的内墙必须整圈打印后紧接对应外墙，不能被拆段。必要时后续再在 `PerimeterGeneratorLoop -> ExtrusionLoop` 转换时携带来源深度或相邻关系元数据。
+- 验证结果：已撤回一次未完成的“近邻覆盖率”试探性修改；`rg` 确认 `loop_average_scaled_width`、`SeamLoopProximity`、`loop_proximity_to_outer` 等错误方向代码未留在 `src/libslic3r/GCode.cpp`；`git diff --check` 通过；`cmake --build build/arm64 --target libslic3r --config Release --parallel 8` 通过；`./BuildMac.sh -s -x -a arm64 -c Release -t 14.0` 完整打包成功，刷新 `build/arm64/BambuStudio/BambuStudio.app/Contents/MacOS/BambuStudio`，文件时间为 2026-05-28 21:37:25；`open -n build/arm64/BambuStudio/BambuStudio.app` 后 `ps` 确认 BambuStudio 进程存在。仍需用户用实际模型确认预览效果。
+
+## 2026-05-31 - 优化接缝映射中 Eigen 泛型 lambda 需要 template disambiguator
+
+- 日期：2026-05-31
+- 现象：优化接缝映射逻辑编译 `src/libslic3r/GCode.cpp` 时，泛型 lambda 内调用 Eigen 向量的 `head<2>()` 报 `missing 'template' keyword prior to dependent template name 'head'`。
+- 受影响的命令、界面、模块或文件：`cmake --build build/arm64 --target libslic3r --config Release --parallel 8`；`src/libslic3r/GCode.cpp`；优化接缝候选点排序代码。
+- 根因或当前最佳判断：lambda 参数使用 `auto` 后，`position` 的具体 Eigen 类型在模板实例化前是 dependent type；C++ 解析器无法判断 `head<2>` 是模板调用还是小于号表达式，必须写成 `position.template head<2>()`。
+- 修复方案或临时绕过方式：在泛型 lambda 或模板上下文中调用 Eigen 模板成员时统一使用 `obj.template head<N>()`、`obj.template segment<N>()` 这类写法；非模板上下文才可省略 `template`。
+- 验证结果：修正为 `lhs.position.template head<2>()` / `rhs.position.template head<2>()` 后，`libslic3r` 目标和 `./BuildMac.sh -s -x -a arm64 -c Release -t 14.0` 完整打包均成功。
+
+## 2026-05-31 - 迁移 Cura-Dev 机器配置到 Bambu profile 时的校验注意事项
+
+- 日期：2026-05-31
+- 现象：从 Cura-Dev 迁移 `NAXE NP-S` 配置时，直接运行 `python3 resources/profiles/check_duplicated_setting_id.py` 报 `TypeError: argument of type 'float' is not a container or iterable`，无法作为本次新增 profile 的完整校验结果。
+- 受影响的命令、界面、模块或文件：`resources/profiles/check_duplicated_setting_id.py`；`resources/profiles/Naxe.json`；`resources/profiles/Naxe/*`。
+- 根因或当前最佳判断：该脚本会递归扫描当前目录下所有 JSON，并假定解析结果一定是对象；仓库里存在非对象 JSON（例如数字、数组或其它数据文件）时，`'setting_id' in data` 会对 float 触发 TypeError。另一个迁移风险是 Cura 的 G-code 占位符、挤出模式和 Bambu/Orca profile 占位符不完全一致，不能原样复制。
+- 修复方案或临时绕过方式：新增 profile 后先做三类校验：1. 逐个 JSON 文件解析；2. 厂商索引 `machine_model_list`、`machine_list`、`filament_list`、`process_list` 的 `sub_path`、`name`、`inherits` 全部能解析；3. 用只检查对象 JSON 的自定义脚本确认新增 `setting_id` 唯一。Cura 里的 `{print_temperature}`、`{print_bed_temperature}` 改为 Bambu 可识别的 `[nozzle_temperature_initial_layer]`、`[bed_temperature_initial_layer_single]`，并保持 `M83`/`use_relative_e_distances=1` 一致，避免启动 G-code 最后切回 `M82` 后让后续相对 E 输出被固件误解。
+- 验证结果：`resources/profiles/Naxe.json` 和 `resources/profiles/Naxe/*` 全部通过 JSON 解析；厂商索引、文件名、`inherits` 校验通过；`GM_NAXE_001`、`GP_NAXE_010`、`GP_NAXE_016`、`GP_NAXE_025` 在 profile 对象 JSON 中均只出现一次；`./BuildMac.sh -s -x -a arm64 -c Release -t 14.0` 完整打包成功，`build/arm64/BambuStudio/BambuStudio.app/Contents/Resources/profiles/Naxe` 中包含 Naxe 机器、耗材和工艺配置。
+
+## 2026-05-31 - Cura 用户自定义“1.5米机器”迁移与最终 app 资源同步
+
+- 日期：2026-05-31
+- 现象：用户截图中的“1.5米机器”不是 Cura-Dev 仓库 `resources/definitions` 里的静态机器，而是当前电脑 Cura 5.11 用户目录中的自定义机器；完整编译后，构建树 `build/arm64/src/BambuStudio.app/Contents/Resources` 通过符号链接能看到新 profile，但最终给用户测试的 `build/arm64/BambuStudio/BambuStudio.app` 展开副本里仍是旧 Naxe 资源。
+- 受影响的命令、界面、模块或文件：`~/Library/Application Support/cura/5.11/machine_instances`；`~/Library/Application Support/cura/5.11/definition_changes`；`~/Library/Application Support/cura/5.11/extruders`；`~/Library/Application Support/cura/5.11/quality_changes`；`resources/profiles/Naxe.json`；`resources/profiles/Naxe/*`；`BuildMac.sh`；`build/arm64/BambuStudio/BambuStudio.app/Contents/Resources/profiles/Naxe`。
+- 根因或当前最佳判断：Cura 自定义机器会分散保存在用户配置目录的机器实例、定义变化、挤出机和质量覆盖文件中，不一定出现在项目内 definitions。Bambu 的最终 app 打包会先从构建树复制 app，再把 Resources 符号链接展开成真实目录；如果这个展开目录没有刷新新增 profile，会出现“源码和构建树正确，但可测试 app 仍缺新配置”的假完成。直接对整个 `Contents/Resources` 执行 `ditto` 还可能碰到 app 内部分资源的权限限制并报 `Operation not permitted`。
+- 修复方案或临时绕过方式：以匹配截图的 Cura 5.11 用户配置为来源，创建 `1.5米机器 0.8 nozzle`、`Naxe Generic ABS @1.5米机器 0.8 nozzle` 和 `0.30mm 陆艺吸顶灯405 @1.5米机器 0.8 nozzle`。Cura 的椭圆热床在 Bambu 中用 72 点圆形热床近似，尺寸为直径 1000 mm、中心原点、Z 高度 1600 mm。打包后不要整包覆盖 Resources，而是只同步变更的 `profiles/Naxe.json` 和 `profiles/Naxe/{machine,filament,process}` 中新增文件。
+- 验证结果：`./BuildMac.sh -s -x -a arm64 -c Release -t 14.0` 刷新了 `build/arm64/BambuStudio/BambuStudio.app/Contents/MacOS/BambuStudio`，文件时间为 2026-05-31 01:05:58；手动同步 Naxe profile 后，最终 app 内可找到 `1.5米机器.json`、`1.5米机器 0.8 nozzle.json`、`Naxe Generic ABS @1.5米机器 0.8 nozzle.json`、`0.30mm 陆艺吸顶灯405 @1.5米机器 0.8 nozzle.json`，且 app 内 `Naxe.json` 与源码一致。
+
+## 2026-05-31 - Anycubic 官方 profile 的 `ensure_vertical_shell_thickness` 枚举值不兼容
+
+- 日期：2026-05-31
+- 现象：启动 BambuStudio 后弹出配置加载错误，提示 `Invalid value provided for parameter ensure_all_stickness: ensure_all`，涉及 `Anycubic/process/0.08mm Standard @Anycubic Kobra X 0.4 nozzle.json`；同一弹窗里还提示 Naxe 缓存中找不到 `Naxe Generic PLA @Naxe NP-S 0.4 nozzle`。
+- 受影响的命令、界面、模块或文件：`resources/profiles/Anycubic/process/*.json`；`build/arm64/BambuStudio/BambuStudio.app/Contents/Resources/profiles/Anycubic/process/*.json`；`~/Library/Application Support/BambuStudio/system/Anycubic/process/*.json`；`resources/profiles/Naxe/*`；`~/Library/Application Support/BambuStudio/system/Naxe*`。
+- 根因或当前最佳判断：Anycubic 官方/Orca 系配置使用了 `ensure_all`、`ensure_moderate`，但当前项目 `PrintConfig.cpp` 中 `ensure_vertical_shell_thickness` 只注册了 `disabled`、`partial`、`enabled` 三个枚举值，因此加载 profile 时直接失败。Naxe 的报错来自用户 `system` 缓存与源码/最终 app 的 Naxe profile 不一致，机器列表引用了 PLA 耗材但缓存内容曾未完整同步。
+- 修复方案或临时绕过方式：将 Anycubic profile 中 `ensure_all` 映射为 `enabled`，`ensure_moderate` 映射为 `partial`，并同步源码、最终 app 资源和用户 `BambuStudio/system/Anycubic` 缓存。同步 Naxe 时只覆盖 `system/Naxe` 与 `system/Naxe.json`，不要整包覆盖 `Contents/Resources`。
+- 验证结果：`rg` 确认源码、最终 app 和用户缓存里的 Anycubic process 不再包含 `ensure_all` 或 `ensure_moderate`；`node` JSON 解析确认 `resources/profiles/Anycubic` 与 `resources/profiles/Naxe` 可解析；`git diff --check` 通过。
+
+## 2026-05-31 - Anycubic `support_style=organic` 与 Naxe 耗材缺 `filament_id`
+
+- 日期：2026-05-31
+- 现象：修复 `ensure_vertical_shell_thickness` 后再次启动，配置加载错误继续出现：Anycubic `0.20mm Standard @Anycubic Kobra 2 Max 0.4 nozzle.json` 报 `Invalid value provided for parameter support_style: organic`；Naxe `Naxe Generic PLA @Naxe NP-S 0.4 nozzle.json` 报找不到 `filament_id`。
+- 受影响的命令、界面、模块或文件：`resources/profiles/Anycubic/process/*.json`；`~/Library/Application Support/BambuStudio/system/Anycubic/process/*.json`；`resources/profiles/Naxe/filament/*.json`；`~/Library/Application Support/BambuStudio/system/Naxe/filament/*.json`。
+- 根因或当前最佳判断：当前项目 `PrintConfig.cpp` 中 `support_style` 的合法枚举是 `default`、`grid`、`snug`、`tree_slim`、`tree_strong`、`tree_hybrid`、`tree_organic`，Anycubic 官方 profile 使用的 `organic` 需要映射。Naxe 自建耗材 profile 缺少 `filament_id`，加载器按耗材 ID 建索引时无法找到对应 ID。
+- 修复方案或临时绕过方式：将 Anycubic `support_style: organic` 统一映射为 `tree_organic`。为所有实例化 Naxe 耗材补稳定 `filament_id`：`NAXE_PLA_NPS_04`、`NAXE_PETG_NPS_04`、`NAXE_ABS_NPS_04`、`NAXE_PC_NPS_04`、`NAXE_TPU_NPS_04`、`NAXE_ABS_1500_08`。同步源码、最终 app 资源和用户 `BambuStudio/system` 缓存。
+- 验证结果：`rg` 确认源码、最终 app 和用户缓存里不再存在 `support_style: organic`；脚本确认 Naxe 所有实例化耗材均含 `filament_id`；`node` JSON 解析通过；`git diff --check` 通过。
+
+## 2026-05-31 - 无床模型的大圆形打印床显示为偏移的双圆
+
+- 日期：2026-05-31
+- 现象：选择 Naxe `1.5米机器` 后，主界面出现两个圆：一个右侧网格圆床，一个左侧深色实心圆盘，视觉上像打印床被复制并错位。
+- 受影响的命令、界面、模块或文件：准备页 3D 视图；`resources/profiles/Naxe/machine/1.5米机器.json`；`resources/profiles/Naxe/naxe_1500_buildplate_model.stl`；`src/slic3r/GUI/3DBed.cpp`。
+- 根因或当前最佳判断：该机器 profile 没有 `bed_model`，因此走 `Bed3D::render_default()` 的默认床面三角化路径。当前 `update_bed_triangles()` 会先用 `m_bed_shape[i] - m_bed_shape[0]` 重建床面，再加 bounding box 最小点；对圆形床这种第一个点在圆周上的形状，会导致实心床面模型相对真实圆形网格偏移。FLSun 等圆床通常有 STL 床模型，因此不容易触发这个默认渲染路径问题。
+- 修复方案或临时绕过方式：为 `1.5米机器` 新增 1000 mm 直径的简易圆形床 STL：`resources/profiles/Naxe/naxe_1500_buildplate_model.stl`，并在 `1.5米机器.json` 中设置 `bed_model`。这样 3D 视图走系统床模型渲染路径，避免默认三角化偏移。
+- 验证结果：源码、最终 app 资源和用户 `BambuStudio/system/Naxe` 缓存均已包含 `naxe_1500_buildplate_model.stl`，且 `1.5米机器.json` 的 `bed_model` 指向该文件；`git diff --check` 通过。
+
+## 2026-05-31 - 新增机器导出的 3MF/G-code 缩略图是黑块
+
+- 日期：2026-05-31
+- 现象：使用新增的 Naxe/Anycubic 等机器保存 3MF 或导出 G-code 后，文件管理器里的缩略图显示为黑色方块；检查用户现有 G-code 时发现已经存在 `thumbnail begin` 数据块，但解码出的 PNG 所有像素 alpha 都是 0，属于有效但完全透明的图片。
+- 受影响的命令、界面、模块或文件：保存 3MF、导出 G-code、文件管理器缩略图；`src/slic3r/GUI/GLCanvas3D.cpp`；`src/slic3r/GUI/Plater.cpp`；`resources/profiles/Naxe/machine/fdm_machine_common.json`；`resources/profiles/Anycubic/machine/fdm_machine_common.json`。
+- 根因或当前最佳判断：当前 Bambu 分支导出缩略图读取的是 `thumbnail_size`，而不是 Prusa/Orca profile 常见的 `thumbnails` 字段；新增机器 profile 只保留了外部切片器风格的 `thumbnails`。另外，`GLCanvas3D::_render_thumbnail_internal()` 在圆形或超大热床、plate box 过滤异常时可能找不到可见模型，随后清空透明背景并返回；`ThumbnailData::is_valid()` 只检查尺寸和数据长度，不检查是否有非透明像素，因此完全透明 PNG 会被当成正常缩略图写入，最终在文件管理器里显示成黑块。
+- 修复方案或临时绕过方式：按照拓竹机器的默认缩略图逻辑，为 Naxe/Anycubic 通用机器 profile 增加 `thumbnail_size: 50x50`。在 `Plater` 的 3MF/G-code 缩略图生成入口增加透明图检测：如果第一次按 plate box 渲染得到的缩略图完全透明，则关闭 `parts_only` 和 `use_plate_box`，改用模型包围盒兜底重渲染，只有兜底结果包含非透明像素时才替换原图。
+- 验证结果：`python3 -m json.tool` 校验 Naxe/Anycubic profile 通过；`git diff --check` 通过；`./BuildMac.sh -s -x -a arm64 -c Release -t 14.0` 完整打包成功，生成 `build/arm64/BambuStudio/BambuStudio.app`。app 包内 Naxe/Anycubic profile 已同步新 `thumbnail_size`。由于系统自动审批额度限制，本次未能写入用户目录 `~/Library/Application Support/BambuStudio/system` 缓存；如果旧缓存仍覆盖 app 资源，需要获得权限后同步缓存或删除对应 system 缓存。旧文件内嵌的黑色/透明缩略图不会自动变好，需要用新版重新保存或重新导出。

@@ -1,0 +1,44 @@
+{
+    "type": "filament",
+    "from": "system",
+    "instantiation": "true",
+    "inherits": "fdm_filament_common",
+    "name": "Naxe Generic TPU @Naxe NP-S 0.4 nozzle",
+    "filament_settings_id": [
+        "Naxe Generic TPU @Naxe NP-S 0.4 nozzle"
+    ],
+    "filament_vendor": [
+        "Naxe"
+    ],
+    "filament_type": [
+        "TPU"
+    ],
+    "compatible_printers": [
+        "Naxe NP-S 0.4 nozzle"
+    ],
+    "filament_flow_ratio": [
+        "1.03"
+    ],
+    "filament_max_volumetric_speed": [
+        "4"
+    ],
+    "nozzle_temperature": [
+        "223"
+    ],
+    "nozzle_temperature_initial_layer": [
+        "210"
+    ],
+    "hot_plate_temp": [
+        "45"
+    ],
+    "hot_plate_temp_initial_layer": [
+        "45"
+    ],
+    "fan_min_speed": [
+        "50"
+    ],
+    "fan_max_speed": [
+        "100"
+    ],
+    "filament_id": "NAXE_TPU_NPS_04"
+}

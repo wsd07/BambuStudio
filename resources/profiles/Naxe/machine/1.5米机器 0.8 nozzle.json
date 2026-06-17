@@ -1,0 +1,162 @@
+{
+    "type": "machine",
+    "from": "system",
+    "setting_id": "GM_NAXE_1500_08",
+    "inherits": "fdm_machine_common",
+    "instantiation": "true",
+    "printer_technology": "FFF",
+    "printer_settings_id": "1.5米机器 0.8 nozzle",
+    "printer_model": "1.5米机器",
+    "printer_variant": "0.8",
+    "name": "1.5米机器 0.8 nozzle",
+    "nozzle_diameter": [
+        "0.8"
+    ],
+    "default_print_profile": "0.30mm 陆艺吸顶灯405 @1.5米机器 0.8 nozzle",
+    "default_filament_profile": [
+        "Naxe Generic ABS @1.5米机器 0.8 nozzle"
+    ],
+    "gcode_flavor": "marlin",
+    "printable_area": [
+        "500x0",
+        "498.097x43.578",
+        "492.404x86.824",
+        "482.963x129.41",
+        "469.846x171.01",
+        "453.154x211.309",
+        "433.013x250",
+        "409.576x286.788",
+        "383.022x321.394",
+        "353.553x353.553",
+        "321.394x383.022",
+        "286.788x409.576",
+        "250x433.013",
+        "211.309x453.154",
+        "171.01x469.846",
+        "129.41x482.963",
+        "86.824x492.404",
+        "43.578x498.097",
+        "0x500",
+        "-43.578x498.097",
+        "-86.824x492.404",
+        "-129.41x482.963",
+        "-171.01x469.846",
+        "-211.309x453.154",
+        "-250x433.013",
+        "-286.788x409.576",
+        "-321.394x383.022",
+        "-353.553x353.553",
+        "-383.022x321.394",
+        "-409.576x286.788",
+        "-433.013x250",
+        "-453.154x211.309",
+        "-469.846x171.01",
+        "-482.963x129.41",
+        "-492.404x86.824",
+        "-498.097x43.578",
+        "-500x0",
+        "-498.097x-43.578",
+        "-492.404x-86.824",
+        "-482.963x-129.41",
+        "-469.846x-171.01",
+        "-453.154x-211.309",
+        "-433.013x-250",
+        "-409.576x-286.788",
+        "-383.022x-321.394",
+        "-353.553x-353.553",
+        "-321.394x-383.022",
+        "-286.788x-409.576",
+        "-250x-433.013",
+        "-211.309x-453.154",
+        "-171.01x-469.846",
+        "-129.41x-482.963",
+        "-86.824x-492.404",
+        "-43.578x-498.097",
+        "0x-500",
+        "43.578x-498.097",
+        "86.824x-492.404",
+        "129.41x-482.963",
+        "171.01x-469.846",
+        "211.309x-453.154",
+        "250x-433.013",
+        "286.788x-409.576",
+        "321.394x-383.022",
+        "353.553x-353.553",
+        "383.022x-321.394",
+        "409.576x-286.788",
+        "433.013x-250",
+        "453.154x-211.309",
+        "469.846x-171.01",
+        "482.963x-129.41",
+        "492.404x-86.824",
+        "498.097x-43.578"
+    ],
+    "printable_height": "1600",
+    "bed_exclude_area": [
+        "0x0"
+    ],
+    "extruder_clearance_height_to_rod": "1600",
+    "extruder_clearance_max_radius": "20",
+    "extruder_clearance_dist_to_rod": "20",
+    "extruder_offset": [
+        "0x0"
+    ],
+    "host_type": "octoprint",
+    "machine_start_gcode": "M104 S[nozzle_temperature_initial_layer]\nG28 ;Home\nG1 Z15.0 F6000 ;Move the platform down 15mm\n;Prime the extruder\nM109 S[nozzle_temperature_initial_layer]\nM83\nG92 E0\nG1 F200 E3\nG92 E0",
+    "machine_end_gcode": "M104 S0\nM140 S0\n;Retract the filament\nG92 E1\nG1 E-1 F300\nG28 X0 Y0\nM84",
+    "machine_pause_gcode": "M600",
+    "machine_max_acceleration_z": [
+        "500",
+        "500"
+    ],
+    "machine_max_speed_e": [
+        "60",
+        "60"
+    ],
+    "machine_max_speed_z": [
+        "20",
+        "20"
+    ],
+    "machine_max_jerk_e": [
+        "5",
+        "5"
+    ],
+    "machine_max_jerk_x": [
+        "12",
+        "12"
+    ],
+    "machine_max_jerk_y": [
+        "12",
+        "12"
+    ],
+    "machine_max_jerk_z": [
+        "0.5",
+        "0.5"
+    ],
+    "max_layer_height": [
+        "0.8"
+    ],
+    "min_layer_height": [
+        "0.08"
+    ],
+    "nozzle_type": [
+        "hardened_steel"
+    ],
+    "printer_structure": "delta",
+    "retract_when_changing_layer": [
+        "1"
+    ],
+    "retraction_length": [
+        "0.8"
+    ],
+    "retraction_minimum_travel": [
+        "1"
+    ],
+    "retraction_speed": [
+        "70"
+    ],
+    "use_relative_e_distances": "1",
+    "support_air_filtration": "0",
+    "support_chamber_temp_control": "0",
+    "support_multi_bed_types": "1"
+}
