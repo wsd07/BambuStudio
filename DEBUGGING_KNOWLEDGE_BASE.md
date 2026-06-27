@@ -407,3 +407,75 @@
 - 根因或当前最佳判断：`dist` 是 Vite 生成目录，之前构建留下的 `dist/img` 中仍有旧文件；Vite 在准备输出目录时调用 `emptyDir` 删除子目录，macOS 文件提供器/索引器或并发构建残留导致目录删除瞬间非空，于是前端构建失败。此问题发生在最后的 Web 资源步骤，不代表 C++ 合并或链接失败。
 - 修复方案或临时绕过方式：先删除生成目录 `src/slic3r/GUI/DeviceWeb/device_page/dist`，再重新运行打包命令或对应 build 目标。不要手改源码资源来规避；这是构建产物清理问题。
 - 验证结果：已用 `cmake -E remove_directory src/slic3r/GUI/DeviceWeb/device_page/dist` 清理旧产物，后续重新打包验证。
+
+## 2026-06-24 - “优化接缝”有映射但仍没有按“内墙段 -> 外墙”整体输出
+
+- 日期：2026-06-24
+- 现象：勾选 `★ Optimize seam` 后，代码已经为外墙寻找相邻的最外侧内墙，也能在多个外墙共享同一内墙时计算拆段点，但预览中仍可能出现“相邻内墙打印完后先混入其他结构，过很久才回到该外墙接缝点”的情况。
+- 受影响的命令、界面、模块或文件：`src/libslic3r/GCode.cpp`；`GCode::extrude_perimeters()`；工艺参数 `seam_optimization`；多墙、外墙接缝、手绘接缝。
+- 根因或当前最佳判断：上一版虽然建立了 `externals_by_inner` 映射，但最终仍按原始 `region.perimeters` 顺序扫描输出，只是在扫描到某个外墙时临时输出它对应的内墙或内墙段。这样外墙和相邻内墙没有被提升为一个明确的输出组，复杂截面里其它墙、孔或小闭环仍可能排在二者之间。正确模型应该是先生成“最外侧内墙/共享内墙段 + 紧邻外墙”的输出组，再让扫描阶段遇到组内任意成员时一次性输出整组。
+- 修复方案或临时绕过方式：在 `GCode::extrude_perimeters()` 中新增 `SeamEmissionGroup`。每个组绑定一个 `elrSecondPerimeter` 内墙和它服务的外墙集合；单外墙时从最近点打印完整内墙再立即打印外墙；多外墙共享同一内墙时，按内墙自然打印方向上的最近点排序，把内墙拆成“上一个最近点 -> 当前最近点”的闭环段，并在每段后立即打印对应外墙。扫描 `region.perimeters` 时，遇到组内任意成员就调用 `emit_seam_group()`，避免继续受外墙原始索引延迟影响。
+- 验证结果：`cmake --build build/arm64 --target libslic3r --config Release --parallel 8` 编译通过；`./BuildMac.sh -s -x -a arm64 -c Release -t 14.0` 完整打包成功，生成 `build/arm64/BambuStudio/BambuStudio.app`；本次改动文件级 `git diff --check -- src/libslic3r/GCode.cpp DEBUGGING_KNOWLEDGE_BASE.md` 通过。全局 `git diff --check` 曾长时间无输出，符合 2026-06-17 记录的 macOS 文件读取异常特征，已改用文件级检查替代。
+
+## 2026-06-24 - “优化接缝”多对多几何不能只按最近内墙贪心分配
+
+- 日期：2026-06-24
+- 现象：复杂截面中，某条最外侧内墙打印结束后没有紧接着打印其对应外墙，而是继续打印另一条内墙；过一段时间后，该外墙又跟在另一条外墙之后打印，说明“内墙 -> 外墙”的组输出仍然没有拿到正确的内外墙分配结果。
+- 受影响的命令、界面、模块或文件：`src/libslic3r/GCode.cpp`；`GCode::extrude_perimeters()`；`seam_optimization`；复杂外墙/内墙多对多映射。
+- 根因或当前最佳判断：外墙向内偏移后可能产生多条最外侧内墙；多条外墙的偏移结果也可能合并成同一条内墙，因此内外墙关系是多对多。上一版虽然能把共享内墙拆段，但分配阶段仍先给每个外墙选“最近候选”，再尝试把冲突的自动接缝移走。这种局部贪心会把稀缺内墙分给候选较多的外墙，导致候选较少的外墙只能共享或延后，最终出现不合理的打印顺序。
+- 修复方案或临时绕过方式：把分配阶段改成“锁定 + 二分匹配 + 兜底共享”：先锁定手绘接缝外墙的最近候选，保持用户指定最高优先级；再锁定只有唯一候选的外墙；对剩余自动接缝外墙，在未被占用的内墙集合上做二分匹配，最大化独享内墙数量；仍无法独享时，才选择当前占用数量最低、距离代价最小的候选内墙并进入共享拆段输出。注意：拆段是最后手段，能通过重新分配做到独享时不拆段。
+- 验证结果：`cmake --build build/arm64 --target libslic3r --config Release --parallel 8` 编译通过；`git diff --check -- src/libslic3r/GCode.cpp DEBUGGING_KNOWLEDGE_BASE.md` 通过；`./BuildMac.sh -s -x -a arm64 -c Release -t 14.0` 完整打包成功，生成 `build/arm64/BambuStudio/BambuStudio.app`，二进制更新时间为 `2026-06-24 20:19:59`。
+
+## 2026-06-24 - Optimize seam 不能只靠预览截图判断，必须输出结构化切片日志
+
+- 日期：2026-06-24
+- 现象：用户重新测试 `★ Optimize seam` 后反馈“没有任何区别”，截图显示第 96 层仍未按“内墙段 -> 外墙”顺序输出。但仅凭预览图无法判断问题发生在参数是否生效、是否进入优化代码、外墙/内墙候选映射、共享内墙拆段、最终输出顺序，还是后续 G-code/预览处理。
+- 受影响的命令、界面、模块或文件：`src/libslic3r/GCode.cpp`；`GCode::extrude_perimeters()`；工艺参数 `seam_optimization`；多墙接缝优化；切片预览第 N 层路径顺序排查。
+- 根因或当前最佳判断：此前多次 Optimize seam 调试主要依靠截图和局部代码推断，缺少可复查的逐层结构化日志，因此同类问题会反复停留在“看起来没生效”而无法定位到具体阶段。项目已有普通日志机制，但不适合表达每层、每个 region、每条外墙/内墙候选、分配、共享拆段和最终 emit 顺序。
+- 修复方案或临时绕过方式：新增 Optimize seam 专用结构化切片日志，写入 BambuStudio 数据目录下的 `debug_logs/slicing/optimize_seam_latest.log`。当 `seam_optimization` 开启时，记录 `REGION`、`PERIM`、`MAPPING`、`CANDIDATE`、`ASSIGN`、`INNER_GROUP_*`、`GROUP`、`EMIT_*`、`SCAN_GROUP_HIT` 等事件，用于确认参数传播、候选生成、内外墙分配、共享内墙拆段和最终输出顺序。已把日志使用流程写入 `AGENTS.md` 的 `Slicing Debug Logs` 项目规则：今后调试切片路径生成、排序、接缝、墙体、预览/G-code 不一致时，必须优先使用结构化日志；字段不足时扩展日志格式，不再添加一次性 `printf` 或只靠截图猜测。
+- 验证结果：`cmake --build build/arm64 --target libslic3r --config Release --parallel 8` 编译通过；`git diff --check -- AGENTS.md src/libslic3r/GCode.cpp DEBUGGING_KNOWLEDGE_BASE.md` 通过；`./BuildMac.sh -s -x -a arm64 -c Release -t 14.0` 完整打包成功，生成 `build/arm64/BambuStudio/BambuStudio.app`，二进制更新时间为 `2026-06-24 20:54:29`。需要用新版 App 重新切片一次，才能生成新的 `optimize_seam_latest.log` 并继续定位第 96 层的具体原因。
+
+## 2026-06-24 - Optimize seam 第 92 层候选内墙为空是 `elrSecondPerimeter` 标记假设错误
+
+- 日期：2026-06-24
+- 现象：用户使用新版重新切片后，第 92 层红色箭头指向的相邻内墙打印完没有立即打印左下角手绘接缝外墙，而是继续打印蓝色箭头指向的另一条内墙，再经过大量结构后才回到该外墙接缝点。
+- 受影响的命令、界面、模块或文件：`src/libslic3r/GCode.cpp`；`is_adjacent_inner_perimeter()`；`GCode::extrude_perimeters()`；`seam_optimization`；第 92 层 Optimize seam 结构化日志。
+- 根因或当前最佳判断：结构化日志显示第 92 层 `REGION ... optimize=1`，说明参数已生效且优化路径已进入；但同一层所有 region 都是 `adjacent_inner=0`，外墙全部输出 `MAPPING_NO_CANDIDATES`。对应 `PERIM` 行显示实际相邻内墙的 `role=Inner wall`，但 `loop_role` 为 `1` 或 `8`，不是 `elrSecondPerimeter` 的 `16`。旧算法把“最外侧相邻内墙”等同于带 `elrSecondPerimeter` 标记的内墙，这个假设在复杂区域/孔/合并后的闭环上不成立，导致真实相邻内墙被候选入口直接排除。
+- 修复方案或临时绕过方式：`is_adjacent_inner_perimeter()` 不再把 `elrSecondPerimeter` 作为硬门槛，只要求候选是 `erPerimeter` 普通内墙；真正是否相邻继续交给 `loop_is_geometrically_adjacent_to_external()` 和距离排序判断。以后调试类似“截图看得到相邻内墙但日志候选为空”的问题，优先检查结构化日志里的 `PERIM role/loop_role` 与候选过滤条件是否一致，不要把生成器内部标记当作几何事实。
+- 验证结果：`cmake --build build/arm64 --target libslic3r --config Release --parallel 8` 编译通过；`./BuildMac.sh -s -x -a arm64 -c Release -t 14.0` 完整打包成功，生成 `build/arm64/BambuStudio/BambuStudio.app`，二进制更新时间为 `2026-06-24 22:07:14`。仍需用户用新版重新切片，确认第 92 层日志从 `MAPPING_NO_CANDIDATES` 变为有 `MAPPING/CANDIDATE/ASSIGN/GROUP/EMIT` 事件，并验证预览顺序是否改善。
+
+## 2026-06-24 - Optimize seam 复杂合并内墙不能只靠同侧包含关系判断候选
+
+- 日期：2026-06-24
+- 现象：用户再次检查第 92 层，蓝色箭头指向的大内墙打印完成后，软件先去打印绿色小圆轮廓，然后才回到该内墙对应的红色外墙，产生明显长空移和外墙不平整。
+- 受影响的命令、界面、模块或文件：`src/libslic3r/GCode.cpp`；`collect_inner_candidates()`；`loop_is_geometrically_adjacent_to_external()`；`seam_optimization`；复杂截面中 `paths > 1` 的合并内墙。
+- 根因或当前最佳判断：结构化日志显示第 92 层已经能找到部分候选并按组输出，但仍有 `PERIM idx=3 role=Inner wall loop_role=1 paths=17` 未进入任何 `GROUP`，同时 `external=6` 输出 `MAPPING_NO_CANDIDATES seam=43.990,44.190`。这说明蓝色大内墙不是在组内被打断，而是从未被分配给对应外墙。旧候选逻辑要求外墙和内墙的孔/外圈 `loop_role` 同侧，并通过简单 `contains(first_point)` 判断；复杂合并后的内墙可能包含多个局部形状，`loop_role` 和首点包含关系不能代表它是否贴近某个外墙接缝。
+- 修复方案或临时绕过方式：保留原有几何包含判断，但增加“接缝附近距离兜底”：候选收集传入外墙实际接缝点，如果某条普通内墙到该接缝点的最近距离在墙宽放大阈值内，即使 `loop_role`/包含关系不匹配，也允许成为候选。这样复杂合并内墙可通过空间接近性进入 `MAPPING/CANDIDATE`，再由距离排序和分配算法决定是否用于该外墙。
+- 验证结果：`cmake --build build/arm64 --target libslic3r --config Release --parallel 8` 编译通过；`./BuildMac.sh -s -x -a arm64 -c Release -t 14.0` 完整打包成功，生成 `build/arm64/BambuStudio/BambuStudio.app`，二进制更新时间为 `2026-06-24 22:07:14`。仍需用户用新版重新切片，验证第 92 层 `external=6` 是否从 `MAPPING_NO_CANDIDATES` 变为有候选并进入 `GROUP/EMIT`。
+
+## 2026-06-27 - Optimize seam 不能只提前打印负责接缝衔接的一条内墙
+
+- 日期：2026-06-27
+- 现象：复杂截面的一条外墙由偏移后形成的多条最外侧内墙共同支撑。启用 `★ Optimize seam` 后，接近外墙接缝点的内墙会紧邻外墙输出，但同一外墙对应的其他内墙仍可能排在外墙之后，导致打印外墙时局部内墙尚未完成，最终表面异常。
+- 受影响的命令、界面、模块或文件：`src/libslic3r/GCode.cpp`；`GCode::extrude_perimeters()`；`SeamEmissionGroup`；`seam_optimization`；结构化日志 `debug_logs/slicing/optimize_seam_latest.log`。
+- 根因或当前最佳判断：结构化日志中的 `MAPPING/CANDIDATE` 已经正确记录一条外墙对应多条候选内墙，但 `ASSIGN` 和 `SeamEmissionGroup` 只保留了负责接缝衔接的单条内墙。最终发射逻辑把“connector inner”错误等同于“该外墙的全部前置内墙”，所以直接输出 connector 和外墙，遗漏其他候选内墙的先行约束。例如第 110 层 `external=4` 有 `inner=2,1,3,0` 四个候选，旧日志只输出 `inner=2 -> external=4`。
+- 修复方案或临时绕过方式：把内墙关系拆成两类：分配得到的 `connector inner` 负责最后结束在接缝附近并立即衔接外墙；其余候选保存为 `prerequisite_inner_indices`。发射外墙前递归完成全部前置内墙：若前置内墙属于另一个接缝组，先完整输出该组，保持它自己的“内墙 -> 外墙”紧邻关系；若未被接缝组占用，则直接提前输出；最后才输出当前 connector（或共享内墙段）和外墙。新增 `EMIT_PREREQUISITES_BEGIN`、`EMIT_PREREQUISITE_GROUP`、`EMIT_PREREQUISITE_INNER`、`EMIT_PREREQUISITE_SKIP`、`EMIT_DEPENDENCY_CYCLE` 日志事件，用于核对完整前置集合和复杂多对多依赖。
+- 验证结果：`git diff --check -- src/libslic3r/GCode.cpp` 通过；`cmake --build build/arm64 --target libslic3r --config Release --parallel 8` 编译和链接成功，仅有项目既有 warning。待快速打包后用用户模型重新切片，确认目标层每个 `EMIT_EXTERNAL` 之前，其所有 `prerequisites` 均已输出。
+
+## 2026-06-27 - 快速打包仍会逐文件重复复制完整资源目录
+
+- 日期：2026-06-27
+- 现象：运行 `tools/dev/fast_package_mac.sh -a arm64 -c Release` 时，C++ 编译和链接已经结束，但脚本长期停留在“刷新可双击 App 包”，`ps` 显示 `cp -R resources .../BambuStudio.app/Contents/Resources` 持续数分钟；资源目录约 366 MB。
+- 受影响的命令、界面、模块或文件：`tools/dev/fast_package_mac.sh`；`build/arm64/BambuStudio/BambuStudio.app`；macOS 本地测试打包。
+- 根因或当前最佳判断：旧快速脚本每次都删除整个目标 `.app`，复制构建 App 后又把源码 App 中的 `Resources` 符号链接展开为完整目录。即使只修改一个 C++ 文件，也会逐文件重建全部资源，抵消增量编译的收益。
+- 修复方案或临时绕过方式：目标 App 已存在时只刷新 `Contents/MacOS/BambuStudio` 和 `Info.plist`；快速包明确定位为本机开发测试包，让 `Contents/Resources` 直接链接项目 `resources` 目录，资源改动即时生效且不再复制数万文件。需要独立分发、签名或脱离源码目录运行时仍使用完整 `BuildMac.sh` 物化资源。曾尝试 APFS `cp -cR`，但大量小文件仍需逐项遍历，实测依旧缓慢，因此没有保留为最终方案。
+- 验证结果：`bash -n tools/dev/fast_package_mac.sh` 和文件级 `git diff --check` 通过；无待编译任务时快速打包总耗时约 `0.72s`，目标 App 的 `Contents/Resources` 已正确链接到项目资源目录。正式独立包仍由完整打包流程生成。
+
+## 2026-06-24 - 小改动后完整 BuildMac 打包耗时过长
+
+- 日期：2026-06-24
+- 现象：只修改少量 C++ 切片算法代码后，运行 `./BuildMac.sh -s -x -a arm64 -c Release -t 14.0` 仍会重新检查并编译大量目标，输出数万行 warning，导致用户等待很久。
+- 受影响的命令、界面、模块或文件：macOS 本地开发打包流程；可测试 App 路径 `build/arm64/BambuStudio/BambuStudio.app`。
+- 根因或当前最佳判断：`BuildMac.sh` 默认会执行 CMake 配置和 `all` 目标构建，然后复制并修复 `.app`。对于已经完成过配置的本地增量开发，这比“只构建 BambuStudio 目标并刷新 App 包”重得多。
+- 修复方案或临时绕过方式：新增 `tools/dev/fast_package_mac.sh`。日常源码/资源/配置小改动先运行 `tools/dev/fast_package_mac.sh -a arm64 -c Release`；首次构建、CMake/依赖/架构变化、正式验证仍使用完整 `BuildMac.sh`。
+- 验证结果：`tools/dev/fast_package_mac.sh -a arm64 -c Release -j 8` 验证通过；在完整构建已存在时输出 `ninja: no work to do.`，随后刷新 `build/arm64/BambuStudio/BambuStudio.app`，耗时约数秒。

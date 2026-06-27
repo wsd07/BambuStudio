@@ -19,11 +19,15 @@
 #include <algorithm>
 #include <cstdlib>
 #include <chrono>
+#include <fstream>
+#include <iomanip>
 #include <math.h>
 #include <utility>
 #include <string_view>
 #include <memory>
 #include <map>
+#include <mutex>
+#include <sstream>
 
 #include <boost/algorithm/string.hpp>
 #include <boost/algorithm/string/find.hpp>
@@ -5908,7 +5912,7 @@ static Point closest_loop_point_to(const ExtrusionLoop &loop, const Point &targe
 
 static bool is_adjacent_inner_perimeter(const ExtrusionLoop &loop)
 {
-    return loop.role() == ExtrusionRole::erPerimeter && (loop.loop_role() & elrSecondPerimeter);
+    return loop.role() == ExtrusionRole::erPerimeter;
 }
 
 static bool loop_is_geometrically_adjacent_to_external(const ExtrusionLoop &external_loop, const ExtrusionLoop &inner_loop)
@@ -5924,6 +5928,18 @@ static bool loop_is_geometrically_adjacent_to_external(const ExtrusionLoop &exte
     if (external_loop.loop_role() & elrPerimeterHole)
         return inner_polygon.contains(external_polygon.first_point());
     return external_polygon.contains(inner_polygon.first_point());
+}
+
+static bool loop_is_close_to_external_seam(const ExtrusionLoop &external_loop, const ExtrusionLoop &inner_loop, const Point &external_seam)
+{
+    if (external_loop.paths.empty() || inner_loop.paths.empty())
+        return false;
+
+    const Point  inner_point = closest_loop_point_to(inner_loop, external_seam);
+    const double distance2   = (inner_point - external_seam).cast<double>().squaredNorm();
+    const double max_width   = std::max<double>(external_loop.paths.front().width, inner_loop.paths.front().width);
+    const double max_distance = scale_(std::max(1.0, max_width * 3.0));
+    return distance2 <= sqr(max_distance);
 }
 
 static double loop_distance_to_point(const ExtrusionLoop &loop, const Point &target)
@@ -5969,6 +5985,50 @@ static ExtrusionPaths loop_segment_paths_between(const ExtrusionLoop &loop, cons
         segment_paths.push_back(std::move(before));
 
     return segment_paths;
+}
+
+static std::string optimize_seam_debug_point(const Point &point)
+{
+    const Vec2d unscaled_point = unscaled<double>(point);
+    std::ostringstream ss;
+    ss << std::fixed << std::setprecision(3) << unscaled_point.x() << "," << unscaled_point.y();
+    return ss.str();
+}
+
+static std::string optimize_seam_debug_bool(const bool value)
+{
+    return value ? "1" : "0";
+}
+
+static std::string optimize_seam_debug_log_path()
+{
+    boost::filesystem::path base_dir = data_dir().empty() ?
+        boost::filesystem::temp_directory_path() :
+        boost::filesystem::path(data_dir());
+    boost::filesystem::path log_dir = base_dir / "debug_logs" / "slicing";
+    boost::system::error_code ec;
+    boost::filesystem::create_directories(log_dir, ec);
+    return (log_dir / "optimize_seam_latest.log").string();
+}
+
+static void optimize_seam_debug_log(const std::string &message)
+{
+    static std::mutex log_mutex;
+    static bool       initialized = false;
+
+    std::lock_guard<std::mutex> lock(log_mutex);
+    const std::string path = optimize_seam_debug_log_path();
+    std::ofstream out(path, initialized ? std::ios::app : std::ios::trunc);
+    if (!out)
+        return;
+
+    if (!initialized) {
+        initialized = true;
+        out << "# Optimize seam structured slicing log\n";
+        out << "# path=" << path << "\n";
+        out << "# units: coordinates are millimeters, distances are scaled unless noted\n";
+    }
+    out << message << "\n";
 }
 
 std::string GCode::extrude_loop(ExtrusionLoop loop, std::string description, double speed, const Point *preferred_start)
@@ -6272,7 +6332,8 @@ std::string GCode::extrude_perimeters(const Print &print, const std::vector<Obje
     std::string gcode;
     for (const ObjectByExtruder::Island::Region &region : by_region)
         if (! region.perimeters.empty()) {
-            m_config.apply(print.get_print_region(&region - &by_region.front()).config());
+            const size_t region_id = &region - &by_region.front();
+            m_config.apply(print.get_print_region(region_id).config());
 
             // BBS: output merged node id
             int curr_node=0;
@@ -6302,6 +6363,57 @@ std::string GCode::extrude_perimeters(const Print &print, const std::vector<Obje
             };
 
             const bool optimize_seam = m_config.seam_optimization && m_config.wall_loops.value >= 2 && !m_config.spiral_mode;
+            if (m_config.seam_optimization) {
+                size_t external_count = 0;
+                size_t adjacent_inner_count = 0;
+                for (const ExtrusionEntity *entity : region.perimeters) {
+                    const auto *loop = dynamic_cast<const ExtrusionLoop *>(entity);
+                    if (loop == nullptr)
+                        continue;
+                    if (loop->role() == ExtrusionRole::erExternalPerimeter)
+                        ++external_count;
+                    if (is_adjacent_inner_perimeter(*loop))
+                        ++adjacent_inner_count;
+                }
+
+                std::ostringstream ss;
+                ss << "REGION"
+                   << " layer=" << (m_layer != nullptr ? std::to_string(m_layer->id()) : "none")
+                   << " print_z=" << std::fixed << std::setprecision(3) << (m_layer != nullptr ? m_layer->print_z : 0.)
+                   << " region=" << region_id
+                   << " perimeters=" << region.perimeters.size()
+                   << " external=" << external_count
+                   << " adjacent_inner=" << adjacent_inner_count
+                   << " wall_loops=" << m_config.wall_loops.value
+                   << " spiral=" << optimize_seam_debug_bool(m_config.spiral_mode)
+                   << " optimize=" << optimize_seam_debug_bool(optimize_seam);
+                if (!optimize_seam) {
+                    ss << " skip_reason=";
+                    if (m_config.wall_loops.value < 2)
+                        ss << "wall_loops_lt_2";
+                    else if (m_config.spiral_mode)
+                        ss << "spiral_mode";
+                    else
+                        ss << "unknown";
+                }
+                optimize_seam_debug_log(ss.str());
+
+                for (size_t perimeter_idx = 0; perimeter_idx < region.perimeters.size(); ++perimeter_idx) {
+                    const auto *loop = dynamic_cast<const ExtrusionLoop *>(region.perimeters[perimeter_idx]);
+                    if (loop == nullptr)
+                        continue;
+                    std::ostringstream loop_ss;
+                    loop_ss << "PERIM"
+                            << " layer=" << (m_layer != nullptr ? std::to_string(m_layer->id()) : "none")
+                            << " region=" << region_id
+                            << " idx=" << perimeter_idx
+                            << " role=" << ExtrusionEntity::role_to_string(loop->role())
+                            << " loop_role=" << int(loop->loop_role())
+                            << " paths=" << loop->paths.size()
+                            << " first=" << optimize_seam_debug_point(loop->first_point());
+                    optimize_seam_debug_log(loop_ss.str());
+                }
+            }
             if (optimize_seam) {
                 std::vector<bool> emitted(region.perimeters.size(), false);
                 std::vector<size_t> deferred_inner_indices;
@@ -6330,22 +6442,30 @@ std::string GCode::extrude_perimeters(const Print &print, const std::vector<Obje
                     Point  seam_point;
                     Point  inner_point;
                     double inner_distance;
+                    std::vector<size_t> prerequisite_inner_indices;
                 };
 
-                auto collect_inner_candidates = [&region](const ExtrusionLoop &external_loop) {
+                struct SeamEmissionGroup
+                {
+                    size_t                             inner_idx;
+                    size_t                             anchor_idx;
+                    std::vector<SeamOptimizedExternal> externals;
+                };
+
+                auto collect_inner_candidates = [&region](const ExtrusionLoop &external_loop, const Point &external_seam) {
                     std::vector<size_t> inner_indices;
                     for (size_t idx = 0; idx < region.perimeters.size(); ++idx) {
                         const auto *candidate_loop = dynamic_cast<const ExtrusionLoop *>(region.perimeters[idx]);
                         if (candidate_loop != nullptr &&
                             is_adjacent_inner_perimeter(*candidate_loop) &&
-                            loop_is_geometrically_adjacent_to_external(external_loop, *candidate_loop))
+                            (loop_is_geometrically_adjacent_to_external(external_loop, *candidate_loop) ||
+                             loop_is_close_to_external_seam(external_loop, *candidate_loop, external_seam)))
                             inner_indices.push_back(idx);
                     }
                     return inner_indices;
                 };
 
                 std::vector<SeamExternalMapping> external_mappings;
-                std::map<size_t, size_t>         candidate_owner_count;
 
                 for (size_t external_idx = 0; external_idx < region.perimeters.size(); ++external_idx) {
                     const auto *external_loop = dynamic_cast<const ExtrusionLoop *>(region.perimeters[external_idx]);
@@ -6355,9 +6475,17 @@ std::string GCode::extrude_perimeters(const Print &print, const std::vector<Obje
                     const Point original_seam_point = preview_perimeter_seam_point(
                         m_seam_placer, m_layer, *external_loop, m_config.print_in_clockwise,
                         m_config.wall_sequence == WallSequence::OuterInner, this->last_pos());
-                    const std::vector<size_t> inner_indices = collect_inner_candidates(*external_loop);
-                    if (inner_indices.empty())
+                    const std::vector<size_t> inner_indices = collect_inner_candidates(*external_loop, original_seam_point);
+                    if (inner_indices.empty()) {
+                        std::ostringstream ss;
+                        ss << "MAPPING_NO_CANDIDATES"
+                           << " layer=" << (m_layer != nullptr ? std::to_string(m_layer->id()) : "none")
+                           << " region=" << region_id
+                           << " external=" << external_idx
+                           << " seam=" << optimize_seam_debug_point(original_seam_point);
+                        optimize_seam_debug_log(ss.str());
                         continue;
+                    }
 
                     SeamExternalMapping mapping{
                         external_idx,
@@ -6388,65 +6516,155 @@ std::string GCode::extrude_perimeters(const Print &print, const std::vector<Obje
                         const double distance2_to_original_seam = (inner_point - original_seam_point).cast<double>().squaredNorm();
                         const double inner_distance             = loop_distance_to_point(oriented_inner, inner_point);
                         mapping.candidates.push_back({inner_idx, external_start, inner_point, distance2_to_original_seam, inner_distance});
-                        ++candidate_owner_count[inner_idx];
                     }
 
                     if (!mapping.candidates.empty()) {
                         std::sort(mapping.candidates.begin(), mapping.candidates.end(), [](const SeamInnerCandidate &lhs, const SeamInnerCandidate &rhs) {
                             return lhs.distance2_to_original_seam < rhs.distance2_to_original_seam;
                         });
-                        mapping.assigned_candidate = 0;
+
+                        std::ostringstream ss;
+                        ss << "MAPPING"
+                           << " layer=" << (m_layer != nullptr ? std::to_string(m_layer->id()) : "none")
+                           << " region=" << region_id
+                           << " external=" << mapping.external_idx
+                           << " original_seam=" << optimize_seam_debug_point(mapping.original_seam_point)
+                           << " user=" << optimize_seam_debug_bool(mapping.user_enforced_seam)
+                           << " candidates=" << mapping.candidates.size();
+                        optimize_seam_debug_log(ss.str());
+                        for (size_t candidate_idx = 0; candidate_idx < mapping.candidates.size(); ++candidate_idx) {
+                            const SeamInnerCandidate &candidate = mapping.candidates[candidate_idx];
+                            std::ostringstream candidate_ss;
+                            candidate_ss << "CANDIDATE"
+                                         << " layer=" << (m_layer != nullptr ? std::to_string(m_layer->id()) : "none")
+                                         << " region=" << region_id
+                                         << " external=" << mapping.external_idx
+                                         << " candidate=" << candidate_idx
+                                         << " inner=" << candidate.inner_idx
+                                         << " external_start=" << optimize_seam_debug_point(candidate.external_start)
+                                         << " inner_point=" << optimize_seam_debug_point(candidate.inner_point)
+                                         << " dist2=" << std::fixed << std::setprecision(0) << candidate.distance2_to_original_seam
+                                         << " inner_distance=" << std::fixed << std::setprecision(3) << unscaled<double>(candidate.inner_distance);
+                            optimize_seam_debug_log(candidate_ss.str());
+                        }
                         external_mappings.push_back(std::move(mapping));
                     }
                 }
 
-                auto assigned_counts = [&external_mappings]() {
-                    std::map<size_t, size_t> counts;
-                    for (const SeamExternalMapping &mapping : external_mappings)
-                        if (mapping.assigned_candidate < mapping.candidates.size())
-                            ++counts[mapping.candidates[mapping.assigned_candidate].inner_idx];
-                    return counts;
+                std::map<size_t, size_t> assigned_inner_counts;
+                auto assign_candidate = [&external_mappings, &assigned_inner_counts](const size_t mapping_idx, const size_t candidate_idx) {
+                    SeamExternalMapping &mapping = external_mappings[mapping_idx];
+                    if (candidate_idx >= mapping.candidates.size())
+                        return;
+                    if (mapping.assigned_candidate < mapping.candidates.size()) {
+                        const size_t old_inner = mapping.candidates[mapping.assigned_candidate].inner_idx;
+                        auto old_count = assigned_inner_counts.find(old_inner);
+                        if (old_count != assigned_inner_counts.end() && old_count->second > 0)
+                            --old_count->second;
+                    }
+                    mapping.assigned_candidate = candidate_idx;
+                    ++assigned_inner_counts[mapping.candidates[candidate_idx].inner_idx];
                 };
 
-                for (size_t pass = 0; pass < external_mappings.size(); ++pass) {
-                    bool changed = false;
-                    std::map<size_t, size_t> counts = assigned_counts();
-                    for (SeamExternalMapping &mapping : external_mappings) {
-                        if (mapping.user_enforced_seam || mapping.assigned_candidate >= mapping.candidates.size())
+                for (size_t mapping_idx = 0; mapping_idx < external_mappings.size(); ++mapping_idx)
+                    if (external_mappings[mapping_idx].user_enforced_seam)
+                        assign_candidate(mapping_idx, 0);
+
+                for (size_t mapping_idx = 0; mapping_idx < external_mappings.size(); ++mapping_idx) {
+                    SeamExternalMapping &mapping = external_mappings[mapping_idx];
+                    if (mapping.assigned_candidate >= mapping.candidates.size() && mapping.candidates.size() == 1)
+                        assign_candidate(mapping_idx, 0);
+                }
+
+                auto find_candidate_index = [&external_mappings](const size_t mapping_idx, const size_t inner_idx) -> size_t {
+                    const SeamExternalMapping &mapping = external_mappings[mapping_idx];
+                    for (size_t candidate_idx = 0; candidate_idx < mapping.candidates.size(); ++candidate_idx)
+                        if (mapping.candidates[candidate_idx].inner_idx == inner_idx)
+                            return candidate_idx;
+                    return size_t(-1);
+                };
+
+                std::vector<size_t> unassigned_mappings;
+                for (size_t mapping_idx = 0; mapping_idx < external_mappings.size(); ++mapping_idx)
+                    if (external_mappings[mapping_idx].assigned_candidate >= external_mappings[mapping_idx].candidates.size())
+                        unassigned_mappings.push_back(mapping_idx);
+
+                std::sort(unassigned_mappings.begin(), unassigned_mappings.end(), [&external_mappings](const size_t lhs, const size_t rhs) {
+                    const SeamExternalMapping &lhs_mapping = external_mappings[lhs];
+                    const SeamExternalMapping &rhs_mapping = external_mappings[rhs];
+                    if (lhs_mapping.candidates.size() != rhs_mapping.candidates.size())
+                        return lhs_mapping.candidates.size() < rhs_mapping.candidates.size();
+                    return lhs_mapping.candidates.front().distance2_to_original_seam < rhs_mapping.candidates.front().distance2_to_original_seam;
+                });
+
+                std::map<size_t, size_t> unique_inner_to_mapping;
+                auto try_match_unique_inner = [&](auto &&self, const size_t mapping_idx, std::map<size_t, bool> &seen_inners) -> bool {
+                    const SeamExternalMapping &mapping = external_mappings[mapping_idx];
+                    for (const SeamInnerCandidate &candidate : mapping.candidates) {
+                        const size_t inner_idx = candidate.inner_idx;
+                        if (assigned_inner_counts[inner_idx] > 0 || seen_inners[inner_idx])
                             continue;
+                        seen_inners[inner_idx] = true;
 
-                        const size_t current_inner = mapping.candidates[mapping.assigned_candidate].inner_idx;
-                        if (counts[current_inner] <= 1)
-                            continue;
-
-                        auto select_better_candidate = [&](const bool require_exclusive_owner) -> size_t {
-                            size_t selected = size_t(-1);
-                            for (size_t candidate_idx = 0; candidate_idx < mapping.candidates.size(); ++candidate_idx) {
-                                const size_t inner_idx = mapping.candidates[candidate_idx].inner_idx;
-                                if (inner_idx == current_inner)
-                                    continue;
-                                if (counts[inner_idx] != 0)
-                                    continue;
-                                if (require_exclusive_owner && candidate_owner_count[inner_idx] != 1)
-                                    continue;
-                                selected = candidate_idx;
-                                break;
-                            }
-                            return selected;
-                        };
-
-                        size_t selected = select_better_candidate(true);
-                        if (selected == size_t(-1))
-                            selected = select_better_candidate(false);
-                        if (selected != size_t(-1)) {
-                            --counts[current_inner];
-                            ++counts[mapping.candidates[selected].inner_idx];
-                            mapping.assigned_candidate = selected;
-                            changed = true;
+                        auto matched = unique_inner_to_mapping.find(inner_idx);
+                        if (matched == unique_inner_to_mapping.end() || self(self, matched->second, seen_inners)) {
+                            unique_inner_to_mapping[inner_idx] = mapping_idx;
+                            return true;
                         }
                     }
-                    if (!changed)
-                        break;
+                    return false;
+                };
+
+                for (const size_t mapping_idx : unassigned_mappings) {
+                    std::map<size_t, bool> seen_inners;
+                    try_match_unique_inner(try_match_unique_inner, mapping_idx, seen_inners);
+                }
+
+                for (const auto &[inner_idx, mapping_idx] : unique_inner_to_mapping) {
+                    if (external_mappings[mapping_idx].assigned_candidate < external_mappings[mapping_idx].candidates.size())
+                        continue;
+                    const size_t candidate_idx = find_candidate_index(mapping_idx, inner_idx);
+                    if (candidate_idx != size_t(-1))
+                        assign_candidate(mapping_idx, candidate_idx);
+                }
+
+                for (size_t mapping_idx = 0; mapping_idx < external_mappings.size(); ++mapping_idx) {
+                    SeamExternalMapping &mapping = external_mappings[mapping_idx];
+                    if (mapping.assigned_candidate < mapping.candidates.size())
+                        continue;
+
+                    size_t selected_candidate = size_t(-1);
+                    for (size_t candidate_idx = 0; candidate_idx < mapping.candidates.size(); ++candidate_idx) {
+                        const size_t inner_idx = mapping.candidates[candidate_idx].inner_idx;
+                        if (selected_candidate == size_t(-1) ||
+                            assigned_inner_counts[inner_idx] < assigned_inner_counts[mapping.candidates[selected_candidate].inner_idx] ||
+                            (assigned_inner_counts[inner_idx] == assigned_inner_counts[mapping.candidates[selected_candidate].inner_idx] &&
+                             mapping.candidates[candidate_idx].distance2_to_original_seam < mapping.candidates[selected_candidate].distance2_to_original_seam))
+                            selected_candidate = candidate_idx;
+                    }
+                    assign_candidate(mapping_idx, selected_candidate);
+                }
+
+                for (size_t mapping_idx = 0; mapping_idx < external_mappings.size(); ++mapping_idx) {
+                    const SeamExternalMapping &mapping = external_mappings[mapping_idx];
+                    std::ostringstream ss;
+                    ss << "ASSIGN"
+                       << " layer=" << (m_layer != nullptr ? std::to_string(m_layer->id()) : "none")
+                       << " region=" << region_id
+                       << " mapping=" << mapping_idx
+                       << " external=" << mapping.external_idx
+                       << " user=" << optimize_seam_debug_bool(mapping.user_enforced_seam);
+                    if (mapping.assigned_candidate < mapping.candidates.size()) {
+                        const SeamInnerCandidate &candidate = mapping.candidates[mapping.assigned_candidate];
+                        ss << " candidate=" << mapping.assigned_candidate
+                           << " inner=" << candidate.inner_idx
+                           << " seam=" << optimize_seam_debug_point(candidate.external_start)
+                           << " inner_point=" << optimize_seam_debug_point(candidate.inner_point)
+                           << " inner_use_count=" << assigned_inner_counts[candidate.inner_idx];
+                    } else {
+                        ss << " candidate=none";
+                    }
+                    optimize_seam_debug_log(ss.str());
                 }
 
                 std::map<size_t, std::vector<SeamOptimizedExternal>> externals_by_inner;
@@ -6454,11 +6672,21 @@ std::string GCode::extrude_perimeters(const Print &print, const std::vector<Obje
                     if (mapping.assigned_candidate >= mapping.candidates.size())
                         continue;
                     const SeamInnerCandidate &candidate = mapping.candidates[mapping.assigned_candidate];
+                    std::vector<size_t> prerequisite_inner_indices;
+                    prerequisite_inner_indices.reserve(mapping.candidates.size());
+                    for (const SeamInnerCandidate &mapping_candidate : mapping.candidates)
+                        if (mapping_candidate.inner_idx != candidate.inner_idx)
+                            prerequisite_inner_indices.push_back(mapping_candidate.inner_idx);
+                    std::sort(prerequisite_inner_indices.begin(), prerequisite_inner_indices.end());
+                    prerequisite_inner_indices.erase(
+                        std::unique(prerequisite_inner_indices.begin(), prerequisite_inner_indices.end()),
+                        prerequisite_inner_indices.end());
                     externals_by_inner[candidate.inner_idx].push_back({
                         mapping.external_idx,
                         candidate.external_start,
                         candidate.inner_point,
-                        candidate.inner_distance
+                        candidate.inner_distance,
+                        std::move(prerequisite_inner_indices)
                     });
                 }
 
@@ -6467,42 +6695,262 @@ std::string GCode::extrude_perimeters(const Print &print, const std::vector<Obje
                         return lhs.inner_distance < rhs.inner_distance;
                     });
 
+                for (const auto &[inner_idx, externals] : externals_by_inner) {
+                    std::ostringstream ss;
+                    ss << "INNER_GROUP_SOURCE"
+                       << " layer=" << (m_layer != nullptr ? std::to_string(m_layer->id()) : "none")
+                       << " region=" << region_id
+                       << " inner=" << inner_idx
+                       << " external_count=" << externals.size();
+                    optimize_seam_debug_log(ss.str());
+                    for (size_t external_pos = 0; external_pos < externals.size(); ++external_pos) {
+                        const SeamOptimizedExternal &external = externals[external_pos];
+                        std::ostringstream external_ss;
+                        external_ss << "INNER_GROUP_EXTERNAL"
+                                    << " layer=" << (m_layer != nullptr ? std::to_string(m_layer->id()) : "none")
+                                    << " region=" << region_id
+                                    << " inner=" << inner_idx
+                                    << " order=" << external_pos
+                                    << " external=" << external.external_idx
+                                    << " seam=" << optimize_seam_debug_point(external.seam_point)
+                                    << " inner_point=" << optimize_seam_debug_point(external.inner_point)
+                                    << " inner_distance=" << std::fixed << std::setprecision(3) << unscaled<double>(external.inner_distance)
+                                    << " prerequisite_count=" << external.prerequisite_inner_indices.size()
+                                    << " prerequisites=";
+                        if (external.prerequisite_inner_indices.empty()) {
+                            external_ss << "none";
+                        } else {
+                            for (size_t prerequisite_pos = 0; prerequisite_pos < external.prerequisite_inner_indices.size(); ++prerequisite_pos) {
+                                if (prerequisite_pos > 0)
+                                    external_ss << ",";
+                                external_ss << external.prerequisite_inner_indices[prerequisite_pos];
+                            }
+                        }
+                        optimize_seam_debug_log(external_ss.str());
+                    }
+                }
+
+                std::vector<SeamEmissionGroup> seam_groups;
+                seam_groups.reserve(externals_by_inner.size());
+                for (auto &[inner_idx, externals] : externals_by_inner) {
+                    size_t anchor_idx = inner_idx;
+                    for (const SeamOptimizedExternal &external : externals)
+                        anchor_idx = std::min(anchor_idx, external.external_idx);
+                    seam_groups.push_back({inner_idx, anchor_idx, externals});
+                }
+                std::sort(seam_groups.begin(), seam_groups.end(), [](const SeamEmissionGroup &lhs, const SeamEmissionGroup &rhs) {
+                    if (lhs.anchor_idx != rhs.anchor_idx)
+                        return lhs.anchor_idx < rhs.anchor_idx;
+                    return lhs.inner_idx < rhs.inner_idx;
+                });
+
+                for (size_t group_idx = 0; group_idx < seam_groups.size(); ++group_idx) {
+                    const SeamEmissionGroup &group = seam_groups[group_idx];
+                    std::ostringstream ss;
+                    ss << "GROUP"
+                       << " layer=" << (m_layer != nullptr ? std::to_string(m_layer->id()) : "none")
+                       << " region=" << region_id
+                       << " group=" << group_idx
+                       << " anchor=" << group.anchor_idx
+                       << " inner=" << group.inner_idx
+                       << " externals=" << group.externals.size()
+                       << " shared=" << optimize_seam_debug_bool(group.externals.size() > 1);
+                    optimize_seam_debug_log(ss.str());
+                }
+
+                std::vector<size_t> group_for_perimeter(region.perimeters.size(), size_t(-1));
+                for (size_t group_idx = 0; group_idx < seam_groups.size(); ++group_idx) {
+                    const SeamEmissionGroup &group = seam_groups[group_idx];
+                    group_for_perimeter[group.inner_idx] = group_idx;
+                    for (const SeamOptimizedExternal &external : group.externals)
+                        group_for_perimeter[external.external_idx] = group_idx;
+                }
+                // 0 表示未输出，1 表示正在递归输出，2 表示已完成。
+                std::vector<unsigned char> group_emission_state(seam_groups.size(), 0);
+
+                auto emit_seam_group = [&](auto &&self, const size_t group_idx) -> void {
+                    if (group_idx >= seam_groups.size() || group_emission_state[group_idx] == 2)
+                        return;
+
+                    if (group_emission_state[group_idx] == 1) {
+                        std::ostringstream ss;
+                        ss << "EMIT_DEPENDENCY_CYCLE"
+                           << " layer=" << (m_layer != nullptr ? std::to_string(m_layer->id()) : "none")
+                           << " region=" << region_id
+                           << " group=" << group_idx;
+                        optimize_seam_debug_log(ss.str());
+                        return;
+                    }
+
+                    group_emission_state[group_idx] = 1;
+
+                    const SeamEmissionGroup &group = seam_groups[group_idx];
+                    const auto *inner_loop = dynamic_cast<const ExtrusionLoop *>(region.perimeters[group.inner_idx]);
+                    if (inner_loop == nullptr || group.externals.empty()) {
+                        std::ostringstream ss;
+                        ss << "EMIT_GROUP_SKIP"
+                           << " layer=" << (m_layer != nullptr ? std::to_string(m_layer->id()) : "none")
+                           << " region=" << region_id
+                           << " group=" << group_idx
+                           << " inner=" << group.inner_idx
+                           << " reason=" << (inner_loop == nullptr ? "inner_not_loop" : "empty_externals");
+                        optimize_seam_debug_log(ss.str());
+                        group_emission_state[group_idx] = 2;
+                        return;
+                    }
+
+                    {
+                        std::ostringstream ss;
+                        ss << "EMIT_GROUP_BEGIN"
+                           << " layer=" << (m_layer != nullptr ? std::to_string(m_layer->id()) : "none")
+                           << " region=" << region_id
+                           << " group=" << group_idx
+                           << " inner=" << group.inner_idx
+                           << " externals=" << group.externals.size();
+                        optimize_seam_debug_log(ss.str());
+                    }
+
+                    // 共享同一最外侧内墙时，按内墙路径顺序拆成闭环分段；每段结束后立刻打印对应外墙。
+                    for (size_t external_pos = 0; external_pos < group.externals.size(); ++external_pos) {
+                        const SeamOptimizedExternal &external = group.externals[external_pos];
+                        if (emitted[external.external_idx]) {
+                            std::ostringstream ss;
+                            ss << "EMIT_EXTERNAL_SKIP"
+                               << " layer=" << (m_layer != nullptr ? std::to_string(m_layer->id()) : "none")
+                               << " region=" << region_id
+                               << " group=" << group_idx
+                               << " external=" << external.external_idx
+                               << " reason=already_emitted";
+                            optimize_seam_debug_log(ss.str());
+                            continue;
+                        }
+
+                        // 一条外墙可能由偏移后形成的多条内墙共同支撑。除负责接缝衔接的内墙外，
+                        // 其余关联内墙必须全部先完成；若某条内墙属于另一个接缝组，则完整输出该组，
+                        // 以免提前消费它后破坏另一个外墙的“内墙结束后立即打印外墙”约束。
+                        {
+                            std::ostringstream ss;
+                            ss << "EMIT_PREREQUISITES_BEGIN"
+                               << " layer=" << (m_layer != nullptr ? std::to_string(m_layer->id()) : "none")
+                               << " region=" << region_id
+                               << " group=" << group_idx
+                               << " external=" << external.external_idx
+                               << " count=" << external.prerequisite_inner_indices.size();
+                            optimize_seam_debug_log(ss.str());
+                        }
+                        for (const size_t prerequisite_inner_idx : external.prerequisite_inner_indices) {
+                            if (prerequisite_inner_idx >= region.perimeters.size() || emitted[prerequisite_inner_idx]) {
+                                std::ostringstream ss;
+                                ss << "EMIT_PREREQUISITE_SKIP"
+                                   << " layer=" << (m_layer != nullptr ? std::to_string(m_layer->id()) : "none")
+                                   << " region=" << region_id
+                                   << " group=" << group_idx
+                                   << " external=" << external.external_idx
+                                   << " inner=" << prerequisite_inner_idx
+                                   << " reason=" << (prerequisite_inner_idx >= region.perimeters.size() ? "out_of_range" : "already_emitted");
+                                optimize_seam_debug_log(ss.str());
+                                continue;
+                            }
+
+                            const size_t prerequisite_group_idx = group_for_perimeter[prerequisite_inner_idx];
+                            if (prerequisite_group_idx != size_t(-1)) {
+                                if (prerequisite_group_idx == group_idx)
+                                    continue;
+
+                                std::ostringstream ss;
+                                ss << "EMIT_PREREQUISITE_GROUP"
+                                   << " layer=" << (m_layer != nullptr ? std::to_string(m_layer->id()) : "none")
+                                   << " region=" << region_id
+                                   << " group=" << group_idx
+                                   << " external=" << external.external_idx
+                                   << " inner=" << prerequisite_inner_idx
+                                   << " prerequisite_group=" << prerequisite_group_idx
+                                   << " prerequisite_state=" << int(group_emission_state[prerequisite_group_idx]);
+                                optimize_seam_debug_log(ss.str());
+                                self(self, prerequisite_group_idx);
+                                continue;
+                            }
+
+                            std::ostringstream ss;
+                            ss << "EMIT_PREREQUISITE_INNER"
+                               << " layer=" << (m_layer != nullptr ? std::to_string(m_layer->id()) : "none")
+                               << " region=" << region_id
+                               << " group=" << group_idx
+                               << " external=" << external.external_idx
+                               << " inner=" << prerequisite_inner_idx;
+                            optimize_seam_debug_log(ss.str());
+                            emit_perimeter(region.perimeters[prerequisite_inner_idx]);
+                            emitted[prerequisite_inner_idx] = true;
+                        }
+
+                        if (group.externals.size() == 1) {
+                            std::ostringstream ss;
+                            ss << "EMIT_INNER_FULL"
+                               << " layer=" << (m_layer != nullptr ? std::to_string(m_layer->id()) : "none")
+                               << " region=" << region_id
+                               << " group=" << group_idx
+                               << " inner=" << group.inner_idx
+                               << " start=" << optimize_seam_debug_point(external.inner_point)
+                               << " then_external=" << external.external_idx;
+                            optimize_seam_debug_log(ss.str());
+                            emit_perimeter(region.perimeters[group.inner_idx], &external.inner_point);
+                        } else {
+                            const size_t previous_pos = external_pos == 0 ? group.externals.size() - 1 : external_pos - 1;
+                            const ExtrusionPaths segment_paths = loop_segment_paths_between(
+                                *inner_loop, m_config.print_in_clockwise, group.externals[previous_pos].inner_point, external.inner_point);
+                            std::ostringstream ss;
+                            ss << "EMIT_INNER_SEGMENT"
+                               << " layer=" << (m_layer != nullptr ? std::to_string(m_layer->id()) : "none")
+                               << " region=" << region_id
+                               << " group=" << group_idx
+                               << " inner=" << group.inner_idx
+                               << " from_external=" << group.externals[previous_pos].external_idx
+                               << " to_external=" << external.external_idx
+                               << " from=" << optimize_seam_debug_point(group.externals[previous_pos].inner_point)
+                               << " to=" << optimize_seam_debug_point(external.inner_point)
+                               << " segment_paths=" << segment_paths.size();
+                            optimize_seam_debug_log(ss.str());
+                            emit_paths(region.perimeters[group.inner_idx], segment_paths);
+                        }
+
+                        emitted[group.inner_idx] = true;
+                        {
+                            std::ostringstream ss;
+                            ss << "EMIT_EXTERNAL"
+                               << " layer=" << (m_layer != nullptr ? std::to_string(m_layer->id()) : "none")
+                               << " region=" << region_id
+                               << " group=" << group_idx
+                               << " external=" << external.external_idx
+                               << " seam=" << optimize_seam_debug_point(external.seam_point)
+                               << " after_inner=" << group.inner_idx;
+                            optimize_seam_debug_log(ss.str());
+                        }
+                        emit_perimeter(region.perimeters[external.external_idx], &external.seam_point);
+                        emitted[external.external_idx] = true;
+                    }
+
+                    group_emission_state[group_idx] = 2;
+                };
+
                 for (size_t perimeter_idx = 0; perimeter_idx < region.perimeters.size(); ++perimeter_idx) {
                     if (emitted[perimeter_idx])
                         continue;
 
+                    const size_t group_idx = group_for_perimeter[perimeter_idx];
+                    if (group_idx != size_t(-1)) {
+                        std::ostringstream ss;
+                        ss << "SCAN_GROUP_HIT"
+                           << " layer=" << (m_layer != nullptr ? std::to_string(m_layer->id()) : "none")
+                           << " region=" << region_id
+                           << " perimeter=" << perimeter_idx
+                           << " group=" << group_idx;
+                        optimize_seam_debug_log(ss.str());
+                        emit_seam_group(emit_seam_group, group_idx);
+                        continue;
+                    }
+
                     const auto *loop = dynamic_cast<const ExtrusionLoop *>(region.perimeters[perimeter_idx]);
-                    if (loop != nullptr && loop->role() == ExtrusionRole::erExternalPerimeter) {
-                        bool emitted_optimized_pair = false;
-                        for (auto &[inner_idx, externals] : externals_by_inner) {
-                            auto external_it = std::find_if(externals.begin(), externals.end(), [perimeter_idx](const SeamOptimizedExternal &external) {
-                                return external.external_idx == perimeter_idx;
-                            });
-                            if (external_it == externals.end())
-                                continue;
-
-                            const auto *inner_loop = dynamic_cast<const ExtrusionLoop *>(region.perimeters[inner_idx]);
-                            if (inner_loop == nullptr)
-                                continue;
-
-                            if (externals.size() == 1) {
-                                emit_perimeter(region.perimeters[inner_idx], &external_it->inner_point);
-                            } else {
-                                const size_t external_pos = size_t(external_it - externals.begin());
-                                const size_t previous_pos = external_pos == 0 ? externals.size() - 1 : external_pos - 1;
-                                const ExtrusionPaths segment_paths = loop_segment_paths_between(
-                                    *inner_loop, m_config.print_in_clockwise, externals[previous_pos].inner_point, external_it->inner_point);
-                                emit_paths(region.perimeters[inner_idx], segment_paths);
-                            }
-                            emitted[inner_idx] = true;
-                            emit_perimeter(region.perimeters[perimeter_idx], &external_it->seam_point);
-                            emitted[perimeter_idx] = true;
-                            emitted_optimized_pair = true;
-                            break;
-                        }
-                        if (emitted_optimized_pair)
-                            continue;
-                    } else if (loop != nullptr && loop->role() == ExtrusionRole::erPerimeter && externals_by_inner.count(perimeter_idx) > 0) {
+                    if (loop != nullptr && loop->role() == ExtrusionRole::erPerimeter && externals_by_inner.count(perimeter_idx) > 0) {
                         deferred_inner_indices.push_back(perimeter_idx);
                         continue;
                     }
