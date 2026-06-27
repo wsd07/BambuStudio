@@ -29,7 +29,6 @@
 #include <tbb/parallel_for.h>
 #include <tbb/concurrent_vector.h>
 #include <tbb/concurrent_unordered_set.h>
-#include <tbb/task_group.h>  // tbb::is_current_task_group_canceling()
 
 #include <Shiny/Shiny.h>
 
@@ -869,39 +868,6 @@ void PrintObject::generate_support_material()
         this->clear_support_layers();
 
         if (!has_support() && !m_print->get_no_check_flag()) {
-            // Check for truly floating layers: empty layers between non-empty
-            // layers indicate a physical gap that makes printing impossible
-            // without support. Gaps > 2x layer_height throw an error and
-            // guide the user to enable support; thinner gaps only warn.
-            // 2x is chosen because support cannot bridge gaps smaller than
-            // ~2 layers anyway, so enabling support would not help there.
-            {
-                const double gap_hard_thresh = 2.0 * m_config.layer_height.value;
-                coordf_t last_non_empty_top = 0;
-                bool     found_non_empty    = false;
-                bool     in_gap             = false;
-                for (const Layer *layer : m_layers) {
-                    if (!layer->empty()) {
-                        if (in_gap) {
-                            double gap_mm = layer->bottom_z() - last_non_empty_top;
-                            if (gap_mm > gap_hard_thresh) {
-                                throw Slic3r::SlicingError(L("Levitating objects cannot be printed without supports."), this->id().id, "enable_support");
-                            } else {
-                                std::string warning_message = Slic3r::format(
-                                    L("It seems object %s has floating regions. Please re-orient the object or enable support generation."),
-                                    this->model_object()->name);
-                                this->active_step_add_warning(PrintStateBase::WarningLevel::NON_CRITICAL, warning_message, PrintStateBase::SlicingNeedSupportOn);
-                            }
-                            in_gap = false;
-                        }
-                        last_non_empty_top = layer->print_z;
-                        found_non_empty    = true;
-                    } else if (found_non_empty) {
-                        in_gap = true;
-                    }
-                }
-            }
-
             // BBS: pop a warning if objects have significant amount of overhangs but support material is not enabled
             // Note: we also need to pop warning if support is disabled and only raft is enabled
             m_print->set_status(50, L("Checking support necessity"));
@@ -918,8 +884,8 @@ void PrintObject::generate_support_material()
                 std::map<SupportNecessaryType, std::string> reasons = {{SharpTail, L("floating regions")},
                                                                        {Cantilever, L("floating cantilever")},
                                                                        {LargeOverhang, L("large overhangs")}};
-                std::string warning_message = Slic3r::format(L("It seems object %s has %s. Please re-orient the object or enable support generation."),
-                                                             this->model_object()->name, reasons[sntype]);
+                std::string warning_message                         = Slic3r::format(L("It seems object %s has %s. Please re-orient the object or enable support generation."),
+                                                                                     this->model_object()->name, reasons[sntype]);
                 this->active_step_add_warning(PrintStateBase::WarningLevel::NON_CRITICAL, warning_message, PrintStateBase::SlicingNeedSupportOn);
             }
         }
@@ -929,32 +895,6 @@ void PrintObject::generate_support_material()
 
             this->_generate_support_material();
             m_print->throw_if_canceled();
-
-            // When a notification-driven reslice runs (user just clicked
-            // "Enable support for [A]"), sibling PrintObject tasks that
-            // still lack supports throw SlicingError almost immediately. TBB
-            // records that exception on the task_group and signals cancellation
-            // to running siblings, but Print's own m_cancel_status is NOT set
-            // (only an explicit cancel() does that), so throw_if_canceled()
-            // above does not fire. Tree-support generation for A then exits
-            // through its nested parallel_for cancellation paths and "looks
-            // like it returned successfully" - but no support layers were
-            // actually produced. Falling through to the unconditional
-            // set_done() below would lock A's posSupportMaterial as DONE with
-            // empty data, and every subsequent reslice (including the one
-            // triggered when the user clicks the next "Enable support for [B]"
-            // notification) would see set_started() return false and SKIP A's
-            // support generation entirely, leaving A printed without support.
-            //
-            // Detect this case explicitly: if our enclosing TBB task_group is
-            // being cancelled (because a sibling threw), throw CanceledException
-            // here so the unwind happens before set_done(). The step state then
-            // stays in STARTED, and the next reslice gets another chance to run
-            // _generate_support_material() to completion. The CanceledException
-            // is harmless: the parallel_for will rethrow the sibling's original
-            // SlicingError to the main thread anyway.
-            if (tbb::is_current_task_group_canceling())
-                throw Slic3r::CanceledException();
         }
         this->set_done(posSupportMaterial);
     }
@@ -1376,16 +1316,15 @@ bool PrintObject::invalidate_state_by_config_options(
             || opt_key == "enable_overhang_speed"
             || opt_key == "detect_thin_wall"
             || opt_key == "precise_outer_wall") {
+            // filament_shrink is applied to slice contours in slice_volumes() (posSlice) using wall_filament.
+            if (opt_key == "wall_filament")
+                steps.emplace_back(posSlice);
             steps.emplace_back(posPerimeters);
             steps.emplace_back(posSupportMaterial);
         } else if (opt_key == "bridge_flow") {
-            if (m_config.support_top_z_distance > 0.) {
-            	// Only invalidate due to bridging if bridging is enabled.
-            	// If later "support_top_z_distance" is modified, the complete PrintObject is invalidated anyway.
-            	steps.emplace_back(posPerimeters);
-            	steps.emplace_back(posInfill);
-	            steps.emplace_back(posSupportMaterial);
-	        }
+            steps.emplace_back(posPerimeters);
+            steps.emplace_back(posInfill);
+	        steps.emplace_back(posSupportMaterial);
         } else if (
                 opt_key == "wall_generator"
             || opt_key == "wall_transition_length"
@@ -1579,14 +1518,22 @@ void PrintObject::detect_surfaces_type(std::vector<std::vector<SurfaceCollection
                     bool detect_top = spiral_mode || layerm->region().config().top_shell_layers;
                     bool detect_bottom = spiral_mode || layerm->region().config().bottom_shell_layers;
 
+                    // When counterbore_hole_bridging is set to "Sacrificial Layer" (chbFilled),
+                    // process_no_bridge() may have added extra fill surfaces that extend beyond the original slices.
+                    // We need to union these with the slices to ensure proper top/bottom surface detection.
+                    ExPolygons layerm_slices_surfaces = to_expolygons(layerm->slices.surfaces);
+                    if (layerm->region().config().counterbore_hole_bridging.value == chbFilled) {
+                        layerm_slices_surfaces = union_ex(layerm_slices_surfaces, to_expolygons(layerm->fill_surfaces.surfaces));
+                    }
+
                     // find top surfaces (difference between current surfaces
                     // of current layer and upper one)
                     Surfaces top;
                     if (detect_top) {
                         if (upper_layer) {
                             ExPolygons upper_slices = interface_shells ?
-                                diff_ex(layerm->slices.surfaces, upper_layer->m_regions[region_id]->slices.surfaces, ApplySafetyOffset::Yes) :
-                                diff_ex(layerm->slices.surfaces, upper_layer->lslices, ApplySafetyOffset::Yes);
+                                diff_ex(layerm_slices_surfaces, upper_layer->m_regions[region_id]->slices.surfaces, ApplySafetyOffset::Yes) :
+                                diff_ex(layerm_slices_surfaces, upper_layer->lslices, ApplySafetyOffset::Yes);
                             surfaces_append(top, opening_ex(upper_slices, offset), stTop);
                         }
                         else {
@@ -1615,7 +1562,7 @@ void PrintObject::detect_surfaces_type(std::vector<std::vector<SurfaceCollection
                             surfaces_append(
                                 bottom,
                                 opening_ex(
-                                    diff_ex(layerm->slices.surfaces, lower_layer->lslices, ApplySafetyOffset::Yes),//完全悬空
+                                    diff_ex(layerm_slices_surfaces, lower_layer->lslices, ApplySafetyOffset::Yes),//完全悬空
                                     offset),
                                 surface_type_bottom_other);
                             // if user requested internal shells, we need to identify surfaces
@@ -1627,7 +1574,7 @@ void PrintObject::detect_surfaces_type(std::vector<std::vector<SurfaceCollection
                                     bottom,
                                     opening_ex(
                                         diff_ex(
-                                            intersection(layerm->slices.surfaces, lower_layer->lslices), // 先扣掉完全悬空
+                                            intersection(layerm_slices_surfaces, lower_layer->lslices), // 先扣掉完全悬空
                                             lower_layer->m_regions[region_id]->slices.surfaces,//再扣掉同材料的区域
                                             ApplySafetyOffset::Yes),
                                         offset),

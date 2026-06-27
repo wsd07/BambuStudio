@@ -7,6 +7,7 @@
 #include "slic3r/GUI/DeviceTab/uiAmsHumidityPopup.h"
 
 #include "slic3r/GUI/DeviceCore/DevManager.h"
+#include "slic3r/GUI/DeviceCore/DevInfo.h"
 #include "slic3r/GUI/DeviceCore/DevFilaSystem.h"
 #include "slic3r/GUI/DeviceCore/DevFilaSwitch.h"
 
@@ -1110,6 +1111,16 @@ void AMSControl::UpdateAms(const std::string   &series_name,
             }
         }
 
+        // 2D mode (laser/cut) makes every spool view-only: show the eye icon and
+        // route clicks to the read-only filament dialog.
+        const bool view_only = obj && obj->GetInfo() && !obj->GetInfo()->IsFdmMode();
+        for (auto ams_item : m_ams_item_list) {
+            if (ams_item.second == nullptr) { continue; }
+            for (auto lib_it : ams_item.second->get_can_lib_list()) {
+                if (lib_it.second) { lib_it.second->set_view_only(view_only); }
+            }
+        }
+
         for (auto ams_prv : m_ams_preview_list) {
             std::string id = ams_prv.second->get_ams_id();
             auto item = m_ams_item_list.find(id);
@@ -1816,7 +1827,7 @@ void AMSControl::on_filament_load(wxCommandEvent &event)
     const auto& filament_id = get_filament_id(m_current_ams, GetCurrentCan(m_current_ams));
     if (filament_id.empty())
     {
-        MessageDialog msg_dlg(nullptr, _L("Filament type is unknown which is required to perform this action. Please set target filament's informations."),
+        MessageDialog msg_dlg(nullptr, _L("Filament type is unknown which is required to perform this action. Please set target filament's information."),
                               wxEmptyString, wxICON_WARNING | wxOK);
         msg_dlg.ShowModal();
         return;

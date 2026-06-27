@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bambu Studio\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-15 21:22+0800\n"
+"POT-Creation-Date: 2026-06-27 20:31+0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -1085,7 +1085,7 @@ msgstr "connectors zijn buiten de snijcontour"
 msgid "connector is out of object"
 msgstr "connector is buiten het object"
 
-msgid "connectors is out of object"
+msgid "connectors are out of object"
 msgstr "Verbindingen moeten zich op het objectoppervlak bevinden."
 
 msgid "Some connectors are overlapped"
@@ -1273,13 +1273,13 @@ msgstr ""
 "Kenmerk 1 is gereset, \n"
 "kenmerk 2 is kenmerk 1"
 
-msgid "Warning:please select Plane's feature."
+msgid "Warning: Please select a Plane feature."
 msgstr "Waarschuwing: selecteer de functie van Plane."
 
-msgid "Warning:please select Point's or Circle's feature."
+msgid "Warning: Please select a Point or Circle feature."
 msgstr "Waarschuwing: selecteer de functie Punt of Cirkel."
 
-msgid "Warning:please select two different mesh."
+msgid "Warning: Please select two different meshes."
 msgstr "Waarschuwing: selecteer twee verschillende mazen."
 
 msgid "Copy to clipboard"
@@ -1323,6 +1323,9 @@ msgstr "Flip om zijde 2"
 
 msgid "Assemble"
 msgstr "Monteren"
+
+msgid "Please exit the assembly guide before using this tool."
+msgstr ""
 
 msgid "Please confirm explosion ratio = 1 and select at least two volumes."
 msgstr "Bevestig explosieverhouding = 1 en selecteer ten minste twee volumes."
@@ -1528,31 +1531,31 @@ msgstr "Ingebedde diepte"
 msgid "Text Gap"
 msgstr "Tussenruimte in tekst"
 
-msgid "Warning:There is a mirror in the text matrix, and dragging it will completely regenerate it."
+msgid "Warning: There is a mirror in the text matrix, and dragging it will completely regenerate it."
 msgstr "Waarschuwing: Er zit een spiegel in de tekstmatrix. Als je de matrix versleept, wordt deze volledig vernieuwd."
 
-msgid "Warning:Due to font upgrades,previous font may not necessarily be replaced successfully, and recommend you to modify the font."
+msgid "Warning: Due to font upgrades, previous font may not necessarily be replaced successfully. Please modify the font."
 msgstr "Waarschuwing:Als gevolg van lettertype-upgrades kan het vorige lettertype niet noodzakelijkerwijs met succes worden vervangen, en raden we u aan het lettertype aan te passen."
 
-msgid "Warning:create text fail."
+msgid "Warning: Text creation failed."
 msgstr "Waarschuwing: Het maken van tekst is mislukt."
 
-msgid "Warning:text normal is error."
+msgid "Warning: Text normal has an error."
 msgstr "Waarschuwing: Tekst normaal is fout."
 
-msgid "Warning:text normal has been reset."
+msgid "Warning: Text normal has been reset."
 msgstr "Waarschuwing: Tekst normaal is gereset."
 
-msgid "Warning:current text spacing is not very reasonable. If you continue editing, a more reasonable text spacing will be generated."
+msgid "Warning: Current text spacing is not optimal. If you continue editing, a more reasonable text spacing will be generated."
 msgstr "Waarschuwing: de huidige tekstruimte is niet erg redelijk. Als je doorgaat met bewerken, wordt er een meer redelijke tekstruimte gegenereerd."
 
-msgid "Warning:old matrix has at least two parameters: mirroring, scaling, and rotation. If you continue editing, it may not be correct. Please dragging text or cancel using current pose, save and reedit again."
-msgstr "Waarschuwing: oude matrix heeft minstens twee parameters: spiegeling, schaling en rotatie. Als je doorgaat met bewerken, is deze mogelijk niet correct. Sleep tekst of annuleer met de huidige houding, sla op en bewerk opnieuw."
+msgid "Warning: Old matrix has at least two parameters: mirroring, scaling, and rotation. If you continue editing, it may not be correct. Please drag the text or cancel the current pose, save and reedit again."
+msgstr ""
 
-msgid "Error:Detecting an incorrect mesh id or an unknown error, regenerating text may result in incorrect outcomes.Please drag text,save it then reedit it again."
+msgid "Error: Detecting an incorrect mesh id or an unknown error, regenerating text may result in incorrect outcomes. Please drag text, save it then reedit it again."
 msgstr "Fout: Als een onjuist mesh-id of een onbekende fout wordt gedetecteerd, kan het opnieuw genereren van tekst onjuiste resultaten opleveren. Sleep tekst, sla deze op en bewerk deze opnieuw."
 
-msgid "Warning:Due to functional upgrade, rotation information cannot be restored. Please drag or modify text,save it and reedit it will ok."
+msgid "Warning: Due to functional upgrade, rotation information cannot be restored. Please drag or modify text, save it and reedit it to fix the issue."
 msgstr "Waarschuwing: Door een functionele upgrade kan de rotatie-informatie niet worden hersteld. Sleep of wijzig tekst, sla het op en wijzig het opnieuw als het goed is."
 
 msgid "Detected that text did not adhere to mesh surface. Please manually drag yellow square to mesh surface that needs to be adhered."
@@ -1770,7 +1773,7 @@ msgstr "Ontbrekend svg-bestand in reliëfvorm"
 msgid "Missing data of svg file"
 msgstr "Ontbrekende gegevens van svg-bestand"
 
-msgid "Tip:If you want to place svg file on another part surface,you should select part first, and then drag svg file to the part surface."
+msgid "Tip: If you want to place an SVG file on another part surface, select the part first, then drag the SVG file to the part surface."
 msgstr "Tip: Als u een svg-bestand op een ander onderdeeloppervlak wilt plaatsen, moet u eerst het onderdeel selecteren en vervolgens het svg-bestand naar het onderdeeloppervlak slepen."
 
 #. TRN - Preview of filename after clear local filepath.
@@ -1942,6 +1945,15 @@ msgstr "Onjuist wachtwoord"
 #, c-format, boost-format
 msgid "Connect %s failed! [SN:%s, code=%s]"
 msgstr "Verbinding met %s is mislukt! [SN: %s, code=%s]"
+
+msgid ""
+"This operation rebuilds the model's mesh. Painted color, supports, seam and fuzzy-skin will be transferred to the new mesh by a best-effort approximation, so the result may be slightly off and, in rare cases, some painting may be lost.\n"
+"\n"
+"Do you want to continue?"
+msgstr ""
+
+msgid "Painting may change"
+msgstr ""
 
 msgid "BambuStudio configuration file read failed. Please manually backup and delete it, and then restart BambuStudio software."
 msgstr "Het lezen van het BambuStudio-configuratiebestand is mislukt. Maak handmatig een back-up en verwijder het bestand en start de BambuStudio-software opnieuw."
@@ -2954,8 +2966,8 @@ msgstr "AMS is nog niet geïnitialiseerd. Initialiseer het voor gebruik."
 msgid "Choose an AMS slot then press \"Load\" or \"Unload\" button to automatically load or unload filaments."
 msgstr "Kies een AMS-sleuf en druk op de knop \"Laden\" of \"Lossen\" om automatisch filament te laden of te ontladen."
 
-msgid "Filament type is unknown which is required to perform this action. Please set target filament's informations."
-msgstr "Het type filament is onbekend wat nodig is om deze actie uit te voeren. Stel de informatie van het doelfilament in."
+msgid "Filament type is unknown which is required to perform this action. Please set target filament's information."
+msgstr ""
 
 msgid "/"
 msgstr "/"
@@ -3128,6 +3140,420 @@ msgstr "De maximumtemperatuur mag niet hoger zijn dan"
 msgid "The minmum temperature should not be less than "
 msgstr "De minimumtemperatuur mag niet lager zijn dan"
 
+msgid "Export file Settings"
+msgstr ""
+
+msgid "Homepage  title"
+msgstr ""
+
+msgid "For privacy reasons, image paths are not saved or restored.Just for pdf/md file."
+msgstr ""
+
+msgid "Homepage image"
+msgstr ""
+
+msgid "Second page image"
+msgstr ""
+
+msgid "Browse"
+msgstr "Browsen"
+
+msgid "Image files"
+msgstr ""
+
+msgid "All files"
+msgstr ""
+
+msgid "Open image file"
+msgstr ""
+
+msgid "Step"
+msgstr "Stap"
+
+msgid "Install parts"
+msgstr ""
+
+msgid "Apply the final assembly pose to the objects or parts added in the current step?"
+msgstr ""
+
+msgid "Apply final assembly pose"
+msgstr ""
+
+msgid "Assembly Guide"
+msgstr "Montagehandleiding"
+
+msgid "PDF files"
+msgstr ""
+
+msgid "Markdown files"
+msgstr ""
+
+msgid "MP4 files"
+msgstr ""
+
+msgid "Export Assembly Guide to PDF"
+msgstr ""
+
+msgid "Export Assembly Guide to Markdown"
+msgstr ""
+
+msgid "Export Assembly Guide to MP4"
+msgstr ""
+
+msgid "Exporting file"
+msgstr ""
+
+msgid "Export"
+msgstr "Exporteren"
+
+msgid "Saving project will automatically switch to end frame"
+msgstr ""
+
+msgid "New Step"
+msgstr ""
+
+msgid "Final assembly"
+msgstr ""
+
+msgid "end frame"
+msgstr ""
+
+msgid "Assembly Structure"
+msgstr ""
+
+msgid "Start your assembly journey from Add Step"
+msgstr ""
+
+msgctxt "AssemblyStructure"
+msgid "Default"
+msgstr "Standaard"
+
+msgid "Contain"
+msgstr ""
+
+msgid "Assembly Module"
+msgstr ""
+
+msgid "Click to add objects to the current step"
+msgstr ""
+
+msgid "_copy"
+msgstr ""
+
+msgid "Are you sure you want to delete the current step?"
+msgstr ""
+
+msgid "Delete step"
+msgstr ""
+
+msgid "Model"
+msgstr "Model"
+
+msgid "Volume"
+msgstr ""
+
+msgid "start frame"
+msgstr ""
+
+msgid "transition frame"
+msgstr ""
+
+#, boost-format
+msgid "Plate %1%"
+msgstr ""
+
+msgid "Assembly Step"
+msgstr ""
+
+msgid "Start frame"
+msgstr ""
+
+msgid "End frame"
+msgstr ""
+
+msgid "Transition frame"
+msgstr ""
+
+msgid "Frame"
+msgstr ""
+
+msgid "step"
+msgstr ""
+
+msgid "Play all frames for all steps."
+msgstr ""
+
+msgid "Toggle playback speed."
+msgstr ""
+
+msgid "Play previous frame."
+msgstr ""
+
+msgid "Play next frame."
+msgstr ""
+
+msgid "Set export file parameters"
+msgstr ""
+
+msgid "Camera margin factor for the current frame. The larger the value, the more margin."
+msgstr ""
+
+msgid "Modify camera margin"
+msgstr ""
+
+msgid "Edit step name"
+msgstr ""
+
+msgid "Insert step before"
+msgstr ""
+
+msgid "Insert step after"
+msgstr ""
+
+msgid "Tip"
+msgstr ""
+
+msgid "No step card is currently selected. Pose-changing operations such as move gizmo will affect the actual final-assembly view."
+msgstr ""
+
+msgid "Expand"
+msgstr ""
+
+msgid "Collapse"
+msgstr "Instorten"
+
+msgid "Options"
+msgstr "Opties"
+
+msgid "Go to Wiki"
+msgstr "Ga naar Wiki"
+
+msgid "Copy current step"
+msgstr ""
+
+msgid "Delete current step"
+msgstr ""
+
+msgid "Add some objects to current step"
+msgstr ""
+
+msgid "Copy Step"
+msgstr ""
+
+msgid "Add Step"
+msgstr ""
+
+#, boost-format
+msgid "No more than %1% steps are allowed."
+msgstr ""
+
+msgid "Only copy steps. This is independent of the selected objects on the canvas."
+msgstr ""
+
+msgid "Only add empty steps. This has nothing to do with the selected objects on the canvas."
+msgstr ""
+
+msgid "Exit"
+msgstr ""
+
+msgid "Click to add Cyber Brick"
+msgstr ""
+
+msgid "Delete this keyframe"
+msgstr ""
+
+msgid "Export PDF"
+msgstr ""
+
+msgid "Export Markdown"
+msgstr ""
+
+msgid "Export MP4"
+msgstr ""
+
+msgid "After exporting the Markdown document, you can edit it in third-party software such as Zettlr and then export it to PDF."
+msgstr ""
+
+msgid "Auto recommend"
+msgstr ""
+
+msgid "Model objects only"
+msgstr ""
+
+msgid "Model parts only"
+msgstr ""
+
+msgid "Automatically choose object-or-part-level labels: objects already shown in earlier steps are collapsed into a single object label, while the rest are labeled per individual part."
+msgstr ""
+
+msgid "Show one label per model object."
+msgstr ""
+
+msgid "Show one label per model part."
+msgstr ""
+
+msgid "Label"
+msgstr ""
+
+msgid "Label settings"
+msgstr ""
+
+msgid "Show Object/Part labels"
+msgstr ""
+
+msgid "Show object and part names  on models"
+msgstr ""
+
+msgid "Automatically select the optimal camera perspective and auto-arrange auto recommend labels each time the checkbox is re-ticked."
+msgstr ""
+
+msgid "Auto layout"
+msgstr ""
+
+msgid "Auto-arrange labels in current view"
+msgstr ""
+
+msgid "Current view labels"
+msgstr ""
+
+msgid "Label Settings"
+msgstr ""
+
+msgid "Font size"
+msgstr ""
+
+msgid "Display mode"
+msgstr ""
+
+msgid "Export assembly guide PDF, Markdown or MP4"
+msgstr ""
+
+msgid "Screw"
+msgstr ""
+
+msgid "Note"
+msgstr "Notitie"
+
+msgid "Pose changes (e.g. move gizmo) made on the final-assembly step's keyframe will affect the actual assembly display."
+msgstr ""
+
+msgid "Pose changes (e.g. move gizmo) made on this step's keyframe do not affect the actual assembly display."
+msgstr ""
+
+msgid "If necessary, a relatively good position can be restored by pressing the \"apply actual assembly pose\" button at present."
+msgstr ""
+
+msgid "undoing these edits is not yet supported and will be added in a later version."
+msgstr ""
+
+msgid "Some objects were used in an earlier keyframe of the current step and are not exploded here. You can explode them manually with the move tool."
+msgstr ""
+
+msgid "Connection Type"
+msgstr ""
+
+msgid "Clip"
+msgstr ""
+
+msgid "Glue"
+msgstr ""
+
+msgid "Add Clip"
+msgstr ""
+
+msgid "Add Glue"
+msgstr ""
+
+msgid "Add Screw"
+msgstr ""
+
+msgid "Add Notes"
+msgstr ""
+
+msgid "Add Rectangle"
+msgstr ""
+
+msgid "Add Circle"
+msgstr ""
+
+msgid "Add Arrow"
+msgstr ""
+
+msgid "Add Text"
+msgstr ""
+
+msgid "Text"
+msgstr "Tekst"
+
+msgid "Background"
+msgstr ""
+
+msgid "Timeline"
+msgstr ""
+
+msgid "Play all frames for current step"
+msgstr ""
+
+msgid "At least two keyframes are required to play."
+msgstr ""
+
+msgid "Automatically explode all objects."
+msgstr ""
+
+msgid "Automatically explode all parts."
+msgstr ""
+
+msgid "Apply the final assembly pose to the currently selected object or part(if none is selected, apply it to all objects added in the current frame)"
+msgstr ""
+
+msgid "Apply current camera angle to all frames of the current step"
+msgstr ""
+
+msgid "Add keyframe"
+msgstr ""
+
+msgid "Click to select this frame"
+msgstr ""
+
+msgid "Save update"
+msgstr ""
+
+msgid "Save current frame"
+msgstr ""
+
+msgid "Assembly tree"
+msgstr ""
+
+msgid "Search"
+msgstr "Zoeken"
+
+msgid "List"
+msgstr ""
+
+msgid "Select all parts in a step"
+msgstr ""
+
+msgid "Red"
+msgstr ""
+
+msgid "Orange"
+msgstr ""
+
+msgid "Green"
+msgstr ""
+
+msgid "Blue"
+msgstr ""
+
+msgid "Black"
+msgstr ""
+
+msgid "Grey"
+msgstr ""
+
+msgid "White"
+msgstr ""
+
 msgid ""
 "All the selected objects are on the locked plate,\n"
 "We can not do auto-arrange on these objects."
@@ -3218,9 +3644,6 @@ msgstr "Er is geen geldig oppervlak voor tekstprojectie."
 
 msgid "Text mesh ie empty."
 msgstr "Text mesh d.w.z. leeg."
-
-msgid "Text"
-msgstr "Tekst"
 
 msgid "Error! Unable to create thread!"
 msgstr "Fout! Kan topic niet aanmaken!"
@@ -3648,9 +4071,6 @@ msgstr "%s ondersteunt %s niet"
 msgid "Dynamic flow Calibration"
 msgstr "Dynamische stroomkalibratie"
 
-msgid "Step"
-msgstr "Stap"
-
 msgid "Unmapped"
 msgstr "Niet in kaart gebracht"
 
@@ -3835,7 +4255,7 @@ msgstr "Bij het laden van nieuw filament zal de informatie niet automatisch inge
 msgid "Power on update"
 msgstr "Update gegevens bij aanzetten"
 
-msgid "The AMS will automatically read the information of inserted filament on start-up. It will take about 1 minute.The reading process will roll filament spools."
+msgid "The AMS will automatically read the information of inserted filament on start-up. It will take about 1 minute. The reading process will roll filament spools."
 msgstr "De AMS leest automatisch de informatie van het ingevoegde filament bij het opstarten. Dit duurt ongeveer 1 minuut. Tijdens het leesproces zullen de filamentspoelen rollen."
 
 msgid "The AMS will not automatically read information from inserted filament during startup and will continue to use the information recorded before the last shutdown."
@@ -3892,6 +4312,15 @@ msgstr "Reset AMS Volgorde"
 
 msgid "File"
 msgstr "Bestand"
+
+msgid "Save Project"
+msgstr "Bewaar project"
+
+msgid "Undo"
+msgstr "Ongedaan maken"
+
+msgid "Redo"
+msgstr "Opnieuw doen"
 
 msgid "Calibration"
 msgstr "Kalibratie"
@@ -3994,6 +4423,9 @@ msgstr "Rechthoekig"
 msgid "Circular"
 msgstr "Rond"
 
+msgid "Load shape from STL..."
+msgstr "Vorm laden vanuit het stl. bestand..."
+
 msgid "Settings"
 msgstr "Instellingen"
 
@@ -4005,9 +4437,6 @@ msgstr "Verwijderen"
 
 msgid "Not found:"
 msgstr "Niet gevonden:"
-
-msgid "Model"
-msgstr "Model"
 
 msgid "Choose an STL file to import bed shape from:"
 msgstr "Kies een STL bestand waar de vorm van het printbed uit opgehaald kan worden:"
@@ -4071,13 +4500,11 @@ msgstr ""
 
 msgid ""
 "Should not large than 100%.\n"
-"Reset to defualt"
+"Reset to default"
 msgstr ""
-"Mag niet groter zijn dan 100%.\n"
-"Teruggezet naar standaard"
 
 #, c-format, boost-format
-msgid "Current chamber temperature is higher than the material's safe temperature,it may result in material softening and clogging.The maximum safe temperature for the material is %d"
+msgid "Current chamber temperature is higher than the material's safe temperature, it may result in material softening and clogging. The maximum safe temperature for the material is %d"
 msgstr "Current chamber temperature is higher than the material's safe temperature; this may result in material softening and nozzle clogs.The maximum safe temperature for the material is %d"
 
 msgid ""
@@ -4274,8 +4701,8 @@ msgid ""
 "No  - Keep current settings and alternate extra wall enabled"
 msgstr "Deze aanpassingen toepassen?↵ Ja - Toepassen en de alternatieve extra wand ingeschakeld houden↵ Nee - De huidige instellingen behouden en de alternatieve extra wand ingeschakeld houden"
 
-msgid "Spiral mode only works when wall loops is 1, support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional, smoothing wall speed in z direction is false and alternate extra wall is disabled."
-msgstr "De spiraalmodus werkt alleen als het aantal wandlussen 1 is, ondersteuning is uitgeschakeld, klontvormingsdetectie via sondering is uitgeschakeld, het aantal bovenste lagen 0 is, de spaarzame vullingsdichtheid 0 is, het timelapse-type traditioneel is, het vloeiend maken van de wandsnelheid in de z-richting is uitgeschakeld en de alternatieve extra wand is uitgeschakeld."
+msgid "Spiral mode only works when support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional, smoothing wall speed in z direction is false and alternate extra wall is disabled."
+msgstr ""
 
 msgid " But machines with I3 structure will not generate timelapse videos."
 msgstr " Maar machines met een I3-structuur genereren geen timelapsevideo's."
@@ -4397,10 +4824,10 @@ msgstr ""
 msgid "Pause (nozzle clog)"
 msgstr ""
 
-msgid "Measuring motion percision"
+msgid "Measuring motion precision"
 msgstr ""
 
-msgid "Enhancing motion percision"
+msgid "Enhancing motion precision"
 msgstr ""
 
 msgid "Measure motion accuracy"
@@ -4546,7 +4973,7 @@ msgstr "De AMS-temperatuur is te hoog, waardoor het filament zacht kan worden. W
 msgid "The current chamber temperature or the target chamber temperature exceeds 45℃.In order to avoid extruder clogging,low temperature filament(PLA/PETG/TPU) is not allowed to be loaded."
 msgstr "De huidige kamertemperatuur of de gewenste kamertemperatuur is hoger dan 45℃. Om verstopping van de extruder te voorkomen, is het niet toegestaan filament met een lage temperatuur (PLA/PETG/TPU) te laden."
 
-msgid "Low temperature filament(PLA/PETG/TPU) is loaded in the extruder.In order to avoid extruder clogging,it is not allowed to set the chamber temperature."
+msgid "Low temperature filament (PLA/PETG/TPU) is loaded in the extruder. In order to avoid extruder clogging, it is not allowed to set the chamber temperature."
 msgstr "Filament op lage temperatuur (PLA/PETG/TPU) wordt in de extruder geladen. Om verstopping van de extruder te voorkomen, is het instellen van de kamertemperatuur niet toegestaan."
 
 msgid "When you set the chamber temperature below 40℃, the chamber temperature control will not be activated. And the target chamber temperature will automatically be set to 0℃."
@@ -4839,9 +5266,6 @@ msgstr "Filamentwisselingen"
 
 msgid "Wipe"
 msgstr "Vegen"
-
-msgid "Options"
-msgstr "Opties"
 
 msgid "travel"
 msgstr "verplaatsen"
@@ -5204,9 +5628,6 @@ msgstr "Printbed selecteren"
 msgid "Change camera perspective"
 msgstr "Wijzig cameraperspectief"
 
-msgid "Go to Wiki"
-msgstr "Ga naar Wiki"
-
 #, boost-format
 msgid "Current assembly rate: %1%%%, volume rate: %2%%%"
 msgstr "Huidige assemblagesnelheid: %1%%%, volumetrische snelheid: %2%%%"
@@ -5243,10 +5664,7 @@ msgstr "Camera passen"
 msgid "Fit camera to scene or selected object."
 msgstr "Pas de camera aan de scène of het geselecteerde object aan."
 
-msgid "Unlock camera"
-msgstr ""
-
-msgid "Lock camera"
+msgid "Auto recommend camera angle(Only works when the assembly step function is active)"
 msgstr ""
 
 msgid "Paint Toolbar"
@@ -5267,10 +5685,10 @@ msgstr "Besturing monteren"
 msgid "Selection Mode"
 msgstr "Selectie modus"
 
-msgid "OnlyCurrentStep"
+msgid "Show Current Step Objects Only"
 msgstr ""
 
-msgid "Highlight"
+msgid "X-Ray Other Objects"
 msgstr ""
 
 msgid "Display Mode"
@@ -5661,9 +6079,6 @@ msgstr "Op een project bestand"
 msgid "Recent projects"
 msgstr "Recente projecten"
 
-msgid "Save Project"
-msgstr "Bewaar project"
-
 msgid "Save current project to file"
 msgstr "Bewaar huidig project als"
 
@@ -5721,9 +6136,6 @@ msgstr "Vooraf ingestelde bundel exporteren"
 msgid "Export current configuration to files"
 msgstr "Huidige configuratie exporteren naar bestanden"
 
-msgid "Export"
-msgstr "Exporteren"
-
 msgid "Publish to MakerWorld"
 msgstr "Publiceren op MakerWorld"
 
@@ -5732,12 +6144,6 @@ msgstr "Batch Preset beheer"
 
 msgid "Quit"
 msgstr "Stop"
-
-msgid "Undo"
-msgstr "Ongedaan maken"
-
-msgid "Redo"
-msgstr "Opnieuw doen"
 
 msgid "Cut selection to clipboard"
 msgstr "Selectie naar klembord knippen"
@@ -6052,7 +6458,7 @@ msgstr "De printer is momenteel bezig met downloaden. Probeer het opnieuw nadat 
 msgid "Printer camera is malfunctioning."
 msgstr "De printercamera werkt niet goed."
 
-msgid "Problem occured. Please update the printer firmware and try again."
+msgid "Problem occurred. Please update the printer firmware and try again."
 msgstr "Er heeft zich een probleem voorgedaan. Werk de printerfirmware bij en probeer het opnieuw."
 
 msgid "LAN Only Liveview is off. Please turn on the liveview on printer screen."
@@ -6333,9 +6739,6 @@ msgstr "Wissel Y/Z assen om"
 
 msgid "(LAN)"
 msgstr "(LAN)"
-
-msgid "Search"
-msgstr "Zoeken"
 
 msgid "My Device"
 msgstr "Mijn apparaat"
@@ -6803,9 +7206,6 @@ msgstr "%s waarschuwing"
 msgid "%s has a warning"
 msgstr "%s heeft een waarschuwing"
 
-msgid "Collapse"
-msgstr "Instorten"
-
 msgid "View details"
 msgstr "Bekijk details"
 
@@ -6967,9 +7367,6 @@ msgstr "Ga naar"
 
 msgid "Error:"
 msgstr "Fout:"
-
-msgid "Enable support for"
-msgstr "Schakel ondersteuning in voor"
 
 msgid "Open link for more info"
 msgstr "Open link voor meer info"
@@ -7395,8 +7792,8 @@ msgstr "Nu synchroniseren"
 msgid "There are unset nozzle types. Please set the nozzle types of all extruders before synchronizing."
 msgstr "Er zijn niet-ingestelde nozzle-typen. Stel de nozzle-typen van alle extruders in voordat u synchroniseert."
 
-msgid "Sync extruder infomation"
-msgstr "Extruder-informatie synchroniseren"
+msgid "Sync extruder information"
+msgstr ""
 
 msgid ""
 "Tips:\n"
@@ -7632,7 +8029,7 @@ msgstr "Textuurimportwaarschuwing"
 
 msgid ""
 "The imported STEP file is split by sub-assembly, so some objects may not be placed on the build plate at first.\n"
-"It is expected if they are placed on the build plate later after translation or similar operations.\n"
+"It is expected if they are placed on the build plate later after move,rotate gizmo or similar operations.\n"
 "The overall assembly can be checked from the assembly thumbnail or by entering the assembly view."
 msgstr ""
 
@@ -8398,9 +8795,6 @@ msgstr ""
 "\n"
 "Doorgaan met het inschakelen van deze functie?"
 
-msgid "Browse"
-msgstr "Browsen"
-
 msgid "Choose Download Directory"
 msgstr "Kies Downloadmap"
 
@@ -8536,7 +8930,7 @@ msgstr "Zoom in op de positie van de muisaanwijzer in de 3D-weergave in plaats v
 msgid "Always show shells in preview"
 msgstr "Shells altijd weergeven in preview"
 
-msgid "Always show shells or not in preview view tab.If change value,you should reslice."
+msgid "Always show shells or not in preview view tab. If you change this value, you should reslice."
 msgstr "Schakelt het tonen van shells in het tabblad Voorbeeldweergave in: als u de waarde wijzigt, moet u opnieuw slicen."
 
 msgid "Import a single SVG and split it"
@@ -9161,7 +9555,7 @@ msgstr "Het filament komt niet overeen met het filament in de AMS-sleuf. Update 
 msgid "The selected printer (%s) is incompatible with the print file configuration (%s). Please adjust the printer preset in the prepare page or choose a compatible printer on this page."
 msgstr "De geselecteerde printer (%s) is niet compatibel met de printbestandsconfiguratie (%s). Pas de printervoorkeuze aan op de voorwerkpagina of kies een compatibele printer op deze pagina."
 
-msgid "When enable spiral vase mode, machines with I3 structure will not generate timelapse videos."
+msgid "When enabling spiral vase mode, machines with I3 structure will not generate timelapse videos."
 msgstr "When spiral vase mode is enabled, machines with I3 structure will not generate timelapse videos."
 
 msgid "The current printer does not support timelapse in Traditional Mode when printing By-Object."
@@ -9190,8 +9584,14 @@ msgstr "Controleer het volgende:"
 msgid "Please fix the error above, otherwise printing cannot continue."
 msgstr "Herstel bovenstaande fout, anders kan het afdrukken niet doorgaan."
 
-msgid "Please click the confirm button if you still want to proceed with printing."
-msgstr "Klik op de knop Bevestigen als je nog steeds wilt doorgaan met afdrukken."
+msgid "Please click the \"Continue printing\"  button if you still want to proceed with printing."
+msgstr ""
+
+msgid "Continue printing"
+msgstr ""
+
+msgid "Return to modify"
+msgstr ""
 
 msgid "This checks the flatness of heatbed. Leveling makes extruded height uniform."
 msgstr "Hiermee wordt de vlakheid van het warmtebed gecontroleerd. Nivellering maakt de geëxtrudeerde hoogte uniform."
@@ -9585,7 +9985,7 @@ msgstr "Lees en accepteer"
 msgid "Terms and Conditions"
 msgstr "Algemene voorwaarden"
 
-msgid "Thank you for purchasing a Bambu Lab device.Before using your Bambu Lab device, please read the termsand conditions.By clicking to agree to use your Bambu Lab device, you agree to abide by the Privacy Policy and Terms of Use(collectively, the \"Terms\"). If you do not comply with or agree to the Bambu Lab Privacy Policy, please do not use Bambu Lab equipment and services."
+msgid "Thank you for purchasing a Bambu Lab device. Before using your Bambu Lab device, please read the terms and conditions. By clicking to agree to use your Bambu Lab device, you agree to abide by the Privacy Policy and Terms of Use (collectively, the \"Terms\"). If you do not comply with or agree to the Bambu Lab Privacy Policy, please do not use Bambu Lab equipment and services."
 msgstr "Bedankt voor uw aankoop van een Bambu Lab-apparaat. Lees de algemene voorwaarden voordat u uw Bambu Lab apparaat gebruikt. Door te klikken om akkoord te gaan met het gebruik van uw Bambu Lab apparaat, gaat u akkoord met het Privacybeleid en de Gebruiksvoorwaarden (gezamenlijk de \"Voorwaarden\"). Als u niet voldoet aan of akkoord gaat met het Privacybeleid van Bambu Lab, maak dan geen gebruik van Bambu Lab apparatuur en diensten."
 
 msgid "and"
@@ -10102,7 +10502,7 @@ msgstr "Firmware intrekken"
 msgid "Detached"
 msgstr "Losgemaakt"
 
-msgid "The current preset is a project preset and can't be used to create a new preset. Please select a system preset or user preset, then try again."
+msgid "The current preset is embedded in the 3MF project file. Please save changes directly.  'Save as new' is not supported for preset inside project."
 msgstr ""
 
 msgid "Unable to save preset"
@@ -10151,12 +10551,12 @@ msgstr ""
 msgid "No modifications need to be copied."
 msgstr "Er hoeven geen wijzigingen te worden gekopieerd."
 
-msgid "Copy paramters"
-msgstr "Paramters kopiëren"
+msgid "Copy parameters"
+msgstr ""
 
 #, c-format, boost-format
-msgid "Modify paramters of %s"
-msgstr "Parameters van %s wijzigen"
+msgid "Modify parameters of %s"
+msgstr ""
 
 #, c-format, boost-format
 msgid "Do you want to modify the following parameters of the %s to that of the %s?"
@@ -10323,9 +10723,6 @@ msgstr "Afbeeldingen"
 msgid "Bill of Materials"
 msgstr "Materiaal rekening"
 
-msgid "Assembly Guide"
-msgstr "Montagehandleiding"
-
 msgid "Author"
 msgstr "Auteur"
 
@@ -10426,9 +10823,6 @@ msgstr "Textuurimport is tijdelijk niet beschikbaar, gedeeltelijke inkleuring wo
 msgid " And "
 msgstr " En "
 
-msgid "Note"
-msgstr "Notitie"
-
 msgid "The color has been selected, you can choose OK to continue or manually adjust it."
 msgstr "De kleur is geselecteerd; u kunt OK kiezen om door te gaan of handmatig aan te passen."
 
@@ -10509,9 +10903,6 @@ msgstr ""
 
 msgid "Use AMS"
 msgstr "Gebruik AMS"
-
-msgid "Tip"
-msgstr ""
 
 msgid "Only synchronize filament type and color, not including AMS slot information."
 msgstr "Alleen het type en de kleur van het filament synchroniseren, niet de informatie over AMS-sleuven."
@@ -12241,14 +12632,12 @@ msgstr "s"
 msgid "Cooling overhang threshold"
 msgstr "Drempel voor overhang koeling"
 
-#, c-format
 msgid "Force cooling fan to be specific speed when overhang degree of printed part exceeds this value. Expressed as percentage which indicides how much width of the line without support from lower layer. 0% means forcing cooling for all outer wall no matter how much overhang degree"
 msgstr "Laat de koelventilator op een bepaalde snelheid draaien als de mate van overhang van het geprinte onderdeel deze waarde overschrijdt. Uitgedrukt als percentage dat aangeeft hoe breed de lijn is zonder ondersteuning van de onderste laag. 0%% betekent dat koeling voor de hele buitenwand wordt geforceerd, ongeacht de mate van overhang."
 
 msgid "Overhang threshold for participating cooling"
 msgstr "Overhangdrempel voor deelnemende koeling"
 
-#, c-format
 msgid "Decide which overhang part join the cooling function to slow down the speed.Expressed as percentage which indicides how much width of the line without support from lower layer. 100% means forcing cooling for all outer wall no matter how much overhang degree"
 msgstr "Bepaal welk overhangdeel zich aansluit op de koelfunctie om de snelheid te vertragen. Dit wordt uitgedrukt als een percentage dat de breedte van de lijn aangeeft zonder ondersteuning van een lagere laag. 100%% betekent het forceren van koeling voor alle buitenmuren, ongeacht de overhanggraad."
 
@@ -12263,6 +12652,22 @@ msgstr "Brugflow"
 
 msgid "Decrease this value slightly(for example 0.9) to reduce the amount of material for bridge, to improve sag"
 msgstr "Verlaag deze waarde iets (bijvoorbeeld 0,9) om de hoeveelheid materiaal voor de brug te verminderen en de doorbuiging te verbeteren."
+
+msgid "Bridge counterbore holes"
+msgstr ""
+
+msgid ""
+"This option creates bridges for counterbore holes, allowing them to be printed without support. Available modes include:\n"
+"1. None: No bridge is created\n"
+"2. Partially Bridged: Only a part of the unsupported area will be bridged\n"
+"3. Sacrificial Layer: A full sacrificial bridge layer is created"
+msgstr ""
+
+msgid "Partially bridged"
+msgstr ""
+
+msgid "Sacrificial layer"
+msgstr ""
 
 msgid "Top surface flow ratio"
 msgstr "Flowratio bovenoppervlak"
@@ -12364,11 +12769,17 @@ msgstr "Rand type"
 msgid "This controls the generation of the brim at outer and/or inner side of models. Auto means the brim width is analysed and calculated automatically."
 msgstr "Dit regelt het genereren van de rand aan de buiten- en/of binnenkant van modellen. Auto betekent dat de randbreedte automatisch wordt geanalyseerd en berekend."
 
-msgid "Brim-object gap"
-msgstr "Ruimte tussen rand en object"
+msgid "★ Brim-object gap"
+msgstr "★ Afstand brim–object"
 
-msgid "A gap between innermost brim line and object can make brim be removed more easily"
-msgstr "Een opening tussen de binnenste randlijn en het voorwerp kan ervoor zorgen dat de rand gemakkelijker kan worden verwijderd."
+msgid "A gap between innermost brim line and object can make brim be removed more easily. Negative values make the brim overlap the object."
+msgstr ""
+
+msgid "★ Brim layers"
+msgstr "★ Brimlagen"
+
+msgid "The number of layers on which the brim will be printed."
+msgstr ""
 
 msgid "Compatible machine"
 msgstr "Geschikte machine"
@@ -12646,7 +13057,6 @@ msgstr "Lijnpatroon van bodemvulling, niet van brugvulling"
 msgid "Bottom surface density"
 msgstr "Dichtheid bodemoppervlak"
 
-#, c-format
 msgid "Density of bottom surface infill, 100% means a fully solid filled top layer.Lower values create a textured bottom surface, Intended for aesthetic or functional purposes, not to fix issues such as over-extrusion.WARNING: Lowering this value may negatively affect bed adhesion."
 msgstr ""
 "Dichtheid van de onderkant oppervlakte-invulling, 100%% betekent een volledig solide gevulde bovenste laag. Lagere waarden creëren een gestructureerde onderkant, bedoeld voor esthetische of functionele doeleinden, niet om problemen zoals over-extrusie op te lossen.\n"
@@ -12754,8 +13164,8 @@ msgstr "De doorstroomverhouding ingesteld door object, de betekenis is hetzelfde
 msgid "Enable pressure advance"
 msgstr "Pressure advance inschakelen"
 
-msgid "Enable pressure advance, auto calibration result will be overwriten once enabled. Useless for Bambu Printer"
-msgstr "Schakel drukvooruitgang in, het automatische kalibratieresultaat wordt overschreven zodra het is ingeschakeld. Nutteloos voor Bambu Printer"
+msgid "Enable pressure advance, auto calibration result will be overwritten once enabled. Useless for Bambu Printer"
+msgstr ""
 
 msgid "Pressure advance(Klipper) AKA Linear advance factor(Marlin). Useless for Bambu Printer"
 msgstr "Drukvervroeging (Klipper) AKA Lineaire vervroegingsfactor (Marlin). Nutteloos voor Bambu Printer"
@@ -12885,18 +13295,6 @@ msgstr "Tijd voor hot-end wisseling"
 
 msgid "Time to change hotend."
 msgstr "Tijd om de hot-end te vervangen."
-
-msgid "Cut and unload from extruder time"
-msgstr ""
-
-msgid "Time to cut filament and retract it out of the extruder, used when parallel feeding is supported. For statistics only"
-msgstr ""
-
-msgid "Extruder bite time after pre-feed"
-msgstr ""
-
-msgid "Time for the extruder to bite the filament once it has been pre-fed, used when parallel feeding is supported. For statistics only"
-msgstr ""
 
 msgid "Bed temperature type"
 msgstr "Type bedtemperatuur"
@@ -13173,7 +13571,6 @@ msgstr "Hoek voor schaars invulpatroon, die de start- of hoofdrichting van de li
 msgid "Sparse infill density"
 msgstr "Vulling percentage"
 
-#, c-format
 msgid "Density of internal sparse infill, 100% means solid throughout"
 msgstr "Dichtheid van interne schaarse invulling, 100%% betekent overal massief"
 
@@ -14199,6 +14596,12 @@ msgstr "Achterzijde"
 msgid "Random"
 msgstr "Willekeurig"
 
+msgid "★ Optimize seam"
+msgstr "★ Naad optimaliseren"
+
+msgid "When wall loops are two or more, print the inner wall paired with an outer wall immediately before that outer wall and start both near the selected seam point."
+msgstr ""
+
 msgid "Seam placement away from overhangs(experimental)"
 msgstr "Plaatsing van de naden uit de buurt van uitsteeksels (experimenteel)"
 
@@ -14314,6 +14717,33 @@ msgstr "Snelheid van interne massieve vulling, niet het boven- en onderoppervlak
 
 msgid "Spiralize smooths out the z moves of the outer contour. And turns a solid model into a single walled print with solid bottom layers. The final generated model has no seam"
 msgstr "Spiralize strijkt de z-bewegingen van de buitencontour glad. En verandert een solide model in een enkelwandige print met solide onderlagen. Het uiteindelijk gegenereerde model heeft geen naad"
+
+msgid "★ Vase reinforcement multiplier"
+msgstr "★ Versterkingsfactor vaas"
+
+msgid "Additional inward wall multiplier for the first spiral vase layers. Decimal values are distributed across rounded reinforcement loops."
+msgstr ""
+
+msgid "★ Vase reinforcement height"
+msgstr "★ Versterkingshoogte vaas"
+
+msgid "Height of spiral vase reinforcement. A plain number means layer count; a value ending with mm means model height."
+msgstr ""
+
+msgid "layers or mm"
+msgstr ""
+
+msgid "★ Fade vase reinforcement"
+msgstr "★ Vaasversterking afbouwen"
+
+msgid "Linearly fade the spiral vase reinforcement multiplier over the reinforcement height."
+msgstr ""
+
+msgid "★ Fade end multiplier"
+msgstr "★ Eindfactor afbouw"
+
+msgid "Spiral vase reinforcement multiplier at the end of the reinforcement height."
+msgstr ""
 
 msgid "Smooth Spiral"
 msgstr "Soepele spiraal"
@@ -14835,12 +15265,6 @@ msgstr "Spoelvermenigvuldiger (Snelle modus)"
 msgid "The flush multiplier used in fast purge mode."
 msgstr "De spoelvermenigvuldiger die wordt gebruikt in de snelle spoelmodus."
 
-msgid "Alternate extruder printing"
-msgstr ""
-
-msgid "When the printer supports parallel (pre-)feeding, print the two extruders in an alternating order within a layer instead of finishing one extruder first. Only takes effect when the printer supports parallel feeding."
-msgstr ""
-
 msgid "Width of prime tower"
 msgstr "Breedte van prime toren"
 
@@ -14974,6 +15398,9 @@ msgstr "--use-firmware-retraction is niet compatibel met --wipe"
 msgid " doesn't work at 100%% density "
 msgstr " werkt niet bij een dichtheid van 100%% "
 
+msgid "Invalid spiral vase reinforcement height: "
+msgstr ""
+
 msgid "Invalid value when spiral vase mode is enabled: "
 msgstr "Ongeldige waarde wanneer de spiraalvormige vaasmodus is ingeschakeld: "
 
@@ -15003,13 +15430,6 @@ msgstr "Infill toolpath genereren"
 
 msgid "Detect overhangs for auto-lift"
 msgstr "Detect overhangs for auto-lift"
-
-msgid "Levitating objects cannot be printed without supports."
-msgstr "Zwevende objecten kunnen niet zonder ondersteuningsstructuren worden geprint."
-
-#, c-format, boost-format
-msgid "It seems object %s has floating regions. Please re-orient the object or enable support generation."
-msgstr "Het lijkt erop dat het object %s zwevende gebieden bevat. Heroriënteer het object of schakel het genereren van ondersteuningen in."
 
 msgid "Checking support necessity"
 msgstr "Controleren of support is noodzakelijk"
@@ -16040,6 +16460,9 @@ msgstr "Maken op basis van sjabloon"
 msgid "Create Based on Current Printer"
 msgstr "Aanmaken op basis van huidige printer"
 
+msgid "Rectangle"
+msgstr "Rechthoek"
+
 msgid "wiki"
 msgstr "wiki"
 
@@ -16069,9 +16492,6 @@ msgstr "Invoer aangepaste nozzle diameter"
 
 msgid "Can't find my nozzle diameter"
 msgstr "Ik kan de diameter van mijn nozzle niet vinden"
-
-msgid "Rectangle"
-msgstr "Rechthoek"
 
 msgid "Printable Space"
 msgstr "Printbare ruimte"
@@ -16522,8 +16942,8 @@ msgstr "Connection to Duet is working correctly."
 msgid "Could not connect to Duet"
 msgstr "Kan geen verbinding maken met Duet"
 
-msgid "Unknown error occured"
-msgstr "Onbekende fout opgetreden"
+msgid "Unknown error occurred"
+msgstr ""
 
 msgid "Wrong password"
 msgstr "Verkeerd wachtwoord."
@@ -16787,8 +17207,8 @@ msgstr "Persoonlijke toegangstoken is leeg, vul de juiste token in."
 msgid "Helio: Presigned URL Created"
 msgstr "Helio: Vooraf ondertekende URL aangemaakt"
 
-msgid "Helio: file succesfully uploaded"
-msgstr "Helio: bestand succesvol geüpload"
+msgid "Helio: file successfully uploaded"
+msgstr ""
 
 msgid "Helio: file upload failed"
 msgstr "Helio: bestand upload mislukt"
@@ -17797,6 +18217,60 @@ msgid ""
 msgstr ""
 "Betrouwbaarheid in één keer goed\n"
 "Minder toezicht, voorspelbaardere output. Voorbeeld: een kleine boerderij die PETG-onderdelen produceert, voorkomt verrassingen zoals 'falen na 6 uur' en houdt batches op schema."
+
+#~ msgid "Filament type is unknown which is required to perform this action. Please set target filament's informations."
+#~ msgstr "Het type filament is onbekend wat nodig is om deze actie uit te voeren. Stel de informatie van het doelfilament in."
+
+#~ msgid ""
+#~ "Should not large than 100%.\n"
+#~ "Reset to defualt"
+#~ msgstr ""
+#~ "Mag niet groter zijn dan 100%.\n"
+#~ "Teruggezet naar standaard"
+
+#~ msgid "Spiral mode only works when wall loops is 1, support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional, smoothing wall speed in z direction is false and alternate extra wall is disabled."
+#~ msgstr "De spiraalmodus werkt alleen als het aantal wandlussen 1 is, ondersteuning is uitgeschakeld, klontvormingsdetectie via sondering is uitgeschakeld, het aantal bovenste lagen 0 is, de spaarzame vullingsdichtheid 0 is, het timelapse-type traditioneel is, het vloeiend maken van de wandsnelheid in de z-richting is uitgeschakeld en de alternatieve extra wand is uitgeschakeld."
+
+#~ msgid "Sync extruder infomation"
+#~ msgstr "Extruder-informatie synchroniseren"
+
+#~ msgid "Copy paramters"
+#~ msgstr "Paramters kopiëren"
+
+#, c-format, boost-format
+#~ msgid "Modify paramters of %s"
+#~ msgstr "Parameters van %s wijzigen"
+
+#~ msgid "Brim-object gap"
+#~ msgstr "Ruimte tussen rand en object"
+
+#~ msgid "A gap between innermost brim line and object can make brim be removed more easily"
+#~ msgstr "Een opening tussen de binnenste randlijn en het voorwerp kan ervoor zorgen dat de rand gemakkelijker kan worden verwijderd."
+
+#~ msgid "Enable pressure advance, auto calibration result will be overwriten once enabled. Useless for Bambu Printer"
+#~ msgstr "Schakel drukvooruitgang in, het automatische kalibratieresultaat wordt overschreven zodra het is ingeschakeld. Nutteloos voor Bambu Printer"
+
+#~ msgid "Unknown error occured"
+#~ msgstr "Onbekende fout opgetreden"
+
+#~ msgid "Helio: file succesfully uploaded"
+#~ msgstr "Helio: bestand succesvol geüpload"
+
+#~ msgid "Warning:old matrix has at least two parameters: mirroring, scaling, and rotation. If you continue editing, it may not be correct. Please dragging text or cancel using current pose, save and reedit again."
+#~ msgstr "Waarschuwing: oude matrix heeft minstens twee parameters: spiegeling, schaling en rotatie. Als je doorgaat met bewerken, is deze mogelijk niet correct. Sleep tekst of annuleer met de huidige houding, sla op en bewerk opnieuw."
+
+#~ msgid "Enable support for"
+#~ msgstr "Schakel ondersteuning in voor"
+
+#~ msgid "Levitating objects cannot be printed without supports."
+#~ msgstr "Zwevende objecten kunnen niet zonder ondersteuningsstructuren worden geprint."
+
+#, c-format, boost-format
+#~ msgid "It seems object %s has floating regions. Please re-orient the object or enable support generation."
+#~ msgstr "Het lijkt erop dat het object %s zwevende gebieden bevat. Heroriënteer het object of schakel het genereren van ondersteuningen in."
+
+#~ msgid "Please click the confirm button if you still want to proceed with printing."
+#~ msgstr "Klik op de knop Bevestigen als je nog steeds wilt doorgaan met afdrukken."
 
 #~ msgid "Hide"
 #~ msgstr "Verbergen"
@@ -20527,9 +21001,6 @@ msgstr ""
 
 #~ msgid "Load process/machine settings from the specified file"
 #~ msgstr "Proces/machine instellingen laden vanuit een gekozen bestand"
-
-#~ msgid "Load shape from STL..."
-#~ msgstr "Vorm laden vanuit het stl. bestand..."
 
 #~ msgid "Load slicing data"
 #~ msgstr "Laad slicinggegevens"

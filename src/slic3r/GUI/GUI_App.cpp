@@ -34,6 +34,11 @@
 #include <boost/nowide/convert.hpp>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
+#include <boost/uuid/uuid.hpp>
+#include <boost/uuid/uuid_generators.hpp>
+#include <boost/uuid/uuid_io.hpp>
+
+#include "Printer/LiveViewTrackContext.h"
 
 #include <wx/stdpaths.h>
 #include <wx/imagpng.h>
@@ -70,6 +75,7 @@
 #include "GUI_Utils.hpp"
 #include "3DScene.hpp"
 #include "MainFrame.hpp"
+#include "slic3r/GUI/Widgets/WebView.hpp"
 #include "Plater.hpp"
 #include "GLCanvas3D.hpp"
 #include "EncodedFilament.hpp"
@@ -2077,21 +2083,25 @@ void GUI_App::init_networking_callbacks()
             }
             if (return_code < 0) { //#define MQTTASYNC_SUCCESS 0
                 GUI::wxGetApp().CallAfter([this] {
-                    static bool is_showing = false;
-                    if (is_showing) return;
-                    is_showing = true;
+                    m_homepage_server_connect_failed = true;
+                    sync_left_server_connect_status();
+
+                    static bool s_mqtt_connect_failed_dialog_shown = false;
+                    if (s_mqtt_connect_failed_dialog_shown) return;
+                    s_mqtt_connect_failed_dialog_shown = true;
                     BOOST_LOG_TRIVIAL(trace) << "static: server connection failed";
                     MessageDialog msg_dlg(nullptr, _L("Failed to connect to the cloud device server. Please check your network and firewall."), "", wxOK);
                     msg_dlg.ShowModal();
-                    is_showing = false;
                 });
                 return;
             }
             GUI::wxGetApp().CallAfter([this] {
-                if (is_closing())
-                    return;
-                BOOST_LOG_TRIVIAL(trace) << "static: server connected";
-                m_agent->set_user_selected_machine(m_agent->get_user_selected_machine());
+                    if (is_closing())
+                        return;
+                    m_homepage_server_connect_failed = false;
+                    sync_left_server_connect_status();
+                    BOOST_LOG_TRIVIAL(trace) << "static: server connected";
+                    m_agent->set_user_selected_machine(m_agent->get_user_selected_machine());
                     if (this->is_enable_multi_machine()) {
                         auto evt = new wxCommandEvent(EVT_UPDATE_MACHINE_LIST);
                         wxQueueEvent(this, evt);
@@ -2488,6 +2498,18 @@ static LogEncOptions s_get_log_enc_opts()
     return enc_options;
 };
 
+bool GUI_App::confirm_mesh_paint_warning()
+{
+    MessageDialog dlg(nullptr,
+        _L("This operation rebuilds the model's mesh. Painted color, supports, seam and "
+           "fuzzy-skin will be transferred to the new mesh by a best-effort approximation, "
+           "so the result may be slightly off and, in rare cases, some painting may be lost.\n\n"
+           "Do you want to continue?"),
+        _L("Painting may change"),
+        wxICON_WARNING | wxYES_NO | wxNO_DEFAULT);
+    return dlg.ShowModal() == wxID_YES;
+}
+
 void GUI_App::init_app_config()
 {
 	// Profiles for the alpha are stored into the PrusaSlicer-alpha directory to not mix with the current release.
@@ -2879,6 +2901,41 @@ class wxBoostLog : public wxLog
     }
 };
 
+// Populate process-wide live-view track context (client + session).
+// Called once during GUI_App::OnInit, before any tunnel-using code can emit
+// a track event.
+//
+// Fields filled here are the ones we can know reliably at startup. Other
+// fields (region / network_type / os_version) are intentionally left empty
+// — they can be filled later as the data becomes available; build_envelope
+// just skips empty strings.
+static void init_live_view_track_context(AppConfig* app_config)
+{
+    namespace track = BambuLiveViewTrack;
+
+    track::ClientInfo client;
+    client.client_ver = SLIC3R_VERSION;
+    if (app_config) {
+        client.client_id = app_config->get("slicer_uuid");
+    }
+#if defined(_WIN32)
+    client.platform = "windows";
+#elif defined(__APPLE__)
+    client.platform = "macos";
+#else
+    client.platform = "linux";
+#endif
+
+    track::SessionInfo session;
+    session.session_id = boost::uuids::to_string(boost::uuids::random_generator()());
+    session.start_time_ms = std::chrono::duration_cast<std::chrono::milliseconds>(
+        std::chrono::system_clock::now().time_since_epoch()).count();
+
+    auto& ctx = track::LiveViewTrackContext::instance();
+    ctx.init_client(client);
+    ctx.init_session(session);
+}
+
 std::string get_system_info()
 {
     std::stringstream out;
@@ -2971,6 +3028,8 @@ bool GUI_App::on_init_inner()
 #endif
 
     BOOST_LOG_TRIVIAL(info) << get_system_info();
+
+    init_live_view_track_context(app_config);
 
 // initialize label colors and fonts
     init_label_colours();
@@ -3110,6 +3169,11 @@ bool GUI_App::on_init_inner()
     }
 
     BBLSplashScreen * scrn = nullptr;
+
+    // BBS: ensure the splash screen is torn down on every exit path safely
+    ScopeGuard delete_scrn([&scrn]() {
+        if (scrn) scrn->Destroy();
+    });
     const bool show_splash_screen = true;
     if (show_splash_screen) {
         // make a bitmap with dark grey banner on the left side
@@ -3126,7 +3190,7 @@ bool GUI_App::on_init_inner()
 
         BOOST_LOG_TRIVIAL(info) << "begin to show the splash screen...";
         //BBS use BBL splashScreen
-        scrn = new BBLSplashScreen(bmp, wxSPLASH_CENTRE_ON_SCREEN | wxSPLASH_TIMEOUT, 10000, splashscreen_pos);
+        scrn = new BBLSplashScreen(bmp, wxSPLASH_CENTRE_ON_SCREEN, 0, splashscreen_pos);
 #ifndef __linux__
         wxYield();
 #endif
@@ -3480,8 +3544,6 @@ bool GUI_App::on_init_inner()
     flush_logs();
 
     BOOST_LOG_TRIVIAL(info) << "finished the gui app init";
-    //BBS: delete splash screen
-    delete scrn;
     return true;
 }
 
@@ -4537,12 +4599,25 @@ void GUI_App::get_login_info()
             GUI::wxGetApp().run_script_left(strJS);
         }
         else {
+            m_homepage_server_connect_failed = false;
             m_agent->user_logout();
             std::string logout_cmd = m_agent->build_logout_cmd();
             wxString strJS = wxString::Format("window.postMessage(%s)", logout_cmd);
             GUI::wxGetApp().run_script_left(strJS);
         }
     }
+    sync_left_server_connect_status();
+}
+
+void GUI_App::sync_left_server_connect_status()
+{
+    json msg           = json::object();
+    msg["sequence_id"] = "10001";
+    msg["command"]     = "homepage_server_connect_status";
+    msg["failed"]      = m_homepage_server_connect_failed ? 1 : 0;
+
+    wxString strJS = wxString::Format("window.postMessage(%s)", msg.dump(-1, ' ', false, json::error_handler_t::ignore));
+    GUI::wxGetApp().run_script_left(strJS);
 }
 
 bool GUI_App::is_user_login()
@@ -4583,11 +4658,15 @@ void GUI_App::request_user_login(int online_login)
 
 void GUI_App::request_user_logout()
 {
+    m_homepage_server_connect_failed = false;
+    sync_left_server_connect_status();
+
     if (m_agent && m_agent->is_user_login()) {
         m_load_last_machine.is_list_ok = false;
         m_load_last_machine.is_mqtt_ok = false;
         // Update data first before showing dialogs
         m_agent->user_logout(true);
+        WebView::ClearBambulabTokenCookies();
         if (auto obj = m_device_manager->get_selected_machine();
             obj && obj->is_cloud_mode_printer()) {
             m_device_manager->record_user_last_machine("");
@@ -5552,10 +5631,19 @@ void GUI_App::check_beta_version(bool show_tips_when_no_beta)
                                 }
                             }
                         }
+                        // Newest beta located and scheduled; stop scanning older entries.
+                        return;
                     }
                 }
-                return;
             }
+            // No beta release exists across all GitHub releases (e.g. the newest
+            // release is stable). Fall back to the regular "no new version" toast
+            // instead of silently returning after inspecting only the first entry.
+            CallAfter([this, show_tips_when_no_beta]() {
+                if (show_tips_when_no_beta) {
+                    this->no_new_version();
+                }
+            });
         }
         catch (...) {
             ;

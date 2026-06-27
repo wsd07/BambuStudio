@@ -479,3 +479,48 @@
 - 根因或当前最佳判断：`BuildMac.sh` 默认会执行 CMake 配置和 `all` 目标构建，然后复制并修复 `.app`。对于已经完成过配置的本地增量开发，这比“只构建 BambuStudio 目标并刷新 App 包”重得多。
 - 修复方案或临时绕过方式：新增 `tools/dev/fast_package_mac.sh`。日常源码/资源/配置小改动先运行 `tools/dev/fast_package_mac.sh -a arm64 -c Release`；首次构建、CMake/依赖/架构变化、正式验证仍使用完整 `BuildMac.sh`。
 - 验证结果：`tools/dev/fast_package_mac.sh -a arm64 -c Release -j 8` 验证通过；在完整构建已存在时输出 `ninja: no work to do.`，随后刷新 `build/arm64/BambuStudio/BambuStudio.app`，耗时约数秒。
+
+## 2026-06-27 - 合并官方 2.8 更新时必须同时保留平台依赖逻辑和私有 G-code 辅助函数
+
+- 日期：2026-06-27
+- 现象：执行 `git merge upstream/master` 时，`deps/Assimp/Assimp.cmake` 和 `src/libslic3r/GCode.cpp` 发生内容冲突。
+- 受影响的命令、界面、模块或文件：`git merge upstream/master`；Assimp 依赖配置；G-code 生成与 Brim 多层功能。
+- 根因或当前最佳判断：官方分支新增了按平台决定 Assimp 是否构建内置 zlib 的逻辑，并在 `GCode.cpp` 同一区域增加 `infer_timelapse_final_plate_pos()`；私有分支在相同位置增加了 `adjust_brim_entity_layer_height()`。两边改动互不替代，直接选任意一侧都会丢功能。
+- 修复方案或临时绕过方式：Assimp 保留官方 `_assimp_build_zlib` 平台判断；`GCode.cpp` 同时保留私有 Brim 层高调整函数和官方延时摄影最终平台位置推断函数。冲突解决后逐项检索 `brim_layers`、花瓶增强、`seam_optimization`、FLSun 门控和缩略图回退等私有功能。
+- 验证结果：合并后无未解决冲突；标准 Xcode 全量构建完成 `711/711` 并成功链接 `BambuStudio.app`，私有关键符号检查全部通过。
+
+## 2026-06-27 - 官方 2.8 新增 libharu 后旧依赖目录会导致 HPDF_LIBRARY NOTFOUND
+
+- 日期：2026-06-27
+- 现象：官方更新合并后，干净配置主工程时报错 `HPDF_LIBRARY NOTFOUND`。
+- 受影响的命令、界面、模块或文件：`./BuildMac.sh -s -x -a arm64 -c Release -t 14.0`；`deps/libharu`；官方新增的装配说明 PDF 导出模块。
+- 根因或当前最佳判断：官方 2.8 增加 libharu/HPDF 依赖，而现有 `deps/build/arm64/BambuStudio_deps` 来自旧版本，不包含 `libhpdf.a`。只重新配置主工程不会自动补齐新增依赖。
+- 修复方案或临时绕过方式：先运行 `./BuildMac.sh -d -x -a arm64 -c Release -t 14.0` 刷新依赖，确认 `deps/build/arm64/BambuStudio_deps/usr/local/lib/libhpdf.a` 已安装，再重新构建主工程。
+- 验证结果：`libhpdf.a` 安装成功；后续主工程配置找到 HPDF，装配说明相关源码编译并完成最终链接。
+
+## 2026-06-27 - 旧 build/arm64 读取卡死时应清理生成目录并优先恢复标准 Xcode 工具链
+
+- 日期：2026-06-27
+- 现象：CMake 生成阶段长时间停滞且进程接近 0% CPU；切换 Command Line Tools 后虽然能配置，但单个 C++ 文件编译耗时异常，无法合理完成全量构建。
+- 受影响的命令、界面、模块或文件：`build/arm64`；`./BuildMac.sh -s -x -a arm64 -c Release -t 14.0`；Xcode 与 Command Line Tools 编译器选择。
+- 根因或当前最佳判断：旧 `build/arm64` 中的生成文件触发了本机已知的 macOS 文件读取异常。CLT 可绕过部分生成问题，但本机环境下其编译性能明显低于标准 Xcode，不能作为首选长期方案。
+- 修复方案或临时绕过方式：只删除生成目录 `build/arm64`，保留已构建的依赖缓存；随后不设置 `DEVELOPER_DIR`、`CC`、`CXX`，重新执行标准完整构建。只有干净 Xcode 配置仍失败时，才把 CLT 作为诊断手段。
+- 验证结果：干净目录使用 AppleClang 17/Xcode SDK 完成 `711/711`，生成 `build/arm64/BambuStudio/BambuStudio.app`；相同源码的编译速度恢复正常。
+
+## 2026-06-27 - 私有设置标签存在于源码但未进入 gettext 时会始终显示英文
+
+- 日期：2026-06-27
+- 现象：`★ Optimize seam`、花瓶增强和多层 Brim 等 7 个私有设置在源码中使用 `L()`，但所有语言的 `.po/.mo` 中没有对应条目，非英语界面仍显示英文。
+- 受影响的命令、界面、模块或文件：`src/libslic3r/PrintConfig.cpp`；`bbl/i18n/BambuStudio.pot`；`bbl/i18n/*/*.po`；`resources/i18n/*/BambuStudio.mo`。
+- 根因或当前最佳判断：新增参数后没有完整执行 gettext 的“提取 POT、合并 PO、生成 MO”链路。仅使用 `L()` 不会自动让已发布资源包含新字符串。
+- 修复方案或临时绕过方式：依次执行 `gettext_make_pot`、`gettext_merge_po_with_pot`，为 18 种语言补齐 7 个私有标签，再执行 `msgfmt --check-format` 和 `gettext_po_to_mo`。后续新增可见设置时，必须把 gettext 资源验证纳入完成条件。
+- 验证结果：18 种语言共更新 126 条标签译文；全部 PO 通过格式检查，MO 重新生成，`msgunfmt` 可读取中文 `★ 优化接缝`、`★ Brim层数` 和 `★ 花瓶增强倍数`。
+
+## 2026-06-27 - DeviceWeb Node 下载中断会留下空缓存目录并阻断重新配置
+
+- 日期：2026-06-27
+- 现象：完整打包重新配置 DeviceWeb 时，Node.js 下载到 63% 后报 `Transferred a partial file`，随后 CMake 报 `file DOWNLOAD cannot compute hash on failed download` 和 `Failed to download Node.js`。
+- 受影响的命令、界面、模块或文件：`./BuildMac.sh -s -x -a arm64 -c Release -t 14.0`；`build/arm64/node-cache`；`src/slic3r/GUI/DeviceWeb/CMakeLists.txt`。
+- 根因或当前最佳判断：Node 官方下载连接中途断开；CMake 的 `file(DOWNLOAD EXPECTED_HASH ...)` 不支持断点续传，并留下了只有目录结构、没有 `bin/node` 的不完整缓存。该错误与 C++ 源码和上游合并内容无关。
+- 修复方案或临时绕过方式：确认缓存目录中不存在可执行的 `bin/node` 后，用 `cmake -E remove_directory build/arm64/node-cache` 只删除残缺缓存，再原样重试完整打包。不要删除已经完成的 C++ 对象和依赖目录。
+- 验证结果：第二次下载完成，DeviceWeb 配置通过；主程序完成 `602/602` 重新链接，最终独立应用包生成成功，二进制更新时间为 `2026-06-27 22:34:06`。
