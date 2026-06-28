@@ -524,3 +524,21 @@
 - 根因或当前最佳判断：Node 官方下载连接中途断开；CMake 的 `file(DOWNLOAD EXPECTED_HASH ...)` 不支持断点续传，并留下了只有目录结构、没有 `bin/node` 的不完整缓存。该错误与 C++ 源码和上游合并内容无关。
 - 修复方案或临时绕过方式：确认缓存目录中不存在可执行的 `bin/node` 后，用 `cmake -E remove_directory build/arm64/node-cache` 只删除残缺缓存，再原样重试完整打包。不要删除已经完成的 C++ 对象和依赖目录。
 - 验证结果：第二次下载完成，DeviceWeb 配置通过；主程序完成 `602/602` 重新链接，最终独立应用包生成成功，二进制更新时间为 `2026-06-27 22:34:06`。
+
+## 2026-06-29 - Desktop 文件提供器会反复给本地 App 附加 FinderInfo
+
+- 日期：2026-06-29
+- 现象：对 `build/arm64/BambuStudio/BambuStudio.app` 执行严格签名验证时，提示 `resource fork, Finder information, or similar detritus not allowed`；删除 `com.apple.FinderInfo` 后该属性又会出现。
+- 受影响的命令、界面、模块或文件：`codesign --verify --deep --strict`；工作区中的 macOS 本地测试 App。
+- 根因或当前最佳判断：项目位于 Desktop 文件提供器管理目录，根 App 目录带有 `com.apple.fileprovider.fpfs#P`，文件提供器会重新附加空的 `com.apple.FinderInfo`。这不是资源缺失；`codesign -dvv` 显示 ad-hoc 签名已包含 `Sealed Resources version=2` 和 7173 个资源文件。
+- 修复方案或临时绕过方式：本地开发包仍按 `BuildMac.sh` 生成并直接运行；需要严格签名验证或对外分发时，应先把 App 复制到不受 Desktop/FileProvider 管理的发布目录，再清理扩展属性并签名。不要为此修改源码资源或删除 App 内容。
+- 验证结果：应用包中的 arm64 二进制、423 MB 资源和 18 种语言 MO 均存在；`open -n` 启动成功，进程列表确认新版 `BambuStudio` 正在运行。
+
+## 2026-06-29 - 私人 origin 使用 HTTPS 但无非交互凭据时推送不会落地
+
+- 日期：2026-06-29
+- 现象：本地官方合并提交创建成功，但 `git push origin codex/flsun-custom` 报 `fatal: could not read Username for 'https://github.com': Device not configured`，远端跟踪分支仍停留在旧提交。
+- 受影响的命令、界面、模块或文件：`git push origin codex/flsun-custom`；远端 `https://github.com/wsd07/BambuStudio.git`。
+- 根因或当前最佳判断：当前 `gh auth status` 没有可用登录信息，Git HTTPS credential helper 也没有向非交互进程提供 GitHub 凭据。此前一次无输出的短暂 push 不能视为成功，必须比较 `HEAD` 与 `origin/codex/flsun-custom`。
+- 修复方案或临时绕过方式：由用户完成一次 `gh auth login`，并按提示授权 GitHub；随后执行 `gh auth setup-git`，再重新 push。每次推送后必须核对 `git rev-parse HEAD` 与 `git rev-parse origin/codex/flsun-custom` 一致。
+- 验证结果：本地 `HEAD=46df01a5b` 包含 `upstream/master=4019d2eae`，远端跟踪仍为 `4945ad0cf`，因此本地同步、构建和运行已完成，但私人 GitHub 推送明确尚未完成。
