@@ -1925,7 +1925,7 @@ wxBoxSizer* MainFrame::create_side_tools()
     /*helio*/
     split_line_icon = new wxStaticBitmap(this, wxID_ANY, create_scaled_bitmap("topbar_line", this, 22), wxDefaultPosition, wxSize(FromDIP(3), FromDIP(22)), 0);
     expand_program_holder = new ExpandButtonHolder(this);
-    expand_program_holder->addExpandButton(expand_helio_id, "helio_icon");
+    expand_program_holder->addExpandButton(expand_helio_id, "helio_icon_topbar");
     expand_program_holder->addExpandButton(expand_program_id, "expand_program");
     expand_program_holder->Bind(wxEXPAND_LEFT_DOWN, [=](const wxCommandEvent& e) {
 
@@ -2583,7 +2583,7 @@ void MainFrame::update_slice_print_status(SlicePrintEventType event, bool can_sl
 
     /*for healio*/
     if (expand_program_holder) {
-        expand_program_holder->updateExpandButtonBitmap(expand_helio_id, m_print_enable?"helio_icon":"helio_icon_disable");
+        expand_program_holder->updateExpandButtonBitmap(expand_helio_id, m_print_enable?"helio_icon_topbar":"helio_icon_topbar_disable");
         expand_program_holder->EnableExpandButton(expand_helio_id, m_print_enable);
     }
 
@@ -2930,6 +2930,21 @@ void MainFrame::init_menubar_as_editor()
             [this](wxCommandEvent&) { if (m_plater) m_plater->save_project(true); }, "", nullptr,
             [this](){return m_plater != nullptr && can_save_as(); }, this);
 #endif
+
+        append_menu_item(fileMenu, wxID_ANY, _L("Show Project in Folder"), _L("Show current project in folder"),
+            [this](wxCommandEvent&) {
+                if (m_plater) {
+                    const wxString filename = m_plater->get_project_filename(".3mf");
+                    if (!filename.IsEmpty() && wxFileExists(filename))
+                        Slic3r::GUI::desktop_open_any_folder(into_u8(filename));
+                }
+            }, "", nullptr,
+            [this]() {
+                if (m_plater == nullptr)
+                    return false;
+                const wxString filename = m_plater->get_project_filename(".3mf");
+                return !filename.IsEmpty() && wxFileExists(filename);
+            }, this);
 
 
         fileMenu->AppendSeparator();

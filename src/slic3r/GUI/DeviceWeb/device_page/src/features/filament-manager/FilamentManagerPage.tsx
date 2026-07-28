@@ -24,6 +24,19 @@ const FILTER_LABEL_KEYS: Record<FilterKey, string> = {
   brand: 'Brand', material_type: 'Filament Type', series: 'Material Type',
 };
 
+function spoolSearchText(spool: Spool): string {
+  return [
+    spool.brand,
+    spool.material_type,
+    spool.series,
+    spool.color_name,
+    spool.note,
+  ]
+    .filter((value): value is string => typeof value === 'string' && value.length > 0)
+    .join(' ')
+    .toLowerCase();
+}
+
 export function FilamentManagerPage() {
   const { t } = useTranslation();
   const {
@@ -79,6 +92,7 @@ export function FilamentManagerPage() {
   const [prefilledSpool, setPrefilledSpool] = useState<Partial<Spool> | null>(null);
   const [detailSpool, setDetailSpool]     = useState<Spool | null>(null);
   const [detailOpen, setDetailOpen]       = useState(false);
+  const [sortedSpools, setSortedSpools]   = useState<Spool[]>([]);
 
   // Custom confirm modal (replaces native `window.confirm()` which leaks the
   // page URL in its title bar when running inside a WebView2 host).
@@ -153,14 +167,12 @@ export function FilamentManagerPage() {
     let list = spools.filter((s) => s.status !== 'archived');
 
     // Tab filter
-    if (tab === 'ams') list = list.filter((s) => s.entry_method === 'ams_sync');
+    if (tab === 'ams') list = list.filter((s) => s.in_printer === true);
 
     // Search
     if (search.trim()) {
-      const kw = search.toLowerCase();
-      list = list.filter((s) =>
-        `${s.brand} ${s.material_type} ${s.series} ${s.color_name}`.toLowerCase().includes(kw)
-      );
+      const kw = search.trim().toLowerCase();
+      list = list.filter((s) => spoolSearchText(s).includes(kw));
     }
 
     // Filters
@@ -356,7 +368,7 @@ export function FilamentManagerPage() {
                       className={`px-[10px] py-1 h-7 rounded-md cursor-pointer text-xs text-fm-text-secondary flex items-center transition-colors duration-150 hover:bg-fm-hover ${tab === tb ? 'bg-fm-input text-fm-text-strong' : ''}`}
                       onClick={() => setTab(tb)}
                     >
-                      {tb === 'all' ? t('All') : 'AMS'}
+                      {tb === 'all' ? t('All') : t('In Printer')}
                     </div>
                   ))}
                 </div>
@@ -533,6 +545,7 @@ export function FilamentManagerPage() {
                   onAddSimilar={handleAddSimilar}
                   onEmptyAdd={handleOpenAddDialog}
                   onDelete={handleDelete}
+                  onSortedChange={setSortedSpools}
                 />
               )}
           </>
@@ -568,7 +581,7 @@ export function FilamentManagerPage() {
       <DetailDialog
         open={detailOpen}
         spool={detailSpool}
-        filteredSpools={filtered}
+        filteredSpools={sortedSpools.length > 0 ? sortedSpools : filtered}
         onClose={() => setDetailOpen(false)}
         onEdit={handleEditFromDetail}
         onNavigate={(id) => {

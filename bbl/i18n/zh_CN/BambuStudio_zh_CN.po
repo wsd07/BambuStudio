@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Slic3rPE\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-27 20:31+0800\n"
+"POT-Creation-Date: 2026-07-28 09:49+0800\n"
 "PO-Revision-Date: 2025-02-20 20:32+0800\n"
 "Last-Translator: Jiang Yue <maze1024@gmail.com>\n"
 "Language-Team: \n"
@@ -220,7 +220,7 @@ msgid "PLA Glow may wear the AMS first stage feeder. Use an external spool inste
 msgstr "夜光耗材可能磨损 AMS 进料口，建议使用外挂料盘打印。"
 
 msgid "Default settings may affect print quality. Adjust as needed for best results."
-msgstr "使用默认参数打印可能影响打印质量，请根据实际效果调整参数以获得最佳结果。"
+msgstr "使用默认参数可能影响打印质量。请根据需求调整以获得最佳效果。"
 
 #, c-format, boost-format
 msgid "%s has a risk of nozzle clogging when using 0.4mm high-flow nozzles. Use with caution."
@@ -290,6 +290,9 @@ msgstr "标准"
 
 msgid "TPU High Flow"
 msgstr "TPU高流量"
+
+msgid "E3D High Flow"
+msgstr "E3D 高流量"
 
 msgid "Unknown"
 msgstr "未知"
@@ -1324,9 +1327,6 @@ msgstr "通过面2翻转"
 msgid "Assemble"
 msgstr "装配"
 
-msgid "Please exit the assembly guide before using this tool."
-msgstr "请先退出组装指南再使用此工具。"
-
 msgid "Please confirm explosion ratio = 1 and select at least two volumes."
 msgstr "请确保爆炸比例为1且至少选择两个网格。"
 
@@ -1336,6 +1336,9 @@ msgstr "请至少选择两个网格。"
 msgid "(Moving)"
 msgstr "(活动的)"
 
+msgid "Face and face assembly"
+msgstr "面和面装配"
+
 msgid "Point and point assembly"
 msgstr "点和点装配"
 
@@ -1344,9 +1347,6 @@ msgid ""
 "because the objects is restriced to bed \n"
 "and only parts can be lifted."
 msgstr "建议先组装零件，因为零件受到热床的限制，只有部件可以抬起。"
-
-msgid "Face and face assembly"
-msgstr "面和面装配"
 
 msgid "Brush size"
 msgstr "画刷尺寸"
@@ -1485,7 +1485,7 @@ msgid "Modifier"
 msgstr "修改器"
 
 msgid "Click to change part type into modifier."
-msgstr "单击以将零件类型更改为修改器"
+msgstr "单击将零件类型更改为修改器"
 
 msgid "Surround projection by character"
 msgstr "按字符环绕投影"
@@ -1948,9 +1948,12 @@ msgid ""
 "\n"
 "Do you want to continue?"
 msgstr ""
+"此操作将重建模型的网格。绘画颜色、支撑、接缝和模糊蒙皮将通过尽力逼近的方式转移到新网格上，因此结果可能略有偏差，在极少数情况下，部分涂色可能会丢失。\n"
+"\n"
+"您想继续吗？"
 
 msgid "Painting may change"
-msgstr ""
+msgstr "涂色可能会发生变化"
 
 msgid "BambuStudio configuration file read failed. Please manually backup and delete it, and then restart BambuStudio software."
 msgstr "BambuStudio配置文件读取失败。请手动备份并删除它，然后重新启动BambuStudio软件。"
@@ -2160,7 +2163,7 @@ msgid "Bed adhension"
 msgstr "热床粘接"
 
 msgid "Add part"
-msgstr "添加部件"
+msgstr "添加零件"
 
 msgid "Add negative part"
 msgstr "添加负零件"
@@ -2445,6 +2448,9 @@ msgstr "编辑"
 msgid "Delete this filament"
 msgstr "删除此耗材丝"
 
+msgid "Decompose Color"
+msgstr "拆解颜色"
+
 msgid "Merge with"
 msgstr "合并到"
 
@@ -2492,6 +2498,12 @@ msgstr "删除所选盘"
 
 msgid "Move Plate"
 msgstr "移动盘"
+
+msgid "Split to objects"
+msgstr "拆分为对象"
+
+msgid "Split the selected objects into multiple objects"
+msgstr "将选定的对象拆分为多个对象"
 
 msgid "Clone"
 msgstr "克隆"
@@ -2955,7 +2967,7 @@ msgid "Choose an AMS slot then press \"Load\" or \"Unload\" button to automatica
 msgstr "选择1个AMS槽位，然后点击进料/退料按钮以自动进料/退料。"
 
 msgid "Filament type is unknown which is required to perform this action. Please set target filament's information."
-msgstr ""
+msgstr "执行此操作的耗材类型未知。请设置槽位信息。"
 
 msgid "/"
 msgstr ""
@@ -3167,6 +3179,12 @@ msgstr "将当前步骤中添加的对象或零件应用最终装配姿态？"
 msgid "Apply final assembly pose"
 msgstr "应用最终装配姿态"
 
+msgid "The export file is in use by the system. Please close it or export with a different file name, then try again."
+msgstr "导出文件正被系统使用。请关闭该文件或使用其他文件名导出，然后重试。"
+
+msgid "Export"
+msgstr "导出"
+
 msgid "Assembly Guide"
 msgstr "组装指南"
 
@@ -3191,11 +3209,14 @@ msgstr "导出装配指南到MP4"
 msgid "Exporting file"
 msgstr "导出文件"
 
-msgid "Export"
-msgstr "导出"
-
 msgid "Saving project will automatically switch to end frame"
 msgstr "保存项目时将自动切换到结束帧"
+
+msgid "Are you sure you want to delete all assembly steps?"
+msgstr "您确定要删除所有装配步骤吗？"
+
+msgid "Delete all steps"
+msgstr "删除所有步骤"
 
 msgid "New Step"
 msgstr "新步骤"
@@ -3222,6 +3243,9 @@ msgstr "包含"
 msgid "Assembly Module"
 msgstr "装配模块"
 
+msgid "Volume"
+msgstr "体积"
+
 msgid "Click to add objects to the current step"
 msgstr "单击将对象添加到当前步骤"
 
@@ -3237,14 +3261,18 @@ msgstr "删除步骤"
 msgid "Model"
 msgstr "模型"
 
-msgid "Volume"
-msgstr "体积"
-
 msgid "start frame"
 msgstr "起始帧"
 
 msgid "transition frame"
 msgstr "过渡帧"
+
+#, c-format, boost-format
+msgid "Step %d"
+msgstr "第 %d 步"
+
+msgid "not used in any assembly step"
+msgstr "未在任何组装步骤中使用"
 
 #, boost-format
 msgid "Plate %1%"
@@ -3268,6 +3296,12 @@ msgstr "帧"
 msgid "step"
 msgstr "步骤"
 
+msgid "Show Current Step Parts Only"
+msgstr "仅显示当前步骤零件"
+
+msgid "X-Ray Other Parts"
+msgstr "X-Ray其它零件"
+
 msgid "Play all frames for all steps."
 msgstr "播放所有步骤的所有帧。"
 
@@ -3279,6 +3313,9 @@ msgstr "播放上一帧"
 
 msgid "Play next frame."
 msgstr "播放下一帧"
+
+msgid "Display Mode"
+msgstr "显示模式"
 
 msgid "Set export file parameters"
 msgstr "设置导出文件参数"
@@ -3341,8 +3378,11 @@ msgstr "仅复制步骤。此操作与画布上选定的对象无关。"
 msgid "Only add empty steps. This has nothing to do with the selected objects on the canvas."
 msgstr "仅添加空步骤。这与画布上的选定对象无关。"
 
-msgid "Exit"
-msgstr "退出"
+msgid "Delete all assembly steps except the final assembly."
+msgstr "删除除总装步骤之外的所有装配步骤。"
+
+msgid "Exit the assembly step editing, you can also press the Esc button to exit"
+msgstr "退出装配步骤编辑，您也可以按 Esc 键退出"
 
 msgid "Click to add Cyber Brick"
 msgstr "点击添加 Cyber Brick"
@@ -3354,10 +3394,10 @@ msgid "Export PDF"
 msgstr "导出PDF"
 
 msgid "Export Markdown"
-msgstr "导出 Markdown"
+msgstr "导出Markdown"
 
 msgid "Export MP4"
-msgstr "导出 MP4"
+msgstr "导出MP4"
 
 msgid "After exporting the Markdown document, you can edit it in third-party software such as Zettlr and then export it to PDF."
 msgstr "导出 Markdown 文档后，您可以使用 Zettlr 等第三方软件对其进行编辑，然后将其导出为 PDF。"
@@ -3369,7 +3409,7 @@ msgid "Model objects only"
 msgstr "仅模型对象"
 
 msgid "Model parts only"
-msgstr "仅模型部件"
+msgstr "仅模型零件"
 
 msgid "Automatically choose object-or-part-level labels: objects already shown in earlier steps are collapsed into a single object label, while the rest are labeled per individual part."
 msgstr "自动选择对象或零件级别的标签：在前面的步骤中已经显示的对象将合并为一个对象标签，而其余对象将按各个零件进行标记。"
@@ -3412,6 +3452,9 @@ msgstr "字体大小"
 
 msgid "Display mode"
 msgstr "显示模式"
+
+msgid "Automatically choose object-or-part-level labels: a fully-used object already shown in earlier steps is collapsed into a single object label; partial objects and first appearances are labeled per individual part."
+msgstr "自动选择对象或零件级别的标签：在先前步骤中已完全使用的对象将折叠为单个对象标签；部分对象和首次出现的对象将按单个零件进行标记。"
 
 msgid "Export assembly guide PDF, Markdown or MP4"
 msgstr "导出装配指南 PDF、Markdown 或 MP4"
@@ -3501,7 +3544,7 @@ msgid "Add keyframe"
 msgstr "添加关键帧"
 
 msgid "Click to select this frame"
-msgstr "单击以选择此帧"
+msgstr "单击选择此帧"
 
 msgid "Save update"
 msgstr "保存更新"
@@ -3517,6 +3560,15 @@ msgstr "搜索"
 
 msgid "List"
 msgstr "列表"
+
+msgid "Assembly list"
+msgstr "装配列表"
+
+msgid "Expand all objects"
+msgstr "展开所有对象"
+
+msgid "Collapse all objects"
+msgstr "折叠所有对象"
 
 msgid "Select all parts in a step"
 msgstr "选择步骤中的所有零件"
@@ -3720,14 +3772,26 @@ msgstr "保温热床可以优化首层打印质量，保温完成后将发起打
 msgid "Remaining time: %dmin%ds"
 msgstr "剩余时间：%d分%d秒"
 
-msgid "Project Filaments"
+msgid "One-click CMYW auto-mix"
+msgstr "一键CMYW自动混色"
+
+msgid "One-click RYBW auto-mix"
+msgstr "一键RYBW自动混色"
+
+msgid "Project Physical Filaments"
 msgstr "项目耗材列表"
 
-msgid "New Filaments"
+msgid "Project Mixed Filaments"
+msgstr "项目混色列表"
+
+msgid "New Physical Filaments"
 msgstr "新增耗材"
 
-msgid "Add Material"
-msgstr "添加材料"
+msgid "New Mixed Filaments"
+msgstr "新增混色耗材"
+
+msgid "+ Add Material"
+msgstr "添加耗材"
 
 #, c-format, boost-format
 msgid "The project supports up to %d filaments. Extra filaments will be discarded."
@@ -3765,6 +3829,12 @@ msgstr "提醒：参数已更改，请点击应用生效"
 
 msgid "Filament Mapping"
 msgstr "耗材映射"
+
+msgid "Reset filament mapping to the state before one-click mixing"
+msgstr "重置耗材映射至一键混色前的状态"
+
+msgid "Choose the one-click auto-mix mode for texture color import"
+msgstr "选择纹理颜色导入的一键自动混色模式"
 
 msgid "Auto-merge same filament"
 msgstr "自动合并相同的耗材"
@@ -3979,6 +4049,45 @@ msgstr "请输入有效的数值（K的范围为%.1f~%.1f）"
 msgid "Please input a valid value (K in %.1f~%.1f, N in %.1f~%.1f)"
 msgstr "请输入有效的数值（K的范围为%.1f~%.1f，N的范围为%.1f~%.1f）"
 
+msgid "Remark"
+msgstr "备注"
+
+msgid "Other"
+msgstr "其他"
+
+msgid "Filament Manager"
+msgstr "耗材管理"
+
+msgid "In printer"
+msgstr "机内耗材"
+
+#, c-format, boost-format
+msgid "In printer: %s"
+msgstr "机内耗材：%s"
+
+msgctxt "Filament Manager"
+msgid "Note"
+msgstr "提示"
+
+msgid "Unsupported Filaments"
+msgstr "不支持的耗材"
+
+msgctxt "Unsupported Filaments"
+msgid "Note"
+msgstr "提示"
+
+msgid "No unsupported filaments"
+msgstr ""
+
+msgid "No filaments"
+msgstr "暂无耗材"
+
+msgid "System presets"
+msgstr "系统配置"
+
+msgid "Recently used"
+msgstr ""
+
 #, c-format, boost-format
 msgid "Note: The hotend number on the %s is tied to the holder. When the hotend is moved to a new holder, its number will update automatically."
 msgstr "注意：%s上的热端编号与刀架绑定。当热端移动至新刀架时，其编号会自动更新。"
@@ -3998,6 +4107,24 @@ msgstr "其他颜色"
 
 msgid "Custom Color"
 msgstr "自定义颜色"
+
+msgid "AMS detected a new official filament. Add it to Filament Manager?"
+msgstr "AMS识别到新的官方耗材，是否录入到耗材管理？"
+
+msgid "Add as new filament"
+msgstr "作为新耗材录入"
+
+msgid "Link to existing filament"
+msgstr "关联已录入的耗材"
+
+msgid "Not now"
+msgstr "暂不录入"
+
+msgid "Please select"
+msgstr "请选择"
+
+msgid "No matching filament"
+msgstr "暂无匹配的耗材"
 
 msgid "Dynamic flow calibration"
 msgstr "动态流量校准"
@@ -4210,7 +4337,7 @@ msgid "Nozzle"
 msgstr "喷嘴"
 
 msgid "To learn about the filaments matching rules."
-msgstr "了解丝材匹配规则。"
+msgstr "了解耗材丝匹配规则。"
 
 msgid "External spools is not supported since Filament Track Switch has been installed. If you want to use external spool, please uninstall it."
 msgstr "安装有变轨器，不支持使用外挂，如果使用，请拔掉变轨器。"
@@ -4485,7 +4612,7 @@ msgstr ""
 msgid ""
 "Should not large than 100%.\n"
 "Reset to default"
-msgstr ""
+msgstr "起始高度不应大于100%。将重置为默认值"
 
 #, c-format, boost-format
 msgid "Current chamber temperature is higher than the material's safe temperature, it may result in material softening and clogging. The maximum safe temperature for the material is %d"
@@ -4502,9 +4629,9 @@ msgid ""
 msgstr "层高过大。将重置为0.2"
 
 msgid ""
-"Should not large than layer height.\n"
+"Should not be larger than layer height.\n"
 "Reset to 10%"
-msgstr "起始高度不应大于层高度。重置为10%"
+msgstr ""
 
 msgid ""
 "Too small ironing spacing.\n"
@@ -5320,28 +5447,28 @@ msgid "Current grouping of slice result is not optimal."
 msgstr "当前材料分组不是最优结果。"
 
 #, boost-format
-msgid "Increase %1%g filament and %2% changes compared to optimal grouping."
-msgstr "如果使用最优分组可多节省%1%g耗材和%2%次换料。"
+msgid "Increase %1%g filament and %2% nozzle purges compared to optimal grouping."
+msgstr "如果使用最优分组可多节省%1%g耗材和%2%次冲刷。"
 
 #, boost-format
-msgid "Increase %1%g filament and save %2% changes compared to optimal grouping."
+msgid "Increase %1%g filament and save %2% nozzle purges compared to optimal grouping."
 msgstr "相较于最优分组，多使用%1%g耗材，减少%2%次换料。"
 
 #, boost-format
-msgid "Save %1%g filament and increase %2% changes compared to optimal grouping."
-msgstr "相较于最优分组，节省%1%g耗材，增加%2%次换料。"
+msgid "Save %1%g filament and increase %2% nozzle purges compared to optimal grouping."
+msgstr "相较于最优分组，节省%1%g耗材，增加%2%次冲刷。"
 
 #, boost-format
-msgid "Save %1%g filament and %2% changes compared to a printer with one nozzle."
-msgstr "相较于单头打印机可节省%1%g耗材和%2%次换料。"
+msgid "Save %1%g filament and %2% nozzle purges compared to a printer with one nozzle."
+msgstr "相较于单头打印机可节省%1%g耗材和%2%次冲刷。"
 
 #, boost-format
-msgid "Save %1%g filament and increase %2% changes compared to a printer with one nozzle."
-msgstr "相较于单头打印机，节省%1%g耗材，增加%2%次换料。"
+msgid "Save %1%g filament and increase %2% nozzle purges compared to a printer with one nozzle."
+msgstr "相较于单头打印机，节省%1%g耗材，增加%2%次冲刷。"
 
 #, boost-format
-msgid "Increase %1%g filament and save %2% changes compared to a printer with one nozzle."
-msgstr "相较于单头打印机，多使用%1%g耗材，减少%2%次换料。"
+msgid "Increase %1%g filament and save %2% nozzle purges compared to a printer with one nozzle."
+msgstr "相较于单头打印机，多使用%1%g耗材，减少%2%次冲刷。"
 
 msgid "Set to Optimal"
 msgstr "设置为最优"
@@ -5579,9 +5706,6 @@ msgstr "全局整理"
 msgid "Arrange objects on selected plates"
 msgstr "单盘整理"
 
-msgid "Split to objects"
-msgstr "拆分为对象"
-
 msgid "And it is valid when there are at least two parts in object or stl has at least two meshes."
 msgstr "并且当对象中存在至少两个零件或者stl中存在至少两个面网格，这个功能是有效的。"
 
@@ -5662,15 +5786,6 @@ msgstr "拼装视图控制"
 
 msgid "Selection Mode"
 msgstr "选择模式"
-
-msgid "Show Current Step Objects Only"
-msgstr "仅显示当前步骤对象"
-
-msgid "X-Ray Other Objects"
-msgstr "X 射线其他对象"
-
-msgid "Display Mode"
-msgstr "显示模式"
 
 msgid "Total Volume:"
 msgstr "总体积："
@@ -5894,9 +6009,6 @@ msgstr "多设备"
 msgid "Project"
 msgstr "项目"
 
-msgid "Filament Manager"
-msgstr "耗材管理"
-
 msgid "Yes"
 msgstr "是"
 
@@ -6065,6 +6177,12 @@ msgstr "项目另存为"
 
 msgid "Save current project as"
 msgstr "项目另存为"
+
+msgid "Show Project in Folder"
+msgstr ""
+
+msgid "Show current project in folder"
+msgstr ""
 
 msgid "Import 3MF/STL/STEP/SVG/OBJ/AMF"
 msgstr "导入 3MF/STL/STEP/SVG/OBJ/AMF"
@@ -6434,7 +6552,7 @@ msgid "Printer camera is malfunctioning."
 msgstr "打印机摄像头异常。"
 
 msgid "Problem occurred. Please update the printer firmware and try again."
-msgstr "出现了一些问题。请更新打印机固件后重试。"
+msgstr "遇到问题，请更新打印机固件并重试"
 
 msgid "LAN Only Liveview is off. Please turn on the liveview on printer screen."
 msgstr "局域网模式直播未开启，请前往打印机屏幕开启。"
@@ -6601,8 +6719,8 @@ msgstr "无法从打印机获取模型信息。"
 msgid "Failed to parse model information."
 msgstr "解析模型信息失败。"
 
-msgid "The .gcode.3mf file contains no G-code data.Please slice it whth Bambu Studio and export a new .gcode.3mf file."
-msgstr ".gcode.3mf文件中不包含G-code数据。请使用Bambu Studio进行切片并导出新的.gcode.3mf文件。"
+msgid "The .gcode.3mf file contains no G-code data. Please slice it with Bambu Studio and export a new .gcode.3mf file."
+msgstr ""
 
 #, c-format, boost-format
 msgid "File '%s' was lost! Please download it again."
@@ -6912,7 +7030,7 @@ msgid "Current extruder is busy changing filament"
 msgstr "当前挤出机正在换料"
 
 msgid "\"Load\" or \"Unload\" is not supported for external spool while using Filament Track Switch."
-msgstr "使用线材轨道开关时，不支持对外部线轴执行“加载”或“卸载”操作。"
+msgstr "使用耗材变轨器时，不支持对外挂槽执行“进料”或“退料”操作。"
 
 msgid "The Filament Track Switch has not been setup. Please setup on printer."
 msgstr "耗材变轨器尚未设置。请在打印机上进行设置。"
@@ -7337,7 +7455,7 @@ msgid "Warning:"
 msgstr "警告："
 
 msgid "Export successfully."
-msgstr "发送成功。"
+msgstr "导出成功。"
 
 msgid "Model file downloaded."
 msgstr "已下载模型文件。"
@@ -7608,8 +7726,11 @@ msgstr "耗材丝设置"
 msgid "Printer settings"
 msgstr "打印机设置"
 
-msgid "Remove current plate (if not last one)"
-msgstr "删除当前盘(如果不是最后一个)"
+msgid "At least one plate is required"
+msgstr "至少需要一盘"
+
+msgid "Remove current plate"
+msgstr "删除当前盘"
 
 msgid "Auto orient objects on current plate"
 msgstr "自动调整当前盘上的对象方向"
@@ -7631,6 +7752,10 @@ msgstr "编辑当前盘名称"
 
 msgid "Customize current plate"
 msgstr "自定义当前盘"
+
+#, c-format, boost-format
+msgid "%s is not compatible with %s nozzle."
+msgstr "%s耗材不支持使用%s类型喷嘴打印"
 
 #, c-format, boost-format
 msgid "The %s nozzle can not print %s."
@@ -7753,7 +7878,7 @@ msgid "There are unset nozzle types. Please set the nozzle types of all extruder
 msgstr "有未设置的喷嘴类型。请在同步之前设置所有挤出机的喷嘴类型"
 
 msgid "Sync extruder information"
-msgstr ""
+msgstr "同步挤出机信息"
 
 msgid ""
 "Tips:\n"
@@ -7774,6 +7899,9 @@ msgstr "同步信息"
 
 msgid "Synchronize nozzle information and the number of AMS"
 msgstr "同步喷嘴信息和AMS编号"
+
+msgid "Project Filaments"
+msgstr "项目耗材列表"
 
 msgid "Purge mode"
 msgstr "冲刷模式"
@@ -7945,7 +8073,7 @@ msgid "The following shells are not closed and may cause issues:"
 msgstr "以下壳体模型未闭合，可能会导致问题："
 
 msgid "Unclosed Shell Warning"
-msgstr ""
+msgstr "未闭合壳体警告"
 
 #, boost-format
 msgid "Failed loading file \"%1%\". An invalid configuration was found."
@@ -8023,7 +8151,7 @@ msgid "Updating 3D view..."
 msgstr "正在更新3D视图……"
 
 msgid "Model imported."
-msgstr ""
+msgstr "模型已导入。"
 
 msgid "Texture import failed. The model appears to contain texture data, but the texture import process could not be completed. The model will be imported as geometry only."
 msgstr "纹理导入失败。模型似乎包含纹理数据，但未能完成纹理导入过程。模型将仅作为几何体导入。"
@@ -8558,6 +8686,12 @@ msgstr "原因：零件\"%1%\"与另一个零件没有交集。"
 msgid "Negative parts detected. Would you like to perform mesh boolean before exporting?"
 msgstr "检测到负零件。在导出前，您是否想执行网格布尔运算？"
 
+msgid "Failed to save the project: an invalid setting value was found while writing the file."
+msgstr ""
+
+msgid "Please check your settings and try again."
+msgstr "请检查您的设置并重试."
+
 msgid ""
 "Security Warning: This 3MF file contains post-processing script commands that will run automatically during slicing and may pose security risks!\n"
 "Please verify the file source and script contents before continuing."
@@ -8629,7 +8763,7 @@ msgstr "盘参数设置"
 msgid ""
 "While printing by Object, the extruder may collide skirt.\n"
 "Thus, it is recommended to reset the skirt layer to 1 to avoid that."
-msgstr ""
+msgstr "逐件打印时，挤出机可能与裙边碰撞。因此将裙边的层数重置为1。"
 
 msgid "Prime Tower:"
 msgstr "擦料塔："
@@ -8722,9 +8856,6 @@ msgstr "修改区域会自动登出您的账号。\n"
 msgid "Region selection"
 msgstr "区域选择"
 
-msgid "Second"
-msgstr "秒"
-
 msgid ""
 "Please note that the model show will undergo certain changes at small pixels case.\n"
 "Enabled LOD requires application restart."
@@ -8753,8 +8884,30 @@ msgstr ""
 "\n"
 "仍要启用此功能？"
 
+msgid "Download path"
+msgstr "下载路径"
+
 msgid "Choose Download Directory"
 msgstr "选择下载文件夹"
+
+msgctxt "Preference"
+msgid "General"
+msgstr "通用设置"
+
+msgctxt "Preference"
+msgid "User"
+msgstr "用户"
+
+msgctxt "Preference"
+msgid "3D"
+msgstr "3D设置"
+
+msgctxt "Preference"
+msgid "Other"
+msgstr "其他"
+
+msgid "Developer Tools"
+msgstr "开发者模式"
 
 msgid "General Settings"
 msgstr "通用设置"
@@ -8786,32 +8939,8 @@ msgstr "英制"
 msgid "Units"
 msgstr "单位"
 
-msgid "Use 12-hour time format"
-msgstr "使用 12 小时制时间格式"
-
-msgid "Display time in 12-hour format with AM/PM instead of 24-hour format"
-msgstr "以 12 小时制（上午/下午）而非 24 小时制显示时间"
-
-msgid "Keep only one Bambu Studio instance"
-msgstr "只保留一个Bambu Studio实例"
-
-msgid "On OSX there is always only one instance of app running by default. However it is allowed to run multiple instances of same app from the command line. In such case this settings will allow only one instance."
-msgstr "在OSX上，默认情况下总是只有一个应用程序实例在运行。但是，允许从命令行运行同一应用程序的多个实例。在这种情况下，此设置将只允许一个实例。"
-
-msgid "If this is enabled, when starting Bambu Studio and another instance of the same Bambu Studio is already running, that instance will be reactivated instead."
-msgstr "如果启用此选项，当启动Bambu Studio并且另一个Bambu Studio实例已经在运行时，该实例将被重新激活。"
-
-msgid "Automatically transfer modified value when switching process and filament presets"
-msgstr "切换工艺和材料预设时自动迁移修改值"
-
-msgid "After closing, a popup will appear to ask each time"
-msgstr "关闭后，每次切换将弹窗询问"
-
-msgid "Auto plate type"
-msgstr "自动打印板类型"
-
-msgid "Studio will remember build plate selected last time for certain printer model."
-msgstr "Studio会记住上次该型号打印机选择的打印板。"
+msgid "Enable dark mode"
+msgstr "开启深色模式"
 
 msgid "All"
 msgstr "所有"
@@ -8825,11 +8954,14 @@ msgstr "自动冲刷计算"
 msgid "Auto calculate flush volumes"
 msgstr "自动计算冲刷体积"
 
-msgid "Multi-device Management(Take effect after restarting Studio)."
-msgstr "多设备管理（重启Studio后生效）"
+msgid "Keep only one Bambu Studio instance"
+msgstr "只保留一个Bambu Studio实例"
 
-msgid "With this option enabled, you can send a task to multiple devices at the same time and manage multiple devices."
-msgstr "启用此选项后，您可以同时向多个设备发送任务并管理多个设备。"
+msgid "On OSX there is always only one instance of app running by default. However it is allowed to run multiple instances of same app from the command line. In such case this settings will allow only one instance."
+msgstr "在OSX上，默认情况下总是只有一个应用程序实例在运行。但是，允许从命令行运行同一应用程序的多个实例。在这种情况下，此设置将只允许一个实例。"
+
+msgid "If this is enabled, when starting Bambu Studio and another instance of the same Bambu Studio is already running, that instance will be reactivated instead."
+msgstr "如果启用此选项，当启动Bambu Studio并且另一个Bambu Studio实例已经在运行时，该实例将被重新激活。"
 
 msgid "Take effect after restarting Studio"
 msgstr "重启Studio后生效"
@@ -8837,11 +8969,11 @@ msgstr "重启Studio后生效"
 msgid "The Filament Manager is turned off by default on macOS because compatibility issues on some systems may cause the application to become unresponsive."
 msgstr "由于某些Mac系统上的兼容性问题可能会导致应用程序无响应。因此在 macOS 上，耗材管理器默认处于关闭状态。"
 
-msgid "Show the step mesh parameter setting dialog."
-msgstr "显示step参数设置对话框。"
+msgid "Multi-device Management(Take effect after restarting Studio)."
+msgstr "多设备管理（重启Studio后生效）"
 
-msgid "If enabled,a parameter settings dialog will appear during STEP file import."
-msgstr "如果启用，导入step文件时将出现设置参数对话框。"
+msgid "With this option enabled, you can send a task to multiple devices at the same time and manage multiple devices."
+msgstr "启用此选项后，您可以同时向多个设备发送任务并管理多个设备。"
 
 msgid "Support beta version update."
 msgstr "支持beta版本更新"
@@ -8849,32 +8981,66 @@ msgstr "支持beta版本更新"
 msgid "With this option enabled, you can receive beta version updates."
 msgstr "启用此选项后，您可以接收测试版更新。"
 
+msgid "Join the User Experience Improvement Program."
+msgstr "加入用户体验改进计划。"
+
+msgctxt "Preferences"
+msgid "Learn more"
+msgstr "了解更多"
+
+msgid "User Settings"
+msgstr "用户设置"
+
+msgid "Auto plate type"
+msgstr "自动打印板类型"
+
+msgid "Studio will remember build plate selected last time for certain printer model."
+msgstr "Studio会记住上次该型号打印机选择的打印板。"
+
+msgid "12-hour"
+msgstr "12-小时"
+
+msgid "24-hour"
+msgstr "24-小时"
+
+msgid "time format for print progress"
+msgstr "打印进度计时方式"
+
+msgid "Display time in 12-hour format with AM/PM instead of 24-hour format"
+msgstr "以 12 小时制（上午/下午）而非 24 小时制显示时间"
+
+msgid "Keep liveview when printing."
+msgstr "打印时保持实时取景"
+
+msgid "By default, Liveview will pause after 15 minutes of inactivity on the computer. Check this box to disable this feature during printing."
+msgstr "默认情况下，Liveview将在计算机上处于非活动状态15分钟后暂停。选中此框可在打印过程中禁用此功能。"
+
+msgid "Automatically transfer modified value when switching process and filament presets"
+msgstr "切换工艺和材料预设时自动迁移修改值"
+
+msgid "After closing, a popup will appear to ask each time"
+msgstr "关闭后，每次切换将弹窗询问"
+
 msgid "Remove the restriction on mixed printing of high and low temperature filaments."
 msgstr "取消高低温材料混合打印的限制。"
 
 msgid "With this option enabled, you can print materials with a large temperature difference together."
 msgstr "启用此选项后，您可以同时打印具有较大温度差异的材料。"
 
-msgid "Open full screen camera view on active monitor only."
-msgstr "仅在活跃的显示器上打开全屏相机视图。"
+msgid "Auto sync user presets(Printer/Filament/Process)"
+msgstr "同步用户预设（打印机/耗材丝/工艺）"
 
-msgid "When enabled, the camera full screen view opens only on the monitor that contains Bambu Studio."
-msgstr "启用后，相机全屏视图仅在包含 Bambu Studio 的显示器上打开。"
+msgid "If enabled, auto sync user presets with cloud after Bambu Studio startup or presets modified."
+msgstr "如果启用，在 Bambu Studio 启动后或预设被修改时，自动将用户预设与云端同步。"
 
-msgid "Clear my choice for synchronizing printer preset after loading the file."
-msgstr "清除加载文件后同步打印机预设的设置。"
+msgid "Auto check for system presets updates"
+msgstr "自动检查系统预设更新"
 
-msgid "Clear my choice for Load 3mf dialog settings."
-msgstr "清除 “加载 3mf” 对话框设置。"
+msgid "If enabled, auto check whether there are system presets updates after Bambu Studio startup."
+msgstr "如果启用，在 Bambu Studio 启动后自动检查是否有系统预设更新。"
 
-msgid "Clear my choice for executing post-processing scripts."
-msgstr "清除执行后处理脚本的设置"
-
-msgid "Show the security warning dialog again before slicing when post-processing scripts are configured."
-msgstr ""
-
-msgid "Clear my choice for disabling support parameter recommendation."
-msgstr "清除禁用支撑参数推荐的设置"
+msgid "Auto-fill previously logged-in accounts."
+msgstr "自动填充历史账户信息"
 
 msgid "3D Settings"
 msgstr "3D设置"
@@ -8885,11 +9051,44 @@ msgstr "放大到鼠标位置"
 msgid "Zoom in towards the mouse pointer's position in the 3D view, rather than the 2D window center."
 msgstr "在3D视角放大到鼠标位置，而不是2D窗口的中心。"
 
+msgid "Display overview"
+msgstr "显示整体视图"
+
+msgid "Grabber scale"
+msgstr "抓手比例"
+
+msgid "Set grabber size for move,rotate,scale tool."
+msgstr "为平移，旋转，缩放工具设置抓手比例"
+
+msgid "Value range"
+msgstr "值范围"
+
+msgid "Tooltip offset"
+msgstr "信息提示偏移量"
+
+msgid "Set tooltip offset for different mouse size."
+msgstr "设置不同鼠标尺寸的信息提示偏移量。"
+
+msgid "Collapsible"
+msgstr "可折叠"
+
+msgid "Uncollapsible"
+msgstr "不可折叠"
+
+msgid "Toolbar Style"
+msgstr "工具栏风格"
+
 msgid "Always show shells in preview"
 msgstr "在预览界面总是显示透明壳"
 
 msgid "Always show shells or not in preview view tab. If you change this value, you should reslice."
 msgstr "始终在预览视图选项卡中显示或不显示壳。如果更改值，您应该重新切片。"
+
+msgid "Show the step mesh parameter setting dialog."
+msgstr "显示step参数设置对话框。"
+
+msgid "If enabled,a parameter settings dialog will appear during STEP file import."
+msgstr "如果启用，导入step文件时将出现设置参数对话框。"
 
 msgid "Import a single SVG and split it"
 msgstr "导入一个SVG并拆分它"
@@ -8909,29 +9108,11 @@ msgstr "记住上次使用的颜色方案"
 msgid "When enabled, the last used color scheme (e.g., Line Type, Speed) will be automatically applied on next startup."
 msgstr "启用后，将在下次启动Studio后切片自动应用上次切片时使用的颜色方案（如走线类型、速度）。"
 
-msgid "Display overview"
-msgstr "显示整体视图"
-
-msgid "Show assembly BVH primary bounds"
-msgstr "显示装配体BVH的主要边界"
-
-msgid "Display the BVH primary bounding box wireframe in assembly view."
-msgstr "在装配视图中显示 BVH 主边界框线框。"
-
 msgid "Improve rendering performance by lod"
 msgstr "通过lod提高渲染性能"
 
 msgid "Improved rendering performance under the scene of multiple plates and many models."
 msgstr "在多盘和多模型的场景下提高了渲染性能"
-
-msgid "Collapsible"
-msgstr "可折叠"
-
-msgid "Uncollapsible"
-msgstr "不可折叠"
-
-msgid "Toolbar Style"
-msgstr "工具栏风格"
 
 msgid "Enable advanced gcode viewer"
 msgstr "启用高级 gcode 查看器"
@@ -8939,35 +9120,77 @@ msgstr "启用高级 gcode 查看器"
 msgid "Enable advanced gcode viewer."
 msgstr "启用高级 gcode 查看器。"
 
-msgid "Grabber scale"
-msgstr "抓手比例"
+msgid "Show assembly BVH primary bounds"
+msgstr "显示装配体BVH的主要边界"
 
-msgid "Set grabber size for move,rotate,scale tool."
-msgstr "为平移，旋转，缩放工具设置抓手比例"
+msgid "Display the BVH primary bounding box wireframe in assembly view."
+msgstr "在装配视图中显示 BVH 主边界框线框。"
 
-msgid "Value range"
-msgstr "值范围"
+msgid "Open full screen camera view on active monitor only."
+msgstr "仅在活跃的显示器上打开全屏相机视图。"
 
-msgid "Tooltip offset"
-msgstr "信息提示偏移量"
+msgid "When enabled, the camera full screen view opens only on the monitor that contains Bambu Studio."
+msgstr "启用后，相机全屏视图仅在包含 Bambu Studio 的显示器上打开。"
 
-msgid "Set tooltip offset for different mouse size."
-msgstr "设置不同鼠标尺寸的信息提示偏移量。"
+msgid "Maximum recent projects"
+msgstr "近期项目的最大数量"
 
-msgid "Presets"
-msgstr "预设"
+msgid "Maximum count of recent projects"
+msgstr "近期项目的最大计数"
 
-msgid "Auto sync user presets(Printer/Filament/Process)"
-msgstr "同步用户预设（打印机/耗材丝/工艺）"
+msgid "No warnings when loading 3MF with modified G-codes"
+msgstr "加载具有修改的 G-Code 的 3MF 时不会出现警告"
 
-msgid "If enabled, auto sync user presets with cloud after Bambu Studio startup or presets modified."
-msgstr "如果启用，在 Bambu Studio 启动后或预设被修改时，自动将用户预设与云端同步。"
+msgid "10 seconds"
+msgstr "10 秒"
 
-msgid "Auto check for system presets updates"
-msgstr "自动检查系统预设更新"
+msgid "20 seconds"
+msgstr "20 秒"
 
-msgid "If enabled, auto check whether there are system presets updates after Bambu Studio startup."
-msgstr "如果启用，在 Bambu Studio 启动后自动检查是否有系统预设更新。"
+msgid "30 seconds"
+msgstr "30 秒"
+
+msgid "1 minute"
+msgstr "1 分钟"
+
+msgid "2 minutes"
+msgstr "2 分钟"
+
+msgid "5 minutes"
+msgstr "5 分钟"
+
+msgid "10 minutes"
+msgstr "10 分钟"
+
+msgid "30 minutes"
+msgstr "30 分钟"
+
+msgid "never"
+msgstr "从不"
+
+msgid "Auto-Backup"
+msgstr "自动备份"
+
+msgid "The peroid of backup in seconds."
+msgstr "备份的周期。"
+
+msgid "Online Models"
+msgstr "在线模型"
+
+msgid "Show online staff-picked models on the home page"
+msgstr "在主页上显示工作人员挑选的在线模型"
+
+msgid "Show history on the home page"
+msgstr "在主页上显示历史"
+
+msgid "Developer Mode"
+msgstr "开发者模式"
+
+msgid "Develop mode"
+msgstr "开发者模式"
+
+msgid "Skip AMS blacklist check"
+msgstr "跳过AMS黑名单检查"
 
 msgid "Associate Files To Bambu Studio"
 msgstr "Bambu Studio文件关联"
@@ -8990,135 +9213,8 @@ msgstr "使用Bambu Studio打开.step/.stp文件"
 msgid "If enabled, sets Bambu Studio as default application to open .step files"
 msgstr "开启后，将默认使用Bambu Studio打开.step文件"
 
-msgid "Online Models"
-msgstr "在线模型"
-
-msgid "Show online staff-picked models on the home page"
-msgstr "在主页上显示工作人员挑选的在线模型"
-
-msgid "Show history on the home page"
-msgstr "在主页上显示历史"
-
-msgid "Reminder During Slicing"
-msgstr "切片时提醒"
-
-msgid "Automatic mode"
-msgstr "自动模式"
-
-msgid "Maximum recent projects"
-msgstr "近期项目的最大数量"
-
-msgid "Maximum count of recent projects"
-msgstr "近期项目的最大计数"
-
-msgid "Clear my choice on the unsaved projects."
-msgstr "清除对未保存的项目的选择。"
-
-msgid "No warnings when loading 3MF with modified G-codes"
-msgstr "加载具有修改的 G-Code 的 3MF 时不会出现警告"
-
-msgid "Auto-Backup"
-msgstr "自动备份"
-
-msgid "Backup your project periodically for restoring from the occasional crash."
-msgstr "定期备份您的项目，以便从偶尔的崩溃中恢复过来。"
-
-msgid "every"
-msgstr "每"
-
-msgid "The peroid of backup in seconds."
-msgstr "备份的周期。"
-
-msgid "Downloads"
-msgstr "下载"
-
-msgid "Media"
-msgstr "视频文件"
-
-msgid "Keep liveview when printing."
-msgstr "打印时保持实时取景"
-
-msgid "By default, Liveview will pause after 15 minutes of inactivity on the computer. Check this box to disable this feature during printing."
-msgstr "默认情况下，Liveview将在计算机上处于非活动状态15分钟后暂停。选中此框可在打印过程中禁用此功能。"
-
-msgid "Dark Mode"
-msgstr "深色模式"
-
-msgid "Enable dark mode"
-msgstr "开启深色模式"
-
-msgid "Pop up to select filament grouping mode"
-msgstr "弹窗以选择耗材分组模式"
-
-msgid "User Experience"
-msgstr "用户体验"
-
-msgid "Join the User Experience Improvement Program."
-msgstr "加入用户体验改进计划。"
-
-msgctxt "Preferences"
-msgid "Learn more"
-msgstr "了解更多"
-
-msgid "Auto-fill previously logged-in accounts."
-msgstr "自动填充历史账户信息"
-
-msgid "Develop Mode"
-msgstr "开发者模式"
-
-msgid "Develop mode"
-msgstr "开发者模式"
-
-msgid "Skip AMS blacklist check"
-msgstr "跳过AMS黑名单检查"
-
-msgid "Home page and daily tips"
-msgstr "首页和每日小贴士"
-
-msgid "Show home page on startup"
-msgstr "启动时显示主页"
-
-msgid "Sync settings"
-msgstr "同步设置"
-
-msgid "User sync"
-msgstr "用户同步"
-
-msgid "Preset sync"
-msgstr "配置同步"
-
-msgid "Preferences sync"
-msgstr "偏好设置同步"
-
-msgid "View control settings"
-msgstr "视图控制设置"
-
-msgid "Rotate of view"
-msgstr "旋转视图"
-
-msgid "Move of view"
-msgstr "移动视图"
-
-msgid "Zoom of view"
-msgstr "缩放视图"
-
-msgid "Other"
-msgstr "其他"
-
-msgid "Mouse wheel reverses when zooming"
-msgstr "缩放时鼠标滚轮反转"
-
-msgid "Enable SSL(MQTT)"
-msgstr "启用SSL（MQTT）"
-
-msgid "Enable SSL(FTP)"
-msgstr "启用SSL（FTP）"
-
-msgid "Internal developer mode"
-msgstr "内部开发者模式"
-
-msgid "Log Level"
-msgstr "日志级别"
+msgid "Log"
+msgstr "日志"
 
 msgid "fatal"
 msgstr "致命"
@@ -9134,6 +9230,18 @@ msgstr "调试"
 
 msgid "trace"
 msgstr "跟踪"
+
+msgid "Log Level"
+msgstr "日志级别"
+
+msgid "Internal developer mode"
+msgstr "内部开发者模式"
+
+msgid "Enable SSL(MQTT)"
+msgstr "启用SSL（MQTT）"
+
+msgid "Enable SSL(FTP)"
+msgstr "启用SSL（FTP）"
 
 msgid "Host Setting"
 msgstr ""
@@ -9162,8 +9270,35 @@ msgstr "DEBUG模式生效!"
 msgid "Switch cloud environment, Please login again!"
 msgstr "切换云环境，请重新登录!"
 
-msgid "System presets"
-msgstr "系统配置"
+msgid "Reset all warning dialogs"
+msgstr "重置所有警告对话框"
+
+msgid "Reset preferences"
+msgstr "重置偏好设置"
+
+msgid "All warning dialogs that you have disabled by checking \"Don't show again\" are now re-enabled and will show next time they apply."
+msgstr "可以通过选中“不再显示”而停用的所有警告对话框现在均已启用，并在下次适用时显示"
+
+msgid "Check details"
+msgstr "查看详情"
+
+msgid ""
+"- Sync printer presets after loading a file\n"
+"- \"Load 3MF\" dialog settings\n"
+"- Executing post-processing scripts\n"
+"- Support structure recommendation prompt\n"
+"- Unsaved projects.\n"
+"- Mixed color sublayer with variable layer height warning"
+msgstr ""
+"- 清除加载文件后同步打印机预设的设置\n"
+"- 清除”加载3mf“对话框设置\n"
+"- 清除执行后处理脚本的设置\n"
+"- 清除禁用支撑参数推荐的设置\n"
+"- 清除对未保存的项目的选择\n"
+"- 带有可变层高的混合颜色子层警告"
+
+msgid "Are you sure you want to reset all preferences? Changes will take effect after restart."
+msgstr "确定重置所有首选项设置吗?下次重新启动之后生效。"
 
 msgid "User presets"
 msgstr "用户配置"
@@ -9630,7 +9765,7 @@ msgstr "[ %s ] 需要在高温环境下打印。"
 
 #, c-format, boost-format
 msgid "The filament on %s may soften. Please unload."
-msgstr "%s的耗材可能会软化，请退料。"
+msgstr "%s中已存在的耗材可能会软化，请退料。"
 
 #, c-format, boost-format
 msgid "The filament on %s is unknown and may soften. Please set filament."
@@ -9715,6 +9850,9 @@ msgstr "当前材料（%s）的硬度高于 %s（%s）的硬度，可能导致�
 
 msgid "If 'Dynamic Flow Calibration' is set to Auto/On, the system will use the manual calibration value or the default value and skip the flow calibration process. You can perform a manual flow calibration for TPU filament on the 'Calibration' page."
 msgstr "若动态流量校准设置为自动/打开，系统将使用您的手动校准值或默认值，并跳过流量校准过程。可以在'校准'页面对TPU耗材进行手动流量校准。"
+
+msgid "The filament in the AMS may be insufficient for this print. Please refill or replace it."
+msgstr "AMS 中的耗材可能不足以完成本次打印，请补充或更换耗材。"
 
 msgid "Some filaments may switch between extruders during printing. Manual K-value calibration cannot be applied throughout the entire print, which may affect print quality. Enabling Flow Dynamics Calibration is recommended."
 msgstr "某些耗材在打印过程中可能会在挤出机之间切换。手动 K 值校准无法在整个打印过程中应用，这可能会影响打印质量。建议启用动态校准。"
@@ -10087,8 +10225,8 @@ msgstr ""
 "层高太小，\n"
 "将自动设置为最小层高的值。\n"
 
-msgid "Layer height exceeds the limit in Printer Settings -> Extruder -> Layer height limits ,this may cause printing quality issues."
-msgstr "层高超出了打印机设置->挤出机->层高限制中的范围，这可能导致打印质量问题。"
+msgid "Layer height exceeds the limit in Printer Settings -> Extruder -> Layer height limits, this may cause printing quality issues."
+msgstr ""
 
 msgid "Adjust to the set range automatically? \n"
 msgstr "是否自动调整到范围内？\n"
@@ -10710,7 +10848,7 @@ msgid "Exit %s"
 msgstr "退出 %s"
 
 msgid "the Configuration package is incompatible with current APP."
-msgstr "the Configuration package is incompatible with current APP."
+msgstr "配置文件与当前应用程序不兼容。"
 
 msgid "Configuration updates"
 msgstr "配置更新"
@@ -10975,7 +11113,7 @@ msgid "View Source"
 msgstr ""
 
 msgid "View Text"
-msgstr ""
+msgstr "查看文本"
 
 msgid "Handle Navigation"
 msgstr ""
@@ -11815,7 +11953,7 @@ msgid "Too cold (overall)"
 msgstr "偏冷（整体）"
 
 msgid "The part cools too fast between layers on average. Some layers may behave differently—see observations."
-msgstr "平均来看，层与层之间冷却过快。部分层可能表现不同——请查看观察结果。"
+msgstr "平均来看，层与层之间冷却过快。部分层可能表现不同——请观察结果。"
 
 msgid "Too hot (overall)"
 msgstr "偏热（整体）"
@@ -13368,7 +13506,7 @@ msgid "Whether this filament slot is a mixed filament composed of multiple physi
 msgstr "该耗材槽位是否为由多种物理耗材混合而成的混色耗材"
 
 msgid "Mixed filament components"
-msgstr "混色耗材组件"
+msgstr "混色耗材组成"
 
 msgid "Comma-separated 1-based indices of component filaments, e.g. \"1,3\""
 msgstr ""
@@ -15827,8 +15965,8 @@ msgid ""
 "- Different filament brand and family(Brand = Bambu, Family = Basic, Matte)\n"
 msgstr ""
 "校准材料提示：\n"
-"- 可共享相同热床温度的材料\n"
-"- 不同耗材品牌和系列（品牌 = Bambu，系列 = Basic，哑光）\n"
+"- 相同热床温度的材料参数可共享\n"
+"- 不同耗材品牌和系列（品牌 = Bambu，系列 = Basic，Matte）\n"
 
 msgid "(Aux) does not support automatic flow calibration."
 msgstr "（辅助）不支持自动流量校准。"
@@ -16477,6 +16615,9 @@ msgstr "打印机预设未找到，请重新选择。"
 msgid "Printer Preset"
 msgstr "打印机预设"
 
+msgid "Presets"
+msgstr "预设"
+
 msgid "Filament Preset Template"
 msgstr "材料预设模板"
 
@@ -16779,6 +16920,9 @@ msgstr "%1s材料在使用%2s的喷嘴打印时,可能会导致喷嘴损坏。"
 msgid "Need select printer"
 msgstr "需要选择打印机"
 
+msgid "Failed to load calibration presets. Please check whether the selected printer, nozzle and print profiles are valid."
+msgstr ""
+
 msgid "The start, end or step is not valid value."
 msgstr "起始、结束或者步长输入值无效。"
 
@@ -16817,7 +16961,7 @@ msgid "Flow calibration does not support multiple nozzle diameters at the same t
 msgstr "暂不支持同时对不同喷嘴直径进行流量校准。请确保被校准耗材所对应的喷嘴直径一致，再重新发起校准。"
 
 msgid "Unable to calibrate: maybe because the set calibration value range is too large, or the step is too small"
-msgstr "无法标定：可能是标定值范围过大，或者是补偿过小"
+msgstr "无法标定：可能是标定值范围过大，或者是步长过小"
 
 msgid "Physical Printer"
 msgstr "物理打印机"
@@ -17325,16 +17469,16 @@ msgid "No content"
 msgstr ""
 
 #, c-format, boost-format
-msgid "Printer presets (%d/%d)"
-msgstr "打印机预设 (%d/%d)"
+msgid "Printer presets (%d)"
+msgstr ""
 
 #, c-format, boost-format
-msgid "Filament presets (%d/%d)"
-msgstr "材料预设 (%d/%d)"
+msgid "Filament presets (%d)"
+msgstr ""
 
 #, c-format, boost-format
-msgid "Process presets (%d/%d)"
-msgstr "工艺预设 (%d/%d)"
+msgid "Process presets (%d)"
+msgstr ""
 
 #, c-format, boost-format
 msgid "%u Selected"
@@ -17790,6 +17934,9 @@ msgstr "打印结果：LIKELY_FAIL"
 msgid "Print Outcome: "
 msgstr "打印结果： "
 
+msgid "Click to edit ratio"
+msgstr ""
+
 msgid "Edit Mixed Filament"
 msgstr "编辑混色耗材"
 
@@ -17798,9 +17945,6 @@ msgstr "效果预览"
 
 msgid "Select Mixed Materials"
 msgstr "选择混色材料"
-
-msgid "+ Add Material"
-msgstr "添加耗材"
 
 msgid "- Delete Material"
 msgstr "删除耗材"
@@ -17847,6 +17991,52 @@ msgstr "已达到最大组分数量"
 
 msgid "Remove the third material"
 msgstr "移除第三种材料"
+
+msgid "Project Filament List"
+msgstr "项目耗材列表"
+
+msgid "Standard Mode Recommendations"
+msgstr "标准模式推荐"
+
+msgid "Target Color"
+msgstr "目标色"
+
+msgid "Select Color Decomposition"
+msgstr "请选择拆色组合"
+
+msgid "Arbitrary Mode"
+msgstr "任意模式"
+
+msgid "Material List"
+msgstr "材料列表"
+
+msgid "Standard Mode"
+msgstr "标准模式"
+
+msgid "At least two filaments of the same material type are required for decomposition"
+msgstr ""
+
+#, boost-format
+msgid "The material list supports at most %1% colors. After %2% decomposition, the material count would exceed %1%. Please delete unused filaments on the main screen before decomposing."
+msgstr ""
+
+msgid "Cyan"
+msgstr "青色"
+
+msgid "Magenta"
+msgstr "品红色"
+
+msgid "Yellow"
+msgstr "黄色"
+
+msgid ", "
+msgstr ""
+
+msgid "The current filament list does not contain "
+msgstr "当前耗材列表中不包含 "
+
+msgid ". A project filament required by the mixed filament will be created automatically after decomposition."
+msgstr "。拆色完成后将自动创建混色耗材所需的项目耗材。"
 
 msgid "Material Ratio"
 msgstr "耗材比例"
@@ -17932,7 +18122,7 @@ msgid ""
 "Did you know that you can view all objects/parts on a table and change settings for each object/part?"
 msgstr ""
 "参数表格\n"
-"您知道吗？您可以参数表格上的所有对象/部件，并更改每个对象/部件的设置。"
+"您知道吗？您可以查看表格上的所有对象/部件，并更改每个对象/部件的设置。"
 
 #: resources/data/hints.ini: [hint:Split to Objects/Parts]
 msgid ""
@@ -18150,19 +18340,168 @@ msgstr ""
 "一次成功的可靠性\n"
 "更少盯机，更可预测的产出。例如：小型打印农场打印 PETG 零件可降低意外失败的概率，让批次按计划推进。"
 
+#~ msgid ""
+#~ "Should not large than layer height.\n"
+#~ "Reset to 10%"
+#~ msgstr "起始高度不应大于层高度。重置为10%"
+
+#~ msgid "Spiral mode only works when wall loops is 1, support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional, smoothing wall speed in z direction is false and alternate extra wall is disabled."
+#~ msgstr "花瓶模式仅在以下条件下可用：墙壁环数设置为1，支撑禁用，触碰裹头检测禁用，顶壳层数为0，稀疏填充密度为0，延时摄影类型为传统，Z方向墙速度平滑不启用且交替额外墙层关闭。"
+
+#~ msgid "The .gcode.3mf file contains no G-code data.Please slice it whth Bambu Studio and export a new .gcode.3mf file."
+#~ msgstr ".gcode.3mf文件中不包含G-code数据。请使用Bambu Studio进行切片并导出新的.gcode.3mf文件。"
+
+#~ msgid "Layer height exceeds the limit in Printer Settings -> Extruder -> Layer height limits ,this may cause printing quality issues."
+#~ msgstr "层高超出了打印机设置->挤出机->层高限制中的范围，这可能导致打印质量问题。"
+
+#~ msgid "Brim-object gap"
+#~ msgstr "Brim与模型的间隙"
+
+#~ msgid "A gap between innermost brim line and object can make brim be removed more easily"
+#~ msgstr "在brim和模型之间设置间隙，能够让brim更容易剥离"
+
+#~ msgid "Show Current Step Objects Only"
+#~ msgstr "仅显示当前步骤对象"
+
+#~ msgid "X-Ray Other Objects"
+#~ msgstr "X 射线其他对象"
+
+#~ msgid "Disable fin extrude safe temperature"
+#~ msgstr "禁用鳍片挤出安全温度"
+
+#~ msgid "Exit"
+#~ msgstr "退出"
+
+#~ msgid "Second"
+#~ msgstr "秒"
+
+#~ msgid "Backup your project periodically for restoring from the occasional crash."
+#~ msgstr "定期备份您的项目，以便从偶尔的崩溃中恢复过来。"
+
+#~ msgid "every"
+#~ msgstr "每"
+
+#~ msgid "Remove current plate (if not last one)"
+#~ msgstr "删除当前盘(如果不是最后一个)"
+
+#~ msgid "Please exit the assembly guide before using this tool."
+#~ msgstr "请先退出组装指南再使用此工具。"
+
 #~ msgid "Filament type is unknown which is required to perform this action. Please set target filament's informations."
 #~ msgstr "执行此操作的耗材类型未知。请设置槽位信息。"
+
+#~ msgid "New Filaments"
+#~ msgstr "新增耗材"
+
+#~ msgid "Add Material"
+#~ msgstr "添加材料"
 
 #~ msgid ""
 #~ "Should not large than 100%.\n"
 #~ "Reset to defualt"
 #~ msgstr "起始高度不应大于100%。将重置为默认值"
 
-#~ msgid "Spiral mode only works when wall loops is 1, support is disabled, clumping detection by probing is disabled, top shell layers is 0, sparse infill density is 0, timelapse type is traditional, smoothing wall speed in z direction is false and alternate extra wall is disabled."
-#~ msgstr "花瓶模式仅在以下条件下可用：墙壁环数设置为1，支撑禁用，触碰裹头检测禁用，顶壳层数为0，稀疏填充密度为0，延时摄影类型为传统，Z方向墙速度平滑不启用且交替额外墙层关闭。"
+#, boost-format
+#~ msgid "Increase %1%g filament and %2% changes compared to optimal grouping."
+#~ msgstr "如果使用最优分组可多节省%1%g耗材和%2%次换料。"
+
+#, boost-format
+#~ msgid "Increase %1%g filament and save %2% changes compared to optimal grouping."
+#~ msgstr "相较于最优分组，多使用%1%g耗材，减少%2%次换料。"
+
+#, boost-format
+#~ msgid "Save %1%g filament and increase %2% changes compared to optimal grouping."
+#~ msgstr "相较于最优分组，节省%1%g耗材，增加%2%次换料。"
+
+#, boost-format
+#~ msgid "Save %1%g filament and %2% changes compared to a printer with one nozzle."
+#~ msgstr "相较于单头打印机可节省%1%g耗材和%2%次换料。"
+
+#, boost-format
+#~ msgid "Save %1%g filament and increase %2% changes compared to a printer with one nozzle."
+#~ msgstr "相较于单头打印机，节省%1%g耗材，增加%2%次换料。"
+
+#, boost-format
+#~ msgid "Increase %1%g filament and save %2% changes compared to a printer with one nozzle."
+#~ msgstr "相较于单头打印机，多使用%1%g耗材，减少%2%次换料。"
 
 #~ msgid "Sync extruder infomation"
 #~ msgstr "同步挤出机信息"
+
+#~ msgid "Use 12-hour time format"
+#~ msgstr "使用 12 小时制时间格式"
+
+#~ msgid "Clear my choice for synchronizing printer preset after loading the file."
+#~ msgstr "清除加载文件后同步打印机预设的设置。"
+
+#~ msgid "Clear my choice for Load 3mf dialog settings."
+#~ msgstr "清除 “加载 3mf” 对话框设置。"
+
+#~ msgid "Clear my choice for executing post-processing scripts."
+#~ msgstr "清除执行后处理脚本的设置"
+
+#~ msgid "Clear my choice for disabling support parameter recommendation."
+#~ msgstr "清除禁用支撑参数推荐的设置"
+
+#~ msgid "Reminder During Slicing"
+#~ msgstr "切片时提醒"
+
+#~ msgid "Automatic mode"
+#~ msgstr "自动模式"
+
+#~ msgid "Clear my choice on the unsaved projects."
+#~ msgstr "清除对未保存的项目的选择。"
+
+#~ msgid "Downloads"
+#~ msgstr "下载"
+
+#~ msgid "Media"
+#~ msgstr "视频文件"
+
+#~ msgid "Dark Mode"
+#~ msgstr "深色模式"
+
+#~ msgid "Pop up to select filament grouping mode"
+#~ msgstr "弹窗以选择耗材分组模式"
+
+#~ msgid "User Experience"
+#~ msgstr "用户体验"
+
+#~ msgid "Develop Mode"
+#~ msgstr "开发者模式"
+
+#~ msgid "Home page and daily tips"
+#~ msgstr "首页和每日小贴士"
+
+#~ msgid "Show home page on startup"
+#~ msgstr "启动时显示主页"
+
+#~ msgid "Sync settings"
+#~ msgstr "同步设置"
+
+#~ msgid "User sync"
+#~ msgstr "用户同步"
+
+#~ msgid "Preset sync"
+#~ msgstr "配置同步"
+
+#~ msgid "Preferences sync"
+#~ msgstr "偏好设置同步"
+
+#~ msgid "View control settings"
+#~ msgstr "视图控制设置"
+
+#~ msgid "Rotate of view"
+#~ msgstr "旋转视图"
+
+#~ msgid "Move of view"
+#~ msgstr "移动视图"
+
+#~ msgid "Zoom of view"
+#~ msgstr "缩放视图"
+
+#~ msgid "Mouse wheel reverses when zooming"
+#~ msgstr "缩放时鼠标滚轮反转"
 
 #~ msgid "Copy paramters"
 #~ msgstr "拷贝参数"
@@ -18170,12 +18509,6 @@ msgstr ""
 #, c-format, boost-format
 #~ msgid "Modify paramters of %s"
 #~ msgstr "修改%s的参数"
-
-#~ msgid "Brim-object gap"
-#~ msgstr "Brim与模型的间隙"
-
-#~ msgid "A gap between innermost brim line and object can make brim be removed more easily"
-#~ msgstr "在brim和模型之间设置间隙，能够让brim更容易剥离"
 
 #~ msgid "Enable pressure advance, auto calibration result will be overwriten once enabled. Useless for Bambu Printer"
 #~ msgstr "启用压力提前补偿，启用后自动校准结果将被覆盖。对于Bambu打印机无效。"
@@ -18185,6 +18518,18 @@ msgstr ""
 
 #~ msgid "Helio: file succesfully uploaded"
 #~ msgstr "Helio：文件已成功上传"
+
+#, c-format, boost-format
+#~ msgid "Printer presets (%d/%d)"
+#~ msgstr "打印机预设 (%d/%d)"
+
+#, c-format, boost-format
+#~ msgid "Filament presets (%d/%d)"
+#~ msgstr "材料预设 (%d/%d)"
+
+#, c-format, boost-format
+#~ msgid "Process presets (%d/%d)"
+#~ msgstr "工艺预设 (%d/%d)"
 
 #~ msgid "Add object to current step"
 #~ msgstr "将对象添加到当前步骤"
@@ -18342,9 +18687,6 @@ msgstr ""
 
 #~ msgid "The file contains polygons with less than 2 vertices."
 #~ msgstr "该文件包含顶点少于2个的多边形。"
-
-#~ msgid "Standard Mode"
-#~ msgstr "标准模式"
 
 #~ msgid "Performs full priming for the best print quality. Requires more material and time."
 #~ msgstr "执行完整的冲刷流程以获得最佳打印质量，需要更多材料和时间。"

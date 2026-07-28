@@ -569,3 +569,30 @@
 - 根因或当前最佳判断：旧实现根据滑块的顺序编号去读取 GPU 顶点/索引缓冲区。渲染网格会额外生成端盖、圆弧插值点并拆成多个缓冲区，渲染顶点序号与解析后的 G-code move 并非一一对应，因此可能读到同一批次中的无关顶点，造成喷头标记大幅跳跃。
 - 修复方案或临时绕过方式：使用已有的 `m_ssid_to_moveid_map` 将滑块顺序编号直接映射到 `GCodeProcessorResult::moves`，从解析后的 move 读取真实坐标，并同步更新当前 move 标记；不再从 GPU 网格反向推导喷头位置。
 - 验证结果：静态检查确认新路径只读取经过边界检查的 move 映射，并删除了依赖 OpenGL 缓冲区布局的坐标反查代码；代码已完成增量编译和应用打包，待与本次官方更新合并后再次完整构建验证。
+
+## 2026-07-28 - DeviceWeb 更换 pnpm 存储目录后无终端构建会无限等待
+
+- 日期：2026-07-28
+- 现象：同步官方更新后的完整构建停在 DeviceWeb 的 `pnpm install`，进程长期为 0% CPU，没有报错，也不再继续编译。
+- 受影响的命令、界面、模块或文件：`./BuildMac.sh -s -x -a arm64 -c Release -t 14.0`；`src/slic3r/GUI/DeviceWeb/CMakeLists.txt`；`src/slic3r/GUI/DeviceWeb/node_modules`；`build/arm64/src/slic3r/GUI/DeviceWeb/.pnpm-store`。
+- 根因或当前最佳判断：现有 `node_modules/.modules.yaml` 记录的是用户级 pnpm store，新构建改用构建目录内的独立 store。pnpm 检测到 store 变化后会询问是否删除并重建 `node_modules`，但 CMake/Ninja 构建没有交互终端，标准输入为 `/dev/null`，因此 pnpm 一直等待无法收到的确认。
+- 修复方案或临时绕过方式：在 DeviceWeb 的 `pnpm install` 和 `pnpm run build` 环境中显式设置 `CI=true`，让 pnpm 遇到 store 变化时采用无交互行为并自动重建依赖。不要常态使用 `--force`，避免每次增量构建都无条件重装依赖。
+- 验证结果：修改后重新执行完整构建，pnpm 在无交互环境中自动重建依赖并生成 `device_page.stamp`，没有再次等待确认；主工程完成 `608/608` 编译链接，生成版本 `02.08.01.55` 的 arm64 `build/arm64/BambuStudio/BambuStudio.app`。应用启动后持续运行并正常生成新日志。
+
+## 2026-07-28 - 合并官方更新时生成翻译与中文配置路径必须分别核对
+
+- 日期：2026-07-28
+- 现象：从旧官方基线 `4019d2eae` 合并到 `12f17b06f4f5` 时，源码自动合并成功，但 18 种语言的 PO/POT/MO 全部冲突；首次统计 Naxe 配置时还错误地得到“合并前 13 个、当前 17 个”的结果，看起来像有 4 个 1.5 米机器配置未入库。
+- 受影响的命令、界面、模块或文件：`git merge upstream/master`；`bbl/i18n`；`resources/i18n`；`resources/profiles/Naxe.json`；`resources/profiles/Naxe`；私有 FLSun、Anycubic、Naxe 配置与自定义工艺参数。
+- 根因或当前最佳判断：官方和私有分支都重新生成过 gettext 文件，因此逐行冲突规模很大，不能简单选择任意一侧。Naxe 数量差异则是统计命令造成的假象：`git ls-tree` 默认转义中文路径并在行尾增加引号，使用 `rg '\.json$'` 会漏掉这些行；4 个中文配置实际上早已存在于合并前提交中。
+- 修复方案或临时绕过方式：以官方最新翻译为基底，重新执行 POT 提取、PO 合并和 MO 生成，再为 18 种语言恢复 7 个带 `★` 的私有设置译文。统计含中文的 Git 路径时使用 `git -c core.quotePath=false ls-tree -r --name-only`，或使用以 NUL 分隔的路径输出，不要直接对默认转义输出做行尾扩展名匹配。
+- 验证结果：无未解决冲突；18 种语言均包含 7 个私有设置项；使用正确路径统计后，合并前和当前都包含 FLSun 234 个、Anycubic 437 个、Naxe 17 个 JSON，且全部通过解析，应用包内共包含 688 个上述厂商配置。圆形热床、大喷嘴、FLSun G-code、花瓶增强、多层 Brim、接缝优化、缩略图回退、多对象筏层合并和预览坐标修复的关键符号均保留；完整构建与应用启动通过。
+
+## 2026-07-28 - 官方配置的 CRLF 会让整次合并的 diff 检查误报尾随空格
+
+- 日期：2026-07-28
+- 现象：官方更新全部暂存后执行 `git diff --cached --check`，出现大量 `trailing whitespace`，主要集中在 `resources/profiles/BBL.json`，看起来像合并过程污染了官方配置。
+- 受影响的命令、界面、模块或文件：`git diff --cached --check`；`resources/profiles/BBL.json`；`src/slic3r/GUI/AMSMaterialsSetting.cpp`；官方更新合并提交。
+- 根因或当前最佳判断：官方本次增量自身包含 CRLF 行尾以及一处空白行。Git 的空白检查把新增行末的 `\r` 视为尾随空格，因此即使文件内容与 `upstream/master` 完全一致，也会产生同样警告。
+- 修复方案或临时绕过方式：不要在私有合并中批量规范化官方文件，否则会制造上万行无关变更并增加下次冲突。先用 `git diff --check $(git merge-base HEAD upstream/master) upstream/master` 复现官方原始告警，再对本次私有修改文件单独执行 `git diff --cached --check -- <私有文件>`。
+- 验证结果：官方原始增量和当前合并索引均输出相同的 1446 行检查信息；私有修改的 `DEBUGGING_KNOWLEDGE_BASE.md` 与 `src/slic3r/GUI/DeviceWeb/CMakeLists.txt` 单独检查通过，确认没有新增空白格式问题。
