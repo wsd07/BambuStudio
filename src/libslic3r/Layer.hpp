@@ -291,6 +291,9 @@ public:
     // Polygons covered by the supports: base, interface and contact areas.
     // Used to suppress retraction if moving for a support extrusion over these support_islands.
     ExPolygons                  support_islands;
+    // 筏层生成阶段的原始覆盖面域。G-code 导出时会将不同对象实例的这些面域
+    // 转换到热床坐标并统一合并，避免相邻筏层重复挤出。
+    ExPolygons                  raft_islands;
     // Extrusion paths for the support base and for the support interface and contacts.
     ExtrusionEntityCollection   support_fills;
 

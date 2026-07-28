@@ -2400,7 +2400,8 @@ void Print::process(std::unordered_map<std::string, long long>* slice_time, bool
 
         m_conflict_result = conflictRes;
         if (conflictRes.has_value()) {
-            BOOST_LOG_TRIVIAL(error) << boost::format("gcode path conflicts found between %1% and %2%")%conflictRes.value()._objName1 %conflictRes.value()._objName2;
+            BOOST_LOG_TRIVIAL(error) << boost::format("gcode path conflicts found between %1% and %2% at bottom Z %3%")
+                % conflictRes.value()._objName1 % conflictRes.value()._objName2 % conflictRes.value()._height;
         }
     }
 

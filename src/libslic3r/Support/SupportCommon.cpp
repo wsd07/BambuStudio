@@ -809,6 +809,61 @@ void fill_expolygons_with_sheath_generate_paths(
     }
 }
 
+void generate_merged_raft_toolpaths(
+    ExtrusionEntityCollection &dst,
+    const ExPolygons          &merged_areas,
+    const PrintObject         &object,
+    const SupportLayer        &support_layer)
+{
+    if (merged_areas.empty())
+        return;
+
+    const PrintObjectConfig &config         = object.config();
+    const SlicingParameters &slicing_params = object.slicing_parameters();
+    const SupportParameters  support_params(object);
+    const size_t             layer_id       = support_layer.id();
+    const Polygons           polygons       = to_polygons(merged_areas);
+
+    std::unique_ptr<Fill> filler;
+    Flow                  flow = support_params.first_layer_flow;
+    float                 density = 0.f;
+    ExtrusionRole         role = ExtrusionRole::erSupportMaterial;
+    bool                  with_sheath = false;
+    bool                  no_sort = false;
+
+    if (layer_id == 0) {
+        filler = std::unique_ptr<Fill>(Fill::new_from_type(support_params.raft_interface_fill_pattern));
+        filler->angle   = support_params.raft_angle_1st_layer;
+        filler->spacing = support_params.first_layer_flow.spacing();
+        density         = float(config.raft_first_layer_density.value * 0.01);
+        with_sheath     = true;
+        no_sort         = true;
+    } else if (layer_id < slicing_params.base_raft_layers) {
+        filler = std::unique_ptr<Fill>(Fill::new_from_type(support_params.base_fill_pattern));
+        filler->angle   = support_params.raft_angle_base;
+        filler->spacing = support_params.support_material_flow.spacing();
+        flow            = Flow(float(support_params.support_material_flow.width()), float(support_layer.height),
+                               support_params.support_material_flow.nozzle_diameter());
+        density         = float(support_params.support_density);
+        with_sheath     = support_params.with_sheath;
+    } else {
+        filler = std::unique_ptr<Fill>(Fill::new_from_type(support_params.raft_interface_fill_pattern));
+        filler->angle   = support_params.raft_interface_angle(support_layer.interface_id());
+        filler->spacing = support_params.support_material_flow.spacing();
+        flow            = Flow(float(support_params.raft_interface_flow.width()), float(support_layer.height),
+                               support_params.raft_interface_flow.nozzle_diameter());
+        density         = float(support_params.raft_interface_density);
+        role            = ExtrusionRole::erSupportMaterialInterface;
+    }
+
+    BoundingBox bbox = get_extents(polygons);
+    if (bbox.defined)
+        filler->set_bounding_box(bbox);
+    filler->link_max_length = 0;
+    fill_expolygons_with_sheath_generate_paths(
+        dst.entities, polygons, filler.get(), density, role, flow, support_params, with_sheath, no_sort);
+}
+
 // Support layers, partially processed.
 struct SupportGeneratorLayerExtruded
 {
@@ -1511,6 +1566,9 @@ void generate_support_toolpaths(
             assert(support_layer.support_fills.entities.empty());
             SupportGeneratorLayer      &raft_layer    = *raft_layers[support_layer_id];
 
+            // 保留布尔合并前的筏层面域，供跨对象的全局筏层合并使用。
+            support_layer.raft_islands = union_ex(raft_layer.polygons);
+
             std::unique_ptr<Fill> filler_interface = std::unique_ptr<Fill>(Fill::new_from_type(support_params.raft_interface_fill_pattern));
             std::unique_ptr<Fill> filler_support   = std::unique_ptr<Fill>(Fill::new_from_type(support_params.base_fill_pattern));
             filler_interface->set_bounding_box(bbox_object);
@@ -1725,6 +1783,8 @@ void generate_support_toolpaths(
                 if (! layer_ex.empty() && ! layer_ex.polygons_to_extrude().empty()) {
                     bool interface_as_base = interface_layer_type == InterfaceLayerType::InterfaceAsBase;
                     bool raft_contact      = interface_layer_type == InterfaceLayerType::RaftContact;
+                    if (raft_contact)
+                        support_layer.raft_islands = union_ex(layer_ex.polygons_to_extrude());
                     //FIXME Bottom interfaces are extruded with the briding flow. Some bridging layers have its height slightly reduced, therefore
                     // the bridging flow does not quite apply. Reduce the flow to area of an ellipse? (A = pi * a * b)
                     auto *filler = raft_contact ? filler_raft_contact : filler_interface.get();

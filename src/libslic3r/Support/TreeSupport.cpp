@@ -1594,6 +1594,7 @@ void TreeSupport::generate_toolpaths()
         SupportLayer *ts_layer = m_object->get_support_layer(layer_nr);
         coordf_t expand_offset = (layer_nr == 0 ? m_object_config->raft_first_layer_expansion.value : 0.);
         auto raft_areas1 = offset_ex(raft_areas, scale_(expand_offset));
+        ts_layer->raft_islands = raft_areas1;
 
         Flow support_flow = Flow(support_extrusion_width, ts_layer->height, nozzle_diameter);
         Fill* filler_raft = Fill::new_from_type(ipRectilinear);
@@ -1636,6 +1637,7 @@ void TreeSupport::generate_toolpaths()
          layer_nr++)
     {
         SupportLayer *ts_layer = m_object->get_support_layer(layer_nr);
+        ts_layer->raft_islands = union_ex(raft_interface_areas, raft_base_areas);
 
         Flow support_flow(support_extrusion_width, ts_layer->height, nozzle_diameter);
         Fill* filler_interface = Fill::new_from_type(ipRectilinear);
@@ -1663,6 +1665,7 @@ void TreeSupport::generate_toolpaths()
     // layers between raft and object
     for (; layer_nr < m_raft_layers; layer_nr++) {
         SupportLayer *ts_layer = m_object->get_support_layer(layer_nr);
+        ts_layer->raft_islands = first_non_raft_base;
         Flow support_flow(support_extrusion_width, ts_layer->height, nozzle_diameter);
         Fill* filler_raft = Fill::new_from_type(ipRectilinear);
         filler_raft->angle = PI / 2;

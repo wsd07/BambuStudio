@@ -126,7 +126,7 @@ ExtrusionLayers getExtrusionPathsFromLayer(const LayerRegionPtrs layerRegionPtrs
 
 ExtrusionLayer getExtrusionPathsFromSupportLayer(SupportLayer *supportLayer);
 
-ObjectExtrusions getAllLayersExtrusionPathsFromObject(PrintObject *obj);
+ObjectExtrusions getAllLayersExtrusionPathsFromObject(PrintObject *obj, bool skip_raft_layers = false);
 
 struct ConflictComputeResult
 {

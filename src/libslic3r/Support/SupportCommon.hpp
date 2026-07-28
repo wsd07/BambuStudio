@@ -50,6 +50,13 @@ void tree_supports_generate_paths(ExtrusionEntitiesPtr &dst, const Polygons &pol
 void fill_expolygons_with_sheath_generate_paths(
     ExtrusionEntitiesPtr &dst, const Polygons &polygons, Fill *filler, float density, ExtrusionRole role, const Flow &flow, const SupportParameters& support_params, bool with_sheath, bool no_sort);
 
+// 使用现有筏层参数，为已经在热床坐标中合并的面域重新生成一层筏层路径。
+void generate_merged_raft_toolpaths(
+    ExtrusionEntityCollection &dst,
+    const ExPolygons          &merged_areas,
+    const PrintObject         &object,
+    const SupportLayer        &support_layer);
+
 // returns sorted layers
 SupportGeneratorLayersPtr generate_support_layers(
 	PrintObject							&object,

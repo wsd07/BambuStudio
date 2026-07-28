@@ -542,3 +542,30 @@
 - 根因或当前最佳判断：当前 `gh auth status` 没有可用登录信息，Git HTTPS credential helper 也没有向非交互进程提供 GitHub 凭据。此前一次无输出的短暂 push 不能视为成功，必须比较 `HEAD` 与 `origin/codex/flsun-custom`。
 - 修复方案或临时绕过方式：由用户完成一次 `gh auth login`，并按提示授权 GitHub；随后执行 `gh auth setup-git`，再重新 push。每次推送后必须核对 `git rev-parse HEAD` 与 `git rev-parse origin/codex/flsun-custom` 一致。
 - 验证结果：本地 `HEAD=46df01a5b` 包含 `upstream/master=4019d2eae`，远端跟踪仍为 `4945ad0cf`，因此本地同步、构建和运行已完成，但私人 GitHub 推送明确尚未完成。
+
+## 2026-06-29 - 多对象筏层必须在热床坐标中全局合并后只输出一次
+
+- 日期：2026-06-29
+- 现象：多个独立模型距离较近时，各对象扩张后的筏层互相重叠，预览可见重复轮廓，并出现“第 1 层存在重叠走线”的严重警告；把相同模型先执行“组合”后则没有重叠。
+- 受影响的命令、界面、模块或文件：`src/libslic3r/Support/SupportCommon.cpp`、`src/libslic3r/Support/TreeSupport.cpp`、`src/libslic3r/GCode.cpp`、`src/libslic3r/GCode/ConflictChecker.cpp`；普通与树形支撑生成器；多对象分层打印；筏层预览和 G-code 冲突检查。
+- 根因或当前最佳判断：单个 `PrintObject` 内部会先合并各零件的筏层面域，因此“组合”后正常；多个 `PrintObject` 则各自在局部坐标中生成完整筏层，并在 G-code 阶段按对象逐套输出，跨对象之间从未做布尔合并。冲突检查还早于 G-code 导出，直接检查合并前路径，因此即使只在导出阶段消重，界面仍会误报。
+- 修复方案或临时绕过方式：在经典支撑和树形支撑生成阶段把每层原始筏层面域保存到 `SupportLayer::raft_islands`；G-code 规划时将所有对象实例的面域转换到热床坐标，执行一次全局 `union_ex`，复用现有筏层参数重新生成路径，并用全局坐标只调度一次。分层打印的冲突检查跳过这些随后必然被全局合并的原始筏层路径，但继续检查模型本体、非筏层支撑和擦拭塔。逐对象打印不进入该逻辑。
+- 验证结果：使用四个独立 `底壳.STL`、`raft_layers=2` 的实际恢复工程切片成功，`return_code=0`、`warning_message` 为空；G-code 在 Z=0.2 和 Z=0.5 的两层筏层中均只有一个 `OBJECT_ID` 和一个 Support 路径块，不再按四个对象重复输出。`cmake --build build/arm64 --config Release --target BambuStudio -- -j6` 编译链接通过。
+
+## 2026-06-29 - 增量编译后直接运行 staged App 会误测旧二进制
+
+- 日期：2026-06-29
+- 现象：源码和 `BambuStudio` 目标已重新编译，但 CLI 验证仍表现为旧算法，新增日志文本也没有出现。
+- 受影响的命令、界面、模块或文件：`cmake --build build/arm64 --target BambuStudio`；`build/arm64/src/BambuStudio.app`；`build/arm64/BambuStudio/BambuStudio.app`；`tools/dev/fast_package_mac.sh`。
+- 根因或当前最佳判断：CMake 增量目标更新的是 `build/arm64/src/BambuStudio.app`，用户双击和常用 CLI 路径则是 staged 目录 `build/arm64/BambuStudio/BambuStudio.app`。未执行快速打包时，后者仍保留旧二进制，导致测试结论与当前源码不一致。
+- 修复方案或临时绕过方式：源码级验证可直接运行 `build/arm64/src/BambuStudio.app/Contents/MacOS/BambuStudio`；交付和 GUI 验证前必须运行 `tools/dev/fast_package_mac.sh -a arm64 -c Release`，再检查 staged App 二进制时间戳。不得仅凭“编译成功”假定可双击 App 已刷新。
+- 验证结果：改用 `build/arm64/src/BambuStudio.app` 后，同一四对象工程从旧二进制的 `return_code=-101` 变为新二进制的 `return_code=0`，并成功导出合并筏层 G-code。
+
+## 2026-06-29 - G-code 预览滑块的喷头位置不能从 GPU 网格顶点反推
+
+- 日期：2026-06-29
+- 现象：切片预览中相邻两条 G-code 的 XY 坐标只变化约 1.5 mm，但三维视图里的喷头标记却瞬间移动数厘米，显示位置与实际指令不一致。
+- 受影响的命令、界面、模块或文件：切片预览逐段滑块；`src/slic3r/GUI/GCodeRenderer/LegacyRenderer.cpp`；圆弧、擦拭、端盖和分批渲染路径。
+- 根因或当前最佳判断：旧实现根据滑块的顺序编号去读取 GPU 顶点/索引缓冲区。渲染网格会额外生成端盖、圆弧插值点并拆成多个缓冲区，渲染顶点序号与解析后的 G-code move 并非一一对应，因此可能读到同一批次中的无关顶点，造成喷头标记大幅跳跃。
+- 修复方案或临时绕过方式：使用已有的 `m_ssid_to_moveid_map` 将滑块顺序编号直接映射到 `GCodeProcessorResult::moves`，从解析后的 move 读取真实坐标，并同步更新当前 move 标记；不再从 GPU 网格反向推导喷头位置。
+- 验证结果：静态检查确认新路径只读取经过边界检查的 move 映射，并删除了依赖 OpenGL 缓冲区布局的坐标反查代码；代码已完成增量编译和应用打包，待与本次官方更新合并后再次完整构建验证。

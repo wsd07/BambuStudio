@@ -186,7 +186,7 @@ ExtrusionLayer getExtrusionPathsFromSupportLayer(SupportLayer *supportLayer)
     return el;
 }
 
-ObjectExtrusions getAllLayersExtrusionPathsFromObject(PrintObject *obj)
+ObjectExtrusions getAllLayersExtrusionPathsFromObject(PrintObject *obj, bool skip_raft_layers)
 {
     ObjectExtrusions oe;
 
@@ -195,7 +195,13 @@ ObjectExtrusions getAllLayersExtrusionPathsFromObject(PrintObject *obj)
         oe.perimeters.insert(oe.perimeters.end(), perimeters.begin(), perimeters.end());
     }
 
-    for (auto supportLayerPtr : obj->support_layers()) { oe.support.push_back(getExtrusionPathsFromSupportLayer(supportLayerPtr)); }
+    for (auto supportLayerPtr : obj->support_layers()) {
+        // 分层打印时，多对象筏层会在 G-code 规划阶段先做全局合并并只输出一次，
+        // 因此这里不能再用合并前的各对象筏层路径制造虚假的重叠警告。
+        if (skip_raft_layers && supportLayerPtr->id() < obj->slicing_parameters().raft_layers())
+            continue;
+        oe.support.push_back(getExtrusionPathsFromSupportLayer(supportLayerPtr));
+    }
 
     return oe;
 }
@@ -225,6 +231,8 @@ ConflictResultOpt ConflictChecker::find_inter_of_lines_in_diff_objs(PrintObjectP
 {
     if (objs.size() <= 1 && !wtdptr) { return {}; }
     LinesBucketQueue conflictQueue;
+    const bool skip_raft_layers = objs.size() > 1 &&
+        !objs.empty() && objs.front()->print()->config().print_sequence != PrintSequence::ByObject;
 
     if (wtdptr.has_value()) { // wipe tower at 0 by default
         //auto            wtpaths = wtdptr.value()->getFakeExtrusionPathsFromWipeTower();
@@ -240,7 +248,7 @@ ConflictResultOpt ConflictChecker::find_inter_of_lines_in_diff_objs(PrintObjectP
         conflictQueue.emplace_back_bucket(std::move(wtels), wtdptr.value(), {wtdptr.value()->plate_origin.x(), wtdptr.value()->plate_origin.y()});
     }
     for (PrintObject *obj : objs) {
-        auto layers = getAllLayersExtrusionPathsFromObject(obj);
+        auto layers = getAllLayersExtrusionPathsFromObject(obj, skip_raft_layers);
         conflictQueue.emplace_back_bucket(std::move(layers.perimeters), obj, obj->instances().front().shift);
         conflictQueue.emplace_back_bucket(std::move(layers.support), obj, obj->instances().front().shift);
     }

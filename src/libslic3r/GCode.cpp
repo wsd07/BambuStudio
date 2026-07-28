@@ -16,6 +16,7 @@
 #include "libslic3r/format.hpp"
 #include "MultiNozzleUtils.hpp"
 #include "GCodeReader.hpp"
+#include "Support/SupportCommon.hpp"
 
 #include <algorithm>
 #include <cstdlib>
@@ -4030,6 +4031,7 @@ std::vector<GCode::InstanceToPrint> GCode::sort_print_object_instances(
 
         if (! sorted.empty()) {
             out.reserve(sorted.size());
+            std::set<const ObjectByExtruder *> emitted_global_rafts;
             for (const PrintInstance *instance : *ordering) {
                 const PrintObject &print_object = *instance->print_object;
                 //BBS:add the support of shared print object
@@ -4038,9 +4040,12 @@ std::vector<GCode::InstanceToPrint> GCode::sort_print_object_instances(
                 //    print_obj_ptr = print_object.get_shared_object();
                 std::pair<const PrintObject*, ObjectByExtruder*> key(&print_object, nullptr);
                 auto it = std::lower_bound(sorted.begin(), sorted.end(), key);
-                if (it != sorted.end() && it->first == &print_object)
+                if (it != sorted.end() && it->first == &print_object) {
+                    if (it->second->support_is_global_raft && !emitted_global_rafts.insert(it->second).second)
+                        continue;
                     // ObjectByExtruder for this PrintObject was found.
                     out.emplace_back(*it->second, it->second - objects_by_extruder.data(), print_object, instance - print_object.instances().data(), instance->model_instance->get_labeled_id());
+                }
             }
         }
     }
@@ -4792,13 +4797,64 @@ GCode::LayerResult GCode::process_layer(
     // Group extrusions by an extruder, then by an object, an island and a region.
     std::map<unsigned int, std::vector<ObjectByExtruder>> by_extruder;
     std::map<std::pair<const SupportLayer *, ExtrusionRole>, unsigned int> support_filaments;
+    ExtrusionEntityCollection merged_raft_fills;
+    size_t                    merged_raft_owner = size_t(-1);
+
+    // 单层打印时，各 PrintObject 原本会独立生成筏层。这里复用同一套筏层填充器，
+    // 先将所有实例的筏层面域转换到热床坐标并做一次全局布尔合并，再只输出一次。
+    if (single_object_instance_idx == size_t(-1)) {
+        ExPolygons merged_raft_areas;
+        size_t     raft_instance_count = 0;
+        for (size_t layer_idx = 0; layer_idx < layers.size(); ++layer_idx) {
+            const LayerToPrint &layer_to_print = layers[layer_idx];
+            if (layer_to_print.support_layer == nullptr || layer_to_print.original_object == nullptr)
+                continue;
+            const PrintObject &object = *layer_to_print.original_object;
+            const SupportLayer &support_layer = *layer_to_print.support_layer;
+            if (support_layer.id() >= object.slicing_parameters().raft_layers() || support_layer.raft_islands.empty())
+                continue;
+
+            if (merged_raft_owner == size_t(-1))
+                merged_raft_owner = layer_idx;
+            for (const PrintInstance &instance : object.instances()) {
+                ExPolygons translated = support_layer.raft_islands;
+                for (ExPolygon &area : translated)
+                    area.translate(instance.shift);
+                append(merged_raft_areas, std::move(translated));
+                ++raft_instance_count;
+            }
+        }
+
+        if (raft_instance_count > 1 && merged_raft_owner != size_t(-1)) {
+            const size_t input_area_count = merged_raft_areas.size();
+            merged_raft_areas = union_ex(merged_raft_areas);
+            const LayerToPrint &owner = layers[merged_raft_owner];
+            generate_merged_raft_toolpaths(merged_raft_fills, merged_raft_areas,
+                                           *owner.original_object, *owner.support_layer);
+            BOOST_LOG_TRIVIAL(debug) << "merged global raft layer at Z " << owner.print_z()
+                << ": instances=" << raft_instance_count
+                << ", input_areas=" << input_area_count
+                << ", merged_areas=" << merged_raft_areas.size();
+            if (merged_raft_fills.empty())
+                merged_raft_owner = size_t(-1);
+        } else {
+            merged_raft_owner = size_t(-1);
+        }
+    }
+
     bool is_anything_overridden = const_cast<LayerTools&>(layer_tools).wiping_extrusions().is_anything_overridden();
     for (const LayerToPrint &layer_to_print : layers) {
         if (layer_to_print.support_layer != nullptr) {
             const SupportLayer &support_layer = *layer_to_print.support_layer;
             const PrintObject& object = *layer_to_print.original_object;
-            if (! support_layer.support_fills.entities.empty()) {
-                ExtrusionRole   role               = support_layer.support_fills.role();
+            const size_t layer_idx = &layer_to_print - layers.data();
+            const bool is_merged_raft_layer = merged_raft_owner != size_t(-1) &&
+                support_layer.id() < object.slicing_parameters().raft_layers();
+            if (is_merged_raft_layer && layer_idx != merged_raft_owner)
+                continue;
+            const ExtrusionEntityCollection &support_fills = is_merged_raft_layer ? merged_raft_fills : support_layer.support_fills;
+            if (! support_fills.entities.empty()) {
+                ExtrusionRole   role               = support_fills.role();
                 bool            has_support        = role == erMixed || role == erSupportMaterial || role == erSupportTransition;
                 bool            has_interface      = role == erMixed || role == erSupportMaterialInterface;
                 // Extruder ID of the support base. -1 if "don't care".
@@ -4894,11 +4950,13 @@ GCode::LayerResult GCode::process_layer(
                 }
                 // Assign an extruder to the base.
                 ObjectByExtruder &obj = object_by_extruder(by_extruder, has_support ? support_extruder : interface_extruder, &layer_to_print - layers.data(), layers.size());
-                obj.support = &support_layer.support_fills;
+                obj.support = &support_fills;
+                obj.support_is_global_raft = is_merged_raft_layer;
                 obj.support_extrusion_role = single_extruder ? erMixed : erSupportMaterial;
                 if (! single_extruder && has_interface) {
                     ObjectByExtruder &obj_interface = object_by_extruder(by_extruder, interface_extruder, &layer_to_print - layers.data(), layers.size());
-                    obj_interface.support = &support_layer.support_fills;
+                    obj_interface.support = &support_fills;
+                    obj_interface.support_is_global_raft = is_merged_raft_layer;
                     obj_interface.support_extrusion_role = erSupportMaterialInterface;
                 }
             }
@@ -5367,7 +5425,8 @@ GCode::LayerResult GCode::process_layer(
 	                        m_avoid_crossing_perimeters.disable_once();
 	                    }
                     // When starting a new object, use the external motion planner for the first travel move.
-                    const Point& offset = instance_to_print.print_object.instances()[instance_to_print.instance_id].shift;
+                    const Point offset = instance_to_print.object_by_extruder.support_is_global_raft ?
+                        Point::Zero() : instance_to_print.print_object.instances()[instance_to_print.instance_id].shift;
                     std::pair<const PrintObject*, Point> this_object_copy(&instance_to_print.print_object, offset);
                     if (m_last_obj_copy != this_object_copy)
                         m_avoid_crossing_perimeters.use_external_mp_once();

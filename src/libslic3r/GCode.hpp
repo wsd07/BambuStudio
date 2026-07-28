@@ -428,6 +428,7 @@ private:
     {
         ObjectByExtruder() : support(nullptr), support_extrusion_role(erNone) {}
         const ExtrusionEntityCollection  *support;
+        bool                              support_is_global_raft { false };
         // erSupportMaterial / erSupportMaterialInterface / erSupportTransition or erMixed.
         ExtrusionRole                     support_extrusion_role;
 
